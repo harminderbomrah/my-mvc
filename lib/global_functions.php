@@ -49,7 +49,7 @@ function js_tag($js){
 	if(filter_var($js, FILTER_VALIDATE_URL)){
 		return '<script type="text/javascript" src="'.$js.'"></script>';
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."javascripts/".$js)){
-		return '<script type="text/javascript" src="'.APP_DIR.ASSETS."javascripts/".$js.'"></script>';
+		return '<script type="text/javascript" src="'.ASSETS."javascripts/".$js.'"></script>';
 	}else if(substr($js,0,2)=="//"){
 		return '<script type="text/javascript" src="'.$js.'"></script>';
 	}
@@ -59,7 +59,7 @@ function css_tag($css){
 	if(filter_var($css, FILTER_VALIDATE_URL)){
 		return '<link href="'.$css.'" rel="stylesheet" />';
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
-		return '<link rel="stylesheet" href="'.APP_DIR.ASSETS."stylesheets/".$css.'" />';
+		return '<link rel="stylesheet" href="'.ASSETS."stylesheets/".$css.'" />';
 	}else if(substr($css,0,2)=="//"){
 		return '<link href="'.$css.'" rel="stylesheet" />';
 
@@ -76,8 +76,7 @@ function scss_tag($css){
      	$handle = fopen(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$file,"w") or die("Cannot create css file from scss");
      	fwrite($handle,$output);
      	fclose($handle);
-     	return '<link rel="stylesheet" href="'.APP_DIR.ASSETS."stylesheets/".$file.'" />';
-     	
+     	return '<link rel="stylesheet" href="'.ASSETS."stylesheets/".$file.'" />';
 	} 
 }
 
@@ -89,7 +88,27 @@ function img_tag($img,$options = array()){
 	if(filter_var($img, FILTER_VALIDATE_URL)){
 		return "<img src='".$img."'".$html." />";
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."images/".$img)){
-		return "<img src='".APP_DIR.ASSETS."images/".$img."'".$html." />";
+		return "<img src='".ASSETS."images/".$img."'".$html." />";
+	}
+}
+
+function include_helper($helper){
+	if(is_array($helper)){
+		for($i = 0 ; $i < count($helper); $i++){
+			$path = APP_PATH . HELPERS . "/{$helper[$i]}.php";
+			if(file_exists($path)){
+				require $path;
+			}else{
+				throw new Exception("Helper {$helper[$i]} not found.");
+			}
+		}
+	}else{
+		$path = APP_PATH . HELPERS . "/{$helper}.php";
+		if(file_exists($path)){
+			require $path;
+		}else{
+			throw new Exception("Helper {$helper} not found.");
+		}
 	}
 }
 

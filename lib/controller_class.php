@@ -4,7 +4,7 @@
  */
 
 abstract class ApplicationController{
-	public $params;
+	protected $params;
 	public $CURRENT_USER;
 	abstract function index();
 
@@ -16,7 +16,7 @@ abstract class ApplicationController{
 	function http404(){
 		return renderError('404');
 	}
-	public function setParams($params){
+	public function set_params($params){
 		$this->params = $params;
 	}
 
@@ -31,16 +31,14 @@ abstract class ApplicationController{
 	}
 }
 
-class ViewAdapter{
+final class ViewAdapter{
 	public static $VARIABLES = array();
 	function __construct(){
 
 	}
 }
 
-
-
-class http404Controller extends ApplicationController{
+final class http404Controller extends ApplicationController{
 	function index(){
 		return renderError('404');
 	}

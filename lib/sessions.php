@@ -1,20 +1,19 @@
 <?php
-if(SESSION){
-class Session{
+final class Session{
 
 	var $model;
 	var $session_vars;
 
 	function __construct(){
-		if(!defined("USER_MODEL")){
+		if(!defined("SESSION_USER_MODEL")){
 			throw new Exception("User table model not specified in settings.");
 		}else{
-			$this->model = USER_MODEL;
+			$this->model = SESSION_USER_MODEL;
 		}
 		if(!class_exists($this->model)){
 			throw new Exception("User model not found.");
 		}
-		if(!defined("LOGIN_URL")){
+		if(!defined("SESSION_LOGIN_URL")){
 			throw new Exception("Login url not found in settings.");
 		}
 		global $SESSION_VARS;
@@ -64,12 +63,11 @@ class Session{
 	public function needs_authentication(){
 		$_SESSION['lasturl'] = Routes::current_url();
 		if(!$this->loggedin){
-			redirect(LOGIN_URL);
+			redirect(SESSION_LOGIN_URL);
 		}
 	}
 	
 }
 
 $CURRENT_USER = new Session();
-}
 ?>

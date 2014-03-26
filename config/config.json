@@ -1,0 +1,27 @@
+{
+	"site" : {
+		"title" : "Site"
+	},
+	"debug" : false,
+	"database" : {
+		"enable" : false,
+		"username" : "root",
+		"password" : "root",
+		"host" : "localhost",
+		"name" : "mymvc"
+	},
+	"mail" : {
+		"enable" : false,
+		"host" : "relay-hosting.secureserver.net",
+		"username" : "service@mvc.com",
+		"name" : "service",
+		"password" : "xxxxx"
+	},
+	"session" : {
+		"enable" : false,
+		"user_model" : "user",
+		"login_url" : "/user/login",
+		"vars" : ["id","username","name","email","update_time","created_time"]
+	}
+
+}

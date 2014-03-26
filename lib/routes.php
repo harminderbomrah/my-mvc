@@ -1,27 +1,28 @@
 <?php
-class Routes {
+final class Routes {
 
-	var $site_path;
-	var $page;
-	var $controller;
+	private $site_path;
+	private $page;
+	private $controller;
 	private $controller_folder_path;
 	private $controller_file_path;
 	private $route_rules;
 	private $default_controller;
-	var $controller_name;
-	var $action;
-	var $url;
-	var $params;
+	private $controller_name;
+	private $action;
+	private $url;
+	private $params;
 
 	function __construct($site_path=null){
 
 		global $ROUTE_RULES;
 		$this->route_rules = $ROUTE_RULES;
 		$this->default_controller = HOME_CONTROLLER;
-		$this->site_path = $this->removeSlash($site_path);
-		$this->url = $this->removeSlash($_SERVER['REQUEST_URI']);
+		$this->site_path = $this->remove_slash($site_path);
+		$this->url = $this->remove_slash($_SERVER['REQUEST_URI']);
 		$this->controller_folder_path = CONTROLLER_PATH;
 		$this->params = array();
+		
 		if(isset($_POST)){
 			$this->params['post'] = $_POST;
 		}
@@ -30,18 +31,16 @@ class Routes {
 			$this->params['get'] = $_GET;
 		}
 
-
    		$routes = $this->controller_action_name();
    		$this->controller_name = $routes['controller'];
    		$this->action = $routes['action'];
 
-   		global $REQUEST;
-   		$REQUEST["controller"] = $this->controller_name;
-   		$REQUEST["action"] = $this->action;
+   		Request::$Controller = $this->controller_name;
+   		Request::$Action = $this->action;
 
    		$this->controller_file_path = $this->controller_folder_path . $this->controller_name . "_controller.php";
    		$this->controller = $this->require_controller();
-   		$this->controller->setParams($this->params);
+   		$this->controller->set_params($this->params);
    		if(!method_exists($this->controller, $this->action)){
    			if(DEBUG)
 	   			throw new Exception("{$this->action} action not present in {$this->controller_name} controller.");
@@ -53,7 +52,7 @@ class Routes {
    		}
 	}
 
-	private function removeSlash($string){
+	private function remove_slash($string){
 		$url = explode("?", $string);
 		$string = trim($url[0],'/');
 		$string = ($string ? $string : $this->default_controller);
@@ -101,14 +100,16 @@ class Routes {
 					}
 				}
 				if($rule == $url){
-					if(!isset($temp[1]))
+					if(!isset($temp[1])){
 						$temp[1] = "index";
+					}
 					$combo = array("controller"=>$temp[0],"action"=>$temp[1]);
+					break;
 				}
+			}
+			if($combo != null){
 				break;
 			}
-			if($combo != null)
-				break;
 		}
 		return $combo;
 	}
@@ -132,8 +133,7 @@ class Routes {
 		else{
 			if(DEBUG){
 				throw new Exception("Can't find the controller class {$controller_class_name}");
-			}
-			else{
+			}else{
 				return new http404Controller();
 			}
 		}
@@ -151,6 +151,12 @@ class Routes {
 	}
 
 
+}
+
+
+final class Request{
+	public static $Controller;
+	public static $Action;
 }
 
 ?>

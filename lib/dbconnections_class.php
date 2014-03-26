@@ -1,5 +1,5 @@
 <?php
-class dbConnect{
+final class dbConnect{
 	private $dbname;
 	private $dbuser;
 	private $dbpassword;
@@ -7,10 +7,10 @@ class dbConnect{
 	private $dbConnection;
 	
 	function __construct(){
-		$this->dbname = DB_NAME;
-		$this->dbuser = DB_USER;
-		$this->dbpassword = DB_PASSWORD;
-		$this->dbhost = DB_HOST;
+		$this->dbname = DATABASE_NAME;
+		$this->dbuser = DATABASE_USERNAME;
+		$this->dbpassword = DATABASE_PASSWORD;
+		$this->dbhost = DATABASE_HOST;
 		$this->dbConnection = mysql_connect($this->dbhost,$this->dbuser,$this->dbpassword) or die(mysql_error());
 	}
 

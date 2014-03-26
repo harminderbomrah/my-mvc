@@ -1,13 +1,11 @@
 <?php
 
-class httpResponse{
-
-}
+class httpResponse{}
 
 /**
  * the class include view and to check instanceof
  */
-class renderClass extends httpResponse{
+final class renderClass extends httpResponse{
 	function __construct($view, $layout='default',$title){
 		$layout = ($layout === true ? DEFAULT_LAYOUT : $layout);
 		header("Content-Type: text/html; charset=utf-8");
@@ -44,21 +42,25 @@ class renderClass extends httpResponse{
 	}
 }
 
-class renderError extends httpResponse{
+final class renderError extends httpResponse{
 	function __construct($error){
-		header("Content-Type: text/html; charset=utf-8");
+		switch ($error){
+			case '404':
+				header("HTTP/1.0 404 Not Found");
+				break;
+		}
 		$tmpl_path = 'error_pages/' . $error . '.php';
 		include $tmpl_path;
 	}
 }
 
-class redirectClass extends httpResponse{
+final class redirectClass extends httpResponse{
 	function __construct($url){
 		header("Location: {$url}");
 	}
 }
 
-class jsonResponseClass extends httpResponse{
+final class jsonResponseClass extends httpResponse{
 	function __construct($json){
 		header("Content-Type: application/json; charset=utf-8");
 		if(is_array($json)){
@@ -78,9 +80,8 @@ class jsonResponseClass extends httpResponse{
  * @return [object]           [a instance of renderClass]
  */
 function render($options=array("view"=>null,"layout"=>true)){
-	global $REQUEST;
-	$options["view"] = (!$options["view"] ? $REQUEST["controller"]."/".$REQUEST["action"] : $options["view"]);
-	$options["title"] = (!$options["title"] ? ucwords($REQUEST['controller']) : $options["title"]);
+	$options["view"] = (!$options["view"] ? Request::$Controller."/".Request::$Action : $options["view"]);
+	$options["title"] = (!$options["title"] ? ucwords(Request::$Controller) . " - " . SITE_TITLE : $options["title"]);
 	$options["layout"] = ($options["layout"] === false ? false : (is_string($options['layout']) ? $options['layout'] : true));
 	return new renderClass($options["view"],$options["layout"],$options["title"]);
 }
@@ -98,7 +99,7 @@ function renderError($error){
 }
 
 function render_partial($partial){
-	if(file_exists(rtrim(APP_PATH,"/")."/".VIEWS_PATH."/".$partial.".php")){
+	if(file_exists(APP_PATH.VIEWS_PATH."/".$partial.".php")){
 		$variables = ViewAdapter::$VARIABLES;
 		foreach ($variables as $key => $value) {
 			${$key} = $value;
