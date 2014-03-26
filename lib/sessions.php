@@ -1,14 +1,14 @@
 <?php
-final class Session{
+final class CurrentUser{
 
-	var $model;
-	var $session_vars;
+	private $model;
+	private $session_vars;
 
 	function __construct(){
 		if(!defined("SESSION_USER_MODEL")){
 			throw new Exception("User table model not specified in settings.");
 		}else{
-			$this->model = SESSION_USER_MODEL;
+			$this->model = ucwords(SESSION_USER_MODEL);
 		}
 		if(!class_exists($this->model)){
 			throw new Exception("User model not found.");
@@ -16,11 +16,11 @@ final class Session{
 		if(!defined("SESSION_LOGIN_URL")){
 			throw new Exception("Login url not found in settings.");
 		}
-		global $SESSION_VARS;
-		if(!isset($SESSION_VARS) || count($SESSION_VARS) == 0){
-			throw new Exception("Session variable not present or empty.");
+		$temp_session_vars = explode(",",SESSION_VARS);
+		if(!isset($temp_session_vars) || count($temp_session_vars) == 0){
+			throw new Exception("Session variables not present or empty.");
 		}else{
-			$this->session_vars = $SESSION_VARS;
+			$this->session_vars = $temp_session_vars;
 		}
 	}
 
@@ -29,19 +29,20 @@ final class Session{
 		return $_SESSION[$var];
 	}
 
-	public function create($id){
-		$id = (int)$id;
-		session_start();
-		$user = User::find($id);
+	public function create($user){
 		if($user != null){
-			$this->set_vars($user);
-			$_SESSION['loggedin'] = true;
-			if($_SESSION['lasturl']){
-				$redirect_url = $_SESSION['lasturl'];
-				unset($_SESSION['lasturl']);
-				redirect($redirect_url);
+			if($user instanceof $this->model){
+				$this->set_vars($user);
+				$_SESSION['loggedin'] = true;
+				if($_SESSION['lasturl']){
+					$redirect_url = $_SESSION['lasturl'];
+					unset($_SESSION['lasturl']);
+					redirect($redirect_url);
+				}
+				return true;
+			}else{
+				throw new Exception("Passed user is not instance of User model.");
 			}
-			return true;
 		}else{
 			$_SESSION['loggedin'] = false;
 			return false;
@@ -68,6 +69,4 @@ final class Session{
 	}
 	
 }
-
-$CURRENT_USER = new Session();
 ?>

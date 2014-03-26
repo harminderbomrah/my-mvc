@@ -8,7 +8,7 @@ function defineSettings($data){
 		if(is_array($value)){
 			foreach ($value as $x => $y) {
 				if("{$key}_{$x}" == "session_vars"){
-					${strtoupper("{$key}_{$x}")} = $y;
+					define(strtoupper("{$key}_{$x}"),implode(",",$y),true);
 				}else{
 					define(strtoupper("{$key}_{$x}"),$y,true);
 				}

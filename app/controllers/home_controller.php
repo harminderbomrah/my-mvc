@@ -11,6 +11,10 @@
 */
 class HomeController extends ApplicationController{
 	function index(){
+		$this->loggedin = $this->current_user->loggedin;
+		if($this->current_user->loggedin){
+			$this->name = $this->current_user->name;
+		}
 		return render();
 	}
 }

@@ -56,7 +56,26 @@ final class renderError extends httpResponse{
 
 final class redirectClass extends httpResponse{
 	function __construct($url){
+		$url = $this->check_url($url);
 		header("Location: {$url}");
+	}
+
+	private function check_url($url){
+		if(!filter_var($url, FILTER_VALIDATE_URL)){
+			$pageURL = 'http';
+			if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+			$pageURL .= "://";
+			if ($_SERVER["SERVER_PORT"] != "80") {
+				$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+			} else {
+				$pageURL .= $_SERVER["SERVER_NAME"];
+			}
+			$url = ltrim($url,"/");
+			$pageURL .= "/".$url;
+		}else{
+			$pageURL = $url;
+		}
+		return $pageURL;
 	}
 }
 

@@ -7,7 +7,10 @@
 
 	// Routes start here
 	$ROUTE_RULES = array(
-		'home#index' => array('home')
+		'home#index' => array('home'),
+		'user#login' => array('user/login'),
+		'user#check' => array('login/check'),
+		'user#logout' => array('user/logout')
 	);
 
 ?>

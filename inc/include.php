@@ -24,10 +24,7 @@ include "lib/phamip/sass/SassParser.php";
 
 if(DATABASE_ENABLE){
 	include "lib/dbconnections_class.php";
-	includeModels();
-	if(SESSION_ENABLE){
-		include "lib/sessions.php";
-	}
+	
 	function includeModels(){
 		$db = new dbConnect;
 		$tables = $db->table_list();
@@ -45,6 +42,10 @@ if(DATABASE_ENABLE){
 				}
 			}
 		}
+	}
+	includeModels();
+	if(SESSION_ENABLE){
+		include "lib/sessions.php";
 	}
 }
 

@@ -5,12 +5,15 @@
 
 abstract class ApplicationController{
 	protected $params;
-	public $CURRENT_USER;
+	protected $current_user;
 	abstract function index();
 
 	function __construct(){
-		global $CURRENT_USER;
-		$this->CURRENT_USER = $CURRENT_USER;
+		if(SESSION_ENABLE && DATABASE_ENABLE){
+			$this->current_user = new CurrentUser();
+		}else{
+			$this->current_user = null;
+		}
 	}
 
 	function http404(){

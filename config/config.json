@@ -4,7 +4,7 @@
 	},
 	"debug" : false,
 	"database" : {
-		"enable" : false,
+		"enable" : true,
 		"username" : "root",
 		"password" : "root",
 		"host" : "localhost",
@@ -18,10 +18,10 @@
 		"password" : "xxxxx"
 	},
 	"session" : {
-		"enable" : false,
-		"user_model" : "user",
-		"login_url" : "/user/login",
-		"vars" : ["id","username","name","email","update_time","created_time"]
+		"enable" : true,
+		"user_model" : "users",
+		"login_url" : "user/login",
+		"vars" : ["id","username","name","created_time"]
 	}
 
 }
