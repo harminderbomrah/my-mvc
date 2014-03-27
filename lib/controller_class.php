@@ -36,6 +36,7 @@ abstract class ApplicationController{
 
 final class ViewAdapter{
 	public static $VARIABLES = array();
+	public static $content_stylesheets = array();
 	function __construct(){
 
 	}

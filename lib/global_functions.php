@@ -58,15 +58,29 @@ function js_tag($js){
 function css_tag($css){
 	if(filter_var($css, FILTER_VALIDATE_URL)){
 		return '<link href="'.$css.'" rel="stylesheet" />';
+	}else if(explode(".",$css)[1] == "scss" || explode(".",$css)[1] == "sass"){
+		return '<link rel="stylesheet" href="'.parse_scss($css).'" />';
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
 		return '<link rel="stylesheet" href="'.ASSETS."stylesheets/".$css.'" />';
 	}else if(substr($css,0,2)=="//"){
 		return '<link href="'.$css.'" rel="stylesheet" />';
-
 	}
 }
 
-function scss_tag($css){
+function content_css_tag($css){
+	if(filter_var($css, FILTER_VALIDATE_URL)){
+		array_push(ViewAdapter::$content_stylesheets, $css);
+	}else if(explode(".",$css)[1] == "scss" || explode(".",$css)[1] == "sass"){
+		array_push(ViewAdapter::$content_stylesheets, parse_scss($css));
+	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
+		array_push(ViewAdapter::$content_stylesheets, ASSETS."stylesheets/".$css);
+	}else if(substr($css,0,2)=="//"){
+		array_push(ViewAdapter::$content_stylesheets,$css);
+	}
+	return "";
+}
+
+function parse_scss($css){
 	if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
 		$sass = new SassParser(array('style'=>'nested'));
      	$output = $sass->toCss(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css);
@@ -76,9 +90,10 @@ function scss_tag($css){
      	$handle = fopen(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$file,"w") or die("Cannot create css file from scss");
      	fwrite($handle,$output);
      	fclose($handle);
-     	return '<link rel="stylesheet" href="'.ASSETS."stylesheets/".$file.'" />';
+     	return ASSETS."stylesheets/".$file;
 	} 
 }
+
 
 function img_tag($img,$options = array()){
 	$html = "";

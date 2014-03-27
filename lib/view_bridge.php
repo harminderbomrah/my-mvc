@@ -22,7 +22,22 @@ final class renderClass extends httpResponse{
 					$yield = ob_get_contents();
 					ob_end_clean();
 					$_site_title = $title;
-					include LAYOUTS_PATH . $layout . '/index.php';
+					if(count(ViewAdapter::$content_stylesheets) > 0){
+						ob_start();
+						include LAYOUTS_PATH . $layout . '/index.php';
+						$layoutcontent = ob_get_contents();
+						ob_end_clean();
+						$html = str_get_html($layoutcontent);
+						$head = $html->find("head",0)->innertext;
+						foreach (ViewAdapter::$content_stylesheets as $css) {
+							$head .= "<link href='".$css."' rel='stylesheet' />";
+						}
+						$html->find("head",0)->innertext = $head;
+						ViewAdapter::$content_stylesheets = [];
+						echo $html;
+					}else{
+						include LAYOUTS_PATH . $layout . '/index.php';
+					}
 				}else{
 					throw new Exception("Layout doesn't exists.");
 				}

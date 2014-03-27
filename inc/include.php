@@ -10,7 +10,7 @@ include "lib/global_variables.php";
 include "config/application.php";
 // // include user configuration settings
 include 'lib/read_config.php';
-
+include 'lib/simple_html_dom.php';
 // include routes
 include "config/routes.php";
 
