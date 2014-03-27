@@ -35,6 +35,9 @@ final class renderClass extends httpResponse{
 						$html->find("head",0)->innertext = $head;
 						ViewAdapter::$content_stylesheets = [];
 						echo $html;
+						$html->clear();
+						unset($html);
+						unset($head);
 					}else{
 						include LAYOUTS_PATH . $layout . '/index.php';
 					}
