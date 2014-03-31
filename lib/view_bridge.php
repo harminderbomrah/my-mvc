@@ -9,16 +9,16 @@ final class renderClass extends httpResponse{
 	function __construct($view, $layout='default',$title){
 		$layout = ($layout === true ? DEFAULT_LAYOUT : $layout);
 		header("Content-Type: text/html; charset=utf-8");
-		$templ_path = VIEWS_PATH . $view . '.php';
+		$view_path = VIEWS_PATH . $view . '.php';
 		$variables = ViewAdapter::$VARIABLES;
 		foreach ($variables as $key => $value) {
 			${$key} = $value;
 		}
-		if(file_exists($templ_path)){
+		if(file_exists($view_path)){
 			if($layout){
 				if(file_exists(LAYOUTS_PATH . $layout . '/index.php')){
 					ob_start();
-					include $templ_path;
+					include $view_path;
 					$yield = ob_get_contents();
 					ob_end_clean();
 					$_site_title = $title;
@@ -42,14 +42,13 @@ final class renderClass extends httpResponse{
 						include LAYOUTS_PATH . $layout . '/index.php';
 					}
 				}else{
-					throw new Exception("Layout doesn't exists.");
+					throw new Exception("Layout {$layout} doesn't exists.");
 				}
 			}else{
-				include $templ_path;
+				include $view_path;
 			}
-		}
-		else{
-			throw new Exception("Template does not exist!");
+		}else{
+			throw new Exception("View does not exist!");
 		}
 
 		foreach ($variables as $key => $value) {
@@ -119,7 +118,7 @@ final class jsonResponseClass extends httpResponse{
 function render($options=array("view"=>null,"layout"=>true)){
 	$options["view"] = (!$options["view"] ? Request::$Controller."/".Request::$Action : $options["view"]);
 	$options["title"] = (!$options["title"] ? ucwords(Request::$Controller) . " - " . SITE_TITLE : $options["title"]);
-	$options["layout"] = ($options["layout"] === false ? false : (is_string($options['layout']) ? $options['layout'] : true));
+	$options["layout"] = ($options["layout"] === false ? false : (is_string($options['layout']) ? $options['layout'] : (ViewAdapter::$controller_layout || ViewAdapter::$controller_layout === false ? ViewAdapter::$controller_layout : true)));
 	return new renderClass($options["view"],$options["layout"],$options["title"]);
 }
 

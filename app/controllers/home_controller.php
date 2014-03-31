@@ -10,6 +10,7 @@
 	* params can be accessed using $this->params['get|post|<url declared variable>']
 */
 class HomeController extends ApplicationController{
+	// public $controller_layout = "user";
 	function index(){
 		$this->loggedin = $this->current_user->loggedin;
 		if($this->current_user->loggedin){

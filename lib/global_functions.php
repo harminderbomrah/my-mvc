@@ -56,10 +56,11 @@ function js_tag($js){
 }
 
 function css_tag($css){
+	$extension = explode(".",$css)[1];
 	if(filter_var($css, FILTER_VALIDATE_URL)){
 		return '<link href="'.$css.'" rel="stylesheet" />';
-	}else if(explode(".",$css)[1] == "scss" || explode(".",$css)[1] == "sass"){
-		return '<link rel="stylesheet" href="'.parse_scss($css).'" />';
+	}else if($extension == "scss" || $extension == "sass"){
+		return '<link rel="stylesheet" href="'.parse_scss($css,$extension).'" />';
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
 		return '<link rel="stylesheet" href="'.ASSETS."stylesheets/".$css.'" />';
 	}else if(substr($css,0,2)=="//"){
@@ -68,10 +69,11 @@ function css_tag($css){
 }
 
 function content_css_tag($css){
+	$extension = explode(".",$css)[1];
 	if(filter_var($css, FILTER_VALIDATE_URL)){
 		array_push(ViewAdapter::$content_stylesheets, $css);
-	}else if(explode(".",$css)[1] == "scss" || explode(".",$css)[1] == "sass"){
-		array_push(ViewAdapter::$content_stylesheets, parse_scss($css));
+	}else if($extension == "scss" || $extension == "sass"){
+		array_push(ViewAdapter::$content_stylesheets, parse_scss($css,$extension));
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
 		array_push(ViewAdapter::$content_stylesheets, ASSETS."stylesheets/".$css);
 	}else if(substr($css,0,2)=="//"){
@@ -80,18 +82,31 @@ function content_css_tag($css){
 	return "";
 }
 
-function parse_scss($css){
-	if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
-		$sass = new SassParser(array('style'=>'nested'));
-     	$output = $sass->toCss(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css);
-     	$css_name = explode(".", $css);
-     	$css_name = $css_name[0];
-     	$file = $css_name.".css";
-     	$handle = fopen(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$file,"w") or die("Cannot create css file from scss");
-     	fwrite($handle,$output);
-     	fclose($handle);
-     	return ASSETS."stylesheets/".$file;
-	} 
+function parse_scss($css,$css_type="scss"){
+
+	if(SITE_PRODUCTION_MODE){
+		$css_temp = explode(".",$css);
+		return ASSETS."stylesheets/".$css_temp[0].".css";
+	}else{
+		if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
+			if($css_type == "sass"){
+				$sass = new SassParser();
+	     		$output = $sass->toCss(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css);
+	     	}else if($css_type == "scss"){
+		     	$scss = new scssc();
+		     	$scss->setImportPaths(rtrim(APP_PATH,"/").ASSETS."stylesheets/");
+		     	$input = file_get_contents(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css);
+		     	$output = $scss->compile($input);
+	     	}
+	     	$css_name = explode(".", $css);
+	     	$css_name = $css_name[0];
+	     	$file = $css_name.".css";
+	     	$handle = fopen(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$file,"w") or die("Cannot create css file from scss");
+	     	fwrite($handle,$output);
+	     	fclose($handle);
+	     	return ASSETS."stylesheets/".$file;
+		} 
+	}
 }
 
 

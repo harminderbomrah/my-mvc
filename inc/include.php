@@ -20,7 +20,8 @@ include "lib/controller_class.php";
 include "lib/routes.php";
 
 // include sass parser
-include "lib/phamip/sass/SassParser.php";
+include "lib/phpsass/SassParser.php";
+include "lib/scssphp/scss.inc.php";
 
 if(DATABASE_ENABLE){
 	include "lib/dbconnections_class.php";

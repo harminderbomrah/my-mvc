@@ -47,6 +47,7 @@ final class Routes {
 	   		else
    				$this->action = 'http404';
    		}
+   		ViewAdapter::$controller_layout = $this->controller->controller_layout;
    		if (!$this->controller->{$this->action}() instanceof httpResponse){
    			throw new Exception("Action must return the class which is instanceof httpResponse!");
    		}

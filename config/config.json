@@ -1,6 +1,7 @@
 {
 	"site" : {
-		"title" : "Site"
+		"title" : "Site",
+		"production_mode" : false
 	},
 	"debug" : false,
 	"database" : {
