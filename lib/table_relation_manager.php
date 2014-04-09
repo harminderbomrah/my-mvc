@@ -44,6 +44,7 @@ class RelationManager{
 			if($result == 0){
 				$db->query("CREATE TABLE {$model1}_{$model2}_mvcrelation (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), {$model1}_id INT, {$model2}_id INT   );");
 			}
+			$db->destruct();
 		}
 
 		if(!check_for_relation($model1,$model2)){
@@ -74,6 +75,7 @@ class RelationManager{
 		}else{
 			return null;
 		}
+		$db->destruct();
 	}
 
 	public static function get_relations_for_model($model){

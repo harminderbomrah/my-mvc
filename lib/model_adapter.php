@@ -126,6 +126,7 @@ class ModelAdapter{
 				$query = "INSERT INTO `{$table_name}` (`{$thismodel}_id`,`{$model}_id`) SELECT '{$this->id}','{$id}' FROM dual WHERE NOT EXISTS(SELECT * FROM `{$table_name}` WHERE `{$thismodel}_id` = '{$this->id}' AND `{$model}_id` = '{$id}')";
 				$this->query($query);
 			}
+			array_push($this->columns["{$model}_relation_ids"],$id);
 		}else{
 			throw new Exception("Save the object before adding relations.");
 		}
@@ -151,6 +152,7 @@ class ModelAdapter{
 				$table_name = RelationManager::get_relation_table_for_models($thismodel,$model);
 				$query = "DELETE FROM `{$table_name}` WHERE `{$thismodel}_id` = '{$this->id}' AND `{$model}_id` = '{$id}'";
 				$this->query($query);
+				$this->columns["{$model}_relation_ids"] = array_filter($this->columns["{$model}_relation_ids"],function($var) use($id){return($var != $id);});
 			}
 		}else{
 			throw new Exception("Save the object before deleting relations.");
