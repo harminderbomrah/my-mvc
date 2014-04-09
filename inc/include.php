@@ -32,19 +32,34 @@ if(DATABASE_ENABLE){
 		if ($tables){
 			foreach ($tables as $table) {
 				foreach ($table as $key => $value) {
-					if(file_exists("app/models/{$value}_model.php")){
-						require "app/models/{$value}_model.php";
-						if(!class_exists(ucwords($value))){
+					$temp = explode("_", $value);
+					if($temp[count($temp) - 1] != "mvcrelation"){
+						if(file_exists("app/models/{$value}_model.php")){
+							require "app/models/{$value}_model.php";
+							if(count($temp) == 0){
+								if(!class_exists(ucwords($value))){
+									throw new Exception("Model for table '{$value}' doesn't exists.");
+								}
+							}else{
+								$model_name = "";
+								foreach ($temp as $value) {
+									$model_name.= ucwords($value);
+								}
+								if(!class_exists($model_name)){
+									throw new Exception("Model for table '{$value}' doesn't exists.");
+								}
+							}
+						}else{
 							throw new Exception("Model for table '{$value}' doesn't exists.");
 						}
-					}else{
-						throw new Exception("Model for table '{$value}' doesn't exists.");
 					}
 				}
 			}
 		}
 	}
 	includeModels();
+	include "lib/table_relation_manager.php";
+	include "app/models/model_relationships.php";
 	if(SESSION_ENABLE){
 		include "lib/sessions.php";
 	}

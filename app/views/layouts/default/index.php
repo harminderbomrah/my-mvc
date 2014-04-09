@@ -10,8 +10,7 @@
 		<meta name="keywords" content="" />
 		<meta name="description" content="" />
 		<?= css_tag("http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial") ?>
-		<?= css_tag("default.scss") ?>
-		<?= css_tag("fonts.css") ?>
+		<?= css_tag("font-awesome.css") ?>
 	</head>
 	<body>
 		<?= $yield ?>

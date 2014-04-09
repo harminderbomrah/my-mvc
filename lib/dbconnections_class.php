@@ -14,7 +14,7 @@ final class dbConnect{
 		$this->dbConnection = mysql_connect($this->dbhost,$this->dbuser,$this->dbpassword) or die(mysql_error());
 	}
 
-	function __destruct(){
+	function destruct(){
 		if(is_resource($this->dbConnection) && get_resource_type($this->dbConnection) === 'mysql link')
 			mysql_close($this->dbConnection);
 	}

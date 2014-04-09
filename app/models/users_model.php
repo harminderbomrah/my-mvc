@@ -17,6 +17,8 @@
 		$user->delete();
 		$user->update_values(<array>);
 		$user->qyery(<query>);
+		$user->add_relation("<model name>",id|object)
+		$user->delete_relation("<model name>",id|object)
 
 */
 

@@ -4,6 +4,8 @@ class ModelAdapter{
 
 	public $table;
 	public $columns = array();
+	public $relation_columns = array();
+	public $relation_tables = array();
 	public $CURRENT_USER;
 	private $db;
 	private $model;
@@ -14,7 +16,8 @@ class ModelAdapter{
 		$this->CURRENT_USER = $CURRENT_USER;
 		$this->db = new dbConnect;
 		$this->model = $model;
-		$this->table = strtolower(get_class($this->model));
+		$string = preg_replace('/(?!^)[A-Z]/', "_$0" ,get_class($this->model));
+		$this->table = strtolower($string);
 		$this->columns = $this->get_columns();
 		if($values){
 			foreach ($values as $key => $value) {
@@ -43,16 +46,26 @@ class ModelAdapter{
 		foreach ($columns as $column) {
 			$temp[$column['COLUMN_NAME']] = null;
 		}
+		$this->relation_tables = RelationManager::get_relations_for_model(get_class($this->model));
+		if(count($this->relation_tables) > 0){
+			foreach ($this->relation_tables as $table) {
+				$temp["{$table}_relation_ids"] = array();
+				array_push($this->relation_columns, "{$table}_relation_ids");
+			}
+		}
 		return $temp;
 	}
 
 	private function make_update_query($values){
 		$query = "UPDATE $this->table SET ";
 		foreach ($values as $key => $value) {
-			if($value == "now()")
-				$query .= "`{$key}` = ".$value.", ";
-			else
-				$query .= "`{$key}` = '".$value."', ";
+			if($key != "id" && !in_array($key, $this->relation_columns)){
+				if($value == "now()"){
+					$query .= "`{$key}` = ".$value.", ";
+				}else{
+					$query .= "`{$key}` = '".$value."', ";
+				}
+			}
 		}
 		$query = rtrim($query,", ");
 		$query .= " WHERE `id` = {$this->id}";
@@ -64,13 +77,13 @@ class ModelAdapter{
 		$q1 = "(";
 		$q2 = "(";
 		foreach ($values as $key => $value) {
-			if($key != "id"){
+			if($key != "id" && !in_array($key, $this->relation_columns)){
 				$q1 .= "`{$key}` , ";
-				if($value == "now()")
+				if($value == "now()"){
 					$q2 .= $value.", ";
-				else
+				}else{
 					$q2 .= "'".$value."', ";
-
+				}
 			}
 		}
 		$q1 = rtrim($q1,", ");
@@ -84,20 +97,64 @@ class ModelAdapter{
 
 
 	public function save(){
-		if(!$this->newclass){
-			$query = $this->make_update_query($this->columns);
-		}else{
-			$query = $this->make_insert_query($this->columns);
-		}
-
+		$query = ($this->newclass ?  $this->make_insert_query($this->columns) : $this->make_update_query($this->columns));
 		$results = $this->query($query);
-
 		if($this->newclass){
 			$this->columns['id'] = mysql_insert_id();
 		}
-
 		return $results;
+	}
 
+	public function add_relation($model, $obj){
+		$id = null;
+		switch (gettype($obj)){
+			case "integer":
+			$id = $obj;
+			break;
+			case "string":
+			$id = (int)$obj;
+			break;
+			case "object":
+			$id = $obj->id;
+			break;
+		}
+		if($this->id){
+			$model = RelationManager::tabelize($model);
+			$thismodel = RelationManager::tabelize(get_class($this->model));
+			if(in_array($model, $this->relation_tables)){
+				$table_name = RelationManager::get_relation_table_for_models($thismodel,$model);
+				$query = "INSERT INTO `{$table_name}` (`{$thismodel}_id`,`{$model}_id`) SELECT '{$this->id}','{$id}' FROM dual WHERE NOT EXISTS(SELECT * FROM `{$table_name}` WHERE `{$thismodel}_id` = '{$this->id}' AND `{$model}_id` = '{$id}')";
+				$this->query($query);
+			}
+		}else{
+			throw new Exception("Save the object before adding relations.");
+		}
+	}
+
+	public function delete_relation($model, $obj){
+		$id = null;
+		switch (gettype($obj)){
+			case "integer":
+			$id = $obj;
+			break;
+			case "string":
+			$id = (int)$obj;
+			break;
+			case "object":
+			$id = $obj->id;
+			break;
+		}
+		if($this->id){
+			$model = RelationManager::tabelize($model);
+			$thismodel = RelationManager::tabelize(get_class($this->model));
+			if(in_array($model, $this->relation_tables)){
+				$table_name = RelationManager::get_relation_table_for_models($thismodel,$model);
+				$query = "DELETE FROM `{$table_name}` WHERE `{$thismodel}_id` = '{$this->id}' AND `{$model}_id` = '{$id}'";
+				$this->query($query);
+			}
+		}else{
+			throw new Exception("Save the object before deleting relations.");
+		}
 	}
 
 
@@ -130,7 +187,6 @@ class ModelAdapter{
 
 	static public function find_by($clauses){
 		$class = get_called_class();
-		// $clauses = self::escape($clauses);
 		if(class_exists($class)){
 			$c = new $class();
 			$query = "SELECT * FROM $c->table WHERE ";
@@ -138,20 +194,18 @@ class ModelAdapter{
 				$query.= $key . " = '" . $value . "' and ";
 			}
 			$query = rtrim($query,"and ");
-			if($c->set_values($query))
+			if($c->set_values($query)){
 				return $c;
-			else
+			}else{
 				return null;
+			}
 		}else{
 			throw new Exception("Cannot find model class.");
 		}
 	} 
 
 	static public function all(){
-		if(function_exists("get_called_class"))
-			$class = get_called_class();
-		else
-			$class = self::get_called_class_();
+		$class = (function_exists("get_called_class") ? get_called_class() : self::get_called_class());
 
 		if(class_exists($class)){
 			$c = new $class();
@@ -173,20 +227,34 @@ class ModelAdapter{
 			foreach ($results[0] as $result => $value) {
 				$this->{$result} = $value;
 			}
-			return true;
+			if($this->set_relation_values()){
+				return true;
+			}else{
+				return false;
+			}
 		}else{
-			return null;
+			return false;
 		}
+	}
+
+	private function set_relation_values(){
+		foreach ($this->relation_tables as $table) {
+			$temp = array();
+			$thismodel = RelationManager::tabelize(get_class($this->model));
+			$table_name = RelationManager::get_relation_table_for_models($thismodel,$table);
+			$query = "SELECT `{$table}_id` FROM `{$table_name}` WHERE `{$thismodel}_id` = '{$this->id}'";
+			$results = $this->query($query);
+			foreach ($results as $result) {
+				array_push($temp, (int)$result["{$table}_id"]);
+			}
+			$this->columns["{$table}_relation_ids"] = $temp;
+		}
+		return true;
 	}
 
 	public static function escape($params){
 		foreach ($params as $k => $v) {
-			if(is_array($v)){
-				$params[$k] = self::escape($v);
-			}
-			else{
-				$params[$k] = mysql_real_escape_string($v);
-			}
+			$params[$k] = (is_array($v) ? self::escape($v) : mysql_real_escape_string($v));
 		}
 		return $params;
 	}
@@ -195,6 +263,8 @@ class ModelAdapter{
 		return $this->db->query($query);
 	}
 
-	
+	function __destruct(){
+		$this->db->destruct();
+	}
 }
 ?>
