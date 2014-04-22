@@ -18,6 +18,7 @@ class ModelAdapter{
 		$this->model = $model;
 		$string = preg_replace('/(?!^)[A-Z]/', "_$0" ,get_class($this->model));
 		$this->table = strtolower($string);
+
 		$this->columns = $this->get_columns();
 		if($values){
 			foreach ($values as $key => $value) {
@@ -190,28 +191,45 @@ class ModelAdapter{
 	static public function find_by($clauses){
 		$class = get_called_class();
 		if(class_exists($class)){
+			$temp = array();
 			$c = new $class();
+			$db = new dbConnect();
 			$query = "SELECT * FROM $c->table WHERE ";
 			foreach ($clauses as $key => $value) {
 				$query.= $key . " = '" . $value . "' and ";
 			}
 			$query = rtrim($query,"and ");
-			if($c->set_values($query)){
-				return $c;
-			}else{
-				return null;
+			$results = $c->query($query);
+			unset($c);
+			if($results){
+				foreach ($results as $result) {
+					$c = new $class();
+					if($c->set_values($result)){
+						array_push($temp, $c);
+					}
+					unset($c);
+				}
+				return $temp;
 			}
 		}else{
 			throw new Exception("Cannot find model class.");
 		}
 	} 
 
-	static public function all(){
+	static public function all($columns=array(),$sort=null){
 		$class = (function_exists("get_called_class") ? get_called_class() : self::get_called_class());
 
 		if(class_exists($class)){
 			$c = new $class();
-			$query = "SELECT * FROM $c->table;";
+			$query = "SELECT * FROM $c->table";
+			if(count($columns) > 0){
+				$query.= " ORDER BY ";
+				foreach ($columns as $column ) {
+					$query.= $column . ", ";
+				}
+				$query = rtrim($query,", ");
+				$query.= ($sort == null ? ";" : " " . $sort . ";");
+			}
 			return $c->query($query);
 		}else{
 			throw new Exception("Cannot find model class.");
@@ -222,11 +240,10 @@ class ModelAdapter{
 		return $this->query("DELETE FROM $this->table WHERE id = '$this->id'");
 	}
 
-	public function set_values($query){
+	public function set_values($results){
 		$this->newclass = false;
-		$results = $this->query($query);
 		if($results){
-			foreach ($results[0] as $result => $value) {
+			foreach ($results as $result => $value) {
 				$this->{$result} = $value;
 			}
 			if($this->set_relation_values()){

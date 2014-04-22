@@ -9,7 +9,10 @@ include "lib/global_variables.php";
 // // include application settings
 include "config/application.php";
 // // include user configuration settings
+$settings = file_get_contents("config/config.json");
 include 'lib/read_config.php';
+unset($settings);
+
 include 'lib/simple_html_dom.php';
 // include routes
 include "config/routes.php";
