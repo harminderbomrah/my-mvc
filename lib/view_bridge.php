@@ -33,7 +33,7 @@ final class renderClass extends httpResponse{
 							$head .= "<link href='".$css."' rel='stylesheet' />";
 						}
 						$html->find("head",0)->innertext = $head;
-						ViewAdapter::$content_stylesheets = [];
+						ViewAdapter::$content_stylesheets = array();
 						echo $html;
 						$html->clear();
 						unset($html);
@@ -108,6 +108,16 @@ final class jsonResponseClass extends httpResponse{
 	}
 }
 
+final class downloadFileClass extends httpResponse{
+	function __construct($file){
+		$file_path = UPLOAD_FOLDER . $file;
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename="'.basename($file).'"');
+		header('Content-Length: ' . filesize($file_path));
+		readfile($file_path);
+	}
+}
+
 /**
  * short cut function for class renderClass
  * @param  [string] $template [description]
@@ -132,6 +142,10 @@ function renderJson($json){
 
 function renderError($error){
 	return new renderError($error);
+}
+
+function renderFile($file){
+	return new downloadFileClass($file);
 }
 
 function render_partial($partial){
