@@ -15,7 +15,7 @@ class UserController extends ApplicationController{
 	}
 
 	function login(){
-		return render();
+		return render(array("layout"=>"default"));
 	}
 
 	function logout(){
@@ -23,10 +23,22 @@ class UserController extends ApplicationController{
 		return redirect("home");
 	}
 
+	function resets(){
+		return render(array("layout"=>"default"));
+	}
+
+	function resets_new(){
+		return render(array("layout"=>"default"));
+	}
+
+	function success(){
+		return render(array("layout"=>"default"));
+	}
+
 	function check(){
-		if($users = Users::find_by(array("username"=>$this->params["post"]["username"],"password"=>$this->params['post']['password']))){
-			if($this->current_user->create($users[0])){
-				return redirect("home");
+		if($user = Users::find_by(array("username"=>$this->params["post"]["username"],"password"=>$this->params['post']['password']))){
+			if($this->current_user->create($user)){
+				return redirect("admin");
 			}else{
 				return redirect("user/login");
 			}

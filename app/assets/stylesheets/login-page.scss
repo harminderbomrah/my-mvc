@@ -1,0 +1,149 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400,300);
+@import "bootstrap";
+@import "nyfm/mixins";
+@import "nyfm/variables";
+@import "font-awesome";
+
+
+html {
+  height: 100%;
+  min-width: $screen-xs;
+  position: relative;
+}
+body {
+  height: 100%;
+  font-family: 'Open Sans';
+  padding-bottom: 0;
+  background-color: $mainSidebarBgc;
+  min-height: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #393939;
+  line-height: 1.5;
+}
+.login-page {
+  height: 100%;
+  .bg-slide {
+    background-size: cover;
+    background-position: center center;
+    // -webkit-filter: saturate(0);
+    position: fixed;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    .author {
+      color: #fff;
+      padding: 0.6em 1em;
+        font-weight: 400;
+      span {
+      font-weight: 700;
+      }
+    }
+  }
+}
+.login {
+  z-index: 1;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  .login-inner {
+    margin-top: -10em;
+    &.signup {
+      width: 400px;
+      .form-group {
+        margin-bottom: 0;
+        &:first-child {
+          .form-control {
+            border-radius: 0;
+            z-index: 0;
+            @include border-top-radius(7px);
+            &:focus {
+              z-index: 2;
+            }
+          }
+        }
+        & + .form-group {
+          margin-top: -2px;
+          // margin-bottom: 2em;
+          .form-control {
+            border-radius: 0;
+            @include border-bottom-radius(7px);
+          }
+        }
+        .form-control {
+          position: relative;
+        }
+        .form-control-feedback {
+          top: auto;
+          bottom: 5px;
+          z-index: 3;
+        }
+      }
+      .btn {
+        margin-top: 1.5em;
+      }
+    }
+    &.forgot-password {
+      width: 80%;
+      .btn {
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+      }
+      form {
+        width: 300px;
+        margin: 0 auto;
+      }
+      .control-label {
+        height: 1em;
+        display: block;
+        line-height: 1em;
+      }
+    }
+    h1 {
+      color: #fff;
+      margin: 0;
+      text-align: center;
+      i {
+        font-size: 3em;
+      }
+      div {
+        margin: 0.5em 0 0.3em;
+        p {
+          color: lighten($mainSidebarBgc, 30%);
+          margin: 0.5em 0;
+          font-size: 60%;
+        }
+        small {
+          color: lighten($mainSidebarBgc, 30%);
+          display: block;
+          font-size: 40%;
+        }
+      }
+    }
+    .panel {
+      border-width: 0;
+      @include box-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+      .panel-body {
+        padding: 2em;
+      }
+    }
+    .forgot-password {
+      display: block;
+      text-align: center;
+      margin-top: 1em;
+    }
+    .login-link {
+      font-size: 40%;
+    }
+  }
+}

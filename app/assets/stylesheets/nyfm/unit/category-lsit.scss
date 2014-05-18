@@ -1,0 +1,56 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.main-category {
+  .btn-toolbar {
+    margin-bottom: 15px;
+    .created-new {
+      width: 250px;
+    }
+  }
+  .category-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    .list-item {
+      background-color: #FFF;
+      line-height: 2;
+      padding: 1rem 1.5rem;
+      position: relative;
+      & + .list-item {
+        margin-top: 1rem;
+      }
+      &.editing {
+        padding: 0;
+        .view {
+          display: none;
+        }
+        .edit {
+          display: block;
+        }
+      }
+      .edit {
+        display: none;
+        border: none;
+        border-radius: 0;
+        padding: 1rem 1.5rem;
+        height: auto;
+        line-height: 2;
+        color: $brand-primary;
+        z-index: 2;
+        @include box-shadow(inset 1px 1px 0 $brand-primary, inset -1px -1px 0 $brand-primary);
+      }
+      .view {
+        @include clearfix();
+        label {
+          margin-bottom: 0;
+          font-weight: 400;
+        }
+      }
+      .fa, .glyphicon {
+        line-height: 2;
+        cursor: pointer;
+      }
+    }
+  }
+}

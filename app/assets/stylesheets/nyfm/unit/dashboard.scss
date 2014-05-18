@@ -1,0 +1,41 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "nyfm/variables";
+@import "nyfm/mixins";
+.panel-groups {
+  .panel {
+    border-radius: 0;
+    @include box-shadow(none);
+    & > * {
+      padding: 0.5rem 0.8rem;
+    }
+  }
+  .panel-heading {
+    border-bottom: 1px solid #F1F1F1;
+    padding-bottom: 0;
+    @include clearfix();
+    .text {
+      float: left;
+      font-weight: 600;
+    }
+    .nav {
+      float: right;
+      border-bottom: none;
+      li.active {
+        a {
+          border-top-color: #555;
+        }
+      }
+      a {
+        font-size: 0.8rem;
+        border: 1px solid #F1F1F1;
+        border-bottom-color: transparent;
+        padding: 0.3rem 0.5rem !important;
+        border-radius: 0;
+        &:hover {
+          @extend a;
+        }
+      }
+    }
+  }
+}

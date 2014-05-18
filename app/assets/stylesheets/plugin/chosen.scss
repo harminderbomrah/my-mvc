@@ -1,0 +1,493 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+/* @group Base */
+.chosen-container {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  zoom: 1;
+  *display: inline;
+  @include user-select(none);
+  .chosen-drop {
+    position: absolute;
+    top: 100%;
+    left: -9999px;
+    z-index: 1010;
+    width: 100%;
+    border: 2px solid $brand-primary;
+    border-top: 0;
+    background: #fff;
+    @include box-sizing(border-box);
+    @include border-bottom-radius(5px);
+  }
+  a {
+    cursor: pointer;
+  }
+  &.chosen-with-drop {
+    .chosen-drop {
+      left: 0;
+    }
+  }
+  /* @end */
+  /* @group Results */
+  .chosen-results {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 5px 0;
+    padding: 0 5px;
+    max-height: 240px;
+    -webkit-overflow-scrolling: touch;
+    li {
+      display: none;
+      margin: 0;
+      padding: 5px 6px;
+      list-style: none;
+      line-height: 15px;
+      &.active-result {
+        display: list-item;
+        cursor: pointer;
+      }
+      &.disabled-result {
+        display: list-item;
+        color: #ccc;
+        cursor: default;
+      }
+      &.highlighted {
+        background-color: $brand-primary;
+        color: #fff;
+      }
+      &.no-results {
+        display: list-item;
+        background: #e2e4e9;
+        font-size: 1rem;
+        @include border-bottom-radius(3px);
+
+      }
+      &.group-result {
+        display: list-item;
+        font-weight: bold;
+        cursor: default;
+      }
+      &.group-option {
+        padding-left: 15px;
+      }
+      em {
+        font-style: normal;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+/* @end */
+/* @group Single Chosen */
+.chosen-container-single {
+  .chosen-single {
+    display: block;
+    height: $input-height-base - 1px; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
+    padding: ($padding-base-vertical - 1) $padding-base-horizontal;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    color: $input-color;
+    background-color: $input-bg;
+    background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+    border: 2px solid $input-border;
+    border-radius: $input-border-radius;
+    position: relative;
+    overflow: hidden;
+    background-clip: padding-box;
+    text-decoration: none;
+    white-space: nowrap;
+    // @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
+    span {
+      display: block;
+      overflow: hidden;
+      margin-right: 26px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    abbr {
+      position: absolute;
+      top: 6px;
+      right: 26px;
+      display: block;
+      width: 12px;
+      height: 12px;
+      &:before {
+        font-family: 'FontAwesome';
+        content: "\f00d";
+        display: block;
+        color: #A2A2A2;
+      }
+      &:hover {
+        &:before {
+          color: #646464;
+        }
+      }
+    }
+    div {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block;
+      width: 18px;
+      height: 100%;
+      b {
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: #e3e4e8;
+        &:before {
+          font-family: 'FontAwesome';
+          content: "\f0dd";
+          display: block;
+          margin-top: 3px;
+        }
+      }
+    }
+  }
+  .chosen-default {
+    color: #999;
+  }
+  .chosen-single-with-deselect {
+    span {
+      margin-right: 38px;
+    }
+  }
+  .chosen-search {
+    position: relative;
+    z-index: 1010;
+    margin: 0;
+    padding: 3px 4px;
+    white-space: nowrap;
+    &:before {
+      position: absolute;
+      right: 11px;
+      font-family: 'FontAwesome';
+      content: "\f002";
+      display: block;
+      margin-top: 7px;
+      color: #C4C5CA;
+    }
+    input[type="text"] {
+      @include box-sizing(border-box);
+      margin: 1px 0;
+      padding: 4px 20px 4px 5px;
+      width: 100%;
+      height: auto;
+      outline: 0;
+      border: 2px solid $input-border;
+      font-size: 1em;
+      line-height: normal;
+      border-radius: 0;
+    }
+  }
+  .chosen-drop {
+    margin-top: -2px;
+    @include border-bottom-radius(5px);
+    background-clip: padding-box;
+  }
+  &.chosen-container-single-nosearch {
+    .chosen-search {
+      position: absolute;
+      left: -9999px;
+    }
+  }
+  &.chosen-sm {
+    .chosen-single {
+      height: 30px;
+      padding: 4px 12px;
+      font-size: 12px;
+    }
+    &.chosen-with-drop {
+      .chosen-single {
+        div {
+          b {
+            &:before {
+              margin-top: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* @end */
+/* @group Multi Chosen */
+.chosen-container-multi {
+  .chosen-choices {
+    position: relative;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto !important;
+    height: 1%;
+    background-color: $input-bg;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    border: 2px solid $input-border;
+    border-radius: $input-border-radius;
+    cursor: text;
+    // @include gradient-vertical($start-color: #eeeeee, $end-color: #ffffff, $start-percent: 1%, $end-percent: 15%);
+    li {
+      float: left;
+      list-style: none;
+      &.search-field {
+        margin: 3px 0;
+        padding: 0;
+        white-space: nowrap;
+        input[type="text"] {
+          margin: 0;
+          padding: 5px;
+          height: 28px;
+          outline: 0;
+          border: 0 !important;
+          background: transparent !important;
+          box-shadow: none;
+          color: #9C9C9C;
+          font-size: 100%;
+          line-height: normal;
+          border-radius: 0;
+        }
+        .default {
+          color: #999;
+        }
+      }
+      &.search-choice {
+        font-size: 1.2rem;
+        position: relative;
+        margin: 3px;
+        padding: 5px 25px 5px 8px;
+        border-radius: 5px;
+        background-color: $brand-mint;
+        background-clip: padding-box;
+        color: #FFF;
+        line-height: 18px;
+        cursor: default;
+        .search-choice-close {
+          position: absolute;
+          font-size: 1rem;
+          top: 5px;
+          right: 5px;
+          display: block;
+          width: 12px;
+          height: 12px;
+          text-decoration: none;
+          &:before {
+            font-family: 'FontAwesome';
+            content: "\f057";
+            display: block;
+            color: #FFF;
+            @include opacity(0.8);
+          }
+          &:hover {
+            &:before {
+              @include opacity(1);
+            }
+          }
+        }
+      }
+      &.search-choice-disabled {
+        padding-right: 5px;
+        border: 1px solid #ccc;
+        background-color: #e4e4e4;
+        color: #666;
+      }
+      &.search-choice-focus {
+        background: #d4d4d4;
+      }
+    }
+  }
+  .chosen-results {
+    margin: 0;
+    padding: 0;
+  }
+  .chosen-drop {
+    .result-selected {
+      display: list-item;
+      color: #ccc;
+      cursor: default;
+    }
+  }
+  &.chosen-sm {
+    .chosen-choices {
+      li {
+        &.search-choice {
+          margin: 2px;
+          padding: 2px 25px 2px 8px;
+          .search-choice-close {
+            top: 3px;
+          }
+        }
+        &.search-field {
+          margin: 2px 0;
+          input[type="text"] {
+            height: 22px;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* @end */
+/* @group Active  */
+.chosen-container-active {
+  .chosen-single {
+    border-color: $brand-primary;
+  }
+  &.chosen-with-drop {
+    .chosen-single {
+      border-bottom-width: 0;
+      @include border-bottom-radius(0);
+      div {
+        border-left: none;
+        background: transparent;
+        b {
+          color: $brand-primary;
+          &:before {
+            content: "\f0de";
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+    .chosen-choices {
+      border-bottom-width: 0;
+      @include border-bottom-radius(0);
+    }
+  }
+  .chosen-choices {
+    border-color: $brand-primary;
+    li {
+      &.search-field {
+        input[type="text"] {
+          color: #111 !important;
+        }
+      }
+    }
+  }
+}
+
+/* @end */
+/* @group Disabled Support */
+.chosen-disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed;
+  .chosen-single {
+    cursor: not-allowed;
+  }
+  .chosen-choices {
+    cursor: not-allowed;
+    .search-choice {
+      cursor: not-allowed;
+      .search-choice-close {
+        cursor: not-allowed;
+      }
+    }
+  }
+  .search-field {
+    input[type="text"] {
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* @end */
+/* @group Right to Left */
+.chosen-rtl {
+  text-align: right;
+  .chosen-single {
+    overflow: visible;
+    padding: 0 8px 0 0;
+    span {
+      margin-right: 0;
+      margin-left: 26px;
+      direction: rtl;
+    }
+    div {
+      right: auto;
+      left: 3px;
+    }
+    abbr {
+      right: auto;
+      left: 26px;
+    }
+  }
+  .chosen-single-with-deselect {
+    span {
+      margin-left: 38px;
+    }
+  }
+  .chosen-choices {
+    li {
+      float: right;
+      &.search-field {
+        input[type="text"] {
+          direction: rtl;
+        }
+      }
+      &.search-choice {
+        margin: 3px 5px 3px 0;
+        padding: 3px 5px 3px 19px;
+        .search-choice-close {
+          right: auto;
+          left: 4px;
+        }
+      }
+    }
+  }
+  .chosen-drop {
+    left: 9999px;
+  }
+  .chosen-results {
+    li {
+      &.group-option {
+        padding-right: 15px;
+        padding-left: 0;
+      }
+    }
+  }
+  .chosen-search {
+    input[type="text"] {
+      padding: 4px 5px 4px 20px;
+      direction: rtl;
+    }
+  }
+  &.chosen-container-single-nosearch {
+    .chosen-search {
+      left: 9999px;;
+    }
+  }
+  &.chosen-container-single {
+    .chosen-results {
+      margin: 5px 0;
+      padding: 0;
+    }
+  }
+  &.chosen-container-active {
+    &.chosen-with-drop {
+      .chosen-single {
+        div {
+          border-right: none;
+        }
+      }
+    }
+  }
+}
+.has-error {
+  .chosen-single,
+  .chosen-drop,
+  .chosen-choices {
+    border-color: $brand-danger;
+  }
+}

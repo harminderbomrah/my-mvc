@@ -1,0 +1,15 @@
+.main-form .form-group {
+  margin-left: 0;
+  margin-right: 0; }
+  .main-form .panel-heading label {
+    margin-bottom: 0; }
+  .main-form .panel-body .form-group .control-label {
+    padding-left: 0;
+    padding-top: 0;
+    text-align: left;
+    font-weight: 400;
+    margin-bottom: 5px; }
+    .main-form .panel-body .form-group .switch {
+      float: right; }
+    .main-form .panel-body .form-group:last-child {
+      margin-bottom: 0; }

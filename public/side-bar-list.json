@@ -1,0 +1,55 @@
+[
+	{
+		"name": "Article",
+		"link": "article",
+		"icon": "fa-pencil",
+		"child": [
+			{
+				"name": "List",
+				"link": ""
+			}, {
+				"name": "Add New",
+				"link": "new"
+			}, {
+				"name": "Category",
+				"link": "category"
+			}
+		]
+	}, {
+		"name": "Product",
+		"link": "product",
+		"icon": "fa-archive",
+		"child": [
+			{
+				"name": "List",
+				"link": ""
+			}, {
+				"name": "Add New",
+				"link": "new"
+			}, {
+				"name": "Category",
+				"link": "category"
+			}
+		]
+	}, {
+		"name": "Case",
+		"link": "case",
+		"icon": "fa-briefcase",
+		"child": [
+			{
+				"name": "List",
+				"link": ""
+			}, {
+				"name": "Add New",
+				"link": "new"
+			}, {
+				"name": "Category",
+				"link": "category"
+			}
+		]
+	}, {
+		"name": "Tags",
+		"link": "tags",
+		"icon": "fa-tags"
+	}
+]

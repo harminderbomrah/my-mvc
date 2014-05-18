@@ -1,0 +1,47 @@
+.main-list .table-action {
+  margin-bottom: 15px; }
+  .main-list thead {
+    background-color: #a7aeb9;
+    color: #e0e2e6; }
+    .main-list thead th {
+      font-weight: 400; }
+      .main-list thead th:nth-of-type(1n+4) {
+        width: 3rem; }
+      .main-list thead th.list-check {
+        width: 2rem; }
+      .main-list thead th.list-date {
+        width: 8rem;
+        cursor: pointer; }
+      .main-list thead th.list-disabled {
+        white-space: nowrap; }
+      .main-list thead th.list-title {
+        cursor: pointer; }
+      .main-list thead th.hit {
+        color: #fff;
+        font-weight: 700; }
+    .main-list thead .fa-square-o.active:before {
+      content: "\f046"; }
+  .main-list tbody tr.active .fa-square-o:before {
+    content: "\f046"; }
+    .main-list tbody tr.disabled td {
+      background-color: #f2f2f2;
+      color: #cdcfd5; }
+      .main-list tbody tr.disabled td a {
+        color: #cdcfd5; }
+    .main-list tbody td:nth-of-type(2) {
+      white-space: nowrap; }
+  .main-list label.checked {
+    position: relative;
+    margin-bottom: 0; }
+    .main-list label.checked i {
+      position: relative;
+      cursor: pointer; }
+    .main-list label.checked input[type="checkbox"] {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      margin-top: 0;
+      width: 100%;
+      height: 100%;
+      visibility: hidden; }
