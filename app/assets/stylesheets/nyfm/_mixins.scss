@@ -1,0 +1,56 @@
+// Set Triangle
+@mixin arrow($direction: "top", $width: 1rem, $height: 1rem, $color: #ccc) {
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  @if $direction == "top" {
+    border-width: $width $height 0 $height;
+    border-color: $color transparent transparent transparent;
+  } @else if $direction == "right" {
+    border-width: $height $width $height 0;
+    border-color: transparent $color transparent transparent;
+  } @else if $direction == "bottom" {
+    border-width: 0 $height $width $height;
+    border-color: transparent transparent $color transparent;
+  } @else if $direction == "left" {
+    border-width: $height 0 $height $width;
+    border-color: transparent transparent transparent $color;
+  } @else if $direction == "top-right" {
+    border-width: 0 $width $height 0;
+    border-color: transparent $color transparent transparent;
+  } @else if $direction == "top-left" {
+    border-width: $height $width 0 0;
+    border-color: $color transparent transparent transparent;
+  } @else if $direction == "bottom-right" {
+    border-width: 0 0 $height $width;
+    border-color: transparent transparent $color transparent;
+  } @else if $direction == "bottom-left" {
+    border-width: $height 0 0 $width;
+    border-color: transparent transparent transparent $color;
+  }
+}
+
+// Set Box
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;
+  -moz-box-ordinal-group: $val;
+  -ms-flex-order: $val;
+  -webkit-order: $val;
+  order: $val;
+}

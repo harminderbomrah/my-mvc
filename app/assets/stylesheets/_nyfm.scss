@@ -1,0 +1,171 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "nyfm/variables";
+@import "nyfm/mixins";
+@import "nyfm/head-navbar";
+@import "nyfm/main-container";
+@import "nyfm/sidebar";
+@import "nyfm/main-content";
+html {
+  height: 100%;
+  position: relative;
+}
+body {
+  height: 100%;
+  font-family: 'Open Sans';
+  padding-bottom: 0;
+  background-color: #F1F2F5;
+  min-height: 100%;
+  // text-rendering: optimizeLegibility;
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+  // color: #393939;
+  line-height: 1.5;
+}
+$datepicker-color: $brand-danger;
+.datepicker {
+  padding: 0;
+  min-width: 265px;
+  overflow: hidden;
+  thead {
+    background-color: $datepicker-color;
+    color: #fff;
+    tr:first-child {
+      th {
+        padding-top: 5px;
+      }
+    }
+    th {
+      padding-bottom: 5px;
+    }
+    .btn {
+      background-color: $datepicker-color;
+      color: #fff;
+    }
+  }
+  tbody {
+    td {
+      padding: 1px;
+      &:nth-of-type(2) {
+        padding-left: 5px;
+      }
+      &:last-child {
+        padding-right: 5px;
+      }
+    }
+    tr {
+      &:first-child {
+        td {
+          padding-top: 5px;
+        }
+      }
+      &:last-child {
+        td {
+          padding-bottom: 5px;
+        }
+      }
+    }
+  }
+  .btn {
+    padding: 5px 10px;
+    border-width: 0;
+    font-weight: 700;
+    @include box-shadow(0 0 0 transparent);
+    &[disabled] {
+      font-weight: 400;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  table {
+    width: 100%;
+  }
+  @media (min-width: $screen-md-max) {
+    left: auto !important;
+    right: 0;
+  }
+}
+.switch {
+  width: 28px;
+  margin: 2px 0 0;
+  position: relative;
+  .switch-input {
+    cursor: pointer;
+    outline: none;
+    margin-top: 0;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    @include opacity(0);
+    &:checked ~ .switch-label {
+      border: 1px solid $green;
+      @include box-shadow(inset 0 0 0 12px $green);
+    }
+    &:checked ~ .switch-handle {
+      border: 1px solid $green;
+      left: 11px;
+      right: 0;
+    }
+  }
+  .switch-label {
+    background-color: darken($white, 2%);
+    display: inline-block;
+    border: 1px solid $grey;
+    border-radius: 9px;
+    vertical-align: top;
+    height: 18px;
+    width: 28px;
+    position: relative;
+    @include transition(border .25s, box-shadow .25s, padding .25s);
+    @include box-shadow(inset 0 0 0 12px $grey);
+  }
+  .switch-handle {
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 1px;
+    bottom: 1px;
+    left: 1px;
+    background-color: $white;
+    border: 1px solid $grey;
+    border-radius: 100%;
+    @include transition(border .25s, left .25s, right .25s);
+    // @include box-shadow(0 1px 2px rgba(0, 0, 0, .15), 0 2px 2px rgba(0, 0, 0, .1));
+  }
+  &.reverse {
+    .switch-input {
+      &:checked ~ .switch-label {
+        border-color: $grey;
+        @include box-shadow(inset 0 0 0 12px $grey);
+      }
+      &:checked ~ .switch-handle {
+        border-color: $grey;
+        left: 1px;
+        right: auto;
+      }
+    }
+    .switch-label {
+      border-color: $green;
+      @include box-shadow(inset 0 0 0 12px $green);
+    }
+    .switch-handle {
+      left: 11px;
+      right: 0;
+    }
+  }
+}
+.pagination {
+  & > li {
+    & > a {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,95 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.main-tags {
+  .btn-toolbar {
+    margin-bottom: 15px;
+    .created-new {
+      width: 250px;
+    }
+  }
+  .tags-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    .list-item {
+      background-color: #FFF;
+      line-height: 2;
+      padding: 1rem 1.5rem 0.2em;
+      position: relative;
+      border-color: darken($modal-backdrop-bg, 5%);
+      border-style: dotted;
+      border-width: 0 0 0 2px;
+      &:nth-of-type(1n+5) {
+        border-width: 2px 0 0 2px;
+      }
+      &:nth-of-type(4n+1) {
+        border-width: 2px 0 0 0;
+      }
+      @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+        &:nth-of-type(1n+4) {
+          border-width: 2px 0 0 2px;
+        }
+        &:nth-of-type(3n+1) {
+          border-width: 2px 0 0 0;
+        }
+      }
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+        &:nth-of-type(1n+3) {
+          border-width: 2px 0 0 2px;
+        }
+        &:nth-of-type(2n+1) {
+          border-width: 2px 0 0 0;
+        }
+      }
+      @media (max-width: $screen-sm-min) {
+        & + .list-item {
+          border-width: 2px 0 0;
+        }
+      }
+      &:first-child {
+        border-width: 0;
+      }
+      &.editing {
+        padding: 0;
+        .view {
+          display: none;
+        }
+        .edit {
+          display: block;
+        }
+      }
+      .edit {
+        display: none;
+        border: none;
+        border-radius: 0;
+        padding: 1rem 1.5rem;
+        height: auto;
+        line-height: 2;
+        color: $brand-primary;
+        z-index: 2;
+        @include box-shadow(inset 1px 1px 0 $brand-primary, inset -1px -1px 0 $brand-primary);
+      }
+      .view {
+        @include clearfix();
+        label {
+          margin-bottom: 0;
+          font-weight: 400;
+          max-width: 60%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          @media (max-width: $screen-sm-min) { max-width: 80%; }
+        }
+        .badge {
+          position: relative;
+          top: -10px;
+        }
+      }
+      .fa, .glyphicon {
+        line-height: 2;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.panel-groups .panel {
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
+  .panel-groups .panel > * {
+    padding: 0.5rem 0.8rem; }
+.panel-groups .panel-heading {
+  border-bottom: 1px solid #F1F1F1;
+  padding-bottom: 0; }
+  .panel-groups .panel-heading:before, .panel-groups .panel-heading:after {
+    content: " ";
+    display: table; }
+  .panel-groups .panel-heading:after {
+    clear: both; }
+  .panel-groups .panel-heading .text {
+    float: left;
+    font-weight: 600; }
+  .panel-groups .panel-heading .nav {
+    float: right;
+    border-bottom: none; }
+    .panel-groups .panel-heading .nav li.active a {
+      border-top-color: #555; }
+    .panel-groups .panel-heading .nav a, .panel-groups .panel-heading .nav a:hover {
+      font-size: 0.8rem;
+      border: 1px solid #F1F1F1;
+      border-bottom-color: transparent;
+      padding: 0.3rem 0.5rem !important;
+      border-radius: 0; }
+
+/*# sourceMappingURL=dashboard.css.map */

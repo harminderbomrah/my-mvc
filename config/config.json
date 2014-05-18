@@ -6,7 +6,7 @@
 	},
 	"debug" : false,
 	"database" : {
-		"enable" : true,
+		"enable" : false,
 		"username" : "root",
 		"password" : "root",
 		"host" : "localhost",

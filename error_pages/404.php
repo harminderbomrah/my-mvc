@@ -1,10 +1,8 @@
 <html>
-	<head>
-		<title>404</title>
-	</head>
+	<?= render_partial("partial/error-page-head") ?>
 	<body>
-	<div id="container">
-		<h1><em>404</em> Page not found!</h1>
-	</div>
+  	<div id="container">
+  		<em>404</em> Page not found!
+  	</div>
 	</body>
 </html>
