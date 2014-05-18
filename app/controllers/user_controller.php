@@ -36,8 +36,8 @@ class UserController extends ApplicationController{
 	}
 
 	function check(){
-		if($user = Users::find_by(array("username"=>$this->params["post"]["username"],"password"=>$this->params['post']['password']))){
-			if($this->current_user->create($user)){
+		if($users = Users::find_by(array("username"=>$this->params["post"]["username"],"password"=>$this->params['post']['password']))){
+			if($this->current_user->create($users[0])){
 				return redirect("admin");
 			}else{
 				return redirect("user/login");
