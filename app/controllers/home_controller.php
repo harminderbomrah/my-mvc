@@ -35,9 +35,5 @@ class HomeController extends ApplicationController{
 		}
 		return render();
 	}
-
-	function harry(){
-		echo "Executed";
-	}
 }
 ?>

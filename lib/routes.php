@@ -65,33 +65,27 @@ final class Routes {
    				$this->action = 'http404';
    		}
    		ViewAdapter::$controller_layout = $this->controller->controller_layout;
-   		$before_filter_methods = $this->controller->before_filter;
-   		if($before_filter_methods){
-	   		if(is_array($before_filter_methods)){
-	   			foreach($before_filter_methods as $method){
-	   				if(method_exists($this->controller, $method)){
-	   					$this->controller->{$method}();
-	   				}
-	   			}
-	   		}else{
-	   			throw new Exception("Before filter methods should be specified in an array.");
-	   		}
+   		if($this->controller->before_filter){
+	   		$this->execute_filters($this->controller->before_filter);
 	   	}
    		if (!$this->controller->{$this->action}() instanceof httpResponse){
    			throw new Exception("Action must return the class which is instanceof httpResponse!");
    		}
-   		$after_filter_methods = $this->controller->after_filter;
-   		if($after_filter_methods){
-	   		if(is_array($after_filter_methods)){
-	   			foreach($after_filter_methods as $method){
-	   				if(method_exists($this->controller, $method)){
-	   					$this->controller->{$method}();
-	   				}
-	   			}
-	   		}else{
-	   			throw new Exception("After filter methods should be specified in an array.");
-	   		}
+   		if($this->controller->after_filter){
+	   		$this->execute_filters($this->controller->after_filter);
 	   	}
+	}
+
+	private function execute_filters($methods){
+		if(is_array($methods)){
+   			foreach($methods as $method){
+   				if(method_exists($this->controller, $method)){
+   					$this->controller->{$method}();
+   				}
+   			}
+   		}else{
+   			throw new Exception("Before & After filter methods should be specified in an array.");
+   		}
 	}
 
 	private function remove_slash($string){
