@@ -6,11 +6,11 @@
 	},
 	"debug" : false,
 	"database" : {
-		"enable" : false,
+		"enable" : true,
 		"username" : "root",
-		"password" : "root",
+		"password" : "D54250wykH",
 		"host" : "localhost",
-		"name" : "mymvc"
+		"name" : "lc_stone"
 	},
 	"mail" : {
 		"enable" : false,
@@ -23,7 +23,7 @@
 		"enable" : false,
 		"user_model" : "users",
 		"login_url" : "user/login",
-		"vars" : ["id","username","name","created_time"]
+		"vars" : ["id","username"]
 	}
 
 }
