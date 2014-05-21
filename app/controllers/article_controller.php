@@ -3,6 +3,7 @@
 class ArticleController extends ApplicationController{
   var $controller_layout = "admin";
   function index() {
+    $this->current_user->needs_authentication();
     $this->initial = array(
       "categorys" => array(
         array("id" => 134512, "name" => "Mamie Daniel", "quantity" => 5),
