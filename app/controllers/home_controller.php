@@ -8,15 +8,22 @@
 	* return renderError('404'); can be used to generate 404 not found. 
 	* return renderJson(); can be used to output the request with json. An array of data which needs to be converted should be passed alont with this method. Eg:  return renderJson($data);
 	* params can be accessed using $this->params['get|post|<url declared variable>']
+	* public $controller_layout = "home" will set the layout for whole controller.
+	* public $before_filter = ['<method name>']; in array form, declare all the methods which have to be executed before the actual action.
+	* public $after_filter = ['<method name>']; in array form, declare all the methods which have to be executed after the actual action.
 */
 class HomeController extends ApplicationController{
-	// public $controller_layout = "home";
+	
 	function index(){
 		$this->loggedin = $this->current_user->loggedin;
 		if($this->current_user->loggedin){
 			$this->name = $this->current_user->name;
 		}
 		return render();
+	}
+
+	function harry(){
+		echo "Executed";
 	}
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * abstract class, should write the Action function
  */
 
@@ -16,9 +16,10 @@ abstract class ApplicationController{
 		}
 	}
 
-	function http404(){
+	public function http404(){
 		return renderError('404');
 	}
+
 	public function set_params($params){
 		$this->params = $params;
 	}

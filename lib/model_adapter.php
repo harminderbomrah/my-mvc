@@ -263,8 +263,10 @@ class ModelAdapter{
 			$table_name = RelationManager::get_relation_table_for_models($thismodel,$table);
 			$query = "SELECT `{$table}_id` FROM `{$table_name}` WHERE `{$thismodel}_id` = '{$this->id}'";
 			$results = $this->query($query);
-			foreach ($results as $result) {
-				array_push($temp, (int)$result["{$table}_id"]);
+			if($results){
+				foreach ($results as $result) {
+					array_push($temp, (int)$result["{$table}_id"]);
+				}
 			}
 			$this->columns["{$table}_relation_ids"] = $temp;
 		}
