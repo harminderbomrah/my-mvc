@@ -36,19 +36,8 @@ class HomeController extends ApplicationController{
 		return render();
 	}
 
-	function upload(){
-		$file = end(FileManager::get_uploaded_files());
-		$user = Users::find(1);
-		// $user->image = $file;
-		$user->update_values(array("image" => $file));
-		// $user->save();
-		// $resize = new Resize($file);
-		// $resize->resizeImage(150, 100, 'crop');
-		// $file = $resize->saveImage(100);
-		// $file->save("harry");
-		// $this->image = $file;
-		$this->image = $user->image;
-		return render();
+	function harry(){
+		echo "Executed";
 	}
 }
 ?>
