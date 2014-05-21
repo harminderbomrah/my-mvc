@@ -13,17 +13,12 @@
 	* public $after_filter = ['<method name>']; in array form, declare all the methods which have to be executed after the actual action.
 */
 class HomeController extends ApplicationController{
-	
 	function index(){
 		$this->loggedin = $this->current_user->loggedin;
 		if($this->current_user->loggedin){
 			$this->name = $this->current_user->name;
 		}
 		return render();
-	}
-
-	function harry(){
-		echo "Executed";
 	}
 }
 ?>
