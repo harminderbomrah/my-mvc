@@ -1,0 +1,73 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "nyfm/variables";
+@import "nyfm/mixins";
+
+.file-manage {
+  .modal-dialog {
+    width: 90%;
+  }
+}
+.modal-content {
+  .modal-header {
+    color: #FFF;
+    border-bottom: none;
+    background-color: $gray-darker;
+    @include flexbox();
+    @include border-top-radius(6px);
+    .modal-title {
+      margin-right: 15px;
+      line-height: 30px;
+    }
+    .modal-tab {
+      margin: -15px 0;
+      line-height: 32px;
+      @include flex(3);
+      li {
+        float: left;
+        padding: 1em 1.5em;
+        border-left: 1px solid $gray-dark;
+        cursor: pointer;
+        @include clearfix();
+        &:hover {
+          background-color: $brand-mint;
+        }
+        i {
+          float: left;
+          margin: 6px 0 4px;
+          font-size: 1.6em;
+        }
+      }
+    }
+    .modal-search {
+      @include flex(1);
+    }
+  }
+  .modal-body {
+    min-height: 400px;
+    max-height: 550px;
+    padding: 30px 15px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .folder {
+      .file-bundle {
+        @media (max-width: $screen-xs-min) {
+          width: 100%;
+        }
+      }
+      .file-content {
+        margin-bottom: 30px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 5px solid lighten($gray-lighter, 20%);
+        border-radius: 5px;
+        text-align: center;
+        cursor: pointer;
+        @include size(100%, 200px);
+      }
+    }
+  }
+  .modal-footer {
+    margin-top: 0;
+  }
+}

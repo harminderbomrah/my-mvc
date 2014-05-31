@@ -25,9 +25,9 @@
     content: "\f046"; }
     .main-list tbody tr.disabled td {
       background-color: #f2f2f2;
-      color: #cdcfd5; }
+      color: #959ba7; }
       .main-list tbody tr.disabled td a {
-        color: #cdcfd5; }
+        color: #959ba7; }
     .main-list tbody td:nth-of-type(2) {
       white-space: nowrap; }
   .main-list label.checked {

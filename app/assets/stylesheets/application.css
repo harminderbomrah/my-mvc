@@ -1834,9 +1834,9 @@ button.toast-close-button {
     top: -0.2em; } }
 
 .toast {
-  background-color: #838998; }
+  background-color: #7a808f; }
   .toast:hover {
-    background-color: #757c8c; }
+    background-color: #6d7382; }
 
 .toast-success {
   background-color: #b1d16d; }

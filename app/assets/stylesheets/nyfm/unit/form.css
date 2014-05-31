@@ -13,3 +13,50 @@
       float: right; }
     .main-form .panel-body .form-group:last-child {
       margin-bottom: 0; }
+    .main-form .panel-body .upload {
+      color: #b1b5be;
+      display: block;
+      text-align: center; }
+    .main-form .panel-body .upload:hover {
+      color: #7ebee7;
+      text-decoration: none; }
+    .main-form .panel-body .upload .img {
+      position: relative; }
+      .main-form .panel-body .upload .img img {
+        width: 100%;
+        height: auto; }
+      .main-form .panel-body .upload .img i {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        color: #fff;
+        z-index: 1;
+        display: none;
+        border-radius: 7px;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(74, 79, 89, .5); }
+        .main-form .panel-body .upload .img i:before {
+          display: block;
+          text-shadow: 0 0 0.1em rgba(74, 79, 89, .5); }
+      .main-form .panel-body .upload .img:hover img {
+        -webkit-filter: saturate(0); }
+        .main-form .panel-body .upload .img:hover i {
+          display: -webkit-box;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex; }
+  .main-form.product table {
+    margin-bottom: 0; }
+    .main-form.product table tbody > tr:first-child td {
+      border-top: none; }
+      .main-form.product table tbody .remove-item {
+        color: #d06367;
+        font-size: 1.5em; }
+      .main-form.product table tbody textarea {
+        resize: vertical;
+        overflow: auto; }
