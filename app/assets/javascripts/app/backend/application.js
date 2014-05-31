@@ -10,7 +10,6 @@ var nyfnApp = angular.module('nyfnApp', [
   'nyfnApp.controller.sidebar',
   'ui.bootstrap',
   'localytics.directives',
-  'ui.tinymce',
   'ngProgress'
 ])
 .run(function($rootScope, $log, $location, ngProgress) {
@@ -20,7 +19,7 @@ var nyfnApp = angular.module('nyfnApp', [
   $rootScope.$log = $log;
   var path = $location.path().split("/").slice(1);
   angular.forEach(path, function(element, index) {
-    !isNaN(element) || element == "admin" ? "" : $rootScope.locationPath.push(element);
+    !isNaN(element) || element == "admin" || index == 3 ? "" : $rootScope.locationPath.push(element);
   });
 
   // ngProgress config

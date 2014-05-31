@@ -5,7 +5,7 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
-	<?= render_partial("partial/login-head") ?>
+  <?= render_partial("partial/login-head") ?>
 	<body>
 		<?= $yield ?>
 	</body>

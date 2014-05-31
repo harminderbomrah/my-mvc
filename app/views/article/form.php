@@ -57,7 +57,7 @@
             </div>
           </div>
           <div class="panel-footer text-right">
-            <a class="btn btn-sm btn-default" href="/article" target="_self">Cancel</a>
+            <a class="btn btn-sm btn-default" href="/admin/article" target="_self">Cancel</a>
             <button type="submit" class="btn btn-sm btn-primary">Submit</button>
           </div>
         </div>
@@ -66,6 +66,13 @@
             <label>Images</label>
           </div>
           <div class="panel-body">
+            <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
+              <i class="fa fa-upload fa-5x fa-fw" data-ng-if="!articleData.img"></i>
+              <div class="img" data-ng-if="articleData.img">
+                <i class="fa fa-refresh fa-5x fa-fw"></i>
+                <img class="img-rounded" data-ng-src="{{articleData.img}}">
+              </div>
+            </a>
           </div>
         </div>
         <div class="panel panel-default">
@@ -119,6 +126,8 @@
     </div>
   </form>
 </div>
-<?= js_tag("app/backend/controllers/article.js") ?>
+<?= js_tag("app/backend/controllers/article-form.js") ?>
+<?= js_tag("app/backend/controllers/fileManage.js") ?>
 <?= js_tag("plugin/chosen/chosen.jquery.js") ?>
+<?= js_tag("plugin/tinymce/ng-tinymce.js") ?>
 <?= js_tag("plugin/tinymce/tinymce.min.js") ?>

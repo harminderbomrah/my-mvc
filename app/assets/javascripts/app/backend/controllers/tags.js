@@ -118,7 +118,7 @@ angular.module('nyfnApp.controller.main', [])
     // 移除類別
     remove: function(item, index) {
       var modalInstance = $modal.open({
-        templateUrl: 'confirmModal.html',
+        templateUrl: '/modal/tag',
         controller: ModalTagsCtrl,
         resolve: {
           msg: function () {

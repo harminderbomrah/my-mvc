@@ -1,6 +1,7 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 @import "nyfm/variables";
+@import "nyfm/mixins";
 .main-form {
   .form-group {
     margin-left: 0;
@@ -25,6 +26,69 @@
       }
       &:last-child {
         margin-bottom: 0;
+      }
+    }
+    .upload {
+      color: $gray-lighter;
+      display: block;
+      text-align: center;
+      &:hover {
+        color: $brand-primary;
+        text-decoration: none;
+      }
+      .img {
+        position: relative;
+        img {
+          @include size(100%, auto);
+        }
+        i {
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          color: #FFF;
+          z-index: 1;
+          display: none;
+          border-radius: 7px;
+          position: absolute;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba($gray-darker, .5);
+          &:before {
+            display: block;
+            text-shadow: 0 0 .1em rgba($gray-darker, .5);
+          }
+        }
+        &:hover {
+          img {
+            -webkit-filter: saturate(0);
+          }
+          i {
+            @include flexbox();
+          }
+        }
+      }
+    }
+  }
+  &.product {
+    table {
+      margin-bottom: 0;
+      tbody {
+        & > tr {
+          &:first-child {
+            td {
+              border-top: none;
+            }
+          }
+        }
+        .remove-item {
+          color: $brand-danger;
+          font-size: 1.5em;
+        }
+        textarea {
+          @include resizable(vertical);
+        }
       }
     }
   }

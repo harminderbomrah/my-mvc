@@ -28,7 +28,13 @@ class ProductController extends ApplicationController{
     $this->initial = array(
       "title" => "Test Title",
       "category" => 923741,
-      "tag" => ["6de8262c", "bed988a7", "f59f2f4c", "97ed22df", "ea3bc5b5"]
+      "tag" => ["6de8262c", "bed988a7", "f59f2f4c", "97ed22df", "ea3bc5b5"],
+      "specs" => array(
+        array("item" => 683432, "detail" => "Mamie Daniel"),
+        array("item" => 923741, "detail" => "Mamie Daniel"),
+        array("item" => 965728, "detail" => "Mamie Daniel"),
+        array("item" => 456891, "detail" => "Mamie Daniel"),
+      )
     );
     return render();
   }

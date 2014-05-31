@@ -1,0 +1,86 @@
+{
+  "categorys": [
+    {"name": "Mamie Daniel", "id": 134512},
+    {"name": "Brewer Perez", "id": 683432},
+    {"name": "Grant Reid", "id": 923741},
+    {"name": "Russell Salazar", "id": 965728},
+    {"name": "Melody Sosa", "id": 456891}
+  ],
+  "tag": [
+    {
+      "id": "6de8262c",
+      "name": "Apple"
+    },
+    {
+      "id": "20800a39",
+      "name": "Ray"
+    },
+    {
+      "id": "59b48080",
+      "name": "Mac"
+    },
+    {
+      "id": "8a7d176b",
+      "name": "javascript"
+    },
+    {
+      "id": "bed988a7",
+      "name": "HTML5"
+    },
+    {
+      "id": "b10bc2a0",
+      "name": "Edifier"
+    },
+    {
+      "id": "770a6d32",
+      "name": "DELL"
+    },
+    {
+      "id": "f59f2f4c",
+      "name": "SONY"
+    },
+    {
+      "id": "97ed22df",
+      "name": "Google"
+    },
+    {
+      "id": "08efa260",
+      "name": "Microsoft"
+    },
+    {
+      "id": "ea3bc5b5",
+      "name": "Aiken"
+    },
+    {
+      "id": "76d78092",
+      "name": "Water"
+    },
+    {
+      "id": "78cb018e",
+      "name": "Brother"
+    },
+    {
+      "id": "410a4a14",
+      "name": "QNAP"
+    },
+    {
+      "id": "276b88a7",
+      "name": "Angular"
+    },
+    {
+      "id": "7f2ff33a",
+      "name": "jQuery"
+    },
+    {
+      "id": "c8b64f8a",
+      "name": "我是中文"
+    }
+  ],
+  "specs": [
+    {"name": "Mamie Daniel", "id": 134512, "choose": false},
+    {"name": "Brewer Perez", "id": 683432, "choose": false},
+    {"name": "Grant Reid", "id": 923741, "choose": false},
+    {"name": "Russell Salazar", "id": 965728, "choose": false},
+    {"name": "Melody Sosa", "id": 456891, "choose": false}
+  ]
+}

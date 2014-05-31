@@ -29,7 +29,11 @@
     'case#category' => array('admin/case/category'),
     'case#index' => array('admin/case/{page_no}','admin/case'),
     'case#edit_case' => array('admin/case/edit/{id}'),
-    'tags#index' => array('admin/tags')
+    'tags#index' => array('admin/tags'),
+    'modal#filemanage' => array('modal/filemanage'),
+    'modal#delete_confirm' => array('modal/confirm'),
+    'modal#delete_category' => array('modal/category'),
+    'modal#delete_tag' => array('modal/tag')
   );
 
 ?>

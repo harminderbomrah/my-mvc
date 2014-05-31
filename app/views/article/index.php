@@ -55,7 +55,7 @@
 					</label>
 				</td>
 				<td>{{list.date | date:'yyyy/MM/dd'}}</td>
-				<td><a href="?id={{list.id}}" target="_blink">{{list.title}}</a></td>
+				<td><a href="/article/{{list.id}}" target="_blink">{{list.title}}</a></td>
 				<td class="text-center"><a class="btn btn-default btn-xs" href="edit/{{list.id}}" target="_self"><i class="fa fa-edit"></i></a></td>
 				<!-- <td class="text-center">
 					<label class="switch">
@@ -72,21 +72,5 @@
   </div>
   <alert class="text-center fade" data-ng-repeat="alert in initial.alerts" type="alert.type" close="action.alerts.close()">{{alert.msg}}</alert>
 </div>
-
-<script type="text/ng-template" id="confirmModal.html">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-ng-click="cancel()" aria-hidden="true">&times;</button>
-      <h4 class="modal-title">Delete select</h4>
-    </div>
-    <div class="modal-body lead text-center">
-    	{{msg}}
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-sm btn-flat btn-default pull-left" data-ng-click="cancel()">Close</button>
-      <button type="button" class="btn btn-sm btn-flat btn-danger" data-ng-click="delete()">Delete</button>
-    </div>
-  </div>
-</script>
-<?= js_tag("app/backend/controllers/article.js") ?>
+<?= js_tag("app/backend/controllers/article-list.js") ?>
 <?= js_tag("plugin/chosen/chosen.jquery.js") ?>
