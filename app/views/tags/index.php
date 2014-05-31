@@ -19,11 +19,12 @@
       <span class="view">
         <label data-ng-dblclick="action.edit(item.name, $index, $event)">{{item.name}}</label>
         <span class="badge badge-primary">{{item.quantity}}</span>
-        <span class="fa fa-fw fa-times pull-right" data-ng-click="action.remove(item, $index)" data-ng-if="tag.length > 1"></span>
+        <span class="fa fa-fw fa-times pull-right" data-ng-click="action.remove(item, $index)"></span>
         <span class="fa fa-fw fa-pencil pull-right" data-ng-click="action.edit(item.name, $index, $event)"></span>
       </span>
       <input type="text" class="edit form-control" data-ng-trim="false" data-ng-model="item.name" data-ng-blur="action.doneEditing(item.name, $index)" data-ng-keyup="action.doneEditingWithKey($event, item.name, $index)">
     </li>
+    <div class="empty text-center" data-ng-if="!tags.length"><i class="fa fa-tag"></i> No Tag</div>
   </ul>
 </div>
 <?= js_tag("app/backend/controllers/tags.js") ?>

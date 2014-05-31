@@ -27,7 +27,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
   }
 
   // 讀取關連物件的資料
-  $jsonData.getData('/public/relation-data.json').then(function(data) {
+  $jsonData.getData('/admin/case/get_relation_data').then(function(data) {
     $scope.relationData = data;
   });
 
