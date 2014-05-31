@@ -34,11 +34,11 @@ angular.module('nyfnApp.controller.main', [])
 
           // 如果送出的值沒有重複則將資料送出
           ngProgress.start();
-          $jsonData.postData('POST', '/admin/article/', {action: 'add', value: value}, function(data, status) {
+          $jsonData.postData('POST', '/admin/tags/new', {value: value}, function(data, status) {
             //需要取得新增後的ID值
             toastr.success('Tag has been added');
             $scope.initial.buffer = false;
-            $scope.tag.push({id: 124521, name: value, quantity: 0})
+            $scope.tag.push({id: data['id'], name: value, quantity: 0})
             $scope.newTag = null;
             ngProgress.complete();
           }, function(data, status) {
@@ -79,7 +79,7 @@ angular.module('nyfnApp.controller.main', [])
 
         // 如果原始資料與更改後的資料不相同則將資料送出
         ngProgress.start();
-        $jsonData.postData('POST', '/admin/article/', {action: 'update', id: $scope.initial.id, value: value}, function(data, status) {
+        $jsonData.postData('POST', '/admin/tags/edit', {action: 'update', id: $scope.initial.id, value: value}, function(data, status) {
           toastr.success('Tag updated');
           $scope.initial.edited = null;
           ngProgress.complete();
@@ -149,7 +149,7 @@ angular.module('nyfnApp.controller.main', [])
           data.id = item.id;
         }
         ngProgress.start();
-        $jsonData.postData('POST', '/admin/article/', data, function(data, status) {
+        $jsonData.postData('POST', '/admin/tags/delete', data, function(data, status) {
           if(replaceID != undefined) {
             var target = $scope.tag.indexOf($scope.tag.filter(function(tag, index) {
               return tag.id == replaceID;

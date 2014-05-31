@@ -71,3 +71,7 @@
     .main-tags .tags-list .list-item .fa, .main-tags .tags-list .list-item .glyphicon {
       line-height: 2;
       cursor: pointer; }
+  .main-tags .tags-list .empty {
+    padding: 2em;
+    background-color: #fff;
+    border-radius: 5px; }

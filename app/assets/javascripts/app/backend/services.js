@@ -21,7 +21,12 @@ angular.module('nyfnApp.services', [])
       return deferred.promise;
     },
     postData: function($method, $url, $data, $successFn, $errorFn) {
-      $http({method: $method, url: $url, data: $data})
+      $http({
+        method: $method,
+        url: $url,
+        data: $.param($data),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      })
       .success(function(data, status) {
         $successFn(data, status);
       })
