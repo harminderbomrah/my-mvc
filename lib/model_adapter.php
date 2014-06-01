@@ -179,10 +179,16 @@ class ModelAdapter{
 		if(class_exists($class)){
 			$c = new $class();
 			$query = "SELECT * FROM $c->table WHERE id = $id";
-			if($c->set_values($query))
-				return $c;
-			else
+			$results = $c->query($query);
+			if($results != null){
+				if($c->set_values($results[0])){
+					return $c;
+				}else{
+					return null;
+				}
+			}else{
 				return null;
+			}
 		}else{
 			throw new Exception("Cannot find model class.");
 		}
@@ -201,6 +207,42 @@ class ModelAdapter{
 			$query = rtrim($query,"and ");
 			$results = $c->query($query);
 			unset($c);
+			if($results != null){
+				if($results){
+					foreach ($results as $result) {
+						$c = new $class();
+						if($c->set_values($result)){
+							array_push($temp, $c);
+						}
+						unset($c);
+					}
+					return $temp;
+				}
+			}else{
+				return array();
+			}
+		}else{
+			throw new Exception("Cannot find model class.");
+		}
+	} 
+
+	static public function all($columns=array(),$sort=null){
+		$class = (function_exists("get_called_class") ? get_called_class() : self::get_called_class());
+
+		if(class_exists($class)){
+			$temp = array();
+			$c = new $class();
+			$query = "SELECT * FROM $c->table";
+			if(count($columns) > 0){
+				$query.= " ORDER BY ";
+				foreach ($columns as $column ) {
+					$query.= $column . ", ";
+				}
+				$query = rtrim($query,", ");
+				$query.= ($sort == null ? ";" : " " . $sort . ";");
+			}
+			$results = $c->query($query);
+			unset($c);
 			if($results){
 				foreach ($results as $result) {
 					$c = new $class();
@@ -214,37 +256,17 @@ class ModelAdapter{
 		}else{
 			throw new Exception("Cannot find model class.");
 		}
-	} 
-
-	static public function all($columns=array(),$sort=null){
-		$class = (function_exists("get_called_class") ? get_called_class() : self::get_called_class());
-
-		if(class_exists($class)){
-			$c = new $class();
-			$query = "SELECT * FROM $c->table";
-			if(count($columns) > 0){
-				$query.= " ORDER BY ";
-				foreach ($columns as $column ) {
-					$query.= $column . ", ";
-				}
-				$query = rtrim($query,", ");
-				$query.= ($sort == null ? ";" : " " . $sort . ";");
-			}
-			return $c->query($query);
-		}else{
-			throw new Exception("Cannot find model class.");
-		}
 	}
 
 	public function delete(){
 		return $this->query("DELETE FROM $this->table WHERE id = '$this->id'");
 	}
 
-	public function set_values($results){
+	private function set_values($results){
 		$this->newclass = false;
 		if($results){
-			foreach ($results as $result => $value) {
-				$this->{$result} = $value;
+			foreach ($results as $key => $value) {
+				$this->{$key} = $value;
 			}
 			if($this->set_relation_values()){
 				return true;
