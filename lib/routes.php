@@ -25,10 +25,20 @@ final class Routes {
 		
 		if(isset($_POST)){
 			$this->params['post'] = $_POST;
+			foreach ($_POST as $key => $value) {
+				$this->params["{$key}"] = $value;
+			}
 		}
 
 		if(isset($_GET)){
 			$this->params['get'] = $_GET;
+			foreach ($_GET as $key => $value) {
+				$this->params["{$key}"] = $value;
+			}
+		}
+
+		if(count($_FILES) > 0){
+			FileManager::upload($_FILES);
 		}
 
    		$routes = $this->controller_action_name();
@@ -57,6 +67,10 @@ final class Routes {
    		if($this->controller->after_filter){
 	   		$this->execute_filters($this->controller->after_filter);
 	   	}
+	   	if(count($_FILES) > 0){
+	   		FileManager::delete_uploaded_files();
+	   	}
+	   
 	}
 
 	private function execute_filters($methods){

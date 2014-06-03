@@ -22,25 +22,7 @@ final class renderClass extends httpResponse{
 					$yield = ob_get_contents();
 					ob_end_clean();
 					$_site_title = $title;
-					if(count(ViewAdapter::$content_stylesheets) > 0){
-						ob_start();
-						include LAYOUTS_PATH . $layout . '/index.php';
-						$layoutcontent = ob_get_contents();
-						ob_end_clean();
-						$html = str_get_html($layoutcontent);
-						$head = $html->find("head",0)->innertext;
-						foreach (ViewAdapter::$content_stylesheets as $css) {
-							$head .= "<link href='".$css."' rel='stylesheet' />";
-						}
-						$html->find("head",0)->innertext = $head;
-						ViewAdapter::$content_stylesheets = array();
-						echo $html;
-						$html->clear();
-						unset($html);
-						unset($head);
-					}else{
-						include LAYOUTS_PATH . $layout . '/index.php';
-					}
+					include LAYOUTS_PATH . $layout . '/index.php';
 				}else{
 					throw new Exception("Layout {$layout} doesn't exists.");
 				}
@@ -56,6 +38,7 @@ final class renderClass extends httpResponse{
 				unset(${$key});
 			}
 		}
+
 	}
 }
 
@@ -67,6 +50,7 @@ final class renderError extends httpResponse{
 				break;
 		}
 		$tmpl_path = 'error_pages/' . $error . '.php';
+
 		include $tmpl_path;
 	}
 }
@@ -74,6 +58,7 @@ final class renderError extends httpResponse{
 final class redirectClass extends httpResponse{
 	function __construct($url){
 		$url = $this->check_url($url);
+
 		header("Location: {$url}");
 	}
 
@@ -104,17 +89,22 @@ final class jsonResponseClass extends httpResponse{
 		}else{
 			throw new Exception("Invalid JSON type");
 		}
+
 		echo $json;
 	}
 }
 
 final class downloadFileClass extends httpResponse{
 	function __construct($file){
-		$file_path = UPLOAD_FOLDER . $file;
-		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename="'.basename($file).'"');
-		header('Content-Length: ' . filesize($file_path));
-		readfile($file_path);
+		if($file instanceof File){
+			$file_path = $file->path;
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename="'.basename($file->name).'"');
+			header('Content-Length: ' . filesize($file_path));
+			readfile($file_path);
+		}else{
+			throw new Exception("{$file} should be instance of File class.");
+		}
 	}
 }
 

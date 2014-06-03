@@ -20,6 +20,7 @@ include "config/routes.php";
 include "lib/model_adapter.php";
 include "lib/view_bridge.php";
 include "lib/controller_class.php";
+include "lib/file_manager.php";
 include "lib/routes.php";
 
 // include sass parser

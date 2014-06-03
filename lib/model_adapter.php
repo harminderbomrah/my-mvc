@@ -6,14 +6,11 @@ class ModelAdapter{
 	public $columns = array();
 	public $relation_columns = array();
 	public $relation_tables = array();
-	public $CURRENT_USER;
 	private $db;
 	private $model;
 	private $newclass = true;
 
 	function __construct($model,$values=array()){
-		global $CURRENT_USER;
-		$this->CURRENT_USER = $CURRENT_USER;
 		$this->db = new dbConnect;
 		$this->model = $model;
 		$string = preg_replace('/(?!^)[A-Z]/', "_$0" ,get_class($this->model));

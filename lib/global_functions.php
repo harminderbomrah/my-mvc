@@ -111,14 +111,22 @@ function parse_scss($css,$css_type="scss"){
 
 
 function img_tag($img,$options = array()){
-	$html = "";
-	foreach ($options as $key => $value) {
-		$html.= $key."='".$value."' ";
-	}
-	if(filter_var($img, FILTER_VALIDATE_URL)){
-		return "<img src='".$img."'".$html." />";
-	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."images/".$img)){
-		return "<img src='".ASSETS."images/".$img."'".$html." />";
+	if($img instanceof File){
+		$html = "";
+		foreach ($options as $key => $value) {
+			$html.= $key."='".$value."' ";
+		}
+		return "<img src='{$img->to_absolute_url()}'".$html." />";
+	}else{
+		$html = "";
+		foreach ($options as $key => $value) {
+			$html.= $key."='".$value."' ";
+		}
+		if(filter_var($img, FILTER_VALIDATE_URL)){
+			return "<img src='".$img."'".$html." />";
+		}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."images/".$img)){
+			return "<img src='".ASSETS."images/".$img."'".$html." />";
+		}
 	}
 }
 
@@ -140,6 +148,16 @@ function include_helper($helper){
 			throw new Exception("Helper {$helper} not found.");
 		}
 	}
+}
+
+function render_page_specific_css(){
+	$head = "";
+	if(count(ViewAdapter::$content_stylesheets) > 0){
+		foreach (ViewAdapter::$content_stylesheets as $css) {
+			$head .= "<link href='".$css."' rel='stylesheet' />";
+		}
+	}
+	return $head;
 }
 
 

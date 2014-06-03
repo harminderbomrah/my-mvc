@@ -11,6 +11,7 @@ define("DEFAULT_LAYOUT","default",true);
 define('ASSETS','/app/assets/',true);
 define('HELPERS','app/helpers/',true);
 define('UPLOAD_FOLDER','files/',true);
+define('CACHE_FOLDER','public/cache/',true);
 
 
 ?>

@@ -1,6 +1,7 @@
 <!-- 
 	* js_tag(), css_tag(), scss_tag() and img_tag() can be used to  render script , css , css , img tags respectively... can pass urls or name of asset inside assets folder
 	* $yield should be placed where the view has to be rendered
+	* render_page_specific_css() renders all page specific css from content tag;
 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,6 +12,7 @@
 		<meta name="description" content="" />
 		<?= css_tag("http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial") ?>
 		<?= css_tag("font-awesome.css") ?>
+		<?= render_page_specific_css() ?>
 	</head>
 	<body>
 		<?= $yield ?>
