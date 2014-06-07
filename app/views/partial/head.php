@@ -4,10 +4,12 @@
   <title>LcStone</title>
   <?= css_tag("bootstrap.scss") ?>
   <?= css_tag("application.scss") ?>
+  <?#= render_page_specific_css() ?>
 
   <?= js_tag("lib/jquery/jquery-1.11.0.min.js") ?>
   <?= js_tag("lib/jquery/jquery.easing.1.3.js") ?>
   <?= js_tag("lib/angular/angular.min.js") ?>
+  <?= js_tag("lib/angular/angular-animate.min.js") ?>
 
   <?= js_tag("app/backend/application.js") ?>
   <?= js_tag("app/backend/directives.js") ?>

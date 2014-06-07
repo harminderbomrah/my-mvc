@@ -2,12 +2,12 @@
 <?= content_css_tag("nyfm/unit/main-list.scss") ?>
 <div class="main-list" data-ng-controller="productList" data-ng-init='extend(<?= json_encode($initial) ?>)'>
   <div class="table-action btn-toolbar" role="toolbar">
-    <div class="btn-group" data-ng-if="initial.selection.length">
+    <div class="btn-group" data-ng-show="initial.selection.length">
       <button type="button" class="btn btn-sm btn-orange" data-ng-click="action.modal(false, 'Are you sure you want to delete?')">
         <i class="fa fa-trash-o fa-fw"></i>
       </button>
     </div>
-    <div class="btn-group" data-ng-if="initial.selection.length && initial.trash">
+    <div class="btn-group" data-ng-show="initial.selection.length && initial.trash">
       <button type="button" class="btn btn-sm btn-info" data-ng-click="action.modal(true)">
         <i class="fa fa-undo fa-fw"></i>
       </button>
@@ -36,15 +36,15 @@
             <input type="checkbox" data-ng-model="initial.allChecked" data-ng-change="action.checkAll(newList)">
           </label>
         </th>
-        <th class="list-title" ng-click="action.sorting('name')" data-ng-class="{hit:initial.orderName == 'name'}">Name <i class="fa" data-ng-if="initial.orderName == 'name'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
+        <th class="list-title" ng-click="action.sorting('name')" data-ng-class="{hit:initial.orderName == 'name'}">Name <i class="fa" data-ng-show="initial.orderName == 'name'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
         <th class="text-center">{{filterList.length}}</th>
       </tr>
     </thead>
     <tbody>
-      <tr data-ng-if="!newList.length">
+      <tr data-ng-show="!newList.length">
         <td colspan="5" class="text-center"><strong>No Article</strong></td>
       </tr>
-      <tr data-ng-repeat="list in newList = (filterList = (productList | filter: {'name':keyWrod} | filter: {'trash':initial.trash} | filter: {'category':initial.category}) | orderBy: initial.orderName : initial.reverse | startFrom: (initial.currentPage - 1) * initial.pageSize : initial.pageSize + ((initial.currentPage - 1) * initial.pageSize))" data-ng-class="{'active': list.checked}" data-ng-if="newList.length">
+      <tr data-ng-repeat="list in newList = (filterList = (productList | filter: {'name':keyWrod} | filter: {'trash':initial.trash} | filter: {'category':initial.category}) | orderBy: initial.orderName : initial.reverse | startFrom: (initial.currentPage - 1) * initial.pageSize : initial.pageSize + ((initial.currentPage - 1) * initial.pageSize))" data-ng-class="{'active': list.checked}" data-ng-show="newList.length">
         <td>
           <label class="checked">
             <i class="fa fa-square-o"></i>
@@ -56,7 +56,7 @@
       </tr>
     </tbody>
   </table>
-  <div class="text-center" data-ng-if="productList.length >= initial.pageSize">
+  <div class="text-center" data-ng-show="productList.length >= initial.pageSize">
     <pagination total-items="filterList.length" items-per-page="initial.pageSize" page="initial.currentPage" max-size="initial.maxSize" class="pagination-sm" boundary-links="true"></pagination>
   </div>
   <alert class="text-center fade" data-ng-repeat="alert in initial.alerts" type="alert.type" close="action.alerts.close()">{{alert.msg}}</alert>

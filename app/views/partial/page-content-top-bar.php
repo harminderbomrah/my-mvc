@@ -4,10 +4,10 @@
       <ol class="breadcrumb">
         <li><i class="fa fa-tachometer"></i><a href="/admin" target="_self"> Dashboard</a></li>
         <li data-ng-repeat="b in locationPath" data-ng-class="{active: $last}">
-          <a href="/admin/{{b}}" data-ng-if="!$last" target="_self">
+          <a href="/admin/{{b}}" data-ng-show="!$last" target="_self">
             <span>{{b | capitalize}}</span>
           </a>
-          <span data-ng-if="$last">{{b | capitalize}}</span>
+          <span data-ng-show="$last">{{b | capitalize}}</span>
         </li>
       </ol>
     </div>

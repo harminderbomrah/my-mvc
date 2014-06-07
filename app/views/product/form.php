@@ -1,11 +1,11 @@
 <?= content_css_tag("plugin/chosen.scss") ?>
 <?= content_css_tag("nyfm/unit/form.scss") ?>
 <div class="main-form product" data-ng-controller="productForm" data-ng-init='extend(<?= json_encode($initial) ?>)'>
-  <form class="form-horizontal" data-ng-submit="action.submit()" role="form">
+  <form class="form-horizontal" name="productForm" data-ng-submit="action.submit(productForm)" role="form" novalidate>
     <div class="row">
       <div class="col-lg-9">
-        <div class="form-group" data-ng-class="{'has-error': initial.error.title}">
-          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="Title" data-ng-blur="action.clearError($event)" data-ng-model="productData.title">
+        <div class="form-group" data-ng-class="{'has-error': productForm.title.$invalid && !productForm.title.$pristine}">
+          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="Title" data-ng-model="productData.title" required>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -15,15 +15,15 @@
             <table class="table">
               <tbody>
                 <tr data-ng-repeat="spec in productData.specs">
-                  <td class="col-md-3">
+                  <td class="col-md-3" data-ng-class="{'has-error': productForm.item.$invalid && !productForm.item.$pristine}">
                     <select class="form-control" name="item" id="item" data-placeholder="Choose Item" data-ng-model="spec.item" data-ng-options="option.id as option.name for option in relationData.specs" chosen="choseOptions">
                       <option value=""></option>
                     </select>
                   </td>
                   <td class="col-md-8">
-                    <textarea name="detail" id="detail" class="form-control" rows="3" data-ng-model="spec.detail"></textarea>
+                    <textarea class="form-control" name="detail" id="detail" rows="3" data-ng-model="spec.detail"></textarea>
                   </td>
-                  <td class="col-md-1 text-right" data-ng-if="productData.specs.length > 1">
+                  <td class="col-md-1 text-right" data-ng-show="productData.specs.length > 1">
                     <a class="remove-item" href="#" data-ng-click="action.removeItem($index)"><i class="fa fa-times-circle"></i></a>
                   </td>
                 </tr>
@@ -31,7 +31,7 @@
             </table>
           </div>
           <div class="panel-footer text-center">
-            <a href="#" class="btn btn-sm btn-primary" data-ng-class="{'disabled': initial.addDisabled}" data-ng-click="action.addSpec($event)">Add</a>
+            <a href="#" class="btn btn-sm btn-primary" data-ng-disabled="initial.addDisabled" data-ng-click="action.addSpec($event)">Add</a>
           </div>
         </div>
       </div>
@@ -41,14 +41,10 @@
             <label>Category</label>
           </div>
           <div class="panel-body">
-            <div class="form-group" data-ng-class="{'has-error': initial.error.category}">
-              <select class="form-control" name="category" id="category" data-placeholder="Choose Category" data-ng-model="productData.category" data-ng-options="option.id as option.name for option in relationData.categorys" data-ng-change="action.change('category')" chosen="choseOptions">
+            <div class="form-group" data-ng-class="{'has-error': productForm.category.$invalid && !productForm.category.$pristine}">
+              <select class="form-control" name="category" id="category" data-placeholder="Choose Category" data-ng-model="productData.category" data-ng-options="option.id as option.name for option in relationData.categorys" chosen="choseOptions" required>
                 <option value=""></option>
               </select>
-            </div>
-            <div class="form-group">
-              <a href="" data-ng-click="action.toggleBtn()"><small>{{initial.toggleVel.srt}}</small></a>
-              <input type="text" class="form-control input-sm" data-ng-model="productData.category" data-ng-if="initial.toggleVel.bl">
             </div>
           </div>
           <div class="panel-footer text-right">
@@ -62,8 +58,8 @@
           </div>
           <div class="panel-body">
             <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
-              <i class="fa fa-upload fa-5x fa-fw" data-ng-if="!productData.img"></i>
-              <div class="img" data-ng-if="productData.img">
+              <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!productData.img"></i>
+              <div class="img" data-ng-show="productData.img">
                 <i class="fa fa-refresh fa-5x fa-fw"></i>
                 <img class="img-rounded" data-ng-src="{{productData.img}}">
               </div>

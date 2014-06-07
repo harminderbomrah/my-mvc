@@ -10,12 +10,13 @@
 */
 
 class UserController extends ApplicationController{
+	public $controller_layout = "default";
 	function index(){
 		return render();
 	}
 
 	function login(){
-		return render(array("layout"=>"default"));
+		return render();
 	}
 
 	function logout(){
@@ -24,15 +25,15 @@ class UserController extends ApplicationController{
 	}
 
 	function resets(){
-		return render(array("layout"=>"default"));
+		return render();
 	}
 
 	function resets_new(){
-		return render(array("layout"=>"default"));
+		return render();
 	}
 
 	function success(){
-		return render(array("layout"=>"default"));
+		return render();
 	}
 
 	function check(){
