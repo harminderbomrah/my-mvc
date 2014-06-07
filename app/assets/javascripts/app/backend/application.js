@@ -17,7 +17,16 @@ var nyfnApp = angular.module('nyfnApp', [
 
   // 麵包屑
   $rootScope.locationPath = [];
+
   $rootScope.$log = $log;
+
+  $rootScope.screen = {
+    "xs": 480,
+    "sm": 768,
+    "mb": 992,
+    "lg": 1200,
+  }
+
   var path = $location.path().split("/").slice(1);
   angular.forEach(path, function(element, index) {
     !isNaN(element) || element == "admin" || index == 3 ? "" : $rootScope.locationPath.push(element);
@@ -42,13 +51,6 @@ var nyfnApp = angular.module('nyfnApp', [
     "showMethod": "slideDown",
     "hideMethod": "slideUp"
   };
-
-  screen = {
-    "xs": 480,
-    "sm": 768,
-    "mb": 992,
-    "lg": 1200
-  }
 })
 .config(function($locationProvider) {
   $locationProvider.html5Mode(true);
