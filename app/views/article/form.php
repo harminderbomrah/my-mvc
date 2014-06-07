@@ -1,11 +1,11 @@
 <?= content_css_tag("plugin/chosen.scss") ?>
 <?= content_css_tag("nyfm/unit/form.scss") ?>
 <div class="main-form" data-ng-controller="articleForm" data-ng-init='extend(<?= json_encode($initial) ?>)'>
-  <form class="form-horizontal" data-ng-submit="action.submit()" role="form">
+  <form class="form-horizontal" name="articleForm" data-ng-submit="action.submit(articleForm)" role="form" novalidate>
     <div class="row">
       <div class="col-lg-9">
-        <div class="form-group" data-ng-class="{'has-error': initial.error.title}">
-          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="Title" data-ng-blur="action.clearError($event)" data-ng-model="articleData.title">
+        <div class="form-group" data-ng-class="{'has-error': articleForm.title.$invalid && !articleForm.title.$pristine}">
+          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="Title" data-ng-model="articleData.title" required>
         </div>
         <div class="form-group">
           <textarea class="form-control" name="content" id="content" data-ng-model="articleData.content" ui-tinymce="tinyMceOptions"></textarea>
@@ -17,14 +17,10 @@
             <label>Category</label>
           </div>
           <div class="panel-body">
-            <div class="form-group" data-ng-class="{'has-error': initial.error.category}">
-              <select class="form-control" name="category" id="category" data-placeholder="Choose Category" data-ng-model="articleData.category" data-ng-options="option.id as option.name for option in relationData.categorys" data-ng-change="action.change('category')" chosen="choseOptions">
+            <div class="form-group" data-ng-class="{'has-error': articleForm.category.$invalid && !articleForm.category.$pristine}">
+              <select class="form-control" name="category" id="category" data-placeholder="Choose Category" data-ng-model="articleData.category" data-ng-options="option.id as option.name for option in relationData.categorys" chosen="choseOptions" required>
                 <option value=""></option>
               </select>
-            </div>
-            <div class="form-group">
-              <a href="" data-ng-click="action.toggleBtn()"><small>{{initial.toggleVel.srt}}</small></a>
-              <input type="text" class="form-control input-sm" data-ng-model="articleData.category" data-ng-if="initial.toggleVel.bl">
             </div>
           </div>
         </div>
@@ -67,8 +63,8 @@
           </div>
           <div class="panel-body">
             <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
-              <i class="fa fa-upload fa-5x fa-fw" data-ng-if="!articleData.img"></i>
-              <div class="img" data-ng-if="articleData.img">
+              <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!articleData.img"></i>
+              <div class="img" data-ng-show="articleData.img">
                 <i class="fa fa-refresh fa-5x fa-fw"></i>
                 <img class="img-rounded" data-ng-src="{{articleData.img}}">
               </div>
@@ -105,7 +101,7 @@
             <label>Link</label>
           </div>
           <div class="panel-body">
-            <ul class="list-group" data-ng-if="articleData.link.length">
+            <ul class="list-group" data-ng-show="articleData.link.length">
               <li class="list-group-item" data-ng-repeat="link in articleData.link">
                 <button type="button" class="close" data-ng-click="action.linkAction.remove($index)">×</button>
                 <a href="{{link.url}}" target="_blink"><small>{{link.text}}</small></a>

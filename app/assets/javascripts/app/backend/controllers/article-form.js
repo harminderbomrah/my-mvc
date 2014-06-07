@@ -34,18 +34,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
   // Definition main form controller scope initial
   $scope.initial = {
     today: new Date(),
-    toggleVel: {
-      bl: false,
-      srt: "Add New"
-    },
     publishDate: false,
     link: {
       url: null,
       text: null
-    },
-    error: {
-      title: false,
-      category: false
     }
   }
 
@@ -92,38 +84,20 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
   $scope.action = {
 
-    // input select change event
-    change: function(type) {
-      switch(type) {
-        case "category":
-          if($scope.initial.toggleVel.bl) {
-            $scope.initial.toggleVel.bl = false;
-            $scope.initial.toggleVel.srt = "Add New";
-          };
-        break
-      }
-    },
-
-    // 建立新的類別
-    toggleBtn: function() {
-      $scope.articleData.category = null;
-      $scope.initial.toggleVel.bl = !$scope.initial.toggleVel.bl
-      if($scope.initial.toggleVel.bl) {
-        $scope.initial.toggleVel.srt = "Cancel"
-      } else {
-        $scope.initial.toggleVel.srt = "Add New"
-      }
-    },
-
     // 送出資料
-    submit: function() {
+    submit: function(form) {
 
       // 驗證必填欄位
-      $scope.articleData.title ? $scope.initial.error.title = false : $scope.initial.error.title = true;
-      $scope.articleData.category != null || $scope.articleData.category != undefined ? $scope.initial.error.category = false : $scope.initial.error.category = true;
+
+      if(form.$error.required.length) {
+        angular.forEach(form.$error.required, function(element) {
+          element.$pristine = false;
+        });
+      }
 
       // 欄位驗證通過透過Ajax送出欄位資料
-      if(!$scope.initial.error.title && !$scope.initial.error.category) {
+
+      if(form.$valid) {
         ngProgress.start();
         $jsonData.postData('POST', '/admin/article/', $scope.articleData, function(data, status) {
           ngProgress.complete();
@@ -133,16 +107,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
           $log.warn(data, status);
           ngProgress.reset();
         });
-      }
-    },
-
-    // 必填欄位驗證不通過後經過使用者回填時清除提示訊息
-    clearError: function(event) {
-      if($(event.target).closest('.form-group').hasClass('has-error') && $(event.target).val()) {
-        $(event.target).closest('.form-group').removeClass('has-error');
-        $scope.initial.error.title = false;
-      } else if(!$(event.target).val()) {
-        $scope.initial.error.title = true;
       }
     },
 

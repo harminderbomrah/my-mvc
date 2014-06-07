@@ -3,6 +3,7 @@
 
 // Declare app level module which depends on filters, and services
 var nyfnApp = angular.module('nyfnApp', [
+  'ngAnimate',
   'nyfnApp.filters',
   'nyfnApp.services',
   'nyfnApp.directives',
@@ -40,6 +41,13 @@ var nyfnApp = angular.module('nyfnApp', [
     "hideEasing": "easeInBack",
     "showMethod": "slideDown",
     "hideMethod": "slideUp"
+  };
+
+  screen = {
+    "xs": 480,
+    "sm": 768,
+    "mb": 992,
+    "lg": 1200
   }
 })
 .config(function($locationProvider) {

@@ -3,6 +3,12 @@
 @import "nyfm/variables";
 @import "nyfm/mixins";
 
+.modal-backdrop {
+  background-color: darken($gray-darker, 10%);
+  &.in {
+    @include opacity(0.9);
+  }
+}
 .file-manage {
   .modal-dialog {
     width: 90%;
@@ -29,6 +35,7 @@
         border-left: 1px solid $gray-dark;
         cursor: pointer;
         @include clearfix();
+        &.active,
         &:hover {
           background-color: $brand-mint;
         }
@@ -50,24 +57,71 @@
     overflow-y: auto;
     overflow-x: hidden;
     .folder {
-      .file-bundle {
-        @media (max-width: $screen-xs-min) {
+      @include flexbox();
+      .file-group {
+        max-height: 520px;
+        overflow: auto;
+        padding-right: 8px;
+        @include flex(1);
+        table {
           width: 100%;
+          border-collapse: separate;
+          border-spacing: 10px;
+        }
+        .file-content {
+          width: 1%;
+          padding: 1em;
+          text-align: center;
+          vertical-align: middle;
+          background-color: lighten($gray-lighter, 20%);
+          img {
+            @include size(100%, auto);
+          }
+          @media (max-width: $screen-md-min) {
+            padding: 0.5em;
+          }
+          @media (max-width: $screen-sm-min) {
+            padding: 5px;
+          }
+          @media (max-width: $screen-xs-min) {
+            img {
+              @include size(auto, 100px);
+            }
+          }
         }
       }
-      .file-content {
-        margin-bottom: 30px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        border: 5px solid lighten($gray-lighter, 20%);
-        border-radius: 5px;
-        text-align: center;
-        cursor: pointer;
-        @include size(100%, 200px);
-      }
+      .preview {
+        width: 20%;
+        padding-right: 10px;
+        padding-left: 7px;
+        .preview-inner {
+        }
+        img {
+          width: 100%;
+        }
+        @media (max-width: $screen-sm-min) {
+          width: 33.333%;
+        }
+        @media (max-width: $screen-xs-min) {
+          display: none;
+        }
+      } 
     }
   }
   .modal-footer {
     margin-top: 0;
   }
 }
+// .animate-switch.ng-animate {
+//   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+//   transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+// }
+
+// .animate-switch.ng-leave.ng-leave-active,
+// .animate-switch.ng-enter {
+//   @include opacity(0);
+// }
+// .animate-switch.ng-leave,
+// .animate-switch.ng-enter.ng-enter-active {
+//   @include opacity(1);
+// }
