@@ -12,8 +12,3 @@
 		<h4><a href="user/logout">Logout</a></h4>
 	<?php }?>
 </div>
-
-<form action="/file/upload" method="post" enctype="multipart/form-data">
-	<input type="file" name="file" />
-	<input type="submit" />
-</form>
