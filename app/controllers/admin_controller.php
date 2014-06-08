@@ -23,8 +23,8 @@ class AdminController extends ApplicationController{
 	function get_relation_data(){
     	$categories = Category::all_with_quantity($this->params['type']);
     	$tags = Tags::all_with_quantity();
-    	$products = Products::all(array("id","title"));
-    	$cases = Cases::all(array("id","title"));
+    	$products = Products::all_with_quantity();
+    	$cases = Cases::all_with_quantity();
     	return renderJson(array("categorys" => $categories,"tag" => $tags, "product" => $products, "case" => $cases));
 	}
 }

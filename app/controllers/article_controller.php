@@ -53,6 +53,14 @@ class ArticleController extends ApplicationController{
     foreach ($article->tags_relation_ids as $tag_id) {
       array_push($tags, (string)$tag_id);
     }
+    $cases = [];
+    foreach ($article->cases_relation_ids as $case_id) {
+      array_push($cases, (string)$case_id);
+    }
+    $products = [];
+    foreach ($article->products_relation_ids as $product_id) {
+      array_push($products, (string)$product_id);
+    }
 
     $data = array(
       "title" => $article->title,
@@ -62,8 +70,8 @@ class ArticleController extends ApplicationController{
       "disabled" => $article->disabled,
       "date" => strtotime($article->date)*1000,
       "img" => $article->img,
-      "product" => $article->products_relation_ids,
-      "case" => $article->cases_relation_ids,
+      "product" => $products,
+      "case" => $cases,
       "link" => $links
     );
 
@@ -138,6 +146,12 @@ class ArticleController extends ApplicationController{
         $article->add_relation("tags",$tag_id);
       }
     }
+
+    if($this->params['case']!=null){
+      foreach ($this->params['case'] as $case_id) {
+        $article->add_relation("cases",$case_id);
+      }
+    }
     
     if($this->params[product]!=null){
       foreach ($this->params[product] as $products_id) {
@@ -164,6 +178,12 @@ class ArticleController extends ApplicationController{
       if($article->products_relation_ids!=null){
         foreach ($article->products_relation_ids as $products_id) {
           $article->delete_relation("products",$products_id);
+        }
+      }
+
+      if($article->cases_relation_ids!=null){
+        foreach ($article->cases_relation_ids as $case_id) {
+          $article->delete_relation("cases",$case_id);
         }
       }
   }
