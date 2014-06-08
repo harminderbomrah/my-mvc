@@ -12,7 +12,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
   // 檢查頁面是新增或是編輯
   var path = $window.location.pathname.split("/");
-      path = path[path.length - 1];
+        path = path[path.length - 1];
+  var postPath = "create";
+  var caseID = "";
+
   if(path !== "new") {
 
     // 如果頁面為編輯則將後端資料與文章物件合併
@@ -24,6 +27,9 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     $scope.$watch('caseData.date', function(date) {
       date ? $scope.initial.publishDate = true : null
     });
+
+    postPath = "update";
+    caseID = path;
   }
 
   // 讀取關連物件的資料
@@ -98,8 +104,12 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       // 欄位驗證通過透過Ajax送出欄位資料
       if(form.$valid) {
         ngProgress.start();
-        $jsonData.postData('POST', '/admin/case/', $scope.caseData, function(data, status) {
+
+        if(postPath=='update') $scope.caseData['id'] = caseID;
+
+        $jsonData.postData('POST', '/admin/case/'+postPath, $scope.caseData, function(data, status) {
           ngProgress.complete();
+          $window.location = '/admin/case/';
           // $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, -1).join("");
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');

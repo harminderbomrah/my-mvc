@@ -4,17 +4,18 @@
 
 angular.module('nyfnApp.controller.main', [])
 
+
 .controller('productList', ['$scope', '$timeout', '$log', '$location', '$window', '$modal', '$jsonData', 'ngProgress', function($scope, $timeout, $log, $location, $window, $modal, $jsonData, ngProgress) {
 
   // get list json data use $jsonData services
-  $jsonData.getData('/public/product-for-list.json').then(function(data) {
+  $jsonData.getData('/admin/product/list').then(function(data) {
     $scope.productList = data;
   });
 
   // Definition main list controller scope initial
   $scope.initial = {
-    trash: false,         // 回收桶參數
-    allChecked: false,    // 項目全選
+    trash: 0,         // 回收桶參數
+    allChecked: 0,    // 項目全選
     checkedEach: 0,       // checkbox 圖示參數
     currentPage: 1,       // 目前分頁
     maxSize: 10,          // 分頁最大顯示數目
@@ -193,7 +194,7 @@ angular.module('nyfnApp.controller.main', [])
         msg = "Article move to trash";
       }
       ngProgress.start();
-      $jsonData.postData('POST', '/admin/article/', {action: type, id: $scope.initial.selection}, function(data, status) {
+      $jsonData.postData('POST', '/admin/product/delete', {action: type, ids: $scope.initial.selection}, function(data, status) {
         toastr.success(msg);
         $scope.action.deselect(undo);
         ngProgress.complete();

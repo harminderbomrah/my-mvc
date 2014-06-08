@@ -15,13 +15,19 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
   // 檢查頁面是新增或是編輯
   var path = $window.location.pathname.split("/");
-      path = path[path.length - 1];
+        path = path[path.length - 1];
+  var postPath = "create";
+  var productID = "";
+
   if(path !== "new") {
 
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.productData, src);
     };
+
+    postPath = "update";
+    productID = path;
   }
 
   // 讀取關連物件的資料
@@ -57,7 +63,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
       if(form.$valid) {
         ngProgress.start();
-        $jsonData.postData('POST', '/admin/article/', $scope.productData, function(data, status) {
+
+        if(postPath=='update') $scope.productData['id'] = productID;
+
+        $jsonData.postData('POST', '/admin/product/'+postPath, $scope.productData, function(data, status) {
           ngProgress.complete();
           $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
         }, function(data, status) {
