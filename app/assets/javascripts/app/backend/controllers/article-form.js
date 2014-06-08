@@ -21,6 +21,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.articleData, src);
+      $scope.articleData.date = new Date($scope.articleData.date)
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
@@ -100,6 +101,14 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
           element.$pristine = false;
         });
       }
+      $log.log($scope.articleData.date)
+      // if($scope.initial.publishDate && typeof $scope.articleData.date !== 'number') {
+      //   $scope.articleData.date = new Date($scope.articleData.date)
+      //   $scope.articleData.date = $scope.articleData.date.getTime()
+      //   $log.log($scope.initial.publishDate)
+      // // } else if($scope.articleData.date == 0) {
+      // //   $scope.articleData.date = null
+      // }
 
       // 欄位驗證通過透過Ajax送出欄位資料
 
@@ -179,8 +188,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         controller: FileManage,
         windowClass: 'file-manage',
         resolve: {
-          msg: function () {
-            return "msg";
+          tabSelect: function () {
+            return "upload";
           }
         }
       });
@@ -192,7 +201,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
   }
 }]);
 
-var FileManage = function ($rootScope, $scope, $log, $modalInstance) {
+var FileManage = function ($rootScope, $scope, $log, $modalInstance, tabSelect) {
+  $scope.initial = {
+    tabSelect: tabSelect,
+  }
   $scope.insert = function() {
     $modalInstance.close($rootScope.fileUrl);
   }

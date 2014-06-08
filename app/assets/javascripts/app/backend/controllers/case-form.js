@@ -21,6 +21,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.caseData, src);
+      $scope.caseData.date = new Date($scope.caseData.date)
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
@@ -110,7 +111,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         $jsonData.postData('POST', '/admin/case/'+postPath, $scope.caseData, function(data, status) {
           ngProgress.complete();
           $window.location = '/admin/case/';
-          // $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, -1).join("");
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);
@@ -178,8 +178,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         controller: FileManage,
         windowClass: 'file-manage',
         resolve: {
-          msg: function () {
-            return "msg";
+          tabSelect: function () {
+            return "upload";
           }
         }
       });
@@ -191,7 +191,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
   }
 }]);
 
-var FileManage = function ($rootScope, $scope, $log, $modalInstance) {
+var FileManage = function ($rootScope, $scope, $log, $modalInstance, tabSelect) {
+  $scope.initial = {
+    tabSelect: tabSelect,
+  }
   $scope.insert = function() {
     $modalInstance.close($rootScope.fileUrl);
   }

@@ -9,7 +9,7 @@ var flickrAPI = angular.module('flickrAPI', [
 // login controller
 .controller('login', ['$scope', '$timeout', '$log', '$jsonData', function($scope, $timeout, $log, $jsonData) {
 
-  var apiKey = '7cc91e3823ea3df67225a9132257e4b7',
+  var apiKey = 'd8deddbbc005b57a17af6ce86a251b5b',
       photoSetId = '72157644576955310',
       url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=' + apiKey + '&photoset_id=' + photoSetId +'&media=photos&format=json&nojsoncallback=1';
 
@@ -19,6 +19,7 @@ var flickrAPI = angular.module('flickrAPI', [
   };
 
   $jsonData.getData(url).then(function(data) {
+    $log.log(data)
     var number = Math.floor(Math.random() * data.photoset.photo.length),
         photoId = data.photoset.photo[number].id;
 
