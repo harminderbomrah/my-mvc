@@ -11,8 +11,14 @@
     </div>
   </div>
   <div class="modal-body" data-ng-switch on="initial.tabSelect" resizable>
-    <div class="upload animate-switch" data-ng-switch-when="upload">
-      {{initial.tabSelect}}
+    <div class="upload animate-switch" data-ng-switch-when="upload" ng-file-drop>
+      <div class="queue"></div>
+      <div class="drop-zone">
+        <label for="file-select" ng-file-over="other-over-zone" class="over-zone zone">
+          Base drop zone indication
+          <input type="file" id="file-select" ng-file-select multiple />
+        </label>
+      </div>
     </div>
     <div class="folder animate-switch" data-ng-switch-when="folder">
       <div class="file-group">

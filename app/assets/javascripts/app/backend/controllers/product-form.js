@@ -50,7 +50,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
     // 送出資料
     submit: function(form) {
-      $log.log(form)
+
       // 驗證必填欄位
 
       if(form.$error.required.length) {
@@ -97,8 +97,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         controller: FileManage,
         windowClass: 'file-manage',
         resolve: {
-          msg: function () {
-            return "msg";
+          tabSelect: function () {
+            return "upload";
           }
         }
       });
@@ -110,7 +110,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
   }
 }]);
 
-var FileManage = function ($rootScope, $scope, $log, $modalInstance) {
+var FileManage = function ($rootScope, $scope, $log, $modalInstance, tabSelect) {
+  $scope.initial = {
+    tabSelect: tabSelect,
+  }
   $scope.insert = function() {
     $modalInstance.close($rootScope.fileUrl);
   }

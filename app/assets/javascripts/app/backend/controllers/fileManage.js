@@ -2,7 +2,9 @@
 
 /* Controllers */
 
-angular.module('nyfnApp.controller.fileManage', [])
+angular.module('nyfnApp.controller.fileManage', [
+  'angularFileUpload'
+])
 // .directive('bullsEye', ['$log', function($log) {
 //   return function(scope, element, attrs) {
 //     attrs.$observe('bullsEye', function(value) {
@@ -31,14 +33,10 @@ angular.module('nyfnApp.controller.fileManage', [])
 // }])
 
 // File Manage controller
-.controller('fileManage', ['$rootScope', '$scope', '$log', function($rootScope, $scope, $log) {
-
-  $scope.initial = {
-    tabSelect: "folder",
-  }
+.controller('fileManage', ['$rootScope', '$scope', '$log', '$fileUploader', function($rootScope, $scope, $log, $fileUploader) {
 
   $scope.filejson = {};
-  // $rootScope.fileUrl = '555.jpg'
+
   // 將資料庫來源的參數與 $scope.filejson 合併
   $scope.extend = function(src) {
     angular.extend($scope.filejson, src);
@@ -65,7 +63,18 @@ angular.module('nyfnApp.controller.fileManage', [])
       return false;
     }
   });
-  
+
+  $scope.uploader = $fileUploader.create({
+    scope: $scope,
+    url: 'upload.php'
+  });
+  $scope.uploader.filters.push(function (item) {
+    $log.log(item)
+    return true;
+  });
+
+  $log.log($scope.uploader)
+
   $scope.action = {
     regroup: function(value, col) {
       var set = [];

@@ -10,7 +10,9 @@ angular.module('nyfnApp.controller.main', [])
   // get list json data use $jsonData services
   $jsonData.getData('/admin/article/list').then(function(data) {
     $scope.articleList = data;
-    $log.log($scope.articleList.length)
+    angular.forEach($scope.articleList, function(item, index) {
+      $scope.articleList[index].date = new Date(item.date);
+    });
   });
 
   // Definition main list controller scope initial

@@ -44,8 +44,8 @@
                 <span class="switch-label"></span>
                 <span class="switch-handle"></span>
               </div>
-              <div class="input-group" data-ng-class="{'hide': !initial.publishDate}">
-                <input type="text" class="form-control" data-ng-model="articleData.date" is-open="opened" min="initial.today" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
+              <div class="input-group" data-ng-class="{'hide': !initial.publishDate, 'has-error': articleForm.date.$invalid && !articleForm.date.$pristine}">
+                <input type="text" name="date" class="form-control" data-ng-model="articleData.date" data-ng-required="initial.publishDate" is-open="opened" min="initial.today" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
                   <button class="btn btn-default" data-ng-click="action.datepicker.open($event)"><i class="fa fa-calendar"></i></button>
                 </span>
@@ -124,6 +124,7 @@
 </div>
 <?= js_tag("app/backend/controllers/article-form.js") ?>
 <?= js_tag("app/backend/controllers/fileManage.js") ?>
+<?= js_tag("plugin/ngFileUpload/angular-file-upload.js") ?>
 <?= js_tag("plugin/chosen/chosen.jquery.js") ?>
 <?= js_tag("plugin/tinymce/ng-tinymce.js") ?>
 <?= js_tag("plugin/tinymce/tinymce.min.js") ?>

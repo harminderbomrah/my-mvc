@@ -107,6 +107,23 @@
         }
       } 
     }
+    .upload {
+      @include flexbox();
+      .queue {
+        @include flex(1);
+      }
+      .drop-zone {
+        width: 20%;
+        .over-zone {
+          #file-select {
+            @include opacity(0);
+          }
+        }
+        @media (max-width: $screen-sm-min) {
+          width: 33.333%;
+        }
+      }
+    }
   }
   .modal-footer {
     margin-top: 0;
