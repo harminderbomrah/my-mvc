@@ -16,9 +16,9 @@
       <a href="new" class="btn btn-sm btn-primary" target="_self"><i class="fa fa-fw fa-plus"></i> New</a>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.publics" data-ng-click="initial.trash = false; action.deselect()" btn-radio="false">Public</button>
-      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.publics" data-ng-click="initial.trash = false; action.deselect()" btn-radio="true">Private</button>
-      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.trash" data-ng-click="initial.publics = undefined; action.deselect()" btn-radio="true">Trash</button>
+      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.publics" data-ng-click="initial.trash = 0; action.deselect()" btn-radio="0">Public</button>
+      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.publics" data-ng-click="initial.trash = 0; action.deselect()" btn-radio="1">Private</button>
+      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.trash" data-ng-click="initial.publics = undefined; action.deselect()" btn-radio="1">Trash</button>
     </div>
     <div class="btn-group">
       <select class="form-control" data-placeholder="Choose Category" data-ng-model="initial.category" data-ng-options="option.id as option.name for option in initial.categorys" chosen="initial.choseOptions">

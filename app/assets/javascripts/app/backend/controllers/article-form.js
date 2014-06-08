@@ -12,7 +12,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
   // 檢查頁面是新增或是編輯
   var path = $window.location.pathname.split("/");
-      path = path[path.length - 1];
+        path = path[path.length - 1];
+  var postPath = "create";
+  var articleID = "";
+
   if(path !== "new") {
 
     // 如果頁面為編輯則將後端資料與文章物件合併
@@ -24,6 +27,9 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     $scope.$watch('articleData.date', function(date) {
       date ? $scope.initial.publishDate = true : null
     });
+
+    postPath = "update";
+    articleID = path;
   }
 
   // 讀取關連物件的資料
@@ -99,9 +105,13 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
       if(form.$valid) {
         ngProgress.start();
-        $jsonData.postData('POST', '/admin/article/', $scope.articleData, function(data, status) {
+        
+        if(postPath=='update') $scope.articleData['id'] = articleID;
+
+        $jsonData.postData('POST', '/admin/article/'+postPath, $scope.articleData, function(data, status) {
           ngProgress.complete();
-          $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
+          // $window.location = '/admin/article/';
+          // $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);
