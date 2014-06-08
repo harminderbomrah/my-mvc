@@ -51,6 +51,14 @@ class CaseController extends ApplicationController{
     foreach ($case->tags_relation_ids as $tag_id) {
       array_push($tags, (string)$tag_id);
     }
+    $articles = [];
+    foreach ($case->articles_relation_ids as $article_id) {
+      array_push($articles, (string)$article_id);
+    }
+    $products = [];
+    foreach ($case->products_relation_ids as $product_id) {
+      array_push($products, (string)$product_id);
+    }
 
     $data = array(
       "title" => $case->title,
@@ -60,8 +68,8 @@ class CaseController extends ApplicationController{
       "disabled" => $case->disabled,
       "date" => strtotime($case->date)*1000,
       "img" => $case->img,
-      "product" => $case->products_relation_ids,
-      "Article" => $case->article_relation_ids,
+      "product" => $products,
+      "Article" => $articles,
       "link" => $links
     );
 
@@ -140,6 +148,12 @@ class CaseController extends ApplicationController{
         $case->add_relation("products",$products_id);
       }
     }
+
+    if($this->params['article']!=null){
+      foreach ($this->params['article'] as $article_id) {
+        $case->add_relation("articles",$article_id);
+      }
+    }
   }
 
   function remove_relations($case){
@@ -160,6 +174,12 @@ class CaseController extends ApplicationController{
       if($case->products_relation_ids!=null){
         foreach ($case->products_relation_ids as $products_id) {
           $case->delete_relation("products",$products_id);
+        }
+      }
+
+      if($case->articles_relation_ids!=null){
+        foreach ($case->articles_relation_ids as $article_id) {
+          $case->delete_relation("articles",$article_id);
         }
       }
   }
