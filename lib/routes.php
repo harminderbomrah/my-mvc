@@ -6,6 +6,7 @@ final class Routes {
 	private $controller;
 	private $controller_folder_path;
 	private $controller_file_path;
+	private $controller_folder;
 	private $route_rules;
 	private $default_controller;
 	private $controller_name;
@@ -43,12 +44,18 @@ final class Routes {
 
    		$routes = $this->controller_action_name();
    		$this->controller_name = $routes['controller'];
+   		$this->controller_folder = $routes["folder"];
    		$this->action = $routes['action'];
 
    		Request::$Controller = $this->controller_name;
    		Request::$Action = $this->action;
+   		Request::$Namespace = $this->controller_folder;
 
-   		$this->controller_file_path = $this->controller_folder_path . $this->controller_name . "_controller.php";
+   		if($this->controller_folder != null){
+   			$this->controller_file_path = $this->controller_folder_path . $this->controller_folder ."/". $this->controller_name . "_controller.php";
+   		}else{
+   			$this->controller_file_path = $this->controller_folder_path . $this->controller_name . "_controller.php";
+   		}
    		$this->controller = $this->require_controller();
    		$this->controller->set_params($this->params);
    		if(!method_exists($this->controller, $this->action)){
@@ -136,7 +143,14 @@ final class Routes {
 					if(!isset($temp[1])){
 						$temp[1] = "index";
 					}
-					$combo = array("controller"=>$temp[0],"action"=>$temp[1]);
+					if(strrpos($temp[0], "/") !== false){
+						$pos = strrpos($temp[0], "/");
+						$folder = substr($temp[0],0, $pos);
+						$controller = substr($temp[0], $pos + 1);
+						$combo = array("controller"=>$controller,"action"=>$temp[1],"folder"=>$folder);
+					}else{
+						$combo = array("controller"=>$temp[0],"action"=>$temp[1],"folder"=>null);
+					}
 					break;
 				}
 			}
@@ -190,6 +204,7 @@ final class Routes {
 final class Request{
 	public static $Controller;
 	public static $Action;
+	public static $Namespace;
 }
 
 ?>

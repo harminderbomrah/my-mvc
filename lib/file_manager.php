@@ -24,7 +24,7 @@ class FileManager{
 
 	public static function delete_uploaded_files(){
 		if(file_exists(self::$pathname)){
-			$files = glob(self::$pathname);
+			$files = glob(self::$pathname."/*.*");
 			foreach($files as $file){
   				if(is_file($file)){
     				unlink($file);
@@ -179,6 +179,10 @@ class File{
 	private function get_extension(){
 		$temp = explode(".", $this->name);
 		return end($temp);
+	}
+
+	public function get_server_path(){
+		return APP_PATH . $this->path;
 	}
 
 }

@@ -116,7 +116,8 @@ final class downloadFileClass extends httpResponse{
  * @return [object]           [a instance of renderClass]
  */
 function render($options=array("view"=>null,"layout"=>true)){
-	$options["view"] = (!$options["view"] ? Request::$Controller."/".Request::$Action : $options["view"]);
+	$folder = (Request::$Namespace != null ? Request::$Namespace ."/" : "");
+	$options["view"] = (!$options["view"] ? $folder . Request::$Controller."/".Request::$Action : $options["view"]);
 	$options["title"] = (!$options["title"] ? ucwords(Request::$Controller) . " - " . SITE_TITLE : $options["title"]);
 	$options["layout"] = ($options["layout"] === false ? false : (is_string($options['layout']) ? $options['layout'] : (ViewAdapter::$controller_layout != null || ViewAdapter::$controller_layout === false ? ViewAdapter::$controller_layout : true)));
 	return new renderClass($options["view"],$options["layout"],$options["title"]);
