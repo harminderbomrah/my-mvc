@@ -14,8 +14,8 @@ angular.module('nyfnApp.controller.main', [])
 
   // Definition main list controller scope initial
   $scope.initial = {
-    trash: 0,         // 回收桶參數
-    allChecked: 0,    // 項目全選
+    trash: false,         // 回收桶參數
+    allChecked: false,    // 項目全選
     checkedEach: 0,       // checkbox 圖示參數
     currentPage: 1,       // 目前分頁
     maxSize: 10,          // 分頁最大顯示數目

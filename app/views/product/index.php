@@ -16,7 +16,7 @@
       <a href="new" class="btn btn-sm btn-primary" target="_self"><i class="fa fa-fw fa-plus"></i> New</a>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.trash" data-ng-click="action.deselect()" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Trash</button>
+      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.trash" data-ng-click="action.deselect()" btn-checkbox>Trash</button>
     </div>
     <div class="btn-group">
       <select class="form-control" data-placeholder="Choose Category" data-ng-model="initial.category" data-ng-options="option.id as option.name for option in initial.categorys" chosen="initial.choseOptions">
@@ -40,6 +40,7 @@
         <th class="text-center">{{filterList.length}}</th>
       </tr>
     </thead>
+    {{productList}}
     <tbody>
       <tr data-ng-show="!newList.length">
         <td colspan="5" class="text-center"><strong>No Article</strong></td>
@@ -63,4 +64,3 @@
 </div>
 <?= js_tag("app/backend/controllers/product-list.js") ?>
 <?= js_tag("plugin/chosen/chosen.jquery.js") ?>
-<?= js_tag("app/backend/controllers/product.js") ?>

@@ -50,6 +50,9 @@
           display: -ms-flexbox;
           display: -webkit-flex;
           display: flex; }
+    .main-form .panel-body .clearImg {
+      margin-top: 10px;
+      text-align: center; }
   .main-form.product table {
     margin-bottom: 0; }
     .main-form.product table tbody > tr:first-child td {

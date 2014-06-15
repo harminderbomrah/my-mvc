@@ -2,9 +2,7 @@
 
 /* Controllers */
 
-angular.module('nyfnApp.controller.fileManage', [
-  'angularFileUpload'
-])
+angular.module('nyfnApp.controller.fileManage', [])
 // .directive('bullsEye', ['$log', function($log) {
 //   return function(scope, element, attrs) {
 //     attrs.$observe('bullsEye', function(value) {
@@ -33,29 +31,36 @@ angular.module('nyfnApp.controller.fileManage', [
 // }])
 
 // File Manage controller
-.controller('fileManage', ['$rootScope', '$scope', '$log', '$fileUploader', function($rootScope, $scope, $log, $fileUploader) {
+.controller('fileManage', ['$rootScope', '$scope', '$log', function($rootScope, $scope, $log) {
 
   $scope.filejson = {};
-
+  $rootScope.fileData = {
+    source: null,
+    id: null
+  };
   // 將資料庫來源的參數與 $scope.filejson 合併
   $scope.extend = function(src) {
     angular.extend($scope.filejson, src);
+    angular.forEach($scope.filejson.file, function(element, index) {
+      element.id == $scope.initial.sourceId ? element.checked = true : element.checked = false;
+      $rootScope.fileData.source = $scope.initial.preview;
+    })
   };
 
   $scope.$watch('windowWidth', function(width) {
-    if(width < screen.xs) {
+    if(width < $rootScope.screen.xs) {
       $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 2);
       return false;
-    } else if (width > screen.xs && width < screen.sm) {
+    } else if (width > $rootScope.screen.xs && width < $rootScope.screen.sm) {
       $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 3);
       return false;
-    } else if (width > screen.sm && width < screen.mb) {
+    } else if (width > $rootScope.screen.sm && width < $rootScope.screen.mb) {
       $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 4);
       return false;
-    } else if (width > screen.mb && width < screen.lg) {
+    } else if (width > $rootScope.screen.mb && width < $rootScope.screen.lg) {
       $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 5);
       return false;
-    } else if (width > screen.lg && width < 1440) {
+    } else if (width > $rootScope.screen.lg && width < 1440) {
       $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 6);
       return false;
     } else {
@@ -63,18 +68,7 @@ angular.module('nyfnApp.controller.fileManage', [
       return false;
     }
   });
-
-  $scope.uploader = $fileUploader.create({
-    scope: $scope,
-    url: 'upload.php'
-  });
-  $scope.uploader.filters.push(function (item) {
-    $log.log(item)
-    return true;
-  });
-
-  $log.log($scope.uploader)
-
+  
   $scope.action = {
     regroup: function(value, col) {
       var set = [];
@@ -102,13 +96,17 @@ angular.module('nyfnApp.controller.fileManage', [
       return source
     },
     source: function(value) {
+      angular.forEach($scope.filejson.file, function(element, index) {
+        element.id == value.id ? element.checked = true : element.checked = false
+      })
       var source = null;
       if(value.class == "image") {
-        source = $scope.filejson.location + value.class + '/' + value.source.original + '.' + value.type
+        source = $scope.filejson.location + value.class + '/' + value.source.large + '.' + value.type
       } else {
         source = $scope.filejson.location + value.class + '/' + value.source + '.' + value.type
       }
-      return source
+      $rootScope.fileData.source = source
+      $rootScope.fileData.id = value.id
     }
   }
 }]);

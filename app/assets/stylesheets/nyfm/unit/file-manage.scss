@@ -70,10 +70,14 @@
         }
         .file-content {
           width: 1%;
-          padding: 1em;
+          padding: 0.7em;
           text-align: center;
           vertical-align: middle;
           background-color: lighten($gray-lighter, 20%);
+          cursor: pointer;
+          &.active {
+            background-color: $brand-primary;
+          }
           img {
             @include size(100%, auto);
           }
@@ -91,13 +95,26 @@
         }
       }
       .preview {
+        position: relative;
         width: 20%;
         padding-right: 10px;
         padding-left: 7px;
-        .preview-inner {
+        .preview-content {
+          text-align: center;
+          .img-thumbnail {
+            min-height: 200px;
+            max-height: 250px;
+          }
+          .fa {
+            font-size: 8em;
+          }
         }
-        img {
-          width: 100%;
+        .insert {
+          position: absolute;
+          right: 0;
+          bottom: 15px;
+          left: 0;
+          text-align: center;
         }
         @media (max-width: $screen-sm-min) {
           width: 33.333%;
@@ -106,23 +123,6 @@
           display: none;
         }
       } 
-    }
-    .upload {
-      @include flexbox();
-      .queue {
-        @include flex(1);
-      }
-      .drop-zone {
-        width: 20%;
-        .over-zone {
-          #file-select {
-            @include opacity(0);
-          }
-        }
-        @media (max-width: $screen-sm-min) {
-          width: 33.333%;
-        }
-      }
     }
   }
   .modal-footer {

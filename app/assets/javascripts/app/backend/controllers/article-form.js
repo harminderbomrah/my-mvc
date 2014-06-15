@@ -12,7 +12,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
   // 檢查頁面是新增或是編輯
   var path = $window.location.pathname.split("/");
-        path = path[path.length - 1];
+      path = path[path.length - 1];
   var postPath = "create";
   var articleID = "";
 
@@ -21,7 +21,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.articleData, src);
-      $scope.articleData.date = new Date($scope.articleData.date)
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
@@ -45,7 +44,9 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     link: {
       url: null,
       text: null
-    }
+    },
+    preview: null,
+    submit: false
   }
 
   // chose js options
@@ -101,29 +102,25 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
           element.$pristine = false;
         });
       }
-      $log.log($scope.articleData.date)
-      // if($scope.initial.publishDate && typeof $scope.articleData.date !== 'number') {
-      //   $scope.articleData.date = new Date($scope.articleData.date)
-      //   $scope.articleData.date = $scope.articleData.date.getTime()
-      //   $log.log($scope.initial.publishDate)
-      // // } else if($scope.articleData.date == 0) {
-      // //   $scope.articleData.date = null
-      // }
 
       // 欄位驗證通過透過Ajax送出欄位資料
-
+      if(typeof $scope.articleData.date == "object") {
+        $scope.articleData.date = $scope.articleData.date.getTime()
+      }
       if(form.$valid) {
         ngProgress.start();
-        
+        $scope.initial.submit = true;
+
         if(postPath=='update') $scope.articleData['id'] = articleID;
 
         $jsonData.postData('POST', '/admin/article/'+postPath, $scope.articleData, function(data, status) {
           ngProgress.complete();
-          // $window.location = '/admin/article/';
+          $window.location = '/admin/article/';
           // $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);
+          $scope.initial.submit = false;
           ngProgress.reset();
         });
       }
@@ -178,8 +175,13 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
       // 清除以設定的日期
       clear: function (value) {
-        value && $scope.articleData ? $scope.articleData.date = null : null;
+        value && $scope.articleData ? $scope.articleData.date = undefined : null;
       }
+    },
+
+    clearImg: function() {
+      $scope.articleData.img = null;
+      $scope.initial.preview = null;
     },
 
     fileUpLoad: function() {
@@ -188,25 +190,28 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         controller: FileManage,
         windowClass: 'file-manage',
         resolve: {
-          tabSelect: function () {
-            return "upload";
+          initial: function () {
+            return {
+              tabSelect: "folder",
+              sourceId: $scope.articleData.img,
+              preview: $scope.initial.preview
+            };
           }
         }
       });
-      fileManageModal.result.then(function(fileUrl) {
-        $scope.articleData.img = fileUrl
+      fileManageModal.result.then(function(fileData) {
+        $scope.articleData.img = fileData.id
+        $scope.initial.preview = fileData.source
       });
       // fileManageModal.opened.then(function() {});
     }
   }
 }]);
 
-var FileManage = function ($rootScope, $scope, $log, $modalInstance, tabSelect) {
-  $scope.initial = {
-    tabSelect: tabSelect,
-  }
+var FileManage = function ($rootScope, $scope, $log, $modalInstance, initial) {
+  $scope.initial = initial;
   $scope.insert = function() {
-    $modalInstance.close($rootScope.fileUrl);
+    $modalInstance.close($rootScope.fileData);
   }
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
