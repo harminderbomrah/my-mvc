@@ -1,1 +1,0 @@
-<?= render_partial("product/form") ?>

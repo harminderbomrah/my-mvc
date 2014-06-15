@@ -1,0 +1,1 @@
+<?= render_partial("admin/case/form") ?>
