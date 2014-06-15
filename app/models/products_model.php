@@ -14,6 +14,10 @@ class Products extends ModelAdapter{
       $products = self::query_db("SELECT A.id, A.title AS `name`, A.trash, B.category_id AS `category` FROM products A, products_category_mvcrelation B WHERE A.id = B.products_id ");
       if($products==null){
         $products = [];
+      }else{
+        foreach ($products as $key => $product) {
+          $products[$key]['trash'] = ($product['trash']==1) ? true : false;
+        }
       }
       return $products;
     }

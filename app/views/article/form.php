@@ -30,6 +30,22 @@
           </div>
           <div class="panel-body">
             <div class="form-group">
+              <label for="hot" class="control-label">Hot</label>
+              <div class="switch">
+                <input type="checkbox" name="hot" id="hot" class="switch-input" data-ng-model="articleData.hot">
+                <span class="switch-label"></span>
+                <span class="switch-handle"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="top" class="control-label">Top</label>
+              <div class="switch">
+                <input type="checkbox" name="top" id="top" class="switch-input" data-ng-model="articleData.top">
+                <span class="switch-label"></span>
+                <span class="switch-handle"></span>
+              </div>
+            </div>
+            <div class="form-group">
               <label for="disabled" class="control-label">Publish</label>
               <div class="switch reverse">
                 <input type="checkbox" name="disabled" id="disabled" class="switch-input" data-ng-model="articleData.disabled">
@@ -54,7 +70,7 @@
           </div>
           <div class="panel-footer text-right">
             <a class="btn btn-sm btn-default" href="/admin/article" target="_self">Cancel</a>
-            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+            <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="initial.submit">Submit</button>
           </div>
         </div>
         <div class="panel panel-default">
@@ -66,9 +82,12 @@
               <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!articleData.img"></i>
               <div class="img" data-ng-show="articleData.img">
                 <i class="fa fa-refresh fa-5x fa-fw"></i>
-                <img class="img-rounded" data-ng-src="{{articleData.img}}">
+                <img class="img-rounded" data-ng-src="{{initial.preview}}">
               </div>
             </a>
+            <div class="clearImg">
+              <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="articleData.img">Clear Image</button>
+            </div>
           </div>
         </div>
         <div class="panel panel-default">

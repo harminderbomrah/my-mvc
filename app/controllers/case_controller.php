@@ -26,13 +26,13 @@ class CaseController extends ApplicationController{
     $case = new Cases();
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
-    $case->disabled = ($this->params['disabled'] == "false" ? 1 : 0);
+    $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
+    $case->top = ($this->params['top'] == "true" ? 1 : 0);
+    $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['date']!=null){
-      $this->params['date'] = str_replace(" GMT+0800 (CST)", "", $this->params['date']);
-      $this->params['date'] = str_replace(explode(' ',$this->params['date'])[0]." ", "", $this->params['date']);
-      $case->date = gmdate('Y-m-d', strtotime($this->params['date']));
+      $case->date = date("Y-m-d", $this->params['date']/1000);
     }
-    $case->created_date = date('Y-m-d');
+    $case->created_date = date('Y-m-d-h-m-s');
     
     $case->save();
     $this->add_relations($case);
@@ -65,7 +65,9 @@ class CaseController extends ApplicationController{
       "content" => $case->content,
       "category" => (string)$case->category_relation_ids[0],
       "tag" => $tags,
-      "disabled" => $case->disabled,
+      "disabled" => ($case->disabled==1 ? true : false),
+      "top" => ($case->top==1 ? true : false),
+      "hot" => ($case->hot==1 ? true : false),
       "date" => strtotime($case->date)*1000,
       "img" => $case->img,
       "product" => $products,
@@ -85,11 +87,11 @@ class CaseController extends ApplicationController{
     $case = Cases::find($_POST['id']);
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
-    $case->disabled = ($this->params['disabled'] == "false" ? 1 : 0);
+    $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
+    $case->top = ($this->params['top'] == "true" ? 1 : 0);
+    $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['date']!=""){
-      $this->params['date'] = str_replace(" GMT+0800 (CST)", "", $this->params['date']);
-      $this->params['date'] = str_replace(explode(' ',$this->params['date'])[0]." ", "", $this->params['date']);
-      $case->date = gmdate('Y-m-d', strtotime($this->params['date']));
+      $case->date = date("Y-m-d", $this->params['date']/1000);
     }else{
       $case->date = "";
     }
@@ -97,7 +99,7 @@ class CaseController extends ApplicationController{
     $this->remove_relations($case);
     $case->save();
     $this->add_relations($case);
-    return renderJson(array("success"=>true ));
+    return renderJson(array("success"=>$case ));
   }
 
   function delete_case(){
@@ -124,7 +126,7 @@ class CaseController extends ApplicationController{
           break;
       }
     }
-    return renderJson(array("success"=>true));
+    return renderJson(array("success"=>$case->trash));
   }
   function add_relations($case){
     $case->add_relation("category",$this->params['category']);

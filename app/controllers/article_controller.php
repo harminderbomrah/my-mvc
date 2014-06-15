@@ -28,12 +28,12 @@ class ArticleController extends ApplicationController{
     $article->title = $this->params['title'];
     $article->content = $this->params['content'];
     $article->disabled = ($this->params['disabled'] == "false" ? 1 : 0);
+    $article->top = ($this->params['top'] == "true" ? 1 : 0);
+    $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['date']!=null){
-      $this->params['date'] = str_replace(" GMT+0800 (CST)", "", $this->params['date']);
-      $this->params['date'] = str_replace(explode(' ',$this->params['date'])[0]." ", "", $this->params['date']);
-      $article->date = gmdate('Y-m-d', strtotime($this->params['date']));
+      $article->date = date("Y-m-d", $this->params['date']/1000);
     }
-    $article->created_date = date('Y-m-d');
+    $article->created_date = date('Y-m-d-h-m-s');
 
     $article->save();
     $this->add_relations($article);
@@ -67,7 +67,9 @@ class ArticleController extends ApplicationController{
       "content" => $article->content,
       "category" => (string)$article->category_relation_ids[0],
       "tag" => $tags,
-      "disabled" => $article->disabled,
+      "disabled" => ($article->disabled==1) ? true : false,
+      "top" => ($article->top==1) ? true : false,
+      "hot" => ($article->hot==1) ? true : false,
       "date" => strtotime($article->date)*1000,
       "img" => $article->img,
       "product" => $products,
@@ -88,11 +90,11 @@ class ArticleController extends ApplicationController{
     $article = Articles::find($_POST['id']);
     $article->title = $this->params['title'];
     $article->content = $this->params['content'];
-    $article->disabled = ($this->params['disabled'] == "false" ? 1 : 0);
+    $article->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
+    $article->top = ($this->params['top'] == "true" ? 1 : 0);
+    $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['date']!=""){
-      $this->params['date'] = str_replace(" GMT+0800 (CST)", "", $this->params['date']);
-      $this->params['date'] = str_replace(explode(' ',$this->params['date'])[0]." ", "", $this->params['date']);
-      $article->date = gmdate('Y-m-d', strtotime($this->params['date']));
+      $article->date = date("Y-m-d", $this->params['date']/1000);
     }else{
       $article->date = "";
     }
@@ -100,7 +102,7 @@ class ArticleController extends ApplicationController{
     $this->remove_relations($article);
     $article->save();
     $this->add_relations($article);
-    return renderJson(array("success"=>true ));
+    return renderJson(array("success"=>$article->disabled ));
   }
 
   function delete_article(){
@@ -141,8 +143,8 @@ class ArticleController extends ApplicationController{
       }
     }
       
-    if($this->params[tag]!=null){
-      foreach ($this->params[tag] as $tag_id) {
+    if($this->params["tag"]!=null){
+      foreach ($this->params["tag"] as $tag_id) {
         $article->add_relation("tags",$tag_id);
       }
     }
@@ -153,8 +155,8 @@ class ArticleController extends ApplicationController{
       }
     }
     
-    if($this->params[product]!=null){
-      foreach ($this->params[product] as $products_id) {
+    if($this->params["product"]!=null){
+      foreach ($this->params["product"] as $products_id) {
         $article->add_relation("products",$products_id);
       }
     }

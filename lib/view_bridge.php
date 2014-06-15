@@ -68,7 +68,7 @@ final class redirectClass extends httpResponse{
 			if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
 			$pageURL .= "://";
 			if ($_SERVER["SERVER_PORT"] != "80") {
-				$pageURL .= $_SERVER['HTTP_HOST'].":".$_SERVER["SERVER_PORT"];
+				$pageURL .= $_SERVER['HTTP_HOST'];
 			} else {
 				$pageURL .= $_SERVER['HTTP_HOST'];
 			}

@@ -10,15 +10,16 @@ angular.module('nyfnApp.controller.main', [])
   // get list json data use $jsonData services
   $jsonData.getData('/admin/article/list').then(function(data) {
     $scope.articleList = data;
-    angular.forEach($scope.articleList, function(item, index) {
-      $scope.articleList[index].date = new Date(item.date);
-    });
+    $log.log($scope.articleList)
+    // angular.forEach($scope.articleList, function(item, index) {
+    //   $scope.articleList[index].date = new Date(item.date);
+    // });
   });
 
   // Definition main list controller scope initial
   $scope.initial = {
-    publics: 0,       // 公開以及私密的參數
-    trash: 0,         // 回收桶參數
+    publics: false,       // 公開以及私密的參數
+    trash: false,         // 回收桶參數
     allChecked: false,    // 項目全選
     checkedEach: 0,       // checkbox 圖示參數
     currentPage: 1,       // 目前分頁

@@ -15,7 +15,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
   // 檢查頁面是新增或是編輯
   var path = $window.location.pathname.split("/");
-        path = path[path.length - 1];
+      path = path[path.length - 1];
   var postPath = "create";
   var productID = "";
 
@@ -50,7 +50,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
     // 送出資料
     submit: function(form) {
-
+      $log.log(form)
       // 驗證必填欄位
 
       if(form.$error.required.length) {
@@ -68,7 +68,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
         $jsonData.postData('POST', '/admin/product/'+postPath, $scope.productData, function(data, status) {
           ngProgress.complete();
-          $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
+          // $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);
@@ -98,7 +98,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         windowClass: 'file-manage',
         resolve: {
           tabSelect: function () {
-            return "upload";
+            return "folder";
           }
         }
       });
@@ -112,7 +112,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
 var FileManage = function ($rootScope, $scope, $log, $modalInstance, tabSelect) {
   $scope.initial = {
-    tabSelect: tabSelect,
+    tabSelect: tabSelect
   }
   $scope.insert = function() {
     $modalInstance.close($rootScope.fileUrl);
