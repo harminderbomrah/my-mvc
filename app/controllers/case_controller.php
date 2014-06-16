@@ -33,10 +33,10 @@ class CaseController extends ApplicationController{
       $case->date = date("Y-m-d", $this->params['date']/1000);
     }
     $case->created_date = date('Y-m-d-h-m-s');
-    
+
     $case->save();
     $this->add_relations($case);
-    
+
     $case->add_relation("category",$this->params['category']);
     return renderJson(array("success"=>true));
   }
@@ -78,7 +78,7 @@ class CaseController extends ApplicationController{
     if($case->date=='0000-00-00 00:00:00'){
       unset($data['date']);
     }
-    
+
     $this->initial = $data;
 
     return render();
@@ -121,7 +121,7 @@ class CaseController extends ApplicationController{
           $this->remove_relations($case);
           $case->delete();
           break;
-        
+
         default:
           break;
       }
@@ -138,13 +138,13 @@ class CaseController extends ApplicationController{
         $case->add_relation("links",$l);
       }
     }
-      
+
     if($this->params[tag]!=null){
       foreach ($this->params[tag] as $tag_id) {
         $case->add_relation("tags",$tag_id);
       }
     }
-    
+
     if($this->params[product]!=null){
       foreach ($this->params[product] as $products_id) {
         $case->add_relation("products",$products_id);
@@ -166,13 +166,13 @@ class CaseController extends ApplicationController{
           $case->delete_relation("links",$link_id);
         }
       }
-      
+
       if($case->tags_relation_ids!=null){
         foreach ($case->tags_relation_ids as $tag_id) {
           $case->delete_relation("tags",$tag_id);
         }
       }
-      
+
       if($case->products_relation_ids!=null){
         foreach ($case->products_relation_ids as $products_id) {
           $case->delete_relation("products",$products_id);
