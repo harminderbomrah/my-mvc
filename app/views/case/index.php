@@ -56,7 +56,7 @@
           </label>
         </td>
         <td>{{list.date | date:'yyyy/MM/dd'}}</td>
-        <td><a href="?id={{list.id}}" target="_blink">{{list.title}}</a></td>
+        <td><a href="/case/{{list.id}}" target="_blink">{{list.title}}</a></td>
         <td class="text-center"><a class="btn btn-default btn-xs" href="edit/{{list.id}}" target="_self"><i class="fa fa-edit"></i></a></td>
       </tr>
     </tbody>

@@ -16,6 +16,8 @@ angular.module('nyfnApp.controller.main', [])
   $scope.initial = {
     publics: false,       // 公開以及私密的參數
     trash: false,         // 回收桶參數
+    hot: false,           // 熱門參數
+    top: false,           // 置頂參數
     allChecked: false,    // 項目全選
     checkedEach: 0,       // checkbox 圖示參數
     currentPage: 1,       // 目前分頁
