@@ -17,8 +17,8 @@
   <ul class="category-list">
     <li class="list-item" data-ng-repeat="item in categorys = (category | filter: {'name':keyWrod})" data-ng-class="{'editing': item.edited}">
       <span class="view">
-        <label data-ng-dblclick="action.edit(item.name, $index, $event)">{{item.name}}</label>
-        <span class="badge badge-primary">{{item.quantity}}</span>
+        <label data-ng-dblclick="action.edit(item.name, $index, $event)" data-ng-bind="item.name"></label>
+        <span class="badge badge-primary" data-ng-bind="item.quantity"></span>
         <span class="fa fa-fw fa-times pull-right" data-ng-click="action.remove(item, $index)" data-ng-show="category.length > 1"></span>
         <span class="fa fa-fw fa-pencil pull-right" data-ng-click="action.edit(item.name, $index, $event)"></span>
       </span>

@@ -38,12 +38,11 @@
             <input type="checkbox" data-ng-model="initial.allChecked" data-ng-change="action.checkAll(newList)">
           </label>
         </th>
-        <th class="list-date" ng-click="action.sorting('date')" data-ng-class="{hit:initial.orderName == 'date'}">Date <i class="fa" data-ng-show="initial.orderName == 'date'" data-ng-class="{'fa-caret-down': initial.reverse == true, 'fa-caret-up': initial.reverse == false,}"></i></th>
-        <th class="list-title" ng-click="action.sorting('title')" data-ng-class="{hit:initial.orderName == 'title'}">Title <i class="fa" data-ng-show="initial.orderName == 'title'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
-        <th class="text-center">{{filterList.length}}</th>
+        <th class="list-date" data-ng-click="action.sorting('date')" data-ng-class="{hit:initial.orderName == 'date'}">Date <i class="fa" data-ng-show="initial.orderName == 'date'" data-ng-class="{'fa-caret-down': initial.reverse == true, 'fa-caret-up': initial.reverse == false,}"></i></th>
+        <th class="list-title" data-ng-click="action.sorting('title')" data-ng-class="{hit:initial.orderName == 'title'}">Title <i class="fa" data-ng-show="initial.orderName == 'title'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
+        <th class="text-center" data-ng-bind="filterList.length"></th>
       </tr>
     </thead>
-    {{caseList}}
     <tbody>
       <tr data-ng-show="!newList.length">
         <td colspan="5" class="text-center"><strong>No case</strong></td>
@@ -55,8 +54,8 @@
             <input type="checkbox" name="list_id" value="{{list.id}}" data-ng-model="list.checked" data-ng-change="action.checkSelected($index)">
           </label>
         </td>
-        <td>{{list.date | date:'yyyy/MM/dd'}}</td>
-        <td><a href="/case/{{list.id}}" target="_blink">{{list.title}}</a></td>
+        <td data-ng-bind="list.date | date:'yyyy/MM/dd'"></td>
+        <td><a data-ng-bind="list.title" href="/case/{{list.id}}" target="_blink"></a></td>
         <td class="text-center"><a class="btn btn-default btn-xs" href="edit/{{list.id}}" target="_self"><i class="fa fa-edit"></i></a></td>
       </tr>
     </tbody>
@@ -64,7 +63,7 @@
   <div class="text-center" data-ng-show="caseList.length >= initial.pageSize">
     <pagination total-items="filterList.length" items-per-page="initial.pageSize" page="initial.currentPage" max-size="initial.maxSize" class="pagination-sm" boundary-links="true"></pagination>
   </div>
-  <alert class="text-center fade" data-ng-repeat="alert in initial.alerts" type="alert.type" close="action.alerts.close()">{{alert.msg}}</alert>
+  <alert class="text-center fade" data-ng-repeat="alert in initial.alerts" data-ng-bind="alert.msg" type="alert.type" close="action.alerts.close()"></alert>
 </div>
 <?= js_tag("app/backend/controllers/case-list.js") ?>
 <?= js_tag("plugin/chosen/chosen.jquery.js") ?>

@@ -53,9 +53,109 @@
   .modal-body {
     min-height: 400px;
     max-height: 550px;
-    padding: 30px 15px 0;
+    padding: 15px 15px 0;
     overflow-y: auto;
     overflow-x: hidden;
+    .upload {
+      .drop-zone {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        cursor: pointer;
+        &.drop-over {
+          .well {
+            border-color: $brand-primary;
+          }
+        }
+        input[type="file"] {
+          position: absolute;
+          top: -100%;
+          left: -100%;
+          visibility: hidden;
+        }
+      }
+      .upload-control {
+        @media (max-width: $screen-md-min) {
+          margin-bottom: 1em;
+        }
+      }
+      .file-list {
+        .file-list-header {
+          li {
+            padding: 5px 8px;
+            float: left;
+            border-bottom: 2px solid $gray-light;
+            &:nth-child(1) {
+              width: 10%;
+            }
+            &:nth-child(2) {
+              width: 15%;
+            }
+            &:nth-child(3) {
+              width: 10%;
+            }
+            &:nth-child(4) {
+              width: 35%;
+            }
+            &:nth-child(5) {
+              width: 10%;
+            }
+            &:nth-child(6) {
+              width: 20%;
+            }
+          }
+        }
+        .file-list-body {
+          overflow: auto;
+          @include size(100%, 300px);
+          @media (max-width: $screen-md-min) {
+            @include size(100%, 221px);
+          }
+          .file-list-item {
+            padding: 0.5em 0;
+            & + .file-list-item {
+              border-top: 1px dotted $gray-lighter;
+            }
+            & > div {
+              padding: 5px 8px;
+              float: left;
+              &:nth-child(1) {
+                width: 10%;
+                & > div {
+                  height: 50px;
+                }
+              }
+              &:nth-child(2) {
+                width: 15%;
+                strong {
+                  display: block;
+                  width: 100%;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                }
+              }
+              &:nth-child(3) {
+                width: 10%;
+              }
+              &:nth-child(4) {
+                width: 35%;
+              }
+              &:nth-child(5) {
+                width: 10%;
+              }
+              &:nth-child(6) {
+                width: 20%;
+              }
+            }
+          }
+        }
+        .file-list-queue {
+          display: block;
+          margin: 1em 0;
+        }
+      }
+    }
     .folder {
       @include flexbox();
       .file-group {
