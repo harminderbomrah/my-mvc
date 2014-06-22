@@ -115,11 +115,11 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
         $jsonData.postData('POST', '/admin/case/'+postPath, $scope.caseData, function(data, status) {
           ngProgress.complete();
-          $window.location = '/admin/case/';
-          // $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
+          // $window.location = '/admin/case/';
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);
+          $scope.initial.submit = false;
           ngProgress.reset();
         });
       }

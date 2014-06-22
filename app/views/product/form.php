@@ -52,29 +52,35 @@
             <button type="submit" class="btn btn-sm btn-primary">Submit</button>
           </div>
         </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <label>Images</label>
-          </div>
-          <div class="panel-body">
-            <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
-              <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!productData.img"></i>
-              <div class="img" data-ng-show="productData.img">
-                <i class="fa fa-refresh fa-5x fa-fw"></i>
-                <img class="img-rounded" data-ng-src="{{productData.img}}">
+        <div class="row">
+          <div class="col-lg-12 col-md-4 col-sm-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <label>Images</label>
               </div>
-            </a>
+              <div class="panel-body">
+                <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
+                  <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!productData.img"></i>
+                  <div class="img" data-ng-show="productData.img">
+                    <i class="fa fa-refresh fa-5x fa-fw"></i>
+                    <img class="img-rounded" data-ng-src="{{productData.img}}">
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <label for="tag">Tag</label>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <select class="form-control" name="tag" id="tag" data-placeholder="Choose Tag" multiple data-ng-model="productData.tag" data-ng-options="option.id as option.name for option in relationData.tag" chosen="choseOptions">
-                <option value=""></option>
-              </select>
+          <div class="col-lg-12 col-md-8 col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <label for="tag">Tag</label>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <select class="form-control" name="tag" id="tag" data-placeholder="Choose Tag" multiple data-ng-model="productData.tag" data-ng-options="option.id as option.name for option in relationData.tag" chosen="choseOptions">
+                    <option value=""></option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>

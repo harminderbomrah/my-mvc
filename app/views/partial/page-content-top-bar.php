@@ -3,11 +3,11 @@
     <div class="col-xs-12">
       <ol class="breadcrumb">
         <li><i class="fa fa-tachometer"></i><a href="/admin" target="_self"> Dashboard</a></li>
-        <li data-ng-repeat="b in locationPath" data-ng-class="{active: $last}">
-          <a href="/admin/{{b}}" data-ng-show="!$last" target="_self">
-            <span>{{b | capitalize}}</span>
+        <li data-ng-repeat="breadcrumbs in locationPath" data-ng-class="{active: $last}">
+          <a href="/admin/{{breadcrumbs}}" data-ng-show="!$last" target="_self">
+            <span data-ng-bind="breadcrumbs | capitalize"></span>
           </a>
-          <span data-ng-show="$last">{{b | capitalize}}</span>
+          <span data-ng-show="$last" data-ng-bind="breadcrumbs | capitalize"></span>
         </li>
       </ol>
     </div>
