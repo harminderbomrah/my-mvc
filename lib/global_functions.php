@@ -160,6 +160,21 @@ function render_page_specific_css(){
 	return $head;
 }
 
+function classify($class){
+	$class = ucwords($class);
+	$class = preg_replace_callback('/(?!^)_+[a-z]/', function($matches){
+		foreach ($matches as $match) {
+			return ucwords(str_replace("_", "", $match));
+		}
+	},$class);
+	return $class;
+}
+
+function tabelize($class){
+	$class = preg_replace('/(?!^)[A-Z]/', "_$0" ,$class);
+	return strtolower($class);
+}
+
 
 function mail_factory(){
 	require_once 'lib/PHPMailer/PHPMailerAutoload.php';

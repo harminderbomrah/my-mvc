@@ -29,7 +29,7 @@ include "lib/scssphp/scss.inc.php";
 
 if(DATABASE_ENABLE){
 	include "lib/dbconnections_class.php";
-	
+	include "lib/uploader.php";
 	function includeModels(){
 		$db = new dbConnect;
 		$tables = $db->table_list();

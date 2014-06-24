@@ -19,7 +19,7 @@
 		"password" : "xxxxx"
 	},
 	"session" : {
-		"enable" : true,
+		"enable" : false,
 		"user_model" : "users",
 		"login_url" : "user/login",
 		"vars" : ["id","username","name","created_time"]

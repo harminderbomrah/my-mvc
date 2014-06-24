@@ -3,19 +3,22 @@
 class ModelAdapter{
 
 	public $table;
+	public $database_name;
 	public $columns = array();
 	public $relation_columns = array();
 	public $relation_tables = array();
 	private $db;
 	private $model;
+	private $uploaders = array();
+	private $temp_uploaders;
 	private $newclass = true;
 
 	function __construct($model,$values=array()){
 		$this->db = new dbConnect;
 		$this->model = $model;
+		$this->database_name = DATABASE_NAME;
 		$string = preg_replace('/(?!^)[A-Z]/', "_$0" ,get_class($this->model));
 		$this->table = strtolower($string);
-
 		$this->columns = $this->get_columns();
 		if($values){
 			foreach ($values as $key => $value) {
@@ -23,6 +26,7 @@ class ModelAdapter{
 					$this->columns[$key] = $value;
 				}
 			}
+			$this->mount_actual_uploaders();
 		}
 	}
 
@@ -40,7 +44,7 @@ class ModelAdapter{
 
 	private function get_columns(){
 		$temp = array();
-		$columns = $this->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$this->table';");
+		$columns = $this->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$this->table' AND TABLE_SCHEMA ='$this->database_name';");
 		foreach ($columns as $column) {
 			$temp[$column['COLUMN_NAME']] = null;
 		}
@@ -60,6 +64,16 @@ class ModelAdapter{
 			if($key != "id" && !in_array($key, $this->relation_columns)){
 				if($value == "now()"){
 					$query .= "`{$key}` = ".$value.", ";
+				}elseif($value instanceof File){
+					if(array_key_exists($key, $this->uploaders)){
+						$uploader = $this->uploaders["{$key}"];
+						$uploader_instance = new $uploader($value,get_class($this->model),$this->id);
+						$value = $uploader_instance->get_file_name();
+						$query .= "`{$key}` = '".$value."', ";
+						unset($uploader_instance);
+					}else{
+						throw new Exception("Invalid uploader.");
+					}
 				}else{
 					$query .= "`{$key}` = '".$value."', ";
 				}
@@ -79,6 +93,17 @@ class ModelAdapter{
 				$q1 .= "`{$key}` , ";
 				if($value == "now()"){
 					$q2 .= $value.", ";
+				}elseif($value instanceof File){
+					if(array_key_exists($key, $this->uploaders)){
+						$uploader = $this->uploaders["{$key}"];
+						$status = $this->query("SHOW TABLE STATUS LIKE '{$this->table}'");
+						$uploader_instance = new $uploader($value,get_class($this->model),$status[0]["Auto_increment"]);
+						$value = $uploader_instance->get_file_name();
+						unset($uploader_instance);
+						$q2 .= "'".$value."', ";
+					}else{
+						throw new Exception("Invalid uploader.");
+					}
 				}else{
 					$q2 .= "'".$value."', ";
 				}
@@ -265,6 +290,7 @@ class ModelAdapter{
 			foreach ($results as $key => $value) {
 				$this->{$key} = $value;
 			}
+			$this->mount_actual_uploaders();
 			if($this->set_relation_values()){
 				return true;
 			}else{
@@ -301,6 +327,40 @@ class ModelAdapter{
 
 	public function query($query){
 		return $this->db->query($query);
+	}
+
+	private function mount_actual_uploaders(){
+		foreach ($this->temp_uploaders as $column => $uploader){
+			$file = UPLOADER_PATH . $uploader . "_uploader.php";
+			if(file_exists($file)){
+				$uploader_file = $uploader . "_uploader";
+				$class = classify($uploader_file);
+				if(!class_exists($class)){
+					require $file;
+					if(!class_exists($class)){
+						throw new Exception("Cannot find uploader class {$class}", 1);
+					}else{
+						$this->set_uploaders($column,$class);
+					}
+				}else{
+					$this->set_uploaders($column,$class);
+				}
+			}else{
+				throw new Exception("Cannot find uploader {$uploader}", 1);
+			}
+		}
+	}
+
+	public function mount_uploaders($uploaders){
+		$this->temp_uploaders = $uploaders;
+	}
+
+	private function set_uploaders($column,$uploader){
+		$this->uploaders["{$column}"] = $uploader;
+		if($this->{$column} != null && !$this->{$column} instanceof File){
+			$uploader_instance = new $uploader(null,get_class($this->model),$this->id);
+			$this->{$column} = $uploader_instance->get_file($this->{$column});
+		}
 	}
 
 	function __destruct(){

@@ -1,5 +1,5 @@
 <?php
   session_start();
-  include "inc/include.php";
+  include "lib/include.php";
   $_REQUEST = new Routes();
 ?>

@@ -20,11 +20,14 @@
 		$user->add_relation("<model name>",id|object)
 		$user->delete_relation("<model name>",id|object)
 
+	* use $this->mount_uploaders(array("<column name>"=>"<uploader name>"));
+
 */
 
 
 class Users extends ModelAdapter{
     function __construct($values=array()){
+    	$this->mount_uploaders(array("image"=>"user_avatar"));
         parent::__construct($this,$values);
     }
 }
