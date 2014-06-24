@@ -48,6 +48,19 @@
 			}
 		]
 	}, {
+		"name": "Slide",
+		"link": "slide",
+		"icon": "fa-picture-o",
+		"child": [
+			{
+				"name": "List",
+				"link": ""
+			}, {
+				"name": "Add New",
+				"link": "new"
+			}
+		]
+	}, {
 		"name": "Tags",
 		"link": "tags",
 		"icon": "fa-tags"

@@ -200,7 +200,7 @@ angular.module('nyfnApp.controller.main', [])
         ngProgress.complete();
       }, function(data, status) {
         toastr.error('Oops! There is something wrong whit server');
-        $log.warn('Article [', value ,'] is wrong');
+        $log.warn('Article', $scope.initial.selection, 'is wrong');
         ngProgress.reset();
       });
     }

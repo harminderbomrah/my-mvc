@@ -200,13 +200,13 @@ angular.module('nyfnApp.controller.main', [])
         msg = "Article move to trash";
       }
       ngProgress.start();
-      $jsonData.postData('POST', '/admin/article/delete', {action: type,ids: $scope.initial.selection}, function(data, status) {
+      $jsonData.postData('POST', '/admin/article/delete', {action: type, ids: $scope.initial.selection}, function(data, status) {
         toastr.success(msg);
         $scope.action.deselect(undo);
         ngProgress.complete();
       }, function(data, status) {
         toastr.error('Oops! There is something wrong whit server');
-        $log.warn('Article [', value ,'] is wrong');
+        $log.warn('Article', $scope.initial.selection, 'is wrong');
         ngProgress.reset();
       });
     }

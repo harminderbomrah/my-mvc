@@ -43,6 +43,14 @@
     'product#product_list' => array('admin/product/list'),
     'product#index' => array('admin/product/{page_no}','admin/product'),
 
+    'slide#new_slide' => array('admin/slide/new'),
+    'slide#create' => array('admin/slide/create'),
+    'slide#edit_slide' => array('admin/slide/edit/{id}'),
+    'slide#update' => array('admin/slide/update'),
+    'slide#delete_slide' => array('admin/slide/delete'),
+    'slide#slide_list' => array('admin/slide/list'),
+    'slide#index' => array('admin/slide/{page_no}','admin/slide'),
+
     'category#index' => array('admin/{type}/category'),
     'category#new_category' => array('admin/{type}/category/new'),
     'category#edit_category' => array('admin/{type}/category/edit'),

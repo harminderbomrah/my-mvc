@@ -5,19 +5,17 @@
 angular.module('nyfnApp.controller.main', [])
 
 // Main List controller
-.controller('caseList', ['$scope', '$timeout', '$log', '$location', '$window', '$modal', '$jsonData', 'ngProgress', function($scope, $timeout, $log, $location, $window, $modal, $jsonData, ngProgress) {
+.controller('slideList', ['$scope', '$timeout', '$log', '$location', '$window', '$modal', '$jsonData', 'ngProgress', function($scope, $timeout, $log, $location, $window, $modal, $jsonData, ngProgress) {
 
   // get list json data use $jsonData services
-  $jsonData.getData('/admin/case/list').then(function(data) {
-    $scope.caseList = data;
+  $jsonData.getData('/admin/slide/list').then(function(data) {
+    $scope.slideList = data;
   });
 
   // Definition main list controller scope initial
   $scope.initial = {
     publics: false,       // 公開以及私密的參數
     trash: false,         // 回收桶參數
-    hot: false,           // 熱門參數
-    top: false,           // 置頂參數
     allChecked: false,    // 項目全選
     checkedEach: 0,       // checkbox 圖示參數
     currentPage: 1,       // 目前分頁
@@ -27,12 +25,7 @@ angular.module('nyfnApp.controller.main', [])
     listLength: [],       // 每頁分頁狀態陣列(提供判斷選取框是否勾選用)
     orderName: "date",    // 預設的排序參數
     reverse: true,        // 預設的排序方向
-    alerts: [],           // 提供action.alerts使用的陣列
-    choseOptions: {       // Chose Options
-      'allow_single_deselect': true,
-      'width': '200px',
-      'classes': 'chosen-sm'
-    }
+    alerts: []            // 提供action.alerts使用的陣列
   };
 
   // 將資料庫來源的參數與 $scope.initial 合併
@@ -43,7 +36,7 @@ angular.module('nyfnApp.controller.main', [])
   // 監看 $scope.initial.currentPage 當參數變動時會將先的參數回傳至網址列
   // 並且會將該頁的項目選取狀態存入$scope.initial.checkedEach , $scope.initial.allChecked 和 $scope.initial.listLength
   $scope.$watch('initial.currentPage', function(page_no) {
-    $location.path("admin/case/" + String(page_no));
+    $location.path("admin/slide/" + String(page_no));
     var leng = page_no - 1
     if($scope.initial.listLength[leng]) {
       $scope.initial.checkedEach = $scope.initial.listLength[leng]
@@ -53,11 +46,6 @@ angular.module('nyfnApp.controller.main', [])
       $scope.initial.allChecked = false;
     }
   });
-
-  // 監看 $scope.initial.category 如有值為 null 將會轉換為 undefined
-  $scope.$watch('initial.category', function(category) {
-    category == null ? $scope.initial.category = undefined : "";
-  })
 
   // 監看瀏覽器網址列是否改變
   $scope.$on("$locationChangeSuccess", function(event, newUrl, oldUrl) {
@@ -127,10 +115,10 @@ angular.module('nyfnApp.controller.main', [])
     deselect: function(undo) {
       angular.forEach($scope.initial.selection, function(element) {
         var mainElement = element;
-        angular.forEach($scope.caseList, function(element, index) {
+        angular.forEach($scope.slideList, function(element, index) {
           if(mainElement == element.id) {
             if($scope.initial.trash) {
-              undo ? element.checked = element.trash = false : $scope.caseList.splice(index, 1)
+              undo ? element.checked = element.trash = false : $scope.slideList.splice(index, 1)
             } else {
               element.trash = true;
               element.checked = false;
@@ -187,23 +175,23 @@ angular.module('nyfnApp.controller.main', [])
       if($scope.initial.trash) {
         if(undo) {
           type = "undo";
-          msg = "case is revert";
+          msg = "Slide is revert";
         } else {
           type = "delete";
-          msg = "case is delete";
+          msg = "Slide is delete";
         }
       } else {
         type = "trash";
-        msg = "case move to trash";
+        msg = "Slide move to trash";
       }
       ngProgress.start();
-      $jsonData.postData('POST', '/admin/case/delete', {action: type, ids: $scope.initial.selection}, function(data, status) {
+      $jsonData.postData('POST', '/admin/slide/delete', {action: type, ids: $scope.initial.selection}, function(data, status) {
         toastr.success(msg);
         $scope.action.deselect(undo);
         ngProgress.complete();
       }, function(data, status) {
         toastr.error('Oops! There is something wrong whit server');
-        $log.warn('case', $scope.initial.selection, 'is wrong');
+        $log.warn('Slide', $scope.initial.selection, 'is wrong');
         ngProgress.reset();
       });
     }

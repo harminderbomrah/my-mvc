@@ -10,7 +10,7 @@
     color: lighten(#a7aeb9, 20%);
     th {
       font-weight: 400;
-      &:nth-of-type(1n+4){
+      &:last-child {
         width: 3rem;
       }
       &.list-check {
@@ -19,6 +19,9 @@
       &.list-date {
         width: 8rem;
         cursor: pointer;
+      }
+      &.list-image {
+        width: 200px;
       }
       &.list-disabled {
         white-space: nowrap;
