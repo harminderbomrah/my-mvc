@@ -5,13 +5,15 @@
     color: #e0e2e6; }
     .main-list thead th {
       font-weight: 400; }
-      .main-list thead th:nth-of-type(1n+4) {
+      .main-list thead th:last-child {
         width: 3rem; }
       .main-list thead th.list-check {
         width: 2rem; }
       .main-list thead th.list-date {
         width: 8rem;
         cursor: pointer; }
+      .main-list thead th.list-image {
+        width: 200px; }
       .main-list thead th.list-disabled {
         white-space: nowrap; }
       .main-list thead th.list-title {
