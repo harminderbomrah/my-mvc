@@ -56,14 +56,28 @@
             <div class="form-group">
               <label for="publishDate" class="control-label">Publish date</label>
               <div class="switch">
-                <input type="checkbox" name="publishDate" id="publishDate" class="switch-input" data-ng-model="initial.publishDate" data-ng-click="action.datepicker.clear(initial.publishDate)">
+                <input type="checkbox" name="publishDate" id="publishDate" class="switch-input" data-ng-model="initial.publishDate" data-ng-click="action.datepicker.clear(initial.publishDate, 'publish')">
                 <span class="switch-label"></span>
                 <span class="switch-handle"></span>
               </div>
               <div class="input-group" data-ng-class="{'hide': !initial.publishDate, 'has-error': caseForm.date.$invalid && !caseForm.date.$pristine}">
-                <input type="text" name="date" class="form-control" data-ng-model="caseData.date" data-ng-required="initial.publishDate" is-open="opened" min="initial.today" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
+                <input type="text" name="date" class="form-control" data-ng-model="caseData.date" data-ng-required="initial.publishDate" is-open="openedPuplish" min="initial.today" max="caseData.endDate" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
-                  <button class="btn btn-default" data-ng-click="action.datepicker.open($event)"><i class="fa fa-calendar"></i></button>
+                  <button class="btn btn-default" data-ng-click="action.datepicker.open($event, 'publish')"><i class="fa fa-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="endDate" class="control-label">End date</label>
+              <div class="switch">
+                <input type="checkbox" name="endDate" id="endDate" class="switch-input" data-ng-model="initial.endDate" data-ng-click="action.datepicker.clear(initial.endDate, 'end')">
+                <span class="switch-label"></span>
+                <span class="switch-handle"></span>
+              </div>
+              <div class="input-group" data-ng-class="{'hide': !initial.endDate, 'has-error': caseForm.endDate.$invalid && !caseForm.endDate.$pristine}">
+                <input type="text" name="endDate" class="form-control" data-ng-disabled="!initial.publishDate" data-ng-model="caseData.endDate" data-ng-required="initial.endDate" is-open="openedEnd" min="caseData.date" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
+                <span class="input-group-btn">
+                  <button class="btn btn-default" data-ng-disabled="!initial.publishDate" data-ng-click="action.datepicker.open($event, 'end')"><i class="fa fa-calendar"></i></button>
                 </span>
               </div>
             </div>
