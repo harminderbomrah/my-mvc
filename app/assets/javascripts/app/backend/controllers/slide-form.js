@@ -28,6 +28,11 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
       date ? $scope.initial.publishDate = true : null
     });
 
+    // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.endDate 設定為 true
+    $scope.$watch('slideData.endDate', function(date) {
+      date ? $scope.initial.endDate = true : null
+    });
+
     postPath = "update";
     slideID = path;
   }
@@ -107,6 +112,12 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
       if(typeof $scope.slideData.date == "object") {
         $scope.slideData.date = $scope.slideData.date.getTime()
       }
+
+      // 欄位驗證通過透過Ajax送出欄位資料
+      if(typeof $scope.slideData.endDate == "object") {
+        $scope.slideData.endDate = $scope.slideData.endDate.getTime()
+      }
+
       if(form.$valid) {
         ngProgress.start();
         $scope.initial.submit = true;
@@ -166,15 +177,27 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     datepicker: {
 
       // 打開 datapick window
-      open: function($event) {
+      open: function($event, type) {
         $event.preventDefault();
         $event.stopPropagation();
-        $scope.opened = true;
+        if(type == 'publish') {
+          $scope.openedPuplish = true;
+          $scope.openedEnd = false;
+        } else if(type == 'end') {
+          $scope.openedPuplish = false;
+          $scope.openedEnd = true;
+        }
       },
 
       // 清除以設定的日期
-      clear: function (value) {
-        value && $scope.slideData ? $scope.slideData.date = undefined : null;
+      clear: function (value, type) {
+        if(value && $scope.slideData) {
+          if(type == 'publish') {
+            $scope.slideData.date = undefined
+          } else if(type == 'end') {
+            $scope.slideData.endDate = undefined
+          }
+        };
       }
     },
 
