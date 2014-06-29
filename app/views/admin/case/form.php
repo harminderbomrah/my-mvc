@@ -60,8 +60,8 @@
                 <span class="switch-label"></span>
                 <span class="switch-handle"></span>
               </div>
-              <div class="input-group" data-ng-class="{'hide': !initial.publishDate, 'has-error': caseForm.date.$invalid && !caseForm.date.$pristine}">
-                <input type="text" name="date" class="form-control" data-ng-model="caseData.date" data-ng-required="initial.publishDate" is-open="openedPuplish" min="initial.today" max="caseData.endDate" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
+              <div class="input-group" data-ng-class="{'hide': !initial.publishDate, 'has-error': caseForm.publishDate.$invalid && !caseForm.publishDate.$pristine}">
+                <input type="text" name="date" class="form-control" data-ng-model="caseData.publishDate" data-ng-required="initial.publishDate" is-open="openedPuplish" min="initial.today" max="caseData.endDate" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
                   <button class="btn btn-default" data-ng-click="action.datepicker.open($event, 'publish')"><i class="fa fa-calendar"></i></button>
                 </span>
@@ -75,7 +75,7 @@
                 <span class="switch-handle"></span>
               </div>
               <div class="input-group" data-ng-class="{'hide': !initial.endDate, 'has-error': caseForm.endDate.$invalid && !caseForm.endDate.$pristine}">
-                <input type="text" name="endDate" class="form-control" data-ng-disabled="!initial.publishDate" data-ng-model="caseData.endDate" data-ng-required="initial.endDate" is-open="openedEnd" min="caseData.date" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
+                <input type="text" name="endDate" class="form-control" data-ng-disabled="!initial.publishDate" data-ng-model="caseData.endDate" data-ng-required="initial.endDate" is-open="openedEnd" min="caseData.publishDate" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
                   <button class="btn btn-default" data-ng-disabled="!initial.publishDate" data-ng-click="action.datepicker.open($event, 'end')"><i class="fa fa-calendar"></i></button>
                 </span>
