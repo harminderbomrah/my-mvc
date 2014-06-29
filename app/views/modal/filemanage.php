@@ -88,7 +88,7 @@
           <tbody>
             <tr class="file-bundle" data-ng-repeat="files in fileGroup">
               <td class="file-content" data-ng-repeat="file in files" data-ng-click="action.source(file)" data-ng-class="{'active': file.checked}">
-                <img data-ng-src="{{action.thumbnail(file, 'small')}}" alt="{{file.name}}">
+                <img data-ng-src="{{file.source.medium}}" alt="{{file.name}}">
               </td>
             </tr>
           </tbody>

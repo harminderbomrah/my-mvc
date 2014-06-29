@@ -30,8 +30,11 @@ class ArticleController extends ApplicationController{
     $article->disabled = ($this->params['disabled'] == "false" ? 1 : 0);
     $article->top = ($this->params['top'] == "true" ? 1 : 0);
     $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
-    if($this->params['date']!=null){
-      $article->date = date("Y-m-d", $this->params['date']/1000);
+    if($this->params['publishDate']!=null){
+      $article->publishDate = date("Y-m-d", $this->params['publishDate']/1000);
+    }
+    if($this->params['ednDate']!=null){
+      $article->ednDate = date("Y-m-d", $this->params['ednDate']/1000);
     }
     $article->created_date = date('Y-m-d-h-m-s');
 
@@ -70,15 +73,20 @@ class ArticleController extends ApplicationController{
       "disabled" => ($article->disabled==1) ? true : false,
       "top" => ($article->top==1) ? true : false,
       "hot" => ($article->hot==1) ? true : false,
-      "date" => strtotime($article->date)*1000,
+      "publishDate" => strtotime($article->publishDate)*1000,
+      "endDate" => strtotime($article->endDate)*1000,
       "img" => $article->img,
       "product" => $products,
       "case" => $cases,
       "link" => $links
     );
 
-    if($article->date=='0000-00-00 00:00:00'){
-      unset($data['date']);
+    if($article->endDate=='0000-00-00 00:00:00'){
+      unset($data['endDate']);
+    }
+
+    if($article->publishDate=='0000-00-00 00:00:00'){
+      unset($data['publishDate']);
     }
     
     $this->initial = $data;
@@ -93,10 +101,15 @@ class ArticleController extends ApplicationController{
     $article->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $article->top = ($this->params['top'] == "true" ? 1 : 0);
     $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
-    if($this->params['date']!=""){
-      $article->date = date("Y-m-d", $this->params['date']/1000);
+    if($this->params['publishDate']!=""){
+      $article->publishDate = date("Y-m-d", $this->params['publishDate']/1000);
     }else{
-      $article->date = "";
+      $article->publishDate = "";
+    }
+    if($this->params['endDate']!=""){
+      $article->endDate = date("Y-m-d", $this->params['endDate']/1000);
+    }else{
+      $article->endDate = "";
     }
 
     $this->remove_relations($article);

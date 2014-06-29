@@ -33,7 +33,9 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
 // File Manage controller
 .controller('fileManage', ['$rootScope', '$scope', '$log', '$fileUploader', function($rootScope, $scope, $log, $fileUploader) {
 
-  $scope.filejson = {};
+  $scope.filejson = {
+    file: []
+  };
   $rootScope.fileData = {
     source: null,
     id: null
@@ -68,7 +70,7 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
       return false;
     }
   });
-
+  
   $scope.action = {
     regroup: function(value, col) {
       var set = [];
@@ -104,7 +106,7 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
   // Creates a uploader
   var uploader = $scope.uploader = $fileUploader.create({
     scope: $scope,
-    url: '/admin'
+    url: '/admin/assets/new'
   });
   // ADDING FILTERS
 
@@ -117,37 +119,58 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
   // });
 
   // REGISTER HANDLERS
-  uploader.bind('afteraddingfile', function (event, item) {
-    console.info('After adding a file', item);
-  });
-  uploader.bind('whenaddingfilefailed', function (event, item) {
-    console.info('When adding a file failed', item);
-  });
-  uploader.bind('afteraddingall', function (event, items) {
-    console.info('After adding all files', items);
-  });
-  uploader.bind('beforeupload', function (event, item) {
-    console.info('Before upload', item);
-  });
-  uploader.bind('progress', function (event, item, progress) {
-    console.info('Progress: ' + progress, item);
-  });
+    // uploader.bind('afteraddingfile', function (event, item) {
+    //   console.info('After adding a file', item);
+    // });
+    // uploader.bind('whenaddingfilefailed', function (event, item) {
+    //   console.info('When adding a file failed', item);
+    // });
+    // uploader.bind('afteraddingall', function (event, items) {
+    //   console.info('After adding all files', items);
+    // });
+    // uploader.bind('beforeupload', function (event, item) {
+    //   console.info('Before upload', item);
+    // });
+    // uploader.bind('progress', function (event, item, progress) {
+    //   console.info('Progress: ' + progress, item);
+    // });
   uploader.bind('success', function (event, xhr, item, response) {
-    console.info('Success', xhr, item, response);
+    $log.log(response)
+    $scope.filejson.file.push(response)
+    $log.log($scope.windowWidth, $scope.filejson.file)
+    if($scope.windowWidth < $rootScope.screen.xs) {
+      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 1);
+      return false;
+    } else if ($scope.windowWidth > $rootScope.screen.xs && $scope.windowWidth < $rootScope.screen.sm) {
+      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 3);
+      return false;
+    } else if ($scope.windowWidth > $rootScope.screen.sm && $scope.windowWidth < $rootScope.screen.mb) {
+      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 4);
+      return false;
+    } else if ($scope.windowWidth > $rootScope.screen.mb && $scope.windowWidth < $rootScope.screen.lg) {
+      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 5);
+      return false;
+    } else if ($scope.windowWidth > $rootScope.screen.lg && $scope.windowWidth < 1440) {
+      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 6);
+      return false;
+    } else {
+      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 10);
+      return false;
+    }
   });
-  uploader.bind('cancel', function (event, xhr, item) {
-    console.info('Cancel', xhr, item);
-  });
-  uploader.bind('error', function (event, xhr, item, response) {
-    console.info('Error', xhr, item, response);
-  });
-  uploader.bind('complete', function (event, xhr, item, response) {
-    console.info('Complete', xhr, item, response);
-  });
-  uploader.bind('progressall', function (event, progress) {
-    console.info('Total progress: ' + progress);
-  });
-  uploader.bind('completeall', function (event, items) {
-    console.info('Complete all', items);
-  });
+  // uploader.bind('cancel', function (event, xhr, item) {
+  //   console.info('Cancel', xhr, item);
+  // });
+  // uploader.bind('error', function (event, xhr, item, response) {
+  //   console.info('Error', xhr, item, response);
+  // });
+  // uploader.bind('complete', function (event, xhr, item, response) {
+  //   console.info('Complete', xhr, item, response);
+  // });
+  // uploader.bind('progressall', function (event, progress) {
+  //   console.info('Total progress: ' + progress);
+  // });
+  // uploader.bind('completeall', function (event, items) {
+  //   console.info('Complete all', items);
+  // });
 }]);

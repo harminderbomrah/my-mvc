@@ -29,8 +29,11 @@ class CaseController extends ApplicationController{
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
-    if($this->params['date']!=null){
-      $case->date = date("Y-m-d", $this->params['date']/1000);
+    if($this->params['publishDate']!=null){
+      $case->publishDate = date("Y-m-d", $this->params['publishDate']/1000);
+    }
+    if($this->params['ednDate']!=null){
+      $case->ednDate = date("Y-m-d", $this->params['ednDate']/1000);
     }
     $case->created_date = date('Y-m-d-h-m-s');
 
@@ -68,15 +71,20 @@ class CaseController extends ApplicationController{
       "disabled" => ($case->disabled==1 ? true : false),
       "top" => ($case->top==1 ? true : false),
       "hot" => ($case->hot==1 ? true : false),
-      "date" => strtotime($case->date)*1000,
+      "publishDate" => strtotime($case->publishDate)*1000,
+      "endDate" => strtotime($case->endDate)*1000,
       "img" => $case->img,
       "product" => $products,
       "Article" => $articles,
       "link" => $links
     );
 
-    if($case->date=='0000-00-00 00:00:00'){
-      unset($data['date']);
+    if($case->endDate=='0000-00-00 00:00:00'){
+      unset($data['endDate']);
+    }
+    
+    if($case->publishDate=='0000-00-00 00:00:00'){
+      unset($data['publishDate']);
     }
 
     $this->initial = $data;
@@ -90,10 +98,15 @@ class CaseController extends ApplicationController{
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
-    if($this->params['date']!=""){
-      $case->date = date("Y-m-d", $this->params['date']/1000);
+    if($this->params['publishDate']!=""){
+      $case->publishDate = date("Y-m-d", $this->params['publishDate']/1000);
     }else{
-      $case->date = "";
+      $case->publishDate = "";
+    }
+    if($this->params['endDate']!=""){
+      $case->endDate = date("Y-m-d", $this->params['endDate']/1000);
+    }else{
+      $case->endDate = "";
     }
 
     $this->remove_relations($case);
