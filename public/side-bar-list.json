@@ -64,5 +64,9 @@
 		"name": "Tags",
 		"link": "tags",
 		"icon": "fa-tags"
+	}, {
+		"name": "Site Setting",
+		"link": "setting",
+		"icon": "fa-cogs"
 	}
 ]
