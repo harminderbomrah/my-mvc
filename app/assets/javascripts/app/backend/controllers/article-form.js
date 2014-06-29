@@ -24,7 +24,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
-    $scope.$watch('articleData.date', function(date) {
+    $scope.$watch('articleData.publishDate', function(date) {
       date ? $scope.initial.publishDate = true : null
     });
 
@@ -109,8 +109,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       }
 
       // 欄位驗證通過透過Ajax送出欄位資料
-      if(typeof $scope.articleData.date == "object") {
-        $scope.articleData.date = $scope.articleData.date.getTime()
+      if(typeof $scope.articleData.publishDate == "object") {
+        $scope.articleData.publishDate = $scope.articleData.publishDate.getTime()
       }
 
       // 欄位驗證通過透過Ajax送出欄位資料
@@ -193,7 +193,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       clear: function (value, type) {
         if(value && $scope.articleData) {
           if(type == 'publish') {
-            $scope.articleData.date = undefined
+            $scope.articleData.publishDate = undefined
           } else if(type == 'end') {
             $scope.articleData.endDate = undefined
           }

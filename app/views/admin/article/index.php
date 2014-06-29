@@ -38,7 +38,7 @@
             <input type="checkbox" data-ng-model="initial.allChecked" data-ng-change="action.checkAll(newList)">
           </label>
         </th>
-        <th class="list-date" data-ng-click="action.sorting('date')" data-ng-class="{hit:initial.orderName == 'date'}">Date <i class="fa" data-ng-show="initial.orderName == 'date'" data-ng-class="{'fa-caret-down': initial.reverse == true, 'fa-caret-up': initial.reverse == false,}"></i></th>
+        <th class="list-date" data-ng-click="action.sorting('publishDate')" data-ng-class="{hit:initial.orderName == 'publishDate'}">Date <i class="fa" data-ng-show="initial.orderName == 'publishDate'" data-ng-class="{'fa-caret-down': initial.reverse == true, 'fa-caret-up': initial.reverse == false,}"></i></th>
         <th class="list-title" data-ng-click="action.sorting('title')" data-ng-class="{hit:initial.orderName == 'title'}">Title <i class="fa" data-ng-show="initial.orderName == 'title'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
         <th class="text-center" data-ng-bind="filterList.length"></th>
       </tr>
@@ -55,7 +55,7 @@
             <input type="checkbox" name="list_id" value="{{list.id}}" data-ng-model="list.checked" data-ng-change="action.checkSelected($index)">
           </label>
         </td>
-        <td data-ng-bind="list.date | date:'yyyy/MM/dd'"></td>
+        <td data-ng-bind="list.publishDate | date:'yyyy/MM/dd'"></td>
         <td><a data-ng-bind="list.title" href="/article/{{list.id}}" target="_blink"></a></td>
         <td class="text-center"><a class="btn btn-default btn-xs" href="edit/{{list.id}}" target="_self"><i class="fa fa-edit"></i></a></td>
         <!-- <td class="text-center">
