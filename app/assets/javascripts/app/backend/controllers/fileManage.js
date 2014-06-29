@@ -49,7 +49,7 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
 
   $scope.$watch('windowWidth', function(width) {
     if(width < $rootScope.screen.xs) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 2);
+      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 1);
       return false;
     } else if (width > $rootScope.screen.xs && width < $rootScope.screen.sm) {
       $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 3);
@@ -68,7 +68,7 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
       return false;
     }
   });
-  
+
   $scope.action = {
     regroup: function(value, col) {
       var set = [];
@@ -82,17 +82,11 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
     },
     thumbnail: function(value, size) {
       var source = null;
-      if(value.class == "image") {
-        var src = null
-        angular.forEach(value.source, function(v, k) {
-          if(k == size) {
-            src = v
-          }
-        })
-        source = $scope.filejson.location + value.class + '/' + src + '.' + value.type
-      } else {
-        source = $scope.filejson.location + 'icon/' + value.type + '.png'
-      }
+      angular.forEach(value.source, function(v, k) {
+        if(k == size) {
+          source = v
+        }
+      });
       return source
     },
     source: function(value) {
@@ -100,11 +94,7 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
         element.id == value.id ? element.checked = true : element.checked = false
       })
       var source = null;
-      if(value.class == "image") {
-        source = $scope.filejson.location + value.class + '/' + value.source.large + '.' + value.type
-      } else {
-        source = $scope.filejson.location + value.class + '/' + value.source + '.' + value.type
-      }
+      source = value.source.large;
       $rootScope.fileData.source = source
       $rootScope.fileData.id = value.id
     }
