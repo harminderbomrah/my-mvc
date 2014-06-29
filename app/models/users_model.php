@@ -27,7 +27,6 @@
 
 class Users extends ModelAdapter{
     function __construct($values=array()){
-    	$this->mount_uploaders(array("image"=>"user_avatar"));
         parent::__construct($this,$values);
     }
 }

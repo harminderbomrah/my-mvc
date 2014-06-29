@@ -117,7 +117,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       if(typeof $scope.articleData.endDate == "object") {
         $scope.articleData.endDate = $scope.articleData.endDate.getTime()
       }
-
       if(form.$valid) {
         ngProgress.start();
         $scope.initial.submit = true;

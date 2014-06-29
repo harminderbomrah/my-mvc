@@ -17,6 +17,7 @@
     'admin#index' => array('admin'),
 
     // backend
+    'admin/assets#new_asset' => array('admin/assets/new'),
     'admin#get_relation_data' => array('admin/{type}/get_relation_data'),
 
     'admin/slide#new_slide' => array('admin/slide/new'),
