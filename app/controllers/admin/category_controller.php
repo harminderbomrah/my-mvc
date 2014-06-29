@@ -4,7 +4,7 @@ class CategoryController extends ApplicationController{
   var $controller_layout = "admin";
   function index() {
     $this->category = Category::all_with_quantity($this->params['type']);
-    return render(array('view'=>$this->params['type'].'/category'));
+    return render(array('view'=>'admin/'.$this->params['type'].'/category'));
   }
 
   function new_category(){
