@@ -61,6 +61,9 @@
     'tags#edit_tag' => array('admin/tags/edit'),
     'tags#delete_tag' => array('admin/tags/delete'),
 
+    'setting#index' => array('admin/setting'),
+    'setting#update' => array('admin/setting/update'),
+
     'modal#filemanage' => array('modal/filemanage'),
     'modal#delete_confirm' => array('modal/confirm'),
     'modal#delete_category' => array('modal/category'),
