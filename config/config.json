@@ -1,7 +1,8 @@
 {
 	"site" : {
 		"title" : "Site",
-		"production_mode" : false
+		"production_mode" : false,
+		"directory" : ""
 	},
 	"debug" : false,
 	"database" : {

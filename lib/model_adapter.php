@@ -10,7 +10,7 @@ class ModelAdapter{
 	private $db;
 	private $model;
 	private $uploaders = array();
-	private $temp_uploaders;
+	private $temp_uploaders = array();
 	private $newclass = true;
 
 	function __construct($model,$values=array()){

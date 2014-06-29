@@ -46,36 +46,41 @@ if(!function_exists("get_called_class")){
 
 
 function js_tag($js){
+	$site_directory = (defined("SITE_DIRECTORY") ? SITE_DIRECTORY : "");
 	if(filter_var($js, FILTER_VALIDATE_URL)){
-		return '<script type="text/javascript" src="'.$js.'"></script>';
+		return "<script type='text/javascript' src='".$js."''></script>";
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."javascripts/".$js)){
-		return '<script type="text/javascript" src="'.ASSETS."javascripts/".$js.'"></script>';
+		return "<script type='text/javascript' src='".$site_directory.ASSETS."javascripts/".$js."''></script>";
 	}else if(substr($js,0,2)=="//"){
-		return '<script type="text/javascript" src="'.$js.'"></script>';
+		return "<script type='text/javascript' src='".$js."'></script>";
 	}
 }
 
 function css_tag($css){
-	$extension = explode(".",$css)[1];
+	$site_directory = (defined("SITE_DIRECTORY") ? SITE_DIRECTORY : "");
+	$extension = explode(".",$css);
+	$extension = end($extension);
 	if(filter_var($css, FILTER_VALIDATE_URL)){
 		return '<link href="'.$css.'" rel="stylesheet" />';
 	}else if($extension == "scss" || $extension == "sass"){
 		return '<link rel="stylesheet" href="'.parse_scss($css,$extension).'" />';
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
-		return '<link rel="stylesheet" href="'.ASSETS."stylesheets/".$css.'" />';
+		return '<link rel="stylesheet" href="'.$site_directory.ASSETS."stylesheets/".$css.'" />';
 	}else if(substr($css,0,2)=="//"){
 		return '<link href="'.$css.'" rel="stylesheet" />';
 	}
 }
 
 function content_css_tag($css){
-	$extension = explode(".",$css)[1];
+	$site_directory = (defined("SITE_DIRECTORY") ? SITE_DIRECTORY : "");
+	$extension = explode(".",$css);
+	$extension = end($extension);
 	if(filter_var($css, FILTER_VALIDATE_URL)){
 		array_push(ViewAdapter::$content_stylesheets, $css);
 	}else if($extension == "scss" || $extension == "sass"){
 		array_push(ViewAdapter::$content_stylesheets, parse_scss($css,$extension));
 	}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."stylesheets/".$css)){
-		array_push(ViewAdapter::$content_stylesheets, ASSETS."stylesheets/".$css);
+		array_push(ViewAdapter::$content_stylesheets, $site_directory.ASSETS."stylesheets/".$css);
 	}else if(substr($css,0,2)=="//"){
 		array_push(ViewAdapter::$content_stylesheets,$css);
 	}
@@ -111,6 +116,7 @@ function parse_scss($css,$css_type="scss"){
 
 
 function img_tag($img,$options = array()){
+	$site_directory = (defined("SITE_DIRECTORY") ? SITE_DIRECTORY : "");
 	if($img instanceof File){
 		$html = "";
 		foreach ($options as $key => $value) {
@@ -125,7 +131,7 @@ function img_tag($img,$options = array()){
 		if(filter_var($img, FILTER_VALIDATE_URL)){
 			return "<img src='".$img."'".$html." />";
 		}else if(file_exists(rtrim(APP_PATH,"/").ASSETS."images/".$img)){
-			return "<img src='".ASSETS."images/".$img."'".$html." />";
+			return "<img src='".$site_directory.ASSETS."images/".$img."'".$html." />";
 		}
 	}
 }
