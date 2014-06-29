@@ -1,1 +1,1 @@
-<?= render_partial("article/form") ?>
+<?= render_partial("admin/article/form") ?>
