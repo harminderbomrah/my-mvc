@@ -27,6 +27,11 @@
     'admin/slide#slide_list' => array('admin/slide/list'),
     'admin/slide#index' => array('admin/slide/{page_no}','admin/slide'),
 
+    'admin/category#index' => array('admin/{type}/category'),
+    'admin/category#new_category' => array('admin/{type}/category/new'),
+    'admin/category#edit_category' => array('admin/{type}/category/edit'),
+    'admin/category#delete_category' => array('admin/{type}/category/delete'),
+
     'admin/article#new_article' => array('admin/article/new'),
     'admin/article#create' => array('admin/article/create'),
     'admin/article#edit_article' => array('admin/article/edit/{id}'),
@@ -50,11 +55,6 @@
     'admin/product#delete_product' => array('admin/product/delete'),
     'admin/product#product_list' => array('admin/product/list'),
     'admin/product#index' => array('admin/product/{page_no}','admin/product'),
-
-    'admin/category#index' => array('admin/{type}/category'),
-    'admin/category#new_category' => array('admin/{type}/category/new'),
-    'admin/category#edit_category' => array('admin/{type}/category/edit'),
-    'admin/category#delete_category' => array('admin/{type}/category/delete'),
 
     'admin/tags#index' => array('admin/tags'),
     'admin/tags#new_tag' => array('admin/tags/new'),
