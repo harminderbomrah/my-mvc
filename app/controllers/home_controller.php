@@ -23,6 +23,7 @@
 	* Temporary files will be deleted which includes FileManager::get_uploaded_files(); and also if u create a new file using new File(<filename>); 
 */
 class HomeController extends ApplicationController{
+	var $controller_layout = "home";
 	function index(){
 		$this->name = "";
 		if (isset($this->current_user)) {
@@ -33,6 +34,24 @@ class HomeController extends ApplicationController{
 		}else{
 			$this->loggedin = false;
 		}
+		return render();
+	}
+	function product_list(){
+		return render();
+	}
+	function product_item(){
+		return render();
+	}
+	function portfolio_list(){
+		return render();
+	}
+	function portfolio_item(){
+		return render();
+	}
+	function blog_list(){
+		return render();
+	}
+	function blog_item(){
 		return render();
 	}
 }

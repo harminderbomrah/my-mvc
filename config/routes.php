@@ -8,6 +8,13 @@
   // Routes start here
   $ROUTE_RULES = array(
     'home#index' => array('home'),
+    'home/product#product_list' => array('product'),
+    'home/product#product_item' => array('product/{id}'),
+    'home/portfolio#portfolio_list' => array('portfolio'),
+    'home/portfolio#portfolio_item' => array('portfolio/{id}'),
+    'home/blog#blog_list' => array('blog'),
+    'home/blog#blog_item' => array('blog/{id}'),
+
     'admin/user#login' => array('user/login'),
     'admin/user#resets' => array('user/resets'),
     'admin/user#resets_new' => array('user/resets/{id}'),
@@ -18,6 +25,7 @@
 
     // backend
     'admin/assets#new_asset' => array('admin/assets/new'),
+    'admin/assets#delete_asset' => array('admin/assets/delete'),
     'admin#get_relation_data' => array('admin/{type}/get_relation_data'),
 
     'admin/slide#new_slide' => array('admin/slide/new'),
