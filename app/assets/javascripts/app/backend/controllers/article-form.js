@@ -10,6 +10,18 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
   // 建立空的文章物件
   $scope.articleData = {};
 
+  // Definition main form controller scope initial
+  $scope.initial = {
+    today: new Date(),
+    publishDate: false,
+    link: {
+      url: null,
+      text: null
+    },
+    preview: null,
+    submit: false
+  }
+
   // 檢查頁面是新增或是編輯
   var path = $window.location.pathname.split("/");
       path = path[path.length - 1];
@@ -21,6 +33,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.articleData, src);
+      $scope.initial.id = $scope.articleData.img
+      $scope.initial.preview = $scope.articleData.preview;
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
@@ -41,18 +55,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
   $jsonData.getData('/admin/article/get_relation_data').then(function(data) {
     $scope.relationData = data;
   });
-
-  // Definition main form controller scope initial
-  $scope.initial = {
-    today: new Date(),
-    publishDate: false,
-    link: {
-      url: null,
-      text: null
-    },
-    preview: null,
-    submit: false
-  }
 
   // chose js options
   $scope.choseOptions = {
@@ -117,6 +119,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       if(typeof $scope.articleData.endDate == "object") {
         $scope.articleData.endDate = $scope.articleData.endDate.getTime()
       }
+
       if(form.$valid) {
         ngProgress.start();
         $scope.initial.submit = true;
@@ -213,9 +216,12 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         resolve: {
           initial: function () {
             return {
+              multiple: true,
               tabSelect: "folder",
               sourceId: $scope.articleData.img,
-              preview: $scope.initial.preview
+              originalImgId: $scope.articleData.img,
+              preview: $scope.initial.preview,
+              clearImg: $scope.action.clearImg
             };
           }
         }

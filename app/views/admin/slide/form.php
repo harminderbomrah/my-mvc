@@ -7,7 +7,14 @@
           <input type="text" class="form-control input-lg" name="title" id="title" placeholder="Title" data-ng-model="slideData.title" required>
         </div>
         <div class="form-group">
-          <textarea class="form-control" rows="5" name="content" id="content" data-ng-model="slideData.content"></textarea>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <label>Content</label>
+            </div>
+            <div class="panel-body">
+              <textarea class="form-control" rows="5" name="content" id="content" data-ng-model="slideData.content"></textarea>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -52,8 +59,8 @@
                 <span class="switch-label"></span>
                 <span class="switch-handle"></span>
               </div>
-              <div class="input-group" data-ng-class="{'hide': !initial.publishDate, 'has-error': slideForm.date.$invalid && !slideForm.date.$pristine}">
-                <input type="text" name="date" class="form-control" data-ng-model="slideData.date" data-ng-required="initial.publishDate" is-open="openedPuplish" min="initial.today" max="slideData.endDate" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
+              <div class="input-group" data-ng-class="{'hide': !initial.publishDate, 'has-error': slideForm.publishDate.$invalid && !slideForm.publishDate.$pristine}">
+                <input type="text" name="publishDate" class="form-control" data-ng-model="slideData.publishDate" data-ng-required="initial.publishDate" is-open="openedPuplish" min="initial.today" max="slideData.endDate" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
                   <button class="btn btn-default" data-ng-click="action.datepicker.open($event, 'publish')"><i class="fa fa-calendar"></i></button>
                 </span>
@@ -67,7 +74,7 @@
                 <span class="switch-handle"></span>
               </div>
               <div class="input-group" data-ng-class="{'hide': !initial.endDate, 'has-error': slideForm.endDate.$invalid && !slideForm.endDate.$pristine}">
-                <input type="text" name="endDate" class="form-control" data-ng-disabled="!initial.publishDate" data-ng-model="slideData.endDate" data-ng-required="initial.endDate" is-open="openedEnd" min="slideData.date" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
+                <input type="text" name="endDate" class="form-control" data-ng-disabled="!initial.publishDate" data-ng-model="slideData.endDate" data-ng-required="initial.endDate" is-open="openedEnd" min="slideData.publishDate" datepicker-popup="yyyy/MM/dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
                   <button class="btn btn-default" data-ng-disabled="!initial.publishDate" data-ng-click="action.datepicker.open($event, 'end')"><i class="fa fa-calendar"></i></button>
                 </span>
@@ -86,3 +93,4 @@
 <?= js_tag("app/backend/controllers/slide-form.js") ?>
 <?= js_tag("app/backend/controllers/fileManage.js") ?>
 <?= js_tag("plugin/ngFileUpload/angular-file-upload.js") ?>
+<?= js_tag("plugin/masonry/angular-masonry.js") ?>

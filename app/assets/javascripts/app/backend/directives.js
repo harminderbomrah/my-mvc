@@ -6,7 +6,7 @@
 angular.module('nyfnApp.directives', [])
 .directive('resizable', ['$rootScope', '$window', function($rootScope, $window) {
   return {
-    link: function(scope, elm, attrs) {
+    link: function(scope, element, attrs) {
       // var options = scope.$eval(attrs.resizable) || {};
       scope.initializeWindowSize = function() {
         scope.windowHeight = $window.innerHeight;
@@ -19,6 +19,16 @@ angular.module('nyfnApp.directives', [])
       scope.initializeWindowSize();
     }
   }
+}])
+.directive('checkThumbnail', [function () {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      element.load(function() {
+        element[0].naturalWidth > element[0].naturalHeight ? element.parent().addClass('landscape') : element.parent().addClass('problem');
+      });
+    }
+  };
 }])
 .directive('ngThumb', ['$window', function($window) {
   var helper = {
@@ -72,14 +82,14 @@ angular.module('nyfnApp.directives', [])
       reader.readAsDataURL(params.file);
 
       function onLoadFile(event) {
-        console.log(event.target.result)
+        // console.log(event.target.result)
         var img = new Image();
         img.onload = onLoadImage;
         if(helper.isImage(params.file)) {
           img.src = event.target.result;
         } else {
           img.src = helper.isSpecialFile(params.file);
-          console.log(helper.isSpecialFile(params.file))
+          // console.log(helper.isSpecialFile(params.file))
         }
       }
 
@@ -93,8 +103,8 @@ angular.module('nyfnApp.directives', [])
   };
 }])
 .directive('appVersion', ['version', function(version) {
-  return function(scope, elm, attrs) {
-    console.log(scope, elm, attrs)
-    elm.text(version);
+  return function(scope, element, attrs) {
+    console.log(scope, element, attrs)
+    element.text(version);
   };
 }]);

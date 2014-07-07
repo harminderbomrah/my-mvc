@@ -90,10 +90,10 @@
           color: $brand-danger;
           font-size: 1.5em;
         }
-        textarea {
-          @include resizable(vertical);
-        }
       }
     }
+  }
+  textarea {
+    @include resizable(vertical);
   }
 }
