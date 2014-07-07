@@ -9,6 +9,14 @@
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
+            <label>Depiction</label>
+          </div>
+          <div class="panel-body">
+            <textarea class="form-control" name="depiction" id="depiction" rows="3" data-ng-model="productData.depiction"></textarea>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
             <label>Spec</label>
           </div>
           <div class="panel-body">
@@ -63,9 +71,12 @@
                   <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!productData.img"></i>
                   <div class="img" data-ng-show="productData.img">
                     <i class="fa fa-refresh fa-5x fa-fw"></i>
-                    <img class="img-rounded" data-ng-src="{{productData.img}}">
+                    <img class="img-rounded" data-ng-src="{{initial.preview}}">
                   </div>
                 </a>
+                <div class="clearImg">
+                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="productData.img">Clear Image</button>
+                </div>
               </div>
             </div>
           </div>
@@ -91,4 +102,5 @@
 <?= js_tag("app/backend/controllers/product-form.js") ?>
 <?= js_tag("app/backend/controllers/fileManage.js") ?>
 <?= js_tag("plugin/ngFileUpload/angular-file-upload.js") ?>
+<?= js_tag("plugin/masonry/angular-masonry.js") ?>
 <?= js_tag("plugin/chosen/chosen.jquery.js") ?>

@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
+angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonry'])
 // .directive('bullsEye', ['$log', function($log) {
 //   return function(scope, element, attrs) {
 //     attrs.$observe('bullsEye', function(value) {
@@ -31,74 +31,86 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
 // }])
 
 // File Manage controller
-.controller('fileManage', ['$rootScope', '$scope', '$log', '$fileUploader', function($rootScope, $scope, $log, $fileUploader) {
+.controller('fileManage', ['$rootScope', '$scope', '$log', '$fileUploader', '$jsonData', 'ngProgress', function($rootScope, $scope, $log, $fileUploader, $jsonData, ngProgress) {
 
   $scope.filejson = {
     file: []
   };
+
   $rootScope.fileData = {
     source: null,
     id: null
   };
+  $scope.masonryOptions = {
+    columnWidth: '.problem',
+    itemSelector: '.file-content'
+  }
   // 將資料庫來源的參數與 $scope.filejson 合併
   $scope.extend = function(src) {
     angular.extend($scope.filejson, src);
     angular.forEach($scope.filejson.file, function(element, index) {
-      element.id == $scope.initial.sourceId ? element.checked = true : element.checked = false;
-      $rootScope.fileData.source = $scope.initial.preview;
-    })
+      element.id == $scope.initial.sourceId ? element.use = true : element.use = false;
+    });
+    $rootScope.fileData.source = $scope.initial.preview;
+    $rootScope.fileData.originalImgId = $scope.initial.originalImgId;
+    $rootScope.fileData.id = $scope.initial.sourceId;
   };
 
   $scope.$watch('windowWidth', function(width) {
     if(width < $rootScope.screen.xs) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 1);
+      $scope.style = 'col-1';
+      $scope.masonryOptions.columnWidth
       return false;
     } else if (width > $rootScope.screen.xs && width < $rootScope.screen.sm) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 3);
+      $scope.style = 'col-2';
       return false;
     } else if (width > $rootScope.screen.sm && width < $rootScope.screen.mb) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 4);
+      $scope.style = 'col-3';
       return false;
     } else if (width > $rootScope.screen.mb && width < $rootScope.screen.lg) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 5);
+      $scope.style = 'col-4';
       return false;
     } else if (width > $rootScope.screen.lg && width < 1440) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 6);
+      $scope.style = 'col-5';
       return false;
     } else {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 10);
+      $scope.style = 'col-8';
       return false;
     }
   });
-  
+
   $scope.action = {
-    regroup: function(value, col) {
-      var set = [];
-      angular.forEach(value, function(element, index) {
-        if(index % col == 0) {
-          set.push([]);
-        };
-        set[set.length-1].push(element);
-      });
-      return set
-    },
-    thumbnail: function(value, size) {
-      var source = null;
-      angular.forEach(value.source, function(v, k) {
-        if(k == size) {
-          source = v
-        }
-      });
-      return source
-    },
     source: function(value) {
       angular.forEach($scope.filejson.file, function(element, index) {
         element.id == value.id ? element.checked = true : element.checked = false
-      })
+      });
       var source = null;
       source = value.source.large;
       $rootScope.fileData.source = source
       $rootScope.fileData.id = value.id
+    },
+    delete: function(id) {
+      var d = confirm("你確定要刪除這個檔案嗎？");
+      if(d) {
+        ngProgress.start();
+        $jsonData.postData('POST', '/admin/assets/delete', id, function(data, status) {
+          angular.forEach($scope.filejson.file, function(element, index) {
+            if(element.id == id) {
+              if(id == $scope.initial.originalImgId) {
+                $rootScope.fileData.id = $rootScope.fileData.source = null;
+                $scope.initial.clearImg();
+              }
+              $scope.filejson.file.splice(index, 1);
+            }
+          });
+
+          toastr.success('File has been removed');
+          ngProgress.complete();
+        }, function(data, status) {
+          toastr.error('Oops! There is something wrong whit server');
+          ngProgress.reset();
+        });
+      }
     }
   }
 
@@ -119,44 +131,23 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload'])
   // });
 
   // REGISTER HANDLERS
-    // uploader.bind('afteraddingfile', function (event, item) {
-    //   console.info('After adding a file', item);
-    // });
-    // uploader.bind('whenaddingfilefailed', function (event, item) {
-    //   console.info('When adding a file failed', item);
-    // });
-    // uploader.bind('afteraddingall', function (event, items) {
-    //   console.info('After adding all files', items);
-    // });
-    // uploader.bind('beforeupload', function (event, item) {
-    //   console.info('Before upload', item);
-    // });
-    // uploader.bind('progress', function (event, item, progress) {
-    //   console.info('Progress: ' + progress, item);
-    // });
+  // uploader.bind('afteraddingfile', function (event, item) {
+  //   console.info('After adding a file', item);
+  // });
+  // uploader.bind('whenaddingfilefailed', function (event, item) {
+  //   console.info('When adding a file failed', item);
+  // });
+  // uploader.bind('afteraddingall', function (event, items) {
+  //   console.info('After adding all files', items);
+  // });
+  // uploader.bind('beforeupload', function (event, item) {
+  //   console.info('Before upload', item);
+  // });
+  // uploader.bind('progress', function (event, item, progress) {
+  //   console.info('Progress: ' + progress, item);
+  // });
   uploader.bind('success', function (event, xhr, item, response) {
-    $log.log(response)
-    $scope.filejson.file.push(response)
-    $log.log($scope.windowWidth, $scope.filejson.file)
-    if($scope.windowWidth < $rootScope.screen.xs) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 1);
-      return false;
-    } else if ($scope.windowWidth > $rootScope.screen.xs && $scope.windowWidth < $rootScope.screen.sm) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 3);
-      return false;
-    } else if ($scope.windowWidth > $rootScope.screen.sm && $scope.windowWidth < $rootScope.screen.mb) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 4);
-      return false;
-    } else if ($scope.windowWidth > $rootScope.screen.mb && $scope.windowWidth < $rootScope.screen.lg) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 5);
-      return false;
-    } else if ($scope.windowWidth > $rootScope.screen.lg && $scope.windowWidth < 1440) {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 6);
-      return false;
-    } else {
-      $scope.fileGroup = $scope.action.regroup($scope.filejson.file, 10);
-      return false;
-    }
+    $scope.filejson.file.push(response);
   });
   // uploader.bind('cancel', function (event, xhr, item) {
   //   console.info('Cancel', xhr, item);

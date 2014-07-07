@@ -76,6 +76,7 @@ class ArticleController extends ApplicationController{
       "publishDate" => strtotime($article->publishDate)*1000,
       "endDate" => strtotime($article->endDate)*1000,
       "img" => $article->img,
+      "preview" => "/files/assets/43/original/l_stone04.jpg",
       "product" => $products,
       "case" => $cases,
       "link" => $links

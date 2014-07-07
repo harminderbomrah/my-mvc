@@ -13,6 +13,13 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     ]
   };
 
+  // Definition main form controller scope initial
+  $scope.initial = {
+    preview: null,
+    submit: false,
+    addDisabled: false
+  }
+
   // 檢查頁面是新增或是編輯
   var path = $window.location.pathname.split("/");
       path = path[path.length - 1];
@@ -24,6 +31,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.productData, src);
+      $scope.initial.id = $scope.productData.img
+      $scope.initial.preview = $scope.productData.preview;
     };
 
     postPath = "update";
@@ -35,11 +44,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     $scope.relationData = data;
   });
 
-  // Definition main form controller scope initial
-  $scope.initial = {
-    addDisabled: false
-  }
-
   // chose js options
   $scope.choseOptions = {
     'width': '100%',
@@ -50,7 +54,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
     // 送出資料
     submit: function(form) {
-      $log.log(form)
+
       // 驗證必填欄位
 
       if(form.$error.required.length) {
@@ -63,15 +67,18 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
       if(form.$valid) {
         ngProgress.start();
+        $scope.initial.submit = true;
 
         if(postPath=='update') $scope.productData['id'] = productID;
 
         $jsonData.postData('POST', '/admin/product/'+postPath, $scope.productData, function(data, status) {
           ngProgress.complete();
+          $window.location = '/admin/product/';
           // $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);
+          $scope.initial.submit = false;
           ngProgress.reset();
         });
       }
@@ -91,31 +98,42 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
       }
     },
 
+    clearImg: function() {
+      $scope.productData.img = null;
+      $scope.initial.preview = null;
+    },
+
     fileUpLoad: function() {
       var fileManageModal = $modal.open({
         templateUrl: '/modal/filemanage',
         controller: FileManage,
         windowClass: 'file-manage',
         resolve: {
-          tabSelect: function () {
-            return "folder";
+          initial: function () {
+            return {
+              multiple: true,
+              tabSelect: "folder",
+              sourceId: $scope.productData.img,
+              originalImgId: $scope.productData.img,
+              preview: $scope.initial.preview,
+              clearImg: $scope.action.clearImg
+            };
           }
         }
       });
-      fileManageModal.result.then(function(fileUrl) {
-        $scope.productData.img = fileUrl
+      fileManageModal.result.then(function(fileData) {
+        $scope.productData.img = fileData.id
+        $scope.initial.preview = fileData.source
       });
       // fileManageModal.opened.then(function() {});
     }
   }
 }]);
 
-var FileManage = function ($rootScope, $scope, $log, $modalInstance, tabSelect) {
-  $scope.initial = {
-    tabSelect: tabSelect
-  }
+var FileManage = function ($rootScope, $scope, $log, $modalInstance, initial) {
+  $scope.initial = initial;
   $scope.insert = function() {
-    $modalInstance.close($rootScope.fileUrl);
+    $modalInstance.close($rootScope.fileData);
   }
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');

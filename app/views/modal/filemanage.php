@@ -84,7 +84,16 @@
     </div>
     <div class="folder animate-switch" data-ng-switch-when="folder">
       <div class="file-group">
-        <table>
+      <div masonry masonry-options="{{masonryOptions}}">
+        <div masonry-brick class="file-content {{style}}" ng-repeat="file in filejson.file" data-ng-class="{'active': file.checked, 'use': file.use}">
+          <img class="file-thumbnail" data-ng-src="{{file.source.medium}}" data-ng-click="action.source(file)" alt="{{file.name}}" check-thumbnail>
+          <p class="file-name">
+            <i class="fa fa-trash-o fa-fw" data-ng-click="action.delete(file.id)"></i>
+            <span data-ng-bind="file.name"></span>
+          </p>
+        </div>
+      </div>
+        <!-- <table>
           <tbody>
             <tr class="file-bundle" data-ng-repeat="files in fileGroup">
               <td class="file-content" data-ng-repeat="file in files" data-ng-click="action.source(file)" data-ng-class="{'active': file.checked}">
@@ -92,7 +101,7 @@
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
       <div class="preview">
         <div class="preview-inner">
@@ -100,17 +109,26 @@
             <img class="img-thumbnail" data-ng-show="fileData.source" data-ng-src="{{fileData.source}}">
             <i class="fa fa-picture-o fa-5x" data-ng-show="!fileData.source"></i>
           </div>
-          <div class="insert">
-            <button type="button" class="btn btn-sm btn-flat btn-primary" data-ng-click="insert()" data-ng-show="initial.tabSelect == 'folder'" data-ng-disabled="!fileData.source">Insert</button>
-          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-flat btn-primary" data-ng-click="insert()" data-ng-show="initial.tabSelect == 'folder'" data-ng-disabled="!fileData.source">Insert</button>
     <button type="button" class="btn btn-sm btn-flat btn-default" data-ng-click="cancel()">Cancel</button>
   </div>
 </div>
+<?= js_tag("plugin/masonry/jquery-bridget/jquery.bridget.js") ?>
+<?= js_tag("plugin/masonry/get-style-property/get-style-property.js") ?>
+<?= js_tag("plugin/masonry/get-size/get-size.js") ?>
+<?= js_tag("plugin/masonry/eventEmitter/EventEmitter.js") ?>
+<?= js_tag("plugin/masonry/eventie/eventie.js") ?>
+<?= js_tag("plugin/masonry/doc-ready/doc-ready.js") ?>
+<?= js_tag("plugin/masonry/matches-selector/matches-selector.js") ?>
+<?= js_tag("plugin/masonry/outlayer/item.js") ?>
+<?= js_tag("plugin/masonry/outlayer/outlayer.js") ?>
+<?= js_tag("plugin/masonry/masonry/masonry.js") ?>
+<?= js_tag("plugin/masonry/imagesloaded/imagesloaded.js") ?>
 <script>
   $('.modal-content').removeAttr('data-ng-init');
 </script>

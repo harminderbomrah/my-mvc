@@ -10,6 +10,14 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
   // 建立空的文章物件
   $scope.slideData = {};
 
+  // Definition main form controller scope initial
+  $scope.initial = {
+    today: new Date(),
+    publishDate: false,
+    preview: null,
+    submit: false
+  }
+
   // 檢查頁面是新增或是編輯
   var path = $window.location.pathname.split("/");
       path = path[path.length - 1];
@@ -21,6 +29,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.slideData, src);
+      $scope.initial.id = $scope.slideData.img
+      $scope.initial.preview = $scope.slideData.preview;
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
@@ -41,18 +51,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
   $jsonData.getData('/admin/slide/get_relation_data').then(function(data) {
     $scope.relationData = data;
   });
-
-  // Definition main form controller scope initial
-  $scope.initial = {
-    today: new Date(),
-    publishDate: false,
-    // link: {
-    //   url: null,
-    //   text: null
-    // },
-    preview: null,
-    submit: false
-  }
 
   // chose js options
   // $scope.choseOptions = {
@@ -216,7 +214,9 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
             return {
               tabSelect: "upload",
               sourceId: $scope.slideData.img,
-              preview: $scope.initial.preview
+              originalImgId: $scope.slideData.img,
+              preview: $scope.initial.preview,
+              clearImg: $scope.action.clearImg
             };
           }
         }

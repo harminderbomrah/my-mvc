@@ -17,5 +17,7 @@
         ))
       );
     }
+    function delete_asset(){
+    }
   }
 ?>
