@@ -34,6 +34,14 @@ class FileManager{
 		}
 	}
 
+	public static function check_if_same($file,$file2){
+		if($file->checksum() == $file2->checksum()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	public static function get($filepath){
 		return File::get($filepath);
 	}
@@ -77,9 +85,11 @@ class File{
 		if($this->new_file){
 			$this->destroy();
 		}
-		$files = glob($this->temp_path);
-		if(count($files) > 0){
-			rmdir($this->temp_path);
+		$files = glob($this->temp_path."/*.*");
+		if(count($files) == 0){
+			if(file_exists($this->temp_path)){
+				rmdir($this->temp_path);				
+			}
 		}
 
 	}
@@ -161,6 +171,10 @@ class File{
 		}else{
 			throw new Exception("File not found.");
 		}
+	}
+
+	public function checksum(){
+		return md5_file($this->get_server_path());
 	}
 
 

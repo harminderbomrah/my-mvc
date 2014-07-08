@@ -11,6 +11,7 @@ class ModelAdapter{
 	private $model;
 	private $uploaders = array();
 	private $temp_uploaders = array();
+	private $new_files = array();
 	private $newclass = true;
 
 	function __construct($model,$values=array()){
@@ -38,6 +39,13 @@ class ModelAdapter{
 
 	function __set($column, $value){
 		if(array_key_exists($column, $this->columns)){
+			if(array_key_exists($column, $this->uploaders)){
+				if($this->{$column} instanceof File){
+					if(!FileManager::check_if_same($this->{$column}, $value)){
+						$this->new_files["{$column}"] = $this->{$column}->name;
+					}
+				}
+			}
 			$this->columns[$column] = $value;
 		}
 	}
@@ -68,6 +76,10 @@ class ModelAdapter{
 					if(array_key_exists($key, $this->uploaders)){
 						$uploader = $this->uploaders["{$key}"];
 						$uploader_instance = new $uploader($value,get_class($this->model),$this->id);
+						if(array_key_exists($key,$this->new_files)){
+							$t = $uploader_instance->get_file($this->new_files["{$key}"]);
+							$t->destroy();
+						}
 						$value = $uploader_instance->get_file_name();
 						$query .= "`{$key}` = '".$value."', ";
 						unset($uploader_instance);
@@ -79,6 +91,7 @@ class ModelAdapter{
 				}
 			}
 		}
+		$this->new_files = array();
 		$query = rtrim($query,", ");
 		$query .= " WHERE `id` = {$this->id}";
 		return $query;
@@ -188,6 +201,9 @@ class ModelAdapter{
 		$temp = array();
 		foreach ($values as $key => $value) {
 			if(array_key_exists($key, $this->columns)){
+				if(array_key_exists($key, $this->uploaders)){
+					$this->{$key}->destroy();
+				}
 				$temp[$key] = $value;
 			}
 		}
@@ -281,6 +297,9 @@ class ModelAdapter{
 	}
 
 	public function delete(){
+		foreach ($this->uploaders as $key => $value) {
+			$this->{$key}->destroy();
+		}
 		return $this->query("DELETE FROM $this->table WHERE id = '$this->id'");
 	}
 

@@ -30,5 +30,21 @@ class HomeController extends ApplicationController{
 		}
 		return render();
 	}
+
+	function upload(){
+		$file = end(FileManager::get_uploaded_files());
+		$user = Users::find(2);
+		$user->image = $file;
+		// $user->username =  "harrybomrah";
+		$user->save();
+		$this->image = $user->image;
+		return render();
+	}
+
+	function delete(){
+		$user = Users::find(2);
+		$user->delete();
+		return renderJson(array("success"=>true));
+	}
 }
 ?>
