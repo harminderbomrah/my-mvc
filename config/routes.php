@@ -8,8 +8,8 @@
   // Routes start here
   $ROUTE_RULES = array(
     'home#index' => array('home'),
-    'home/product#product_list' => array('product'),
-    'home/product#product_item' => array('product/{id}'),
+    'product#index' => array('product'),
+    'product#show' => array('product/{id}'),
     'home/portfolio#portfolio_list' => array('portfolio'),
     'home/portfolio#portfolio_item' => array('portfolio/{id}'),
     'home/blog#blog_list' => array('blog'),

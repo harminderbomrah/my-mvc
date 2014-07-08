@@ -36,12 +36,6 @@ class HomeController extends ApplicationController{
 		}
 		return render();
 	}
-	function product_list(){
-		return render();
-	}
-	function product_item(){
-		return render();
-	}
 	function portfolio_list(){
 		return render();
 	}

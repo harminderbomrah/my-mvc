@@ -23,6 +23,7 @@ class ProductController extends ApplicationController{
   function create(){
     $product = new Products();
     $product->title = $this->params['title'];
+    $product->depiction = $this->params['depiction'];
     $product->created_date = date('Y-m-d');
     $product->save();
     $this->add_relations($product);
@@ -43,6 +44,7 @@ class ProductController extends ApplicationController{
 
     $this->initial = array(
       "title" => $product->title,
+      "depiction" => $product->depiction,
       "category" => (string)$product->category_relation_ids[0],
       "tag" => $tags,
       "specs" => $specs
@@ -53,11 +55,12 @@ class ProductController extends ApplicationController{
   function update() {
     $product = Products::find(($_POST['id']));
     $product->title = $this->params['title'];
+    $product->depiction = $this->params['depiction'];
     $this->remove_relations($product);
     $product->save();
     $this->add_relations($product);
 
-    return renderJson(array("success"=>true ));
+    return renderJson(array("success"=>$product->depiction ));
   }
 
   function delete_product(){

@@ -5,10 +5,3 @@
 	* content_css_tag() will put the css in the head instead of view.
 -->
 <?= content_css_tag("default.css") ?>
-<h3>Welcome <?= $name ?> to My-MVC</h3>
-<div>
-	<p>Find me in app/views/home/</p>
-	<?php if($loggedin) { ?>
-		<h4><a href="user/logout">Logout</a></h4>
-	<?php }?>
-</div>

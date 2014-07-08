@@ -6,7 +6,25 @@ class Articles extends ModelAdapter{
     }
 
     public static function all_array(){
-      $articles = self::query_db("SELECT a.id, a.title, UNIX_TIMESTAMP(a.publishDate)*1000 as `publishDate`, UNIX_TIMESTAMP(a.endDate)*1000 as 'endDate', a.disabled, a.trash, a.top, a.hot, a.created_date, (SELECT category_id FROM articles_category_mvcrelation WHERE articles_id = a.id) as category FROM articles a");
+      $articles = self::query_db("
+        SELECT 
+          A.id, 
+          A.title, 
+          UNIX_TIMESTAMP(A.publishDate)*1000 AS `publishDate`,    
+          UNIX_TIMESTAMP(A.endDate)*1000 AS 'endDate', 
+          A.disabled, 
+          A.trash, 
+          A.top, 
+          A.hot, 
+          A.created_date,
+          B.category_id AS category
+        FROM 
+          articles AS A, 
+          articles_category_mvcrelation AS B 
+        WHERE 
+          A.id = B.articles_id
+        GROUP BY
+          A.id");
       if($articles==null){
         $articles = [];
       }else{

@@ -31,10 +31,10 @@ class ArticleController extends ApplicationController{
     $article->top = ($this->params['top'] == "true" ? 1 : 0);
     $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['publishDate']!=null){
-      $article->publishDate = date("Y-m-d", $this->params['publishDate']/1000);
+      $article->publishDate = $this->params['publishDate'];
     }
-    if($this->params['ednDate']!=null){
-      $article->ednDate = date("Y-m-d", $this->params['ednDate']/1000);
+    if($this->params['endDate']!=null){
+      $article->endDate = $this->params['endDate'];
     }
     $article->created_date = date('Y-m-d-h-m-s');
 
@@ -103,12 +103,12 @@ class ArticleController extends ApplicationController{
     $article->top = ($this->params['top'] == "true" ? 1 : 0);
     $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['publishDate']!=""){
-      $article->publishDate = date("Y-m-d", $this->params['publishDate']/1000);
+      $article->publishDate = $this->params['publishDate'];
     }else{
       $article->publishDate = "";
     }
     if($this->params['endDate']!=""){
-      $article->endDate = date("Y-m-d", $this->params['endDate']/1000);
+      $article->endDate = $this->params['endDate'];
     }else{
       $article->endDate = "";
     }
@@ -116,7 +116,7 @@ class ArticleController extends ApplicationController{
     $this->remove_relations($article);
     $article->save();
     $this->add_relations($article);
-    return renderJson(array("success"=>$article->disabled ));
+    return renderJson(array("success"=>$article->endDate, "publishDate"=>$this->params['publishDate'] ));
   }
 
   function delete_article(){

@@ -5,7 +5,7 @@
 angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.tinymce'])
 
 // Main Form controller
-.controller('caseForm', ['$scope', '$log', '$window', '$location', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $window, $location, $modal, $jsonData, ngProgress) {
+.controller('caseForm', ['$scope', '$log', '$window', '$location', '$filter', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $window, $location, $filter, $modal, $jsonData, ngProgress) {
 
   // 建立空的文章物件
   $scope.caseData = {};
@@ -112,12 +112,12 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
       // 欄位驗證通過透過Ajax送出欄位資料
       if(typeof $scope.caseData.publishDate == "object") {
-        $scope.caseData.publishDate = $scope.caseData.publishDate.getTime()
+        $scope.caseData.publishDate = $filter('date')($scope.caseData.publishDate.getTime(), 'yyyy-MM-dd')
       }
 
       // 欄位驗證通過透過Ajax送出欄位資料
       if(typeof $scope.caseData.endDate == "object") {
-        $scope.caseData.endDate = $scope.caseData.endDate.getTime()
+        $scope.caseData.endDate = $filter('date')($scope.caseData.endDate.getTime(), 'yyyy-MM-dd')
       }
 
       if(form.$valid) {
