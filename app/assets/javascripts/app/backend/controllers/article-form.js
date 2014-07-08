@@ -115,9 +115,9 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         $scope.articleData.publishDate = $filter('date')($scope.articleData.publishDate, 'yyyy-MM-dd');
       }
 
-      欄位驗證通過透過Ajax送出欄位資料
+      // 欄位驗證通過透過Ajax送出欄位資料
       if(typeof $scope.articleData.endDate == "object") {
-        $scope.articleData.endDate = $filter('date')($scope.$scope.articleData.endDate, 'yyyy-MM-dd');
+        $scope.articleData.endDate = $filter('date')($scope.articleData.endDate, 'yyyy-MM-dd');
       }
 
       if(form.$valid) {

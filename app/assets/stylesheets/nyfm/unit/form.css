@@ -60,6 +60,6 @@
       .main-form.product table tbody .remove-item {
         color: #d06367;
         font-size: 1.5em; }
-      .main-form.product table tbody textarea {
-        resize: vertical;
-        overflow: auto; }
+  .main-form textarea {
+    resize: vertical;
+    overflow: auto; }

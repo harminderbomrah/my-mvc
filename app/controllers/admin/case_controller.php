@@ -30,10 +30,10 @@ class CaseController extends ApplicationController{
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['publishDate']!=null){
-      $case->publishDate = date("Y-m-d", $this->params['publishDate']/1000);
+      $case->publishDate = $this->params['publishDate'];
     }
-    if($this->params['ednDate']!=null){
-      $case->ednDate = date("Y-m-d", $this->params['ednDate']/1000);
+    if($this->params['endDate']!=null){
+      $case->endDate = $this->params['endDate'];
     }
     $case->created_date = date('Y-m-d-h-m-s');
 
@@ -99,12 +99,12 @@ class CaseController extends ApplicationController{
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['publishDate']!=""){
-      $case->publishDate = date("Y-m-d", $this->params['publishDate']/1000);
+      $case->publishDate = $this->params['publishDate'];
     }else{
       $case->publishDate = "";
     }
     if($this->params['endDate']!=""){
-      $case->endDate = date("Y-m-d", $this->params['endDate']/1000);
+      $case->endDate = $this->params['endDate'];
     }else{
       $case->endDate = "";
     }
