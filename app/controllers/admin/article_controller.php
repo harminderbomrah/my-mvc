@@ -40,7 +40,7 @@ class ArticleController extends ApplicationController{
 
     $article->save();
     $this->add_relations($article);
-    
+
     $article->add_relation("category",$this->params['category']);
     return renderJson(array("success"=>true));
   }
@@ -75,8 +75,8 @@ class ArticleController extends ApplicationController{
       "hot" => ($article->hot==1) ? true : false,
       "publishDate" => strtotime($article->publishDate)*1000,
       "endDate" => strtotime($article->endDate)*1000,
-      "img" => $article->img,
-      "preview" => "/files/assets/43/original/l_stone04.jpg",
+      "img" => array("43"),//$article->img,
+      "preview" => array("/files/assets/43/original/l_stone04.jpg"),
       "product" => $products,
       "case" => $cases,
       "link" => $links
@@ -89,7 +89,7 @@ class ArticleController extends ApplicationController{
     if($article->publishDate=='0000-00-00 00:00:00'){
       unset($data['publishDate']);
     }
-    
+
     $this->initial = $data;
 
     return render();
@@ -138,7 +138,7 @@ class ArticleController extends ApplicationController{
           $this->remove_relations($article);
           $article->delete();
           break;
-        
+
         default:
           break;
       }
@@ -156,7 +156,7 @@ class ArticleController extends ApplicationController{
         $article->add_relation("links",$l);
       }
     }
-      
+
     if($this->params["tag"]!=null){
       foreach ($this->params["tag"] as $tag_id) {
         $article->add_relation("tags",$tag_id);
@@ -168,7 +168,7 @@ class ArticleController extends ApplicationController{
         $article->add_relation("cases",$case_id);
       }
     }
-    
+
     if($this->params["product"]!=null){
       foreach ($this->params["product"] as $products_id) {
         $article->add_relation("products",$products_id);
@@ -184,13 +184,13 @@ class ArticleController extends ApplicationController{
           $article->delete_relation("links",$link_id);
         }
       }
-      
+
       if($article->tags_relation_ids!=null){
         foreach ($article->tags_relation_ids as $tag_id) {
           $article->delete_relation("tags",$tag_id);
         }
       }
-      
+
       if($article->products_relation_ids!=null){
         foreach ($article->products_relation_ids as $products_id) {
           $article->delete_relation("products",$products_id);

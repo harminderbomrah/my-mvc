@@ -5,7 +5,7 @@
 angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
 // Main Form controller
-.controller('slideForm', ['$scope', '$log', '$window', '$location', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $window, $location, $modal, $jsonData, ngProgress) {
+.controller('slideForm', ['$scope', '$log', '$window', '$location', '$filter', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $window, $location, $filter, $modal, $jsonData, ngProgress) {
 
   // 建立空的文章物件
   $scope.slideData = {};
@@ -107,13 +107,19 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
       }
 
       // 欄位驗證通過透過Ajax送出欄位資料
-      if(typeof $scope.slideData.date == "object") {
-        $scope.slideData.date = $scope.slideData.date.getTime()
+      if(typeof $scope.slideData.publishDate == "object") {
+        $scope.slideData.publishDate = $filter('date')($scope.slideData.publishDate, 'yyyy-MM-dd');
+      } else if(typeof $scope.slideData.publishDate == "number") {
+        $scope.slideData.publishDate = new Date($scope.slideData.publishDate);
+        $scope.slideData.publishDate = $filter('date')($scope.slideData.publishDate, 'yyyy-MM-dd');
       }
 
       // 欄位驗證通過透過Ajax送出欄位資料
       if(typeof $scope.slideData.endDate == "object") {
-        $scope.slideData.endDate = $scope.slideData.endDate.getTime()
+        $scope.slideData.endDate = $filter('date')($scope.slideData.endDate, 'yyyy-MM-dd');
+      } else if(typeof $scope.slideData.endDate == "number") {
+        $scope.slideData.endDate = new Date($scope.slideData.endDate);
+        $scope.slideData.endDate = $filter('date')($scope.slideData.endDate, 'yyyy-MM-dd');
       }
 
       if(form.$valid) {
@@ -191,10 +197,14 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
       clear: function (value, type) {
         if(value && $scope.slideData) {
           if(type == 'publish') {
-            $scope.slideData.date = undefined
+            $scope.slideData.publishDate = undefined;
+            $scope.initial.endDate = false;
+            $scope.slideData.endDate = undefined;
           } else if(type == 'end') {
             $scope.slideData.endDate = undefined
           }
+        } else if(!value && type == 'end') {
+          $scope.initial.publishDate = true;
         };
       }
     },

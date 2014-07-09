@@ -26,6 +26,18 @@
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
+            <label>Location</label>
+          </div>
+          <div class="panel-body">
+            <div class="form-group" data-ng-class="{'has-error': caseForm.location.$invalid && !caseForm.location.$pristine}">
+              <select class="form-control" name="location" id="location" data-placeholder="Choose Location" data-ng-model="caseData.location" data-ng-options="option.value as option.name for option in initial.location" chosen="choseOptions" required>
+                <option value=""></option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
             <label>Status</label>
           </div>
           <div class="panel-body">
@@ -75,7 +87,7 @@
                 <span class="switch-handle"></span>
               </div>
               <div class="input-group" data-ng-class="{'hide': !initial.endDate, 'has-error': caseForm.endDate.$invalid && !caseForm.endDate.$pristine}">
-                <input type="text" name="endDate" class="form-control" data-ng-disabled="!initial.publishDate" data-ng-model="caseData.endDate" data-ng-required="initial.endDate" is-open="openedEnd" min="caseData.publishDate" datepicker-popup="yyyy-MM-dd" show-button-bar="false" datepicker-options="dateOptions" />
+                <input type="text" name="endDate" class="form-control" data-ng-disabled="!initial.publishDate" data-ng-model="caseData.endDate" data-ng-required="initial.endDate" is-open="openedEnd" min="caseData.publishDate || initial.today" datepicker-popup="yyyy-MM-dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
                   <button class="btn btn-default" data-ng-disabled="!initial.publishDate" data-ng-click="action.datepicker.open($event, 'end')"><i class="fa fa-calendar"></i></button>
                 </span>

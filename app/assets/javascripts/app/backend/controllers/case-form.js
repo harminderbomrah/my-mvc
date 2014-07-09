@@ -19,7 +19,29 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       text: null
     },
     preview: null,
-    submit: false
+    submit: false,
+    location: [
+      {name: '基隆市', value: 'Keelung'},
+      {name: '臺北市', value: 'Taipei'},
+      {name: '新北市', value: 'New Taipei City'},
+      {name: '桃園縣', value: 'Taoyuan County'},
+      {name: '新竹市', value: 'Hsinchu City'},
+      {name: '新竹縣', value: 'Hsinchu County'},
+      {name: '苗栗縣', value: 'Miaoli County'},
+      {name: '臺中市', value: 'Taichung'},
+      {name: '彰化縣', value: 'Changhua County'},
+      {name: '南投縣', value: 'Nantou County'},
+      {name: '雲林縣', value: 'Yunlin County'},
+      {name: '嘉義市', value: 'Chiayi City'},
+      {name: '嘉義縣', value: 'Chiayi County'},
+      {name: '臺南市', value: 'Tainan'},
+      {name: '高雄市', value: 'Kaohsiung'},
+      {name: '屏東縣', value: 'Pingtung County'},
+      {name: '臺東縣', value: 'Taitung County'},
+      {name: '花蓮縣', value: 'Hualien County'},
+      {name: '宜蘭縣', value: 'Yilan County'},
+      {name: '澎湖縣', value: 'Penghu County'}
+    ]
   }
 
   // 檢查頁面是新增或是編輯
@@ -112,12 +134,18 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
       // 欄位驗證通過透過Ajax送出欄位資料
       if(typeof $scope.caseData.publishDate == "object") {
-        $scope.caseData.publishDate = $filter('date')($scope.caseData.publishDate.getTime(), 'yyyy-MM-dd')
+        $scope.caseData.publishDate = $filter('date')($scope.caseData.publishDate, 'yyyy-MM-dd');
+      } else if(typeof $scope.caseData.publishDate == "number") {
+        $scope.caseData.publishDate = new Date($scope.caseData.publishDate);
+        $scope.caseData.publishDate = $filter('date')($scope.caseData.publishDate, 'yyyy-MM-dd');
       }
 
       // 欄位驗證通過透過Ajax送出欄位資料
       if(typeof $scope.caseData.endDate == "object") {
-        $scope.caseData.endDate = $filter('date')($scope.caseData.endDate.getTime(), 'yyyy-MM-dd')
+        $scope.caseData.endDate = $filter('date')($scope.caseData.endDate, 'yyyy-MM-dd');
+      } else if(typeof $scope.caseData.endDate == "number") {
+        $scope.caseData.endDate = new Date($scope.caseData.endDate);
+        $scope.caseData.endDate = $filter('date')($scope.caseData.endDate, 'yyyy-MM-dd');
       }
 
       if(form.$valid) {
@@ -195,10 +223,14 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       clear: function (value, type) {
         if(value && $scope.caseData) {
           if(type == 'publish') {
-            $scope.caseData.publishDate = undefined
+            $scope.caseData.publishDate = undefined;
+            $scope.initial.endDate = false;
+            $scope.caseData.endDate = undefined;
           } else if(type == 'end') {
             $scope.caseData.endDate = undefined
           }
+        } else if(!value && type == 'end') {
+          $scope.initial.publishDate = true;
         };
       }
     },
@@ -216,7 +248,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         resolve: {
           initial: function () {
             return {
-              multiple: true,
               tabSelect: "folder",
               sourceId: $scope.caseData.img,
               originalImgId: $scope.caseData.img,
