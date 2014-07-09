@@ -9,7 +9,6 @@
 	$ROUTE_RULES = array(
 		'home#index' => array('home'),
 		'home#upload' => array("file/upload"),
-		'home#delete' => array("user/delete"),
 		'user#login' => array('user/login'),
 		'user#check' => array('login/check'),
 		'user#logout' => array('user/logout')

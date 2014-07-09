@@ -40,9 +40,11 @@ class ModelAdapter{
 	function __set($column, $value){
 		if(array_key_exists($column, $this->columns)){
 			if(array_key_exists($column, $this->uploaders)){
-				if($this->{$column} instanceof File){
-					if(!FileManager::check_if_same($this->{$column}, $value)){
-						$this->new_files["{$column}"] = $this->{$column}->name;
+				if(isset($this->{$column}["original"])){
+					if($this->{$column}["original"] instanceof File){
+						if(!FileManager::check_if_same($this->{$column}["original"], $value)){
+							$this->new_files["{$column}"] = $this->{$column}["original"]->name;
+						}
 					}
 				}
 			}
@@ -76,12 +78,16 @@ class ModelAdapter{
 					if(array_key_exists($key, $this->uploaders)){
 						$uploader = $this->uploaders["{$key}"];
 						$uploader_instance = new $uploader($value,get_class($this->model),$this->id);
+						// $this->set_uploaders($key, $uploader);
 						if(array_key_exists($key,$this->new_files)){
 							$t = $uploader_instance->get_file($this->new_files["{$key}"]);
-							$t->destroy();
+							foreach ($t as $version => $options) {
+								$t["{$version}"]->destroy();
+							}
 						}
 						$value = $uploader_instance->get_file_name();
 						$query .= "`{$key}` = '".$value."', ";
+						$this->columns["{$key}"] = $uploader_instance->get_file($value);
 						unset($uploader_instance);
 					}else{
 						throw new Exception("Invalid uploader.");
@@ -202,7 +208,11 @@ class ModelAdapter{
 		foreach ($values as $key => $value) {
 			if(array_key_exists($key, $this->columns)){
 				if(array_key_exists($key, $this->uploaders)){
-					$this->{$key}->destroy();
+					if(count($this->{$key}) > 0){
+						foreach ($this->{$key} as $version => $options) {
+							$this->{$key}["{$version}"]->destroy();
+						}
+					}
 				}
 				$temp[$key] = $value;
 			}

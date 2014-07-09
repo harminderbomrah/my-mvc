@@ -173,6 +173,33 @@ class File{
 		}
 	}
 
+	public static function get_from_cache($filepath){
+		$filepath = rtrim($filepath, "/");
+		$filepath = ltrim($filepath, "/");
+		$filepath = CACHE_FOLDER.$filepath;
+		if(file_exists($filepath)){
+			return new File($filepath);
+		}else{
+			throw new Exception("File not found.");
+		}
+	}
+
+	public function is_image(){
+		switch ($this->extension) {
+			case 'jpeg':
+			case 'jpg':
+			case 'png':
+			case 'gif':
+			case 'bmp':
+			case 'tiff':
+				return true;
+				break;
+			default:
+				return false;
+				break;
+		}
+	}
+
 	public function checksum(){
 		return md5_file($this->get_server_path());
 	}
