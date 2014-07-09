@@ -69,7 +69,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         ngProgress.start();
         $scope.initial.submit = true;
 
-        if(postPath=='update') $scope.productData['id'] = productID;
+        postPath=='update' ? $scope.productData['id'] = articleID : null;
 
         $jsonData.postData('POST', '/admin/product/'+postPath, $scope.productData, function(data, status) {
           ngProgress.complete();

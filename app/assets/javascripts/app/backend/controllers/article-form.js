@@ -109,14 +109,19 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
           element.$pristine = false;
         });
       }
-
       // 欄位驗證通過透過Ajax送出欄位資料
       if(typeof $scope.articleData.publishDate == "object") {
+        $scope.articleData.publishDate = $filter('date')($scope.articleData.publishDate, 'yyyy-MM-dd');
+      } else if(typeof $scope.articleData.publishDate == "number") {
+        $scope.articleData.publishDate = new Date($scope.articleData.publishDate);
         $scope.articleData.publishDate = $filter('date')($scope.articleData.publishDate, 'yyyy-MM-dd');
       }
 
       // 欄位驗證通過透過Ajax送出欄位資料
       if(typeof $scope.articleData.endDate == "object") {
+        $scope.articleData.endDate = $filter('date')($scope.articleData.endDate, 'yyyy-MM-dd');
+      } else if(typeof $scope.articleData.endDate == "number") {
+        $scope.articleData.endDate = new Date($scope.articleData.endDate);
         $scope.articleData.endDate = $filter('date')($scope.articleData.endDate, 'yyyy-MM-dd');
       }
 
@@ -124,7 +129,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         ngProgress.start();
         $scope.initial.submit = true;
 
-        if(postPath=='update') $scope.articleData['id'] = articleID;
+        postPath=='update' ? $scope.articleData['id'] = articleID : null;
 
         $jsonData.postData('POST', '/admin/article/'+postPath, $scope.articleData, function(data, status) {
           ngProgress.complete();
@@ -195,10 +200,14 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       clear: function (value, type) {
         if(value && $scope.articleData) {
           if(type == 'publish') {
-            $scope.articleData.publishDate = undefined
+            $scope.articleData.publishDate = undefined;
+            $scope.initial.endDate = false;
+            $scope.articleData.endDate = undefined;
           } else if(type == 'end') {
-            $scope.articleData.endDate = undefined
+            $scope.articleData.endDate = undefined;
           }
+        } else if(!value && type == 'end') {
+          $scope.initial.publishDate = true;
         };
       }
     },
@@ -216,7 +225,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         resolve: {
           initial: function () {
             return {
-              multiple: true,
               tabSelect: "folder",
               sourceId: $scope.articleData.img,
               originalImgId: $scope.articleData.img,

@@ -82,7 +82,7 @@ class ProductController extends ApplicationController{
           $this->remove_relations($product);
           $product->delete();
           break;
-        
+
         default:
           break;
       }

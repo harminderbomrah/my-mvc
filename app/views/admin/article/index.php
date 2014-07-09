@@ -43,7 +43,6 @@
         <th class="text-center" data-ng-bind="filterList.length"></th>
       </tr>
     </thead>
-    <!-- {{articleList}} -->
     <tbody>
       <tr data-ng-show="!newList.length">
         <td colspan="5" class="text-center"><strong>No Article</strong></td>

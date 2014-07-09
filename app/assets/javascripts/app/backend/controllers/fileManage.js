@@ -84,16 +84,14 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
       angular.forEach($scope.filejson.file, function(element, index) {
         element.id == value.id ? element.checked = true : element.checked = false
       });
-      var source = null;
-      source = value.source.large;
-      $rootScope.fileData.source = source
-      $rootScope.fileData.id = value.id
+      $rootScope.fileData.source = value.source.large;
+      $rootScope.fileData.id = value.id;
     },
     delete: function(id) {
       var d = confirm("你確定要刪除這個檔案嗎？");
       if(d) {
         ngProgress.start();
-        $jsonData.postData('POST', '/admin/assets/delete', id, function(data, status) {
+        $jsonData.postData('POST', '/admin/assets/delete', {'id': id}, function(data, status) {
           angular.forEach($scope.filejson.file, function(element, index) {
             if(element.id == id) {
               if(id == $scope.initial.originalImgId) {
