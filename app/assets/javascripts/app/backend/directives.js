@@ -20,6 +20,77 @@ angular.module('nyfnApp.directives', [])
     }
   }
 }])
+// .directive('bullseye', ['$log', function($log) {
+//   return {
+//     restrict: 'A',
+//     template: '<img class="{{init.class}}" data-ng-src="{{init.imgsrc}}">',
+//     link: function (scope, element, attrs) {
+//       scope.init = {}
+//       attrs.$observe('bullseye', function(value) {
+//         angular.extend(scope.init = {}, scope.$eval(value));
+//         var image = document.createElement("img");
+//         image.src = scope.init.imgsrc;
+//         // element.wrapInner(image);
+//         image.onload = function() {
+//           var scale = image.width/image.height;
+//           $(image).css({
+//             'position': 'absolute'
+//           });
+//           if(scale > 1 || scale == 1) {
+//             $log.log(image.height, $(element).width(), image.width)
+//             $(element).children('img').css({
+//               'top': 0,
+//               'left': '50%',
+//               'width': 'auto',
+//               'height': '100%',
+//               'max-width': 'none',
+//               'margin-left': image.width*($(element).height()/image.height)/-2
+//             });
+//           } else {
+//             $log.log(image.width, $(element).height(), image.height)
+//             $(element).children('img').css({
+//               'top': '50%',
+//               'left': 0,
+//               'width': '100%',
+//               'height': 'auto',
+//               'max-height': 'none',
+//               'margin-top': image.height*($(element).width()/image.width)/-2
+//             });
+//           }
+//         }
+//       });
+//       element.css({
+//         'position': 'relative',
+//         'overflow': 'hidden'
+//       });
+//     }
+//   };
+  // return function(scope, element, attrs) {
+  //   attrs.$observe('bullseye', function(value) {
+  //     $log.log(scope.$eval(value))
+  //     // element.css({
+  //     //   'background-image': 'url(' + value + ')'
+  //     // })
+  //     // var image = document.createElement("img");
+  //     // image.src = value
+  //     // image.onload = function() {
+  //     //   var scale = image.width/image.height
+  //     //   if(scale > 1 || scale == 1) {
+  //     //     $(image).css({
+  //     //       'width': '100%',
+  //     //       'height': 'auto'
+  //     //     });
+  //     //   } else {
+  //     //     $(image).css({
+  //     //       'width': 'auto',
+  //     //       'height': '100%'
+  //     //     });
+  //     //   }
+  //     // }
+  //     // element.wrapInner(image);
+  //   });
+  // };
+// }])
 .directive('checkThumbnail', [function () {
   return {
     restrict: 'A',

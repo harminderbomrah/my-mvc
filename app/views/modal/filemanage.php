@@ -86,7 +86,7 @@
       <div class="file-group">
       <div masonry masonry-options="{{masonryOptions}}">
         <div masonry-brick class="file-content {{style}}" ng-repeat="file in filejson.file" data-ng-class="{'active': file.checked, 'use': file.use}">
-          <img class="file-thumbnail" data-ng-src="{{file.source.medium}}" data-ng-click="action.source(file)" alt="{{file.name}}" check-thumbnail>
+          <img class="file-thumbnail" data-ng-src="{{file.source.medium}}" data-ng-click="action.source(file, $index)" alt="{{file.name}}" check-thumbnail>
           <p class="file-name">
             <i class="fa fa-trash-o fa-fw" data-ng-click="action.delete(file.id)"></i>
             <span data-ng-bind="file.name"></span>
@@ -103,7 +103,7 @@
           </tbody>
         </table> -->
       </div>
-      <div class="preview">
+      <div class="preview" data-ng-if="!initial.multiple">
         <div class="preview-inner">
           <div class="preview-content">
             <img class="img-thumbnail" data-ng-show="fileData.source" data-ng-src="{{fileData.source}}">

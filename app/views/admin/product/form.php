@@ -20,7 +20,31 @@
             <label>Spec</label>
           </div>
           <div class="panel-body">
-            <table class="table">
+            <div class="form-group">
+              <label for="coo" class="col-sm-2 control-label">產地</label>
+              <div class="col-sm-4">
+                <input type="text" name="coo" class="form-control" id="coo" data-ng-model="productData.specs.countryOfOrigin">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="coo" class="col-sm-2 control-label">吸水率</label>
+              <div class="col-sm-4">
+                <rating class="range" data-ng-model="productData.specs.waterAbsorption" state-on="'fa fa-fw hover fa-tint'" state-off="'fa fa-fw fa-tint'"></rating>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="coo" class="col-sm-2 control-label">耐用度</label>
+              <div class="col-sm-4">
+                <rating class="range" data-ng-model="productData.specs.durability" state-on="'fa fa-fw hover fa-cube'" state-off="'fa fa-fw fa-cube'"></rating>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="coo" class="col-sm-2 control-label">評價</label>
+              <div class="col-sm-4">
+                <rating class="range" data-ng-model="productData.specs.evaluate" state-on="'fa fa-fw hover fa-star'" state-off="'fa fa-fw fa-star'"></rating>
+              </div>
+            </div>
+             <!--<table class="table">
               <tbody>
                 <tr data-ng-repeat="spec in productData.specs">
                   <td class="col-md-3" data-ng-class="{'has-error': productForm.item.$invalid && !productForm.item.$pristine}">
@@ -36,11 +60,11 @@
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
           </div>
-          <div class="panel-footer text-center">
+          <!-- <div class="panel-footer text-center">
             <a href="#" class="btn btn-sm btn-primary" data-ng-disabled="initial.addDisabled" data-ng-click="action.addSpec($event)">Add</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-lg-3">
@@ -68,14 +92,20 @@
               </div>
               <div class="panel-body">
                 <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
-                  <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!productData.img"></i>
-                  <div class="img" data-ng-show="productData.img">
+                  <i class="fa fa-upload fa-5x fa-fw" data-ng-show="productData.img.length == 0"></i>
+                  <div class="img" data-ng-show="productData.img.length > 0">
                     <i class="fa fa-refresh fa-5x fa-fw"></i>
-                    <img class="img-rounded" data-ng-src="{{initial.preview}}">
+                    <div class="img-preview">
+                      <div class="row" data-ng-repeat="previews in previewGroup">
+                        <div class="col-xs-4" data-ng-repeat="preview in previews">
+                          <img class="img-rounded" data-ng-src="{{preview}}">
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </a>
                 <div class="clearImg">
-                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="productData.img">Clear Image</button>
+                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="productData.img.length > 0">Clear Image</button>
                 </div>
               </div>
             </div>

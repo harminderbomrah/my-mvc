@@ -8,14 +8,17 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
   // 建立空的文章物件
   $scope.productData = {
-    specs: [
-      {item: '', detail: null}
-    ]
+    img: [],
+    specs: {
+      countryOfOrigin: null,
+      waterAbsorption: 0,
+      durability: 0,
+      evaluate: 0
+    }
   };
-
   // Definition main form controller scope initial
   $scope.initial = {
-    preview: null,
+    preview: [],
     submit: false,
     addDisabled: false
   }
@@ -38,6 +41,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     postPath = "update";
     productID = path;
   }
+
 
   // 讀取關連物件的資料
   $jsonData.getData('/admin/product/get_relation_data').then(function(data) {
@@ -73,8 +77,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
         $jsonData.postData('POST', '/admin/product/'+postPath, $scope.productData, function(data, status) {
           ngProgress.complete();
-          $window.location = '/admin/product/';
-          // $window.location = $window.location.pathname.match(/\/\w*/g).slice(0, 2).join("");
+          // $window.location = '/admin/product/';
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);
@@ -99,8 +102,19 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     },
 
     clearImg: function() {
-      $scope.productData.img = null;
-      $scope.initial.preview = null;
+      $scope.productData.img = [];
+      $scope.initial.preview = [];
+    },
+
+    regroup: function(value, col) {
+      var set = [];
+      angular.forEach(value, function(element, index) {
+        if(index % col == 0) {
+          set.push([]);
+        };
+        set[set.length-1].push(element);
+      });
+      return set
     },
 
     fileUpLoad: function() {
@@ -113,9 +127,27 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
             return {
               multiple: true,
               tabSelect: "folder",
-              sourceId: $scope.productData.img,
-              originalImgId: $scope.productData.img,
-              preview: $scope.initial.preview,
+              sourceId: (function() {
+                var array = []
+                angular.forEach($scope.productData.img, function(element) {
+                  array.push(element)
+                });
+                return array;
+              })(),
+              originalImgId: (function() {
+                var array = []
+                angular.forEach($scope.productData.img, function(element) {
+                  array.push(element)
+                });
+                return array;
+              })(),
+              preview: (function() {
+                var array = []
+                angular.forEach($scope.initial.preview, function(element) {
+                  array.push(element)
+                });
+                return array;
+              })(),
               clearImg: $scope.action.clearImg
             };
           }
@@ -124,6 +156,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
       fileManageModal.result.then(function(fileData) {
         $scope.productData.img = fileData.id
         $scope.initial.preview = fileData.source
+        $scope.previewGroup = $scope.action.regroup($scope.initial.preview, 3);
+        $log.log($scope.previewGroup)
       });
       // fileManageModal.opened.then(function() {});
     }
