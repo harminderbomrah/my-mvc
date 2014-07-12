@@ -20,7 +20,7 @@
   <?= js_tag("plugin/bootstrap.min.js") ?>
   <?= js_tag("plugin/ngProgress/ngProgress.js") ?>
   <?= js_tag("plugin/toaster/jquery-toastr.js") ?>
-  <?= js_tag("plugin/ui-bootstrap-tpls-0.10.0.js") ?>
+  <?= js_tag("plugin/ui-bootstrap-tpls-0.11.0.js") ?>
   <?= js_tag("plugin/chosen/ng-chosen.js") ?>
 
   <?= js_tag("admin.js") ?>
