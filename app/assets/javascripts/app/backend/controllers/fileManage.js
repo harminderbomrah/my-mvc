@@ -3,32 +3,6 @@
 /* Controllers */
 
 angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonry'])
-// .directive('bullsEye', ['$log', function($log) {
-//   return function(scope, element, attrs) {
-//     attrs.$observe('bullsEye', function(value) {
-//       element.css({
-//         'background-image': 'url(' + value + ')'
-//       })
-//       // var image = document.createElement("img");
-//       // image.src = value
-//       // image.onload = function() {
-//       //   var scale = image.width/image.height
-//       //   if(scale > 1 || scale == 1) {
-//       //     $(image).css({
-//       //       'width': '100%',
-//       //       'height': 'auto'
-//       //     });
-//       //   } else {
-//       //     $(image).css({
-//       //       'width': 'auto',
-//       //       'height': '100%'
-//       //     });
-//       //   }
-//       // }
-//       // element.wrapInner(image);
-//     });
-//   };
-// }])
 
 // File Manage controller
 .controller('fileManage', ['$rootScope', '$scope', '$log', '$fileUploader', '$jsonData', 'ngProgress', function($rootScope, $scope, $log, $fileUploader, $jsonData, ngProgress) {
@@ -38,8 +12,9 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
   };
 
   $rootScope.fileData = {
-    source: null,
-    id: null
+    source: $scope.initial.preview,
+    id: $scope.initial.sourceId,
+    originalImgId: $scope.initial.originalImgId
   };
   $scope.masonryOptions = {
     columnWidth: '.problem',
@@ -49,13 +24,14 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
   $scope.extend = function(src) {
     angular.extend($scope.filejson, src);
     angular.forEach($scope.filejson.file, function(element, index) {
-      element.id == $scope.initial.sourceId ? element.use = true : element.use = false;
+      if($scope.initial.multiple) {
+        var usePos = $scope.initial.sourceId.indexOf(element.id);
+        usePos >= 0 ? element.use = true : element.use = false;
+      } else {
+        element.id == $scope.initial.sourceId ? element.use = true : element.use = false;
+      }
     });
-    $rootScope.fileData.source = $scope.initial.preview;
-    $rootScope.fileData.originalImgId = $scope.initial.originalImgId;
-    $rootScope.fileData.id = $scope.initial.sourceId;
   };
-
   $scope.$watch('windowWidth', function(width) {
     if(width < $rootScope.screen.xs) {
       $scope.style = 'col-1';
@@ -80,12 +56,28 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
   });
 
   $scope.action = {
-    source: function(value) {
-      angular.forEach($scope.filejson.file, function(element, index) {
-        element.id == value.id ? element.checked = true : element.checked = false
-      });
-      $rootScope.fileData.source = value.source.large;
-      $rootScope.fileData.id = value.id;
+    source: function(value, index) {
+      if($scope.initial.multiple) {
+        if($scope.filejson.file[index].use) {
+          $scope.filejson.file[index].use = false
+        } else {
+          $scope.filejson.file[index].checked = !$scope.filejson.file[index].checked;
+        }
+
+        var sourcePos = $rootScope.fileData.source.indexOf(value.source.large);
+        sourcePos >= 0 ? $rootScope.fileData.source.splice(sourcePos, 1) : $rootScope.fileData.source.push(value.source.large);
+
+        var idPos = $rootScope.fileData.id.indexOf(value.id);
+        idPos >= 0 ? $rootScope.fileData.id.splice(idPos, 1) : $rootScope.fileData.id.push(value.id);
+        $log.log($rootScope.fileData, $scope.initial)
+      } else {
+        angular.forEach($scope.filejson.file, function(element, index) {
+          element.id == value.id ? element.checked = true : element.checked = false
+        });
+        $rootScope.fileData.source = value.source.large;
+        $rootScope.fileData.id = value.id;
+        $log.log($rootScope.fileData)
+      }
     },
     delete: function(id) {
       var d = confirm("你確定要刪除這個檔案嗎？");
@@ -94,9 +86,15 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
         $jsonData.postData('POST', '/admin/assets/delete', {'id': id}, function(data, status) {
           angular.forEach($scope.filejson.file, function(element, index) {
             if(element.id == id) {
+              $log.log(element.id, id)
               if(id == $scope.initial.originalImgId) {
-                $rootScope.fileData.id = $rootScope.fileData.source = null;
+                $log.log(id, $scope.initial.originalImgId, $rootScope.fileData.id)
+                $rootScope.fileData.id = null;
                 $scope.initial.clearImg();
+              }
+              if(id == $rootScope.fileData.id) {
+                $log.log($rootScope.fileData.id)
+                $rootScope.fileData.id = $rootScope.fileData.source = null
               }
               $scope.filejson.file.splice(index, 1);
             }

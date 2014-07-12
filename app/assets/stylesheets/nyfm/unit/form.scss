@@ -15,14 +15,11 @@
   .panel-body {
     .form-group {
       .control-label {
-        padding-left: 0;
-        padding-top: 0;
-        text-align: left;
         font-weight: 400;
-        margin-bottom: 5px;
       }
       .switch {
         float: right;
+        margin-top: 8px;
       }
       &:last-child {
         margin-bottom: 0;
@@ -76,19 +73,23 @@
     }
   }
   &.product {
-    table {
-      margin-bottom: 0;
-      tbody {
-        & > tr {
-          &:first-child {
-            td {
-              border-top: none;
-            }
-          }
-        }
-        .remove-item {
-          color: $brand-danger;
-          font-size: 1.5em;
+    .img-preview {
+      .row {
+        margin-bottom: 30px;
+      }
+    }
+    .range {
+      display: inline-block;
+      line-height: 34px;
+      font-size: 1.5em;
+      outline: none;
+      cursor: pointer;
+      .glyphicon,
+      .fa {
+        margin-right: 5px;
+        color: $grey;
+        &.hover {
+          color: $brand-primary;
         }
       }
     }
