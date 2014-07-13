@@ -8,13 +8,17 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 .controller('slideForm', ['$scope', '$log', '$window', '$location', '$filter', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $window, $location, $filter, $modal, $jsonData, ngProgress) {
 
   // 建立空的文章物件
-  $scope.slideData = {};
+  $scope.slideData = {
+    imgLeft: null,
+    imgRight: null
+  };
 
   // Definition main form controller scope initial
   $scope.initial = {
     today: new Date(),
     publishDate: false,
-    preview: null,
+    previewLeft: null,
+    previewRight: null,
     submit: false
   }
 
@@ -209,12 +213,17 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
       }
     },
 
-    clearImg: function() {
-      $scope.slideData.img = null;
-      $scope.initial.preview = null;
+    clearImg: function(value) {
+      if(value == 'left') {
+        $scope.slideData.imgLeft = null;
+        $scope.initial.previewLeft = null;
+      } else if(value == 'right') {
+        $scope.slideData.imgRight = null;
+        $scope.initial.previewRight = null;
+      }
     },
 
-    fileUpLoad: function() {
+    fileUpLoad: function(value) {
       var fileManageModal = $modal.open({
         templateUrl: '/modal/filemanage',
         controller: FileManage,
@@ -223,17 +232,41 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
           initial: function () {
             return {
               tabSelect: "upload",
-              sourceId: $scope.slideData.img,
-              originalImgId: $scope.slideData.img,
-              preview: $scope.initial.preview,
-              clearImg: $scope.action.clearImg
+              sourceId: (function() {
+                if(value == 'left') {
+                  return $scope.slideData.imgLeft;
+                } else if(value == 'right') {
+                  return $scope.slideData.imgRight;
+                }
+              })(),
+              originalImgId: (function() {
+                if(value == 'left') {
+                  return $scope.slideData.imgLeft;
+                } else if(value == 'right') {
+                  return $scope.slideData.imgRight;
+                }
+              })(),
+              preview: (function() {
+                if(value == 'left') {
+                  return $scope.initial.previewLeft;
+                } else if(value == 'right') {
+                  return $scope.initial.previewRight;
+                }
+              })(),
+              clearImg: $scope.action.clearImg,
+              assign: value
             };
           }
         }
       });
       fileManageModal.result.then(function(fileData) {
-        $scope.slideData.img = fileData.id
-        $scope.initial.preview = fileData.source
+        if(value == 'left') {
+          $scope.slideData.imgLeft = fileData.id
+          $scope.initial.previewLeft = fileData.source
+        } else if(value == 'right') {
+          $scope.slideData.imgRight = fileData.id
+          $scope.initial.previewRight = fileData.source
+        }
       });
       // fileManageModal.opened.then(function() {});
     }

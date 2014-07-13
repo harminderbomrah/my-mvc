@@ -73,7 +73,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         ngProgress.start();
         $scope.initial.submit = true;
 
-        postPath=='update' ? $scope.productData['id'] = articleID : null;
+        postPath=='update' ? $scope.productData['id'] = productID : null;
 
         $jsonData.postData('POST', '/admin/product/'+postPath, $scope.productData, function(data, status) {
           ngProgress.complete();
@@ -84,20 +84,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
           $scope.initial.submit = false;
           ngProgress.reset();
         });
-      }
-    },
-
-    addSpec: function(event) {
-      $scope.productData.specs.push({item: '', detail: null});
-      if($scope.relationData.specs.length == $scope.productData.specs.length) {
-        $scope.initial.addDisabled = true;
-      }
-    },
-
-    removeItem: function(index) {
-      $scope.productData.specs.splice(index, 1);
-      if($scope.relationData.specs.length != $scope.productData.specs.length) {
-        $scope.initial.addDisabled = false;
       }
     },
 

@@ -44,27 +44,7 @@
                 <rating class="range" data-ng-model="productData.specs.evaluate" state-on="'fa fa-fw hover fa-star'" state-off="'fa fa-fw fa-star'"></rating>
               </div>
             </div>
-             <!--<table class="table">
-              <tbody>
-                <tr data-ng-repeat="spec in productData.specs">
-                  <td class="col-md-3" data-ng-class="{'has-error': productForm.item.$invalid && !productForm.item.$pristine}">
-                    <select class="form-control" name="item" id="item" data-placeholder="Choose Item" data-ng-model="spec.item" data-ng-options="option.id as option.name for option in relationData.specs" chosen="choseOptions">
-                      <option value=""></option>
-                    </select>
-                  </td>
-                  <td class="col-md-8">
-                    <textarea class="form-control" name="detail" id="detail" rows="3" data-ng-model="spec.detail"></textarea>
-                  </td>
-                  <td class="col-md-1 text-right" data-ng-show="productData.specs.length > 1">
-                    <a class="remove-item" href="#" data-ng-click="action.removeItem($index)"><i class="fa fa-times-circle"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table> -->
           </div>
-          <!-- <div class="panel-footer text-center">
-            <a href="#" class="btn btn-sm btn-primary" data-ng-disabled="initial.addDisabled" data-ng-click="action.addSpec($event)">Add</a>
-          </div> -->
         </div>
       </div>
       <div class="col-lg-3">
