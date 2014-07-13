@@ -35,7 +35,7 @@
             <div class="form-group">
               <label for="coo" class="col-sm-2 control-label">耐用度</label>
               <div class="col-sm-4">
-                <rating class="range" data-ng-model="productData.specs.durability" state-on="'fa fa-fw hover fa-cube'" state-off="'fa fa-fw fa-cube'"></rating>
+                <rating class="range" data-ng-model="productData.specs.durability" state-on="'fa fa-fw hover fa-shield'" state-off="'fa fa-fw fa-shield'"></rating>
               </div>
             </div>
             <div class="form-group">
