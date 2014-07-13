@@ -25,7 +25,8 @@ class SlideController extends ApplicationController{
         "id" => "28",
         "title" => "trash",
         "trash" => true,
-        "image" => "/public/file/slide/banner_img4.jpg"
+        "imageLeft" => "/public/file/slide/banner_img4.jpg",
+        "imageRight" => "/public/file/slide/banner_img4.jpg"
       ),
       array(
         "created_date" => "2014-06-07 00:00:00",
@@ -34,7 +35,8 @@ class SlideController extends ApplicationController{
         "id" => "29",
         "title" => "aaaaa",
         "trash" => false,
-        "image" => "/public/file/slide/banner_img4.jpg"
+        "imageLeft" => "/public/file/slide/banner_img4.jpg",
+        "imageRight" => "/public/file/slide/banner_img4.jpg"
       ),
       array(
         "created_date" => "2014-06-07 00:00:00",
@@ -43,7 +45,8 @@ class SlideController extends ApplicationController{
         "id" => "30",
         "title" => "disabled",
         "trash" => false,
-        "image" => "/public/file/slide/banner_img4.jpg"
+        "imageLeft" => "/public/file/slide/banner_img4.jpg",
+        "imageRight" => "/public/file/slide/banner_img4.jpg"
       )
     );
     return renderJson($list);
@@ -66,7 +69,7 @@ class SlideController extends ApplicationController{
 
     $article->save();
     $this->add_relations($article);
-    
+
     $article->add_relation("category",$this->params['category']);
     return renderJson(array("success"=>true));
   }
@@ -109,7 +112,7 @@ class SlideController extends ApplicationController{
     if($article->date=='0000-00-00 00:00:00'){
       unset($data['date']);
     }
-    
+
     $this->initial = $data;
 
     return render();
@@ -153,7 +156,7 @@ class SlideController extends ApplicationController{
           $this->remove_relations($article);
           $article->delete();
           break;
-        
+
         default:
           break;
       }
@@ -171,7 +174,7 @@ class SlideController extends ApplicationController{
         $article->add_relation("links",$l);
       }
     }
-      
+
     if($this->params["tag"]!=null){
       foreach ($this->params["tag"] as $tag_id) {
         $article->add_relation("tags",$tag_id);
@@ -183,7 +186,7 @@ class SlideController extends ApplicationController{
         $article->add_relation("cases",$case_id);
       }
     }
-    
+
     if($this->params["product"]!=null){
       foreach ($this->params["product"] as $products_id) {
         $article->add_relation("products",$products_id);
@@ -199,13 +202,13 @@ class SlideController extends ApplicationController{
           $article->delete_relation("links",$link_id);
         }
       }
-      
+
       if($article->tags_relation_ids!=null){
         foreach ($article->tags_relation_ids as $tag_id) {
           $article->delete_relation("tags",$tag_id);
         }
       }
-      
+
       if($article->products_relation_ids!=null){
         foreach ($article->products_relation_ids as $products_id) {
           $article->delete_relation("products",$products_id);

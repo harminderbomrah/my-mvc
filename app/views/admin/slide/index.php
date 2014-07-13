@@ -50,7 +50,10 @@
           </label>
         </td>
         <td data-ng-bind="list.publishDate | date:'yyyy/MM/dd'"></td>
-        <td><img data-ng-src="{{list.image}}" alt="Preview"></td>
+        <td class="list-image">
+          <img data-ng-src="{{list.imageLeft}}" alt="Preview">
+          <img data-ng-src="{{list.imageRight}}" alt="Preview">
+        </td>
         <td><a data-ng-bind="list.title" href="/slide/{{list.id}}" target="_blink"></a></td>
         <td class="text-center"><a class="btn btn-default btn-xs" href="edit/{{list.id}}" target="_self"><i class="fa fa-edit"></i></a></td>
       </tr>
