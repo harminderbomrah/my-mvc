@@ -308,7 +308,9 @@ class ModelAdapter{
 
 	public function delete(){
 		foreach ($this->uploaders as $key => $value) {
-			$this->{$key}->destroy();
+			foreach ($this->{$key} as $version) {
+				$version->destroy();
+			}
 		}
 		return $this->query("DELETE FROM $this->table WHERE id = '$this->id'");
 	}
