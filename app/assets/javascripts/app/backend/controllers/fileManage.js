@@ -64,19 +64,17 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
           $scope.filejson.file[index].checked = !$scope.filejson.file[index].checked;
         }
 
-        var sourcePos = $rootScope.fileData.source.indexOf(value.source.large);
-        sourcePos >= 0 ? $rootScope.fileData.source.splice(sourcePos, 1) : $rootScope.fileData.source.push(value.source.large);
+        var sourcePos = $rootScope.fileData.source.indexOf(value.source.medium);
+        sourcePos >= 0 ? $rootScope.fileData.source.splice(sourcePos, 1) : $rootScope.fileData.source.push(value.source.medium);
 
         var idPos = $rootScope.fileData.id.indexOf(value.id);
         idPos >= 0 ? $rootScope.fileData.id.splice(idPos, 1) : $rootScope.fileData.id.push(value.id);
-        $log.log($rootScope.fileData, $scope.initial)
       } else {
         angular.forEach($scope.filejson.file, function(element, index) {
           element.id == value.id ? element.checked = true : element.checked = false
         });
-        $rootScope.fileData.source = value.source.large;
+        $rootScope.fileData.source = value.source.medium;
         $rootScope.fileData.id = value.id;
-        $log.log($rootScope.fileData)
       }
     },
     delete: function(id) {
@@ -86,14 +84,15 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
         $jsonData.postData('POST', '/admin/assets/delete', {'id': id}, function(data, status) {
           angular.forEach($scope.filejson.file, function(element, index) {
             if(element.id == id) {
-              $log.log(element.id, id)
               if(id == $scope.initial.originalImgId) {
-                $log.log(id, $scope.initial.originalImgId, $rootScope.fileData.id)
                 $rootScope.fileData.id = null;
-                $scope.initial.clearImg();
+                if($scope.initial.assign != undefined) {
+                  $scope.initial.clearImg($scope.initial.assign);
+                } else {
+                  $scope.initial.clearImg($scope.initial.assign);
+                }
               }
               if(id == $rootScope.fileData.id) {
-                $log.log($rootScope.fileData.id)
                 $rootScope.fileData.id = $rootScope.fileData.source = null
               }
               $scope.filejson.file.splice(index, 1);

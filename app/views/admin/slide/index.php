@@ -56,8 +56,8 @@
       </tr>
     </tbody>
   </table>
-  <div class="text-center" data-ng-show="slideList.length >= initial.pageSize">
-    <pagination total-items="filterList.length" items-per-page="initial.pageSize" page="initial.currentPage" max-size="initial.maxSize" class="pagination-sm" boundary-links="true"></pagination>
+  <div class="text-center" data-ng-show="filterList.length >= initial.pageSize">
+    <pagination total-items="filterList.length" items-per-page="initial.pageSize" data-ng-model="initial.currentPage" max-size="initial.maxSize" class="pagination-sm" boundary-links="true"></pagination>
   </div>
   <alert class="text-center fade" data-ng-repeat="alert in initial.alerts" data-ng-bind="alert.msg" type="alert.type" close="action.alerts.close()"></alert>
 </div>

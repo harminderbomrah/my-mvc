@@ -11,11 +11,12 @@ class modalController extends ApplicationController{
 
     if(count($assets)>0){
       foreach ($assets as $asset) {
-        array_push($files,array("id" => $asset->id, "name" => $asset->file->name, "type" => $asset->file->extension, "source" => array(
-            "small" => '/'.$asset->file->path,
-            "medium" => '/'.$asset->file->path,
-            "large" => '/'.$asset->file->path,
-            "original" => '/'.$asset->file->path
+        array_push($files,array("id" => $asset->id, "name" => $asset->file["original"]->name, "type" => $asset->file["original"]->extension, "source" => array(
+            "thumb" => '/'.$asset->file["thumb"]->path,
+            "small" => '/'.$asset->file["small"]->path,
+            "medium" => '/'.$asset->file["medium"]->path,
+            "large" => '/'.$asset->file["large"]->path,
+            "original" => '/'.$asset->file["original"]->path
           )));
       }
       $this->initial = array(
