@@ -1,0 +1,39 @@
+//
+// color
+//-----------------------------------------------------
+
+// Violette 常用色票
+$aqua: 					#4FC1E9 #3BAFDA; //天藍
+$coolBlue: 				#4EA4FC #1C8BFC; //接近google的藍色 NEW!
+$blueJeans: 			#5D9CEC #4A89DC; //深藍
+$grass: 				#A0D468 #8CC152; //草
+$mint: 					#48CFAD #37BC9B; //薄荷
+$sunFlower: 			#FFCE54 #F6BB42; //向日葵
+$carot: 				#F9A033 #F68E37; //橘色蘿蔔		  NEW!
+$bitterSweet: 			#FC6E51 #E9573F; //橘紅
+$grapeFruit: 			#ED5565 #DA4453; //磚紅
+$pinkRose: 				#EC87C0 #D770AD; //粉紅
+$lavender: 				#AC92EC #967ADC; //薰衣草
+
+$white: 				#fff; //有設跟沒設都沒差 -_-
+
+// 1深 ---> 6淺 
+$grays: #434A54 #656D78 #AAB2BD #CCD1D9 #E6E9ED #F5F7FA;
+
+// 顏色代入	
+$brand-primary:         nth($aqua, 1);
+$brand-success:         nth($mint, 1);
+$brand-info:            nth($aqua, 2);
+$brand-warning:         nth($sunFlower,1);
+$brand-danger:          nth($grapeFruit, 1);
+$brand-gray: 			nth($grays, 2);
+
+
+$link-color:            $brand-primary;
+$link-hover-color:      $brand-info; //darker
+$border-color: nth($grays, 5);
+
+
+// 用在標題、大字的部份
+$font-family-default:     "Titillium Web", sans-serif !default;
+$font-family-sans-serif:  "Open Sans", Helvetica, sans-serif !default;
