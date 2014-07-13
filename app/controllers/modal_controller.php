@@ -8,7 +8,6 @@ class modalController extends ApplicationController{
   function fileManage() {
     $assets = Assets::all();
     $files = array();
-
     if(count($assets)>0){
       foreach ($assets as $asset) {
         array_push($files,array("id" => $asset->id, "name" => $asset->file["original"]->name, "type" => $asset->file["original"]->extension, "source" => array(

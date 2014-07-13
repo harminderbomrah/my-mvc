@@ -39,13 +39,21 @@ class ProductController extends ApplicationController{
     $specs = [];
     foreach ($product->product_specs_relation_ids as $spec_id) {
       $spec = ProductSpecs::find($spec_id);
-      array_push($specs, array('item'=>$spec->item, 'detail'=>$spec->detail) );
+      $specs["{$spec->item}"]=$spec->detail;
+    }
+
+    $preview = [];
+    foreach ($product->assets_relation_ids as $asset_id) {
+      $asset = Assets::find($asset_id);
+      array_push($preview, '/'.$asset->file['medium']->path);
     }
 
     $this->initial = array(
       "title" => $product->title,
       "depiction" => $product->depiction,
       "category" => (string)$product->category_relation_ids[0],
+      "img" => $product->assets_relation_ids,
+      "preview" => $preview,
       "tag" => $tags,
       "specs" => $specs
     );
@@ -60,7 +68,7 @@ class ProductController extends ApplicationController{
     $product->save();
     $this->add_relations($product);
 
-    return renderJson(array("success"=>$product->depiction ));
+    return renderJson(array("success"=>$this->params['specs'] ));
   }
 
   function delete_product(){
@@ -93,33 +101,45 @@ class ProductController extends ApplicationController{
   function add_relations($product){
     $product->add_relation("category",$this->params['category']);
 
-    if($this->params[tag]!=null){
+    if($this->params['tag']!=null){
       foreach ($this->params[tag] as $tag_id) {
         $product->add_relation("tags",$tag_id);
       }
     }
 
     if($this->params['specs']!=null){
-      foreach ($this->params['specs'] as $spec) {
-        $s = new ProductSpecs(array("item" => $spec['item'],"detail" => $spec['detail']));
+      foreach ($this->params['specs'] as $key => $spec) {
+        $s = new ProductSpecs(array("item" => $key,"detail" => $spec));
         $s->save();
         $product->add_relation("product_specs",$s);
+      }
+    }
+
+    if($this->params['img']!=null){
+      foreach ($this->params['img'] as $img) {
+        $product->add_relation("assets",$img);
       }
     }
   }
 
   function remove_relations($product){
     if($product->tags_relation_ids!=null){
-        foreach ($product->tags_relation_ids as $tag_id) {
-          $product->delete_relation("tags",$tag_id);
-        }
+      foreach ($product->tags_relation_ids as $tag_id) {
+        $product->delete_relation("tags",$tag_id);
       }
+    }
 
     if($product->product_specs_relation_ids!=null){
       foreach ($product->product_specs_relation_ids as $spec_id) {
         $spec = ProductSpecs::find($spec_id);
         $spec->delete();
         $product->delete_relation("product_specs",$spec_id);
+      }
+    }
+
+    if($product->assets_relation_ids!=null){
+      foreach ($product->assets_relation_ids as $asset_id) {
+        $product->delete_relation("assets",$asset_id);
       }
     }
   }

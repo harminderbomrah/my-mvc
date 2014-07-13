@@ -14,4 +14,5 @@
   RelationManager::create_relation("Products","Category");
   RelationManager::create_relation("Products","ProductSpecs");
   RelationManager::create_relation("Products","Tags");
+  RelationManager::create_relation("Products","Assets");
 ?>

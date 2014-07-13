@@ -79,6 +79,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     menubar: false,
     toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
     plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
+    image_advtab: true,
     templates: [
         {
             title: "Editor Details",

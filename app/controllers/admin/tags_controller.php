@@ -20,8 +20,23 @@ class TagsController extends ApplicationController{
   }
 
   function delete_tag(){
-    $tag = Tags::find($this->params['post']['id']);
-    $tag->delete();
+    if($this->params['action'] == 'delete'){
+      $tag = Tags::find($this->params['id']);
+      $tag->delete();
+    }elseif ($this->params['action'] == 'replace') {
+      $tag = Tags::find($this->params['oldID']);
+      $new_tag = $this->params['newID'];
+
+      $types = ['articles','products','cases'];
+
+      foreach ($types as $type) {
+        $table = $type . "_tags_mvcrelation";
+        Tags::query_db("UPDATE `{$table}` SET `tags_id` = '{$new_tag}' WHERE `tags_id` = {$tag->id};");
+      }
+
+      $tag->delete();
+    }
+
     return renderJson([]); 
   }
 }

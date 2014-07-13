@@ -47,7 +47,7 @@ class Products extends ModelAdapter{
 
       $tags = [];
       foreach ($product->tags_relation_ids as $tag_id) {
-        array_push($tags,Tags::find($tag_id));
+        array_push($tags,Tags::find($tag_id)->name);
       }
 
       $specs = [];
@@ -59,8 +59,9 @@ class Products extends ModelAdapter{
       return array(
         "title" => $product->title,
         "depiction" => $product->depiction,
+        "assets_relation_ids" => $product->assets_relation_ids,
         "category" => Category::find($product->category_relation_ids[0])->name,
-        "tag" => $tags,
+        "tags" => $tags,
         "specs" => $specs
       );
     }

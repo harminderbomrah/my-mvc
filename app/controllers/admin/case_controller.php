@@ -26,6 +26,7 @@ class CaseController extends ApplicationController{
     $case = new Cases();
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
+    $case->img = $this->params['img'];
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
@@ -62,6 +63,10 @@ class CaseController extends ApplicationController{
     foreach ($case->products_relation_ids as $product_id) {
       array_push($products, (string)$product_id);
     }
+    $preview = "";
+    if($case->img){
+      $preview = '/'.Assets::find($case->img)->file['medium']->path;
+    }
 
     $data = array(
       "title" => $case->title,
@@ -74,6 +79,7 @@ class CaseController extends ApplicationController{
       "publishDate" => strtotime($case->publishDate)*1000,
       "endDate" => strtotime($case->endDate)*1000,
       "img" => $case->img,
+      "preview" => $preview,
       "product" => $products,
       "Article" => $articles,
       "link" => $links
@@ -95,6 +101,7 @@ class CaseController extends ApplicationController{
     $case = Cases::find($_POST['id']);
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
+    $case->img = $this->params['img'];
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);

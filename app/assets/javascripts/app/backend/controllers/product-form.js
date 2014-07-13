@@ -34,6 +34,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.productData, src);
+      $log.log($scope.productData);
       $scope.initial.id = $scope.productData.img
       $scope.initial.preview = $scope.productData.preview;
     };
@@ -74,7 +75,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         $scope.initial.submit = true;
 
         postPath=='update' ? $scope.productData['id'] = productID : null;
-
+        
         $jsonData.postData('POST', '/admin/product/'+postPath, $scope.productData, function(data, status) {
           ngProgress.complete();
           // $window.location = '/admin/product/';

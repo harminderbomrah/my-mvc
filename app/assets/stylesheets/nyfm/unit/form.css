@@ -4,13 +4,10 @@
   .main-form .panel-heading label {
     margin-bottom: 0; }
   .main-form .panel-body .form-group .control-label {
-    padding-left: 0;
-    padding-top: 0;
-    text-align: left;
-    font-weight: 400;
-    margin-bottom: 5px; }
+    font-weight: 400; }
     .main-form .panel-body .form-group .switch {
-      float: right; }
+      float: right;
+      margin-top: 8px; }
     .main-form .panel-body .form-group:last-child {
       margin-bottom: 0; }
     .main-form .panel-body .upload {
@@ -53,13 +50,19 @@
     .main-form .panel-body .clearImg {
       margin-top: 10px;
       text-align: center; }
-  .main-form.product table {
-    margin-bottom: 0; }
-    .main-form.product table tbody > tr:first-child td {
-      border-top: none; }
-      .main-form.product table tbody .remove-item {
-        color: #d06367;
-        font-size: 1.5em; }
+  .main-form.product .img-preview .row {
+    margin-bottom: 30px; }
+    .main-form.product .range {
+      display: inline-block;
+      line-height: 34px;
+      font-size: 1.5em;
+      outline: none;
+      cursor: pointer; }
+    .main-form.product .range .glyphicon, .main-form.product .range .fa {
+      margin-right: 5px;
+      color: #dedede; }
+      .main-form.product .range .glyphicon.hover, .main-form.product .range .fa.hover {
+        color: #7ebee7; }
   .main-form textarea {
     resize: vertical;
     overflow: auto; }

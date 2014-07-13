@@ -2,6 +2,13 @@
   <caption><?php echo $product['title'] ?></caption>
   <tbody>
     <tr>
+      <td colspan="2">
+        <?php foreach ($imgs as $img) {
+          echo img_tag($img);
+        } ?>
+      </td>
+    </tr>
+    <tr>
       <th>Depiction</th>
       <td><pre><?php echo $product['depiction'] ?></pre></td>
     </tr>
@@ -11,7 +18,13 @@
     </tr>
     <tr>
       <th>Tags</th>
-      <td><?php echo $product['tags'] ?></td>
+      <td>
+        <ul>
+          <?php foreach ($product['tags'] as $tag) { ?>
+            <li><?= $tag ?></li>
+          <?php } ?>
+        </ul>
+      </td>
     </tr>
     <tr>
       <th>Specs</th>

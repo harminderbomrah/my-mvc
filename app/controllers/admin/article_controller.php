@@ -27,6 +27,7 @@ class ArticleController extends ApplicationController{
     $article = new Articles();
     $article->title = $this->params['title'];
     $article->content = $this->params['content'];
+    $article->img = $this->params['img'];
     $article->disabled = ($this->params['disabled'] == "false" ? 1 : 0);
     $article->top = ($this->params['top'] == "true" ? 1 : 0);
     $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
@@ -65,6 +66,11 @@ class ArticleController extends ApplicationController{
       array_push($products, (string)$product_id);
     }
 
+    $preview = "";
+    if($article->img){
+      $preview = '/'.Assets::find($article->img)->file['medium']->path;
+    }
+
     $data = array(
       "title" => $article->title,
       "content" => $article->content,
@@ -75,8 +81,8 @@ class ArticleController extends ApplicationController{
       "hot" => ($article->hot==1) ? true : false,
       "publishDate" => strtotime($article->publishDate)*1000,
       "endDate" => strtotime($article->endDate)*1000,
-      "img" => 43,//$article->img,
-      "preview" => "/files/assets/43/original/l_stone04.jpg",
+      "img" => $article->img,
+      "preview" => $preview,
       "product" => $products,
       "case" => $cases,
       "link" => $links
@@ -99,6 +105,7 @@ class ArticleController extends ApplicationController{
     $article = Articles::find($_POST['id']);
     $article->title = $this->params['title'];
     $article->content = $this->params['content'];
+    $article->img = $this->params['img'];
     $article->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $article->top = ($this->params['top'] == "true" ? 1 : 0);
     $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
