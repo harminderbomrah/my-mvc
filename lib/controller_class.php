@@ -14,6 +14,7 @@ abstract class ApplicationController{
 		}else{
 			$this->current_user = null;
 		}
+		ViewAdapter::$VARIABLES["current_user"] = $this->current_user;
 	}
 
 	public function http404(){
