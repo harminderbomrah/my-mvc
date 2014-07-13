@@ -20,8 +20,22 @@ class CategoryController extends ApplicationController{
   }
 
   function delete_category(){
-    $cate = Category::find($this->params['post']['id']);
-    $cate->delete();
+    $type = $this->params["type"];
+
+    if($this->params['action'] == 'delete'){
+      $cate = Category::find($this->params['id']);
+      $cate->delete();
+    }elseif ($this->params['action'] == 'replace') {
+      $cate = Category::find($this->params['oldID']);
+      $new_cate = $this->params['newID'];
+
+      $table = $type . "s_category_mvcrelation";
+
+      Category::query_db("UPDATE `{$table}` SET `category_id` = '{$new_cate}' WHERE `category_id` = {$cate->id};");
+
+      $cate->delete();
+    }
+
     return renderJson([]); 
   }
 }
