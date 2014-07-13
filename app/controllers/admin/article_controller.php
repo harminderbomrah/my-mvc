@@ -102,6 +102,7 @@ class ArticleController extends ApplicationController{
     $article->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $article->top = ($this->params['top'] == "true" ? 1 : 0);
     $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
+
     if($this->params['publishDate']!=""){
       $article->publishDate = $this->params['publishDate'];
     }else{
@@ -112,11 +113,14 @@ class ArticleController extends ApplicationController{
     }else{
       $article->endDate = "";
     }
+    
+    $article->delete_relation("category",$article->category_relation_ids[0]);
 
     $this->remove_relations($article);
     $article->save();
     $this->add_relations($article);
-    return renderJson(array("success"=>$article->endDate, "publishDate"=>$this->params['publishDate'] ));
+
+    return renderJson(array("success"=>true ));
   }
 
   function delete_article(){

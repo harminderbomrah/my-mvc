@@ -109,6 +109,8 @@ class CaseController extends ApplicationController{
       $case->endDate = "";
     }
 
+    $case->query("UPDATE `cases_category_mvcrelation` SET `category_id` = '{$this->params['category']}' WHERE `cases_id` = {$case->id};");
+
     $this->remove_relations($case);
     $case->save();
     $this->add_relations($case);
