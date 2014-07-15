@@ -4,7 +4,7 @@
   <body>
 
     <div style="font-family: arial; height: 30px;">
-      <div style="float: left; font-weight: bold;"><a href="/">LC Stone</a></div> 
+      <div style="float: left; font-weight: bold;"><a href="/">LC Stone</a></div>
       <div style="float: right;">
         <?php if($current_user->loggedin) { ?>
           <a href="/admin">Dashboard</a>
@@ -18,5 +18,6 @@
     <?= render_partial("partial/main-menu") ?>
 
     <?= $yield ?>
+    <?= render_partial("partial/footer") ?>
   </body>
 </html>
