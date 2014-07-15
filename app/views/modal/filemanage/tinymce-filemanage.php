@@ -1,15 +1,19 @@
-<div class="modal-content" data-ng-controller="fileManage" data-ng-init='extend(<?= json_encode($initial) ?>)'>
-  <div class="modal-header">
-    <h4 class="modal-title">File Manage</h4>
-    <ul class="modal-tab nav">
+<?= css_tag("bootstrap.scss") ?>
+<?= css_tag("_font-awesome.scss") ?>
+<?= css_tag("plugin/ngProgress.scss") ?>
+<?= css_tag("plugin/toaster.scss") ?>
+
+<div class="tinymce-filemanage filemanage" data-ng-controller="fileManage" data-ng-init='extend(<?= json_encode($initial) ?>)'>
+  <div class="filemanage-head">
+    <ul class="filemanage-head-tab nav">
       <li data-ng-click="initial.tabSelect = 'folder'" data-ng-class="{'active': initial.tabSelect == 'folder'}"><i class="fa fa-folder-open"></i></li>
       <li data-ng-click="initial.tabSelect = 'upload'" data-ng-class="{'active': initial.tabSelect == 'upload'}"><i class="fa fa-upload"></i></li>
     </ul>
-    <div class="modal-search" data-ng-show="initial.tabSelect == 'folder'">
+    <div class="filemanage-head-search" data-ng-show="initial.tabSelect == 'folder'">
       <input type="search" class="form-control input-sm" data-ng-model="fileName" data-ng-keyup="" results="5" placeholder="Search File">
     </div>
   </div>
-  <div class="modal-body" data-ng-switch on="initial.tabSelect" resizable>
+  <div class="filemanage-body" data-ng-switch on="initial.tabSelect">
     <div class="upload animate-switch" data-ng-switch-when="upload" data-ng-file-drop>
       <div class="row">
         <div class="col-md-3">
@@ -84,7 +88,7 @@
     <div class="folder animate-switch" data-ng-switch-when="folder">
       <div class="file-group">
         <div masonry masonry-options="{{masonryOptions}}">
-          <div masonry-brick class="file-content {{style}}" ng-repeat="file in filejson.file | filter: {'name': fileName}" data-ng-class="{'active': file.checked, 'use': file.use}">
+          <div masonry-brick class="file-content col-5" ng-repeat="file in filejson.file | filter: {'name': fileName}" data-ng-class="{'active': file.checked, 'use': file.use}">
             <img class="file-thumbnail" data-ng-src="{{file.source.small}}" data-ng-click="action.source(file, $index)" alt="{{file.name}}" check-thumbnail>
             <p class="file-name">
               <i class="fa fa-trash-o fa-fw" data-ng-click="action.delete(file.id)"></i>
@@ -93,18 +97,21 @@
           </div>
         </div>
       </div>
-      <div class="preview" data-ng-if="!initial.multiple">
-        <div class="preview-inner">
-          <div class="preview-content">
-            <img class="img-thumbnail" data-ng-show="fileData.source" data-ng-src="{{fileData.source}}">
-            <i class="fa fa-picture-o fa-5x" data-ng-show="!fileData.source"></i>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-sm btn-flat btn-primary" data-ng-click="insert()" data-ng-show="initial.tabSelect == 'folder'" data-ng-disabled="!fileData.source">Insert</button>
-    <button type="button" class="btn btn-sm btn-flat btn-default" data-ng-click="cancel()">Cancel</button>
-  </div>
 </div>
+<?= js_tag("app/backend/controllers/fileManage/tinymceFileManage.js") ?>
+<?= js_tag("app/backend/services.js") ?>
+<?= js_tag("app/backend/directives.js") ?>
+<?= js_tag("app/backend/controllers/".$type.".js") ?>
+<?= js_tag("plugin/ngFileUpload/angular-file-upload.js") ?>
+<?= js_tag("plugin/masonry/angular-masonry.js") ?>
+<?= js_tag("plugin/ngProgress/ngProgress.js") ?>
+<?= js_tag("plugin/toaster/jquery-toastr.js") ?>
+<script>
+$("button").click(function(){
+  top.tinymce.activeEditor.windowManager.setParams({"selected" : $(this).data("input")});
+
+});
+
+</script>

@@ -143,13 +143,14 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
   // });
   uploader.bind('success', function (event, xhr, item, response) {
     $scope.filejson.file.push(response);
+    $scope.initial.tabSelect = 'folder';
   });
   // uploader.bind('cancel', function (event, xhr, item) {
   //   console.info('Cancel', xhr, item);
   // });
-  // uploader.bind('error', function (event, xhr, item, response) {
-  //   console.info('Error', xhr, item, response);
-  // });
+  uploader.bind('error', function (event, xhr, item, response) {
+    console.info('Error', xhr, item, response);
+  });
   // uploader.bind('complete', function (event, xhr, item, response) {
   //   console.info('Complete', xhr, item, response);
   // });

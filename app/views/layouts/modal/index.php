@@ -4,6 +4,7 @@
     <?php
       if($type) {
         echo js_tag("lib/jquery/jquery-1.11.0.min.js");
+        echo js_tag("lib/jquery/jquery.easing.1.3.js");
         echo js_tag("lib/angular/angular.min.js");
       }
     ?>

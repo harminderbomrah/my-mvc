@@ -99,23 +99,52 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     language: 'zh_TW',
     height: 700,
     menubar: false,
-    toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
-    plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
+    toolbar: "undo redo | link image template | print preview | code",
+    plugins: 'link image preview template code codemirror',
+    // toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
+    // plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
     templates: [
-        {
-            title: "Editor Details",
-            url: "/public/templates/a.html",
-            description: "Adds Editor Name and Staff ID"
-        },
-        {
-            title: "Timestamp",
-            url: "/public/templates/b.html",
-            description: "Adds an editing timestamp."
-        }
+      {
+        title: "Editor Details",
+        url: "/public/templates/a.html",
+        description: "Adds Editor Name and Staff ID"
+      },
+      {
+        title: "Timestamp",
+        url: "/public/templates/b.html",
+        description: "Adds an editing timestamp."
+      }
+    ],
+    content_css : [
+      "/public/templates/a.css",
+      "/public/templates/b.css"
     ],
     codemirror: {
       indentOnInit: true,
       path: '/public/CodeMirror'
+    },
+    file_browser_callback: function(field_name, url, type, win) {
+      var windowManager = tinymce.activeEditor.windowManager
+      windowManager.open({
+        title: "File Manage",
+        url: '/modal/filemanage?type=tinymceFileManage',
+        width: 900,
+        height: 665,
+        buttons: [{
+          text: 'Insert',
+          classes: 'widget btn primary first abs-layout-item',
+          onclick: function(){
+            var params = win.tinymce.activeEditor.windowManager.getParams();
+            win.document.getElementById(field_name).value = params.selected;
+            windowManager.close();
+          }
+        }, {
+          text: 'Close',
+          onclick: 'close',
+          window : win,
+          input : field_name
+        }]
+      });
     }
   };
 
@@ -156,7 +185,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
         $jsonData.postData('POST', '/admin/case/'+postPath, $scope.caseData, function(data, status) {
           ngProgress.complete();
-          // $window.location = '/admin/case/';
+          $window.location = '/admin/case/';
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);

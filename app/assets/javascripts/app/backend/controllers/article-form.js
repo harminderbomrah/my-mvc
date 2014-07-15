@@ -77,44 +77,51 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     language: 'zh_TW',
     height: 700,
     menubar: false,
-    toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
-    plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
+    toolbar: "undo redo | link image template | print preview | code",
+    plugins: 'link image preview template code codemirror',
+    // toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
+    // plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
     templates: [
-        {
-            title: "Editor Details",
-            url: "/public/templates/a.html",
-            description: "Adds Editor Name and Staff ID"
-        },
-        {
-            title: "Timestamp",
-            url: "/public/templates/b.html",
-            description: "Adds an editing timestamp."
-        }
+      {
+        title: "Editor Details",
+        url: "/public/templates/a.html",
+        description: "Adds Editor Name and Staff ID"
+      }, {
+        title: "Timestamp",
+        url: "/public/templates/b.html",
+        description: "Adds an editing timestamp."
+      }
     ],
+    content_css : [
+      "/public/templates/a.css",
+      "/public/templates/b.css"
+    ],
+    // image_dimensions: false,
     codemirror: {
       indentOnInit: true,
       path: '/public/CodeMirror'
     },
     file_browser_callback: function(field_name, url, type, win) {
-      $log.log(field_name, url, type, win)
-      var fileBrowserCallback = $modal.open({
-        templateUrl: '/modal/filemanage',
-        controller: FileBrowser,
-        windowClass: 'file-manage',
-        resolve: {
-          initial: function () {
-            return {
-              tabSelect: "folder",
-              sourceId: $scope.articleData.img,
-              originalImgId: $scope.articleData.img,
-              preview: $scope.initial.preview,
-              clearImg: $scope.action.clearImg
-            };
+      var windowManager = tinymce.activeEditor.windowManager
+      windowManager.open({
+        title: "File Manage",
+        url: '/modal/filemanage?type=tinymceFileManage',
+        width: 900,
+        height: 665,
+        buttons: [{
+          text: 'Insert',
+          classes: 'widget btn primary first abs-layout-item',
+          onclick: function(){
+            var params = win.tinymce.activeEditor.windowManager.getParams();
+            win.document.getElementById(field_name).value = params.selected;
+            windowManager.close();
           }
-        }
-      });
-      fileBrowserCallback.result.then(function(fileData) {
-        win.document.getElementById(field_name).value = fileData.source
+        }, {
+          text: 'Close',
+          onclick: 'close',
+          window : win,
+          input : field_name
+        }]
       });
     }
   };
@@ -155,7 +162,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
         $jsonData.postData('POST', '/admin/article/'+postPath, $scope.articleData, function(data, status) {
           ngProgress.complete();
-          // $window.location = '/admin/article/';
+          $window.location = '/admin/article/';
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);

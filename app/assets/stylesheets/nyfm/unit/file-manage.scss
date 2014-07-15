@@ -3,6 +3,8 @@
 @import "nyfm/variables";
 @import "nyfm/mixins";
 
+
+// @extend start
 .check {
   &:before {
     content: "\f058";
@@ -24,6 +26,290 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+.fm-head {
+  padding: 15px;
+  color: #FFF;
+  background-color: $gray-darker;
+  @include flexbox();
+}
+.fm-tab {
+  margin: -15px 0;
+  line-height: 32px;
+  @include flex(3);
+  li {
+    float: left;
+    padding: 1em 1.5em;
+    border-left: 1px solid $gray-dark;
+    cursor: pointer;
+    @include clearfix();
+    &.active,
+    &:hover {
+      background-color: $brand-mint;
+    }
+    &:last-child {
+      border-right: 1px solid $gray-dark;
+    }
+    i {
+      float: left;
+      margin: 6px 0 4px;
+      font-size: 1.6em;
+    }
+  }
+}
+.fn-search {
+  @include flex(1);
+}
+// @extend end
+
+.upload {
+  .drop-zone {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    &.drop-over {
+      .well {
+        border-color: $brand-primary;
+      }
+    }
+    input[type="file"] {
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      visibility: hidden;
+    }
+  }
+  .upload-control {
+    @media (max-width: $screen-md-min) {
+      margin-bottom: 1em;
+    }
+  }
+  .file-list {
+    .file-list-header {
+      li {
+        padding: 5px 8px;
+        float: left;
+        border-bottom: 2px solid $gray-light;
+        &:nth-child(1) {
+          width: 10%;
+        }
+        &:nth-child(2) {
+          width: 15%;
+        }
+        &:nth-child(3) {
+          width: 10%;
+        }
+        &:nth-child(4) {
+          width: 35%;
+        }
+        &:nth-child(5) {
+          width: 10%;
+        }
+        &:nth-child(6) {
+          width: 20%;
+        }
+      }
+    }
+    .file-list-body {
+      overflow: auto;
+      @include size(100%, 300px);
+      @media (max-width: $screen-md-min) {
+        @include size(100%, 221px);
+        .filemanage-body & {
+          @include size(100%, 257px);
+        }
+      }
+      .file-list-item {
+        padding: 0.5em 0;
+        & + .file-list-item {
+          border-top: 1px dotted $gray-lighter;
+        }
+        & > div {
+          padding: 5px 8px;
+          float: left;
+          &:nth-child(1) {
+            width: 10%;
+            & > div {
+              height: 50px;
+            }
+          }
+          &:nth-child(2) {
+            width: 15%;
+            strong {
+              display: block;
+              width: 100%;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+          }
+          &:nth-child(3) {
+            width: 10%;
+          }
+          &:nth-child(4) {
+            width: 35%;
+          }
+          &:nth-child(5) {
+            width: 10%;
+          }
+          &:nth-child(6) {
+            width: 20%;
+          }
+        }
+      }
+    }
+    .file-list-queue {
+      display: block;
+      margin: 1em 0;
+    }
+  }
+}
+
+.folder {
+  @include flexbox();
+  .file-group {
+    position: relative;
+    max-height: 520px;
+    overflow: auto;
+    padding-right: 8px;
+    padding-bottom: 16px;
+    @include flex(1);
+    .tinymce-filemanage & {
+      max-height: 573px;
+    }
+    .file-content {
+      padding: 0.5em;
+      .file-thumbnail {
+        cursor: pointer;
+        @include size(100%, auto);
+      }
+      .file-name {
+        position: absolute;
+        right: 0.5em;
+        bottom: 0.5em;
+        left: 0.5em;
+        margin: 0;
+        padding: 8px 5px;
+        color: $white;
+        background-color: rgba($mainSidebarBgc, .7);
+        .fa {
+          float: right;
+          margin-top: 0.5em;
+          cursor: pointer;
+        }
+        span {
+          display: inline-block;
+          width: calc(100% - 1.58571em);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+      &.use {
+        background-color: $brand-primary;
+        @extend .check;
+        &:before {
+          color: $brand-primary;
+        }
+      }
+      &.active {
+        background-color: $green;
+        @extend .check;
+        &:before {
+          color: $green;
+        }
+      }
+      &.col-1 {
+        width: 100%;
+      }
+      &.col-2 {
+        width: (100% / 2);
+        &.landscape {
+          width: 100%;
+        }
+      }
+      &.col-3 {
+        width: (100% / 3);
+        &.landscape {
+          width: ((100% / 3) * 2);
+        }
+      }
+      &.col-4 {
+        width: (100% / 4);
+        &.landscape {
+          width: (100% / 2);
+        }
+      }
+      &.col-5 {
+        width: (100% / 5);
+        &.landscape {
+          width: ((100% / 5) * 2);
+        }
+      }
+      &.col-8 {
+        width: (100% / 8);
+        &.landscape {
+          width: (100% / 4);
+        }
+      }
+      // width: 1%;
+      // padding: 0.7em;
+      // text-align: center;
+      // vertical-align: middle;
+      // background-color: lighten($gray-lighter, 20%);
+      // cursor: pointer;
+      // &.active {
+      //   background-color: $brand-primary;
+      // }
+      // img {
+      //   @include size(100%, auto);
+      // }
+      // @media (max-width: $screen-md-min) {
+      //   padding: 0.5em;
+      // }
+      // @media (max-width: $screen-sm-min) {
+      //   padding: 5px;
+      // }
+      // @media (max-width: $screen-xs-min) {
+      //   img {
+      //     @include size(auto, 100px);
+      //   }
+      // }
+    }
+  }
+  .preview {
+    position: relative;
+    width: 20%;
+    max-height: 520px;
+    padding-bottom: 16px;
+    overflow: auto;
+    padding-right: 10px;
+    padding-left: 7px;
+    .preview-content {
+      text-align: center;
+      // .img-thumbnail {
+      //   min-height: 200px;
+      //   max-height: 250px;
+      // }
+      .fa {
+        font-size: 8em;
+      }
+    }
+    .insert {
+      position: absolute;
+      right: 0;
+      bottom: 15px;
+      left: 0;
+      text-align: center;
+    }
+    @media (max-width: $screen-sm-min) {
+      width: 33.333%;
+    }
+    @media (max-width: $screen-xs-min) {
+      display: none;
+    }
+  }
+}
 
 .modal-backdrop {
   background-color: darken($gray-darker, 10%);
@@ -32,45 +318,24 @@
   }
 }
 .file-manage {
-  z-index: 65537 !important;
   .modal-dialog {
     width: 90%;
   }
 }
 .modal-content {
   .modal-header {
-    color: #FFF;
     border-bottom: none;
-    background-color: $gray-darker;
-    @include flexbox();
+    @extend .fm-head;
     @include border-top-radius(6px);
     .modal-title {
       margin-right: 15px;
       line-height: 30px;
     }
     .modal-tab {
-      margin: -15px 0;
-      line-height: 32px;
-      @include flex(3);
-      li {
-        float: left;
-        padding: 1em 1.5em;
-        border-left: 1px solid $gray-dark;
-        cursor: pointer;
-        @include clearfix();
-        &.active,
-        &:hover {
-          background-color: $brand-mint;
-        }
-        i {
-          float: left;
-          margin: 6px 0 4px;
-          font-size: 1.6em;
-        }
-      }
+      @extend .fm-tab;
     }
     .modal-search {
-      @include flex(1);
+      @extend .fn-search;
     }
   }
   .modal-body {
@@ -79,256 +344,23 @@
     padding: 15px 15px 0;
     overflow-y: auto;
     overflow-x: hidden;
-    .upload {
-      .drop-zone {
-        position: relative;
-        display: block;
-        overflow: hidden;
-        cursor: pointer;
-        &.drop-over {
-          .well {
-            border-color: $brand-primary;
-          }
-        }
-        input[type="file"] {
-          position: absolute;
-          top: -100%;
-          left: -100%;
-          visibility: hidden;
-        }
-      }
-      .upload-control {
-        @media (max-width: $screen-md-min) {
-          margin-bottom: 1em;
-        }
-      }
-      .file-list {
-        .file-list-header {
-          li {
-            padding: 5px 8px;
-            float: left;
-            border-bottom: 2px solid $gray-light;
-            &:nth-child(1) {
-              width: 10%;
-            }
-            &:nth-child(2) {
-              width: 15%;
-            }
-            &:nth-child(3) {
-              width: 10%;
-            }
-            &:nth-child(4) {
-              width: 35%;
-            }
-            &:nth-child(5) {
-              width: 10%;
-            }
-            &:nth-child(6) {
-              width: 20%;
-            }
-          }
-        }
-        .file-list-body {
-          overflow: auto;
-          @include size(100%, 300px);
-          @media (max-width: $screen-md-min) {
-            @include size(100%, 221px);
-          }
-          .file-list-item {
-            padding: 0.5em 0;
-            & + .file-list-item {
-              border-top: 1px dotted $gray-lighter;
-            }
-            & > div {
-              padding: 5px 8px;
-              float: left;
-              &:nth-child(1) {
-                width: 10%;
-                & > div {
-                  height: 50px;
-                }
-              }
-              &:nth-child(2) {
-                width: 15%;
-                strong {
-                  display: block;
-                  width: 100%;
-                  overflow: hidden;
-                  white-space: nowrap;
-                  text-overflow: ellipsis;
-                }
-              }
-              &:nth-child(3) {
-                width: 10%;
-              }
-              &:nth-child(4) {
-                width: 35%;
-              }
-              &:nth-child(5) {
-                width: 10%;
-              }
-              &:nth-child(6) {
-                width: 20%;
-              }
-            }
-          }
-        }
-        .file-list-queue {
-          display: block;
-          margin: 1em 0;
-        }
-      }
-    }
-    .folder {
-      @include flexbox();
-      .file-group {
-        position: relative;
-        max-height: 520px;
-        overflow: auto;
-        padding-right: 8px;
-        padding-bottom: 16px;
-        @include flex(1);
-        // table {
-        //   width: 100%;
-        //   border-collapse: separate;
-        //   border-spacing: 10px;
-        // }
-        .file-content {
-          padding: 0.5em;
-          .file-thumbnail {
-            cursor: pointer;
-            @include size(100%, auto);
-          }
-          .file-name {
-            position: absolute;
-            right: 0.5em;
-            bottom: 0.5em;
-            left: 0.5em;
-            margin: 0;
-            padding: 8px 5px;
-            color: $white;
-            background-color: rgba($mainSidebarBgc, .7);
-            .fa {
-              float: right;
-              margin-top: 0.5em;
-              cursor: pointer;
-            }
-            span {
-              display: inline-block;
-              width: calc(100% - 1.58571em);
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-          &.use {
-            background-color: $brand-primary;
-            @extend .check;
-            &:before {
-              color: $brand-primary;
-            }
-          }
-          &.active {
-            background-color: $green;
-            @extend .check;
-            &:before {
-              color: $green;
-            }
-          }
-          &.col-1 {
-            width: 100%;
-          }
-          &.col-2 {
-            width: (100% / 2);
-            &.landscape {
-              width: 100%;
-            }
-          }
-          &.col-3 {
-            width: (100% / 3);
-            &.landscape {
-              width: ((100% / 3) * 2);
-            }
-          }
-          &.col-4 {
-            width: (100% / 4);
-            &.landscape {
-              width: (100% / 2);
-            }
-          }
-          &.col-5 {
-            width: (100% / 5);
-            &.landscape {
-              width: ((100% / 5) * 2);
-            }
-          }
-          &.col-8 {
-            width: (100% / 8);
-            &.landscape {
-              width: (100% / 4);
-            }
-          }
-          // width: 1%;
-          // padding: 0.7em;
-          // text-align: center;
-          // vertical-align: middle;
-          // background-color: lighten($gray-lighter, 20%);
-          // cursor: pointer;
-          // &.active {
-          //   background-color: $brand-primary;
-          // }
-          // img {
-          //   @include size(100%, auto);
-          // }
-          // @media (max-width: $screen-md-min) {
-          //   padding: 0.5em;
-          // }
-          // @media (max-width: $screen-sm-min) {
-          //   padding: 5px;
-          // }
-          // @media (max-width: $screen-xs-min) {
-          //   img {
-          //     @include size(auto, 100px);
-          //   }
-          // }
-        }
-      }
-      .preview {
-        position: relative;
-        width: 20%;
-        max-height: 520px;
-        padding-bottom: 16px;
-        overflow: auto;
-        padding-right: 10px;
-        padding-left: 7px;
-        .preview-content {
-          text-align: center;
-          // .img-thumbnail {
-          //   min-height: 200px;
-          //   max-height: 250px;
-          // }
-          .fa {
-            font-size: 8em;
-          }
-        }
-        .insert {
-          position: absolute;
-          right: 0;
-          bottom: 15px;
-          left: 0;
-          text-align: center;
-        }
-        @media (max-width: $screen-sm-min) {
-          width: 33.333%;
-        }
-        @media (max-width: $screen-xs-min) {
-          display: none;
-        }
-      }
-    }
   }
   .modal-footer {
     margin-top: 0;
+  }
+}
+.tinymce-filemanage {
+  .filemanage-head {
+    @extend .fm-head;
+    .filemanage-head-tab {
+      @extend .fm-tab;
+    }
+    .filemanage-head-search {
+      @extend .fn-search;
+    }
+  }
+  .filemanage-body {
+    padding: 15px;
   }
 }
 // .animate-switch.ng-animate {
