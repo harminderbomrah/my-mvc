@@ -19,44 +19,45 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-4">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <label>Images</label>
+            <label>Left Images</label>
           </div>
-          <div class="panel-body row">
-            <div class="col-xs-6">
-              <p class="text-center">Left</p>
-              <hr>
-              <a class="upload" href="#" data-ng-click="action.fileUpLoad('left')">
-                <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!slideData.imgLeft"></i>
-                <div class="img" data-ng-show="slideData.imgLeft">
-                  <i class="fa fa-refresh fa-5x fa-fw"></i>
-                  <img class="img-rounded" data-ng-src="{{initial.previewLeft}}">
-                </div>
-              </a>
-              <div class="clearImg">
-                <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg('left')" data-ng-show="slideData.imgLeft">Clear Image</button>
+          <div class="panel-body">
+            <a class="upload" href="#" data-ng-click="action.fileUpLoad('left')">
+              <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!slideData.imgLeft"></i>
+              <div class="img" data-ng-show="slideData.imgLeft">
+                <i class="fa fa-refresh fa-5x fa-fw"></i>
+                <img class="img-rounded" data-ng-src="{{initial.previewLeft}}">
               </div>
-            </div>
-            <div class="col-xs-6">
-              <p class="text-center">Right</p>
-              <hr>
-              <a class="upload" href="#" data-ng-click="action.fileUpLoad('right')">
-                <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!slideData.imgRight"></i>
-                <div class="img" data-ng-show="slideData.imgRight">
-                  <i class="fa fa-refresh fa-5x fa-fw"></i>
-                  <img class="img-rounded" data-ng-src="{{initial.previewRight}}">
-                </div>
-              </a>
-              <div class="clearImg">
-                <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg('right')" data-ng-show="slideData.imgRight">Clear Image</button>
-              </div>
+            </a>
+            <div class="clearImg">
+              <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg('left')" data-ng-show="slideData.imgLeft">Clear Image</button>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <label>Right Images</label>
+          </div>
+          <div class="panel-body">
+            <a class="upload" href="#" data-ng-click="action.fileUpLoad('right')">
+              <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!slideData.imgRight"></i>
+              <div class="img" data-ng-show="slideData.imgRight">
+                <i class="fa fa-refresh fa-5x fa-fw"></i>
+                <img class="img-rounded" data-ng-src="{{initial.previewRight}}">
+              </div>
+            </a>
+            <div class="clearImg">
+              <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg('right')" data-ng-show="slideData.imgRight">Clear Image</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
         <div class="panel panel-default">
           <div class="panel-heading">
             <label>Status</label>

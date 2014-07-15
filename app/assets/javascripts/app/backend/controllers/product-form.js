@@ -78,7 +78,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         
         $jsonData.postData('POST', '/admin/product/'+postPath, $scope.productData, function(data, status) {
           ngProgress.complete();
-          // $window.location = '/admin/product/';
+          $window.location = '/admin/product/';
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);

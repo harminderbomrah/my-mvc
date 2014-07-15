@@ -1,10 +1,8 @@
 <?= content_css_tag("nyfm/unit/file-manage.scss") ?>
 <?php
   if($type) {
-    echo "HAVE TYPE";
     echo render_partial("modal/filemanage/tinymce-filemanage");
   } else {
-    echo "NO TYPE";
     echo render_partial("modal/filemanage/default-filemanage");
   }
 ?>

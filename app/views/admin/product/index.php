@@ -40,7 +40,6 @@
         <th class="text-center">{{filterList.length}}</th>
       </tr>
     </thead>
-    {{productList}}
     <tbody>
       <tr data-ng-show="!newList.length">
         <td colspan="5" class="text-center"><strong>No Article</strong></td>

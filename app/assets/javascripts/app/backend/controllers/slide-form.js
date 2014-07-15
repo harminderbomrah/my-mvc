@@ -231,7 +231,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         resolve: {
           initial: function () {
             return {
-              tabSelect: "upload",
+              tabSelect: "folder",
               sourceId: (function() {
                 if(value == 'left') {
                   return $scope.slideData.imgLeft;
