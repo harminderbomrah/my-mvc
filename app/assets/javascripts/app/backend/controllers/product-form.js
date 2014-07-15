@@ -34,9 +34,9 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.productData, src);
-      $log.log($scope.productData);
-      $scope.initial.id = $scope.productData.img
+      $scope.initial.id = $scope.productData.img;
       $scope.initial.preview = $scope.productData.preview;
+      $scope.previewGroup = $scope.action.regroup($scope.initial.preview, 3);
     };
 
     postPath = "update";
@@ -144,7 +144,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         $scope.productData.img = fileData.id
         $scope.initial.preview = fileData.source
         $scope.previewGroup = $scope.action.regroup($scope.initial.preview, 3);
-        $log.log($scope.previewGroup)
       });
       // fileManageModal.opened.then(function() {});
     }

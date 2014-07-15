@@ -6,6 +6,7 @@ class modalController extends ApplicationController{
     return render();
   }
   function fileManage() {
+    $this->type = $this->params["get"]["type"];
     $assets = Assets::all();
     $files = array();
     if(count($assets)>0){

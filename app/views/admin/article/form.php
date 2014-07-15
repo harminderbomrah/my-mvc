@@ -164,7 +164,7 @@
   </form>
 </div>
 <?= js_tag("app/backend/controllers/article-form.js") ?>
-<?= js_tag("app/backend/controllers/fileManage.js") ?>
+<?= js_tag("app/backend/controllers/fileManage/defaultFileManage.js") ?>
 <?= js_tag("plugin/ngFileUpload/angular-file-upload.js") ?>
 <?= js_tag("plugin/masonry/angular-masonry.js") ?>
 <?= js_tag("plugin/chosen/chosen.jquery.js") ?>
