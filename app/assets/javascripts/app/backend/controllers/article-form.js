@@ -96,6 +96,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       "/public/templates/a.css",
       "/public/templates/b.css"
     ],
+    // image_dimensions: false,
     codemirror: {
       indentOnInit: true,
       path: '/public/CodeMirror'
