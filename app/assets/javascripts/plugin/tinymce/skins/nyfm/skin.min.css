@@ -797,6 +797,13 @@ i.mce-i-checkbox {
   -webkit-border-radius:0 4px 4px 0;
   -moz-border-radius:0 4px 4px 0;
   border-radius:0 4px 4px 0;
+  background-color: #e3e4e8;
+}
+.mce-combobox .mce-btn:hover {
+  background-color: #cdcfd4;
+}
+.mce-combobox .mce-btn i {
+  text-shadow: 1px 1px #E9E9E9;
 }
 .mce-combobox button {
   padding-right:8px;
@@ -965,6 +972,9 @@ i.mce-i-checkbox {
 .mce-rtl .mce-menubtn button {
   direction:rtl;
   text-align:right;
+}
+.mce-listbox {
+  background-color: #e3e4e8;
 }
 .mce-listbox button {
   text-align:left;
