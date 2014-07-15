@@ -10,6 +10,7 @@
   <?= js_tag("lib/jquery/jquery.easing.1.3.js") ?>
   <?= js_tag("lib/angular/angular.min.js") ?>
   <?= js_tag("lib/angular/angular-animate.min.js") ?>
+  <?= js_tag("lib/angular/angular-cookies.js") ?>
 
   <?= js_tag("app/backend/application.js") ?>
   <?= js_tag("app/backend/directives.js") ?>

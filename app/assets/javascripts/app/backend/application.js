@@ -3,6 +3,7 @@
 
 // Declare app level module which depends on filters, and services
 var nyfnApp = angular.module('nyfnApp', [
+  'ngCookies',
   'ngAnimate',
   'nyfnApp.filters',
   'nyfnApp.services',

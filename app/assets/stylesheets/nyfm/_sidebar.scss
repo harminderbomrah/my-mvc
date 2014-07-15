@@ -175,17 +175,17 @@
   }
   &.menu-min {
     width: $mainSidebarMinWidth;
-    transition: width 0.3s;
+    // transition: width 0.3s;
     .arrow {
       display: none;
     }
     &:before {
       width: $mainSidebarMinWidth;
-      transition: width 0.3s;
+      // transition: width 0.3s;
     }
     &+.main-content {
       // margin-left: $mainSidebarMinWidth;
-      transition: margin-left 0.3s;
+      // transition: margin-left 0.3s;
     }
     .level-1 {
       .menu-text {

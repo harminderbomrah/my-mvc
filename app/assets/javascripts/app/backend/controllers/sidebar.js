@@ -5,20 +5,27 @@
 angular.module('nyfnApp.controller.sidebar', [])
 
 // Sidebar controller
-.controller('sidebar', ['$rootScope', '$scope', '$log', '$location', '$jsonData', function($rootScope, $scope, $log, $location, $jsonData) {
-
+.controller('sidebar', ['$cookies', '$cookieStore', '$rootScope', '$scope', '$log', '$location', '$jsonData', function($cookies, $cookieStore, $rootScope, $scope, $log, $location, $jsonData) {
   // get sidebar menu json data use $jsonData services
   $jsonData.getData('/public/side-bar-list.json').then(function(data) {
     $scope.sidebarList = data;
   });
   // Definition sidebar controller scope initial
   $scope.initial = {
-    collapse: {         // for sidebar collapse swithc
-      menu: "",         // collapse swithc default class name, Do not modify
-      arrow: "left"     // collapse swithc icon default class name, Do not modify
+    collapse: {
+      menu: (function() {
+        var m = $cookies.menu || null;
+        return m;
+      })(),
+      arrow: (function() {
+        var m = $cookies.arrow || "left";
+        return m;
+      })()
     },
     active: []
   };
+
+  $log.log($scope.initial.collapse.menu)
 
   angular.forEach($rootScope.locationPath, function(value) {
     $scope.initial.active.push(value);
@@ -34,8 +41,8 @@ angular.module('nyfnApp.controller.sidebar', [])
     },
     collapseSidebar: function() {
       // collapse sidebar
-      $scope.initial.collapse.menu ? $scope.initial.collapse.menu = "" : $scope.initial.collapse.menu = "menu-min";
-      $scope.initial.collapse.arrow == "left" ? $scope.initial.collapse.arrow = "right" : $scope.initial.collapse.arrow = "left";
+      $scope.initial.collapse.menu ? $scope.initial.collapse.menu = $cookies.menu = "" : $scope.initial.collapse.menu = $cookies.menu = "menu-min";
+      $scope.initial.collapse.arrow == "left" ? $scope.initial.collapse.arrow = $cookies.arrow = "right" : $scope.initial.collapse.arrow = $cookies.arrow = "left";
     },
     checkPath: function(path, index) {
       var outcome;
