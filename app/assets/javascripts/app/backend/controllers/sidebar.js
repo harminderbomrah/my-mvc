@@ -25,8 +25,6 @@ angular.module('nyfnApp.controller.sidebar', [])
     active: []
   };
 
-  $log.log($scope.initial.collapse.menu)
-
   angular.forEach($rootScope.locationPath, function(value) {
     $scope.initial.active.push(value);
   });

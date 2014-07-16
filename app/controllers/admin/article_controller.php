@@ -27,8 +27,7 @@ class ArticleController extends ApplicationController{
     $article = new Articles();
     $article->title = $this->params['title'];
     $article->content = $this->params['content'];
-    $article->img = $this->params['img'];
-    $article->disabled = ($this->params['disabled'] == "false" ? 1 : 0);
+    $article->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $article->top = ($this->params['top'] == "true" ? 1 : 0);
     $article->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['publishDate']!=null){
@@ -120,7 +119,7 @@ class ArticleController extends ApplicationController{
     }else{
       $article->endDate = "";
     }
-    
+
     $article->delete_relation("category",$article->category_relation_ids[0]);
 
     $this->remove_relations($article);
