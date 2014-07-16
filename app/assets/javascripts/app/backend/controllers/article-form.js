@@ -96,11 +96,11 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       "/public/templates/a.css",
       "/public/templates/b.css"
     ],
-    // image_dimensions: false,
     codemirror: {
       indentOnInit: true,
       path: '/public/CodeMirror'
     },
+    relative_urls: false,
     file_browser_callback: function(field_name, url, type, win) {
       var windowManager = tinymce.activeEditor.windowManager
       windowManager.open({

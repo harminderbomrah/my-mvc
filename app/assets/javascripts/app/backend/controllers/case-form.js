@@ -123,6 +123,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       indentOnInit: true,
       path: '/public/CodeMirror'
     },
+    relative_urls: false,
     file_browser_callback: function(field_name, url, type, win) {
       var windowManager = tinymce.activeEditor.windowManager
       windowManager.open({

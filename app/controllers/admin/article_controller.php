@@ -64,6 +64,10 @@ class ArticleController extends ApplicationController{
     foreach ($article->products_relation_ids as $product_id) {
       array_push($products, (string)$product_id);
     }
+    $preview = "";
+    if($article->img){
+      $preview = '/'.Assets::find($article->img)->file['medium']->path;
+    }
 
     $preview = "";
     if($article->img){

@@ -33,7 +33,7 @@ angular.module('tinymceFileManage', [
 })
 
 // File Manage controller
-.controller('fileManage', ['$window', '$scope', '$log', '$fileUploader', '$jsonData', 'ngProgress', function($window, $scope, $log, $fileUploader, $jsonData, ngProgress) {
+.controller('fileManage', ['$scope', '$log', '$fileUploader', '$jsonData', 'ngProgress', function($scope, $log, $fileUploader, $jsonData, ngProgress) {
   $scope.filejson = {
     file: []
   };
@@ -58,7 +58,7 @@ angular.module('tinymceFileManage', [
       angular.forEach($scope.filejson.file, function(element, index) {
         element.id == value.id ? element.checked = true : element.checked = false
       });
-      top.tinymce.activeEditor.windowManager.setParams({"selected" : $window.location.origin + value.source.large});
+      top.tinymce.activeEditor.windowManager.setParams({"selected" : value.source.large});
     },
     delete: function(id) {
       var d = confirm("你確定要刪除這個檔案嗎？");
