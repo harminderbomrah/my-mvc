@@ -27,6 +27,7 @@ class CaseController extends ApplicationController{
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
     $case->img = $this->params['img'];
+    $case->location = $this->params['location'];
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
@@ -79,6 +80,7 @@ class CaseController extends ApplicationController{
       "publishDate" => strtotime($case->publishDate)*1000,
       "endDate" => strtotime($case->endDate)*1000,
       "img" => $case->img,
+      "location" => $case->location,
       "preview" => $preview,
       "product" => $products,
       "Article" => $articles,
@@ -102,6 +104,7 @@ class CaseController extends ApplicationController{
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
     $case->img = $this->params['img'];
+    $case->location = $this->params['location'];
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);

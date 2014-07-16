@@ -18,6 +18,9 @@
       );
     }
     function delete_asset(){
+      $asset = Assets::find($this->params['post']['id']);
+      $asset->delete();
+      return renderJson(array("success"=>true));
     }
   }
 ?>

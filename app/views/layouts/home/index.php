@@ -6,7 +6,7 @@
     <div style="font-family: arial; height: 30px;">
       <div style="float: left; font-weight: bold;"><a href="/">LC Stone</a></div> 
       <div style="float: right;">
-        <?php if($loggedin) { ?>
+        <?php if($current_user->loggedin) { ?>
           <a href="/admin">Dashboard</a>
           <a href="/user/logout">Logout</a>
         <?php }else{ ?>

@@ -11,7 +11,8 @@ class Category extends ModelAdapter{
 
       if($cates!=null){
         foreach($cates as $cate){
-          $quantity = count($cate->articles_relation_ids);
+          $field = "{$type}s_relation_ids";
+          $quantity = count($cate->{$field});
           array_push($result, array('id'=>$cate->id, 'name'=>$cate->name, 'quantity'=>$quantity));
         }
       }

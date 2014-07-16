@@ -1,5 +1,5 @@
 <table>
-  <caption><h3>Product List</h3></caption>
+  <caption><h3>Article List</h3></caption>
   <thead>
     <tr>
       <th>Category</th>
@@ -9,21 +9,21 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($products as $product) { ?>
+    <?php foreach ($articles as $article) { ?>
       <tr>
         <td>
-          <?php echo $product['category_name'] ?>
+          <?php echo Category::find($article['category'])->name ?>
         </td>
         <td>
-          <a href="/product/<?php echo $product['id'] ?>">
-            <?php echo $product['name'] ?>
+          <a href="/article/<?php echo $article['id'] ?>">
+            <?php echo $article['title'] ?>
           </a>
         </td>
-         <td>
-          <?= img_tag($product["image"]) ?>
+        <td>
+          <?= img_tag($article["image"]) ?>
         </td>
         <td>
-          <?php foreach ($product['tags'] as $tag) { ?>
+          <?php foreach ($article['tags'] as $tag) { ?>
             <i><?php echo $tag['name']; ?></i>
           <?php } ?>
         </td>

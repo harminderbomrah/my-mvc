@@ -25,15 +25,6 @@
 class HomeController extends ApplicationController{
 	var $controller_layout = "home";
 	function index(){
-		$this->name = "";
-		if (isset($this->current_user)) {
-			$this->loggedin = $this->current_user->loggedin;
-			if($this->current_user->loggedin){
-				$this->name = $this->current_user->name;
-			}
-		}else{
-			$this->loggedin = false;
-		}
 		return render();
 	}
 	function portfolio_list(){

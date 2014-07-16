@@ -24,7 +24,7 @@ class Products extends ModelAdapter{
         FROM 
           products A, 
           products_category_mvcrelation B, 
-          category C 
+          category C
         WHERE 
           A.id = B.products_id AND C.id=B.category_id {$category_filter} {$trash_filter}");
       if($products==null){
@@ -33,6 +33,8 @@ class Products extends ModelAdapter{
         foreach ($products as $key => $product) {
           
           $products[$key]['tags'] = Tags::query_db("SELECT * FROM tags WHERE id IN (SELECT tags_id FROM products_tags_mvcrelation WHERE products_id = '{$product['id']}')");
+          $img = Tags::query_db("SELECT assets_id FROM products_assets_mvcrelation WHERE products_id = '{$product['id']}' LIMIT 0,1");
+          $products[$key]['image'] = Assets::find($img[0]["assets_id"])->file["large"];
           
           if($products[$key]['tags']==null) $products[$key]['tags'] = [];
 

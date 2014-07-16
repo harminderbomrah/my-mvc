@@ -23,8 +23,10 @@
     opacity: 0.9;
     filter: alpha(opacity=90); }
 
-.file-manage .modal-dialog {
-  width: 90%; }
+.file-manage {
+  z-index: 65537 !important; }
+  .file-manage .modal-dialog {
+    width: 90%; }
 
 .modal-content .modal-header {
   color: #fff;

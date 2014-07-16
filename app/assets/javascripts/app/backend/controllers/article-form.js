@@ -19,7 +19,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       text: null
     },
     preview: null,
-    submit: false
+    submit: false,
   }
 
   // 檢查頁面是新增或是編輯
@@ -79,7 +79,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     menubar: false,
     toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
     plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
-    image_advtab: true,
     templates: [
         {
             title: "Editor Details",
@@ -95,6 +94,28 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     codemirror: {
       indentOnInit: true,
       path: '/public/CodeMirror'
+    },
+    file_browser_callback: function(field_name, url, type, win) {
+      $log.log(field_name, url, type, win)
+      var fileBrowserCallback = $modal.open({
+        templateUrl: '/modal/filemanage',
+        controller: FileBrowser,
+        windowClass: 'file-manage',
+        resolve: {
+          initial: function () {
+            return {
+              tabSelect: "folder",
+              sourceId: $scope.articleData.img,
+              originalImgId: $scope.articleData.img,
+              preview: $scope.initial.preview,
+              clearImg: $scope.action.clearImg
+            };
+          }
+        }
+      });
+      fileBrowserCallback.result.then(function(fileData) {
+        win.document.getElementById(field_name).value = fileData.source
+      });
     }
   };
 
@@ -245,6 +266,15 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 }]);
 
 var FileManage = function ($rootScope, $scope, $log, $modalInstance, initial) {
+  $scope.initial = initial;
+  $scope.insert = function() {
+    $modalInstance.close($rootScope.fileData);
+  }
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+}
+var FileBrowser = function ($rootScope, $scope, $log, $modalInstance, initial) {
   $scope.initial = initial;
   $scope.insert = function() {
     $modalInstance.close($rootScope.fileData);

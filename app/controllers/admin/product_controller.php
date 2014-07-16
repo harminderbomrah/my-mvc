@@ -36,7 +36,7 @@ class ProductController extends ApplicationController{
     foreach ($product->tags_relation_ids as $tag_id) {
       array_push($tags, (string)$tag_id);
     }
-    $specs = [];
+    $specs = null;
     foreach ($product->product_specs_relation_ids as $spec_id) {
       $spec = ProductSpecs::find($spec_id);
       $specs["{$spec->item}"]=$spec->detail;
