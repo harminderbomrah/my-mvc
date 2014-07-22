@@ -1,6 +1,7 @@
-<?= content_css_tag("nyfm/unit/file-manage.scss") ?>
+<?= content_css_tag("backsite/unit/file-manage.scss") ?>
 <?php
   if($type) {
+    echo content_css_tag("backsite/unit/file-manage-tinymce.scss");
     echo render_partial("modal/filemanage/tinymce-filemanage");
   } else {
     echo render_partial("modal/filemanage/default-filemanage");

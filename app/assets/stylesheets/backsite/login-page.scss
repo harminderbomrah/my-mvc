@@ -1,8 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400,300);
-@import "bootstrap";
-@import "nyfm/mixins";
-@import "nyfm/variables";
-@import "font-awesome";
+@import "libary/bootstrap/bootstrap.scss";
+@import "libary/font-awesome/font-awesome.scss";
+@import "backsite/modules/mixins";
+@import "backsite/modules/variables";
 
 
 html {

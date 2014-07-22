@@ -1,8 +1,3 @@
-<?= css_tag("bootstrap.scss") ?>
-<?= css_tag("_font-awesome.scss") ?>
-<?= css_tag("plugin/ngProgress.scss") ?>
-<?= css_tag("plugin/toaster.scss") ?>
-
 <div class="tinymce-filemanage filemanage" data-ng-controller="fileManage" data-ng-init='extend(<?= json_encode($initial) ?>)'>
   <div class="filemanage-head">
     <ul class="filemanage-head-tab nav">

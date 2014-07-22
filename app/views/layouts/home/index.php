@@ -3,9 +3,9 @@
   <?= render_partial("partial/home-head") ?>
   <body>
 
-    <div style="font-family: arial; height: 30px;">
-      <div style="float: left; font-weight: bold;"><a href="/">LC Stone</a></div>
-      <div style="float: right;">
+    <div>
+      <div><a href="/">LC Stone</a></div>
+      <div>
         <?php if($current_user->loggedin) { ?>
           <a href="/admin">Dashboard</a>
           <a href="/user/logout">Logout</a>

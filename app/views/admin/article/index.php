@@ -1,5 +1,5 @@
 <?= content_css_tag("plugin/chosen.scss") ?>
-<?= content_css_tag("nyfm/unit/main-list.scss") ?>
+<?= content_css_tag("backsite/unit/main-list.scss") ?>
 <div class="main-list" data-ng-controller="articleList" data-ng-init='extend(<?= json_encode($initial) ?>)'>
   <div class="table-action btn-toolbar" role="toolbar">
     <div class="btn-group" data-ng-show="initial.selection.length">

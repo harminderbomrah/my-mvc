@@ -1,6 +1,6 @@
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
-@import "nyfm/variables";
+@import "libary/bootstrap/variables";
+@import "libary/bootstrap/mixins";
+@import "backsite/modules/variables";
 .main-list {
   .table-action {
     margin-bottom: 15px;
