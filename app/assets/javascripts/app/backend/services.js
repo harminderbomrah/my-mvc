@@ -11,7 +11,7 @@ angular.module('nyfnApp.services', [])
 .value('version', '0.1')
 
 // Definition get json data factory
-.factory('$jsonData', function($http, $q) {
+.factory('$jsonData', ['$http', '$q', function($http, $q) {
   return {
     getData: function(URL) {
       var deferred = $q.defer();
@@ -35,7 +35,38 @@ angular.module('nyfnApp.services', [])
       });
     }
   };
-})
+}])
+.factory('$myCookie', [function () {
+  return {
+    set: function(name, value, days) {
+      var expires = "",
+          url = "";
+      if(days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 86400000));
+        expires = "" + date.toGMTString()
+      }
+      document.cookie = name + '=' + value + '; expires=' + expires + '; path=/';
+      return value;
+    },
+    get: function(name) {
+      var value,
+          cookie = document.cookie.split('; ');
+      angular.forEach(cookie, function(item, index) {
+        if(item.search(name) == 0) {
+          value = item.split('=')[1]
+        }
+      });
+      return value;
+    },
+    destroy: function(name) {
+      this.set(name, "", -1)
+      // if(document.cookie.indexOf(name) !== -1) {
+      //   document.cookie = name + '=; expires=-1; path='
+      // }
+    }
+  };
+}])
 .factory('pagination', [function() {
   return {
 

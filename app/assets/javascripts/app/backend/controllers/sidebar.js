@@ -5,7 +5,7 @@
 angular.module('nyfnApp.controller.sidebar', [])
 
 // Sidebar controller
-.controller('sidebar', ['$cookies', '$cookieStore', '$rootScope', '$scope', '$log', '$location', '$jsonData', function($cookies, $cookieStore, $rootScope, $scope, $log, $location, $jsonData) {
+.controller('sidebar', ['$rootScope', '$scope', '$log', '$location', '$jsonData', '$myCookie', function($rootScope, $scope, $log, $location, $jsonData, $myCookie) {
   // get sidebar menu json data use $jsonData services
   $jsonData.getData('/public/side-bar-list.json').then(function(data) {
     $scope.sidebarList = data;
@@ -14,11 +14,11 @@ angular.module('nyfnApp.controller.sidebar', [])
   $scope.initial = {
     collapse: {
       menu: (function() {
-        var m = $cookies.menu || null;
+        var m = $myCookie.get('menu') || null;
         return m;
       })(),
       arrow: (function() {
-        var m = $cookies.arrow || "left";
+        var m = $myCookie.get('arrow') || "left";
         return m;
       })()
     },
@@ -38,9 +38,8 @@ angular.module('nyfnApp.controller.sidebar', [])
       return icon
     },
     collapseSidebar: function() {
-      // collapse sidebar
-      $scope.initial.collapse.menu ? $scope.initial.collapse.menu = $cookies.menu = "" : $scope.initial.collapse.menu = $cookies.menu = "menu-min";
-      $scope.initial.collapse.arrow == "left" ? $scope.initial.collapse.arrow = $cookies.arrow = "right" : $scope.initial.collapse.arrow = $cookies.arrow = "left";
+      $scope.initial.collapse.menu ? $scope.initial.collapse.menu = $myCookie.destroy("menu") : $scope.initial.collapse.menu = $myCookie.set("menu", "menu-min", 5);
+      $scope.initial.collapse.arrow == "left" ? $scope.initial.collapse.arrow = $myCookie.set("arrow", "right", 5) : $scope.initial.collapse.arrow = $myCookie.destroy("arrow");
     },
     checkPath: function(path, index) {
       var outcome;
