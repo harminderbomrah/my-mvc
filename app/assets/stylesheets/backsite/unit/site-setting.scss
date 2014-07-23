@@ -1,0 +1,37 @@
+@import "libary/bootstrap/variables";
+@import "libary/bootstrap/mixins";
+.form-warp {
+  position: relative;
+  padding: 1em;
+  margin: 0 0 1em;
+  background-color: #fff;
+  border-style: solid;
+  border-color: #ddd;
+  border-width: 1px;
+  border-radius: 4px;
+  .form-warp-title {
+    margin: 0 0 2em;
+    font-size: 1em;
+    color: #959595;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  textarea {
+    resize: vertical;
+    overflow: auto;
+  }
+  .form-group {
+    margin-bottom: 30px;
+    & > div {
+      position: relative;
+    }
+    .msg {
+      position: absolute;
+      right: 15px;
+      left: 15px;
+      margin: 6px 0 0;
+      padding: 0 3px;
+      font-size: 12px;
+    }
+  }
+}

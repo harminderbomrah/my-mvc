@@ -76,6 +76,8 @@
 
     'admin/setting#index' => array('admin/setting'),
     'admin/setting#update' => array('admin/setting/update'),
+    'admin/setting#checkpassword' => array('admin/setting/checkpassword'),
+    'admin/setting#changepassword' => array('admin/setting/changepassword'),
 
     'modal#filemanage' => array('modal/filemanage'),
     'modal#delete_confirm' => array('modal/confirm'),
