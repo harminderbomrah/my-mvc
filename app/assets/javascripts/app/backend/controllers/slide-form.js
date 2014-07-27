@@ -33,12 +33,14 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.slideData, src);
+      $log.log($scope.slideData)
       $scope.initial.id = $scope.slideData.img
-      $scope.initial.preview = $scope.slideData.preview;
+      $scope.initial.previewLeft = $scope.slideData.previewLeft;
+      $scope.initial.previewRight = $scope.slideData.previewRight;
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
-    $scope.$watch('slideData.date', function(date) {
+    $scope.$watch('slideData.publishDate', function(date) {
       date ? $scope.initial.publishDate = true : null
     });
 

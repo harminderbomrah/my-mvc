@@ -25,6 +25,7 @@
 class HomeController extends ApplicationController{
 	var $controller_layout = "home";
 	function index(){
+		$this->slides = Slide::all();
 		return render();
 	}
 	function portfolio_list(){
