@@ -2,9 +2,9 @@
 
 class ArticleController extends ApplicationController{
   var $controller_layout = "admin";
+  var $before_filter = array("authenticate_user");
+  
   function index() {
-    $this->current_user->needs_authentication();
-
     $this->initial = array(
       "categorys" => Category::all_with_quantity("article"),
       "currentPage" =>  ($this->params["page_no"] ==  null ? 1 : $this->params["page_no"])

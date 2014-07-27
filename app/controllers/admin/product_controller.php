@@ -2,6 +2,8 @@
 
 class ProductController extends ApplicationController{
   var $controller_layout = "admin";
+  var $before_filter = array("authenticate_user");
+  
   function index() {
     $this->initial = array(
       "categorys" => Category::all_with_quantity("product"),

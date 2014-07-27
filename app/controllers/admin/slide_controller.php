@@ -2,6 +2,8 @@
 
 class SlideController extends ApplicationController{
   var $controller_layout = "admin";
+  var $before_filter = array("authenticate_user");
+  
   function index() {
     $this->current_user->needs_authentication();
 

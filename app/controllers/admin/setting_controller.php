@@ -2,8 +2,10 @@
 
 class SettingController extends ApplicationController{
   var $controller_layout = "admin";
+  var $before_filter = array("authenticate_user");
+  
   function index() {
-    $site = Site::all()[0];
+    $site = Site::first();
     $this->initial = array(
       "title" => $site->title,
       "description" => $site->description

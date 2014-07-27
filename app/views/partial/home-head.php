@@ -1,8 +1,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="description" content="良錡石材提供最專業石材建材及設計">
-  <title>LcStone</title>
+  <meta name="description" content="<?= Site::first()->description ?>">
+  <title><?= Site::first()->title ?></title>
   <?= css_tag("//cdn.jsdelivr.net/fontawesome/4.1.0/css/font-awesome.min.css") ?>
   <?= css_tag("frontsite/global.scss") ?>
   <?= render_page_specific_css() ?>

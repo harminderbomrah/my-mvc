@@ -1,5 +1,7 @@
 <?php
   class AssetsController extends ApplicationController{
+    var $before_filter = array("authenticate_user");
+    
     function index(){
 
     }

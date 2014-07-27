@@ -2,6 +2,8 @@
 
 class TagsController extends ApplicationController{
   var $controller_layout = "admin";
+  var $before_filter = array("authenticate_user");
+  
   function index() {
     $this->tags = Tags::all_with_quantity();
     return render();

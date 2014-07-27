@@ -2,6 +2,8 @@
 
 class CategoryController extends ApplicationController{
   var $controller_layout = "admin";
+  var $before_filter = array("authenticate_user");
+  
   function index() {
     $this->category = Category::all_with_quantity($this->params['type']);
     return render(array('view'=>'admin/'.$this->params['type'].'/category'));

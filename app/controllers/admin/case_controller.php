@@ -2,9 +2,9 @@
 
 class CaseController extends ApplicationController{
   var $controller_layout = "admin";
-  function index() {
-    $this->current_user->needs_authentication();
+  var $before_filter = array("authenticate_user");
 
+  function index() {
     $this->initial = array(
       "categorys" => Category::all_with_quantity("case"),
       "currentPage" =>  ($this->params["page_no"] ==  null ? 1 : $this->params["page_no"])
