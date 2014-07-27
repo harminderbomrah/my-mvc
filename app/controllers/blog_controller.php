@@ -1,5 +1,5 @@
 <?php
-  class ArticleController extends ApplicationController{
+  class BlogController extends ApplicationController{
     var $controller_layout = "home";
 
     function index(){

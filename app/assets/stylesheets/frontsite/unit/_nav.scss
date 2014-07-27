@@ -1,0 +1,243 @@
+.navigation {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: $navigationWidth;
+  padding-left: $navigationSidebar;
+  border-right: 1px solid nth($grays, 5);
+  background-color: $white;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: $navigationSidebar;
+    background-color: nth($grays, 2);
+  }
+  .site-name {
+    margin-top: 2.5em;
+    text-align: center;
+  }
+  .mune-group {
+    margin-left: $navigationSidebar * -1;
+  }
+  .mune-item {
+    padding-left: $navigationSidebar;
+    .mune-title {
+      position: relative;
+      height: 2.67em;
+      margin: 0;
+      font-size: 18px;
+      text-transform: uppercase;
+      line-height: 2.67em;
+      text-align: center;
+      color: nth($grays, 3);
+      a {
+        color: nth($grays, 3);
+      }
+      label {
+        cursor: pointer;
+      }
+    }
+    .icon {
+      position: absolute;
+      top: 0;
+      right: 100%;
+      display: block;
+      background-color: nth($grays, 2);
+      @include size($navigationSidebar, 100%);
+    }
+    .zh {
+      display: none;
+    }
+    &:hover {
+      cursor: default;
+      .mune-title {
+        background-color: nth($grays, 6);
+      }
+      .mune-sub-group {
+        display: block;
+      }
+      .icon {
+        background-color: nth($aqua, 1);
+      }
+      .en {
+        display: none;
+      }
+      .zh {
+        display: block;
+      }
+    }
+    &.search {
+      position: relative;
+      .mune-title {
+        z-index: 1;
+      }
+      .search-box {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 100%;
+        width: 400px;
+        input[type="text"] {
+          display: inline-block;
+          padding: 5px 8px;
+          font-size: 18px;
+          border-style: solid;
+          border-color: nth($grays, 5);
+          border-width: 1px 1px 1px 0;
+          color: nth($grays, 3);
+          background-color: nth($grays, 6);
+          outline: none;
+          @include size($navigationWidth, 48px);
+        }
+        button {
+          position: absolute;
+          top: 0;
+          right: 0;
+          border: 0;
+          color: $white;
+          font-weight: 700;
+          line-height: 46px;
+          background-color: $brand-primary;
+          outline: none;
+          @include size(100px, 48px);
+        }
+      }
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: $navigationWidth;
+        background-color: nth($grays, 1);
+        z-index: 0;
+        @include opacity(.8);
+        &:before {
+          content: "";
+          position: absolute;
+          right: 100%;
+          top: 50%;
+          bottom: 0;
+          width: $navigationWidth;
+        }
+      }
+      #search {
+        &:checked {
+          & ~ .mune-title {
+            background-color: nth($grays, 6);
+            .icon {
+              background-color: nth($aqua, 1);
+            }
+            .en {
+              display: none;
+            }
+            .zh {
+              display: block;
+            }
+          }
+          & ~ .overlay {
+            display: block;
+          }
+          & ~ .search-box {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  .mune-sub-group {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    bottom: 0;
+    width: $navigationWidth + 50px;
+    padding: 1.44em;
+    overflow: hidden;
+    background-color: nth($grays, 6);
+    .mune-sub-title {
+      font-size: 1.5em;
+      font-weight: 300;
+      text-transform: uppercase;
+      color: nth($grays, 3);
+      white-space: nowrap;
+    }
+    .tag-list {
+      margin: 1em 0;
+      font-size: 0.75em;
+      ul {
+        margin-left: 0;
+      }
+      .tag-item {
+        padding: 0;
+        line-height: 2.5em;
+        a {
+          padding: 3px 5px;
+          color: nth($grays, 4);
+          border: 1px solid nth($grays, 4);
+          &:hover {
+            color: $white;
+            border: 1px solid nth($grays, 2);
+            background-color: nth($grays, 2);
+          }
+        }
+      }
+    }
+    .mune-sub {
+      position: relative;
+      overflow: hidden;
+      height: 500px;
+      width: 100%;
+    }
+    .mune-sub-item {
+      font-size: 0.85em;
+      line-height: 2em;
+      a {
+        color: nth($grays, 3);
+        &:hover {
+          color: nth($brand-primary, 1);
+        }
+      }
+    }
+    li {
+      a {
+        white-space: nowrap;
+      }
+    }
+  }
+  .social {
+    position: absolute;
+    bottom: 0;
+    width: $navigationWidth - $navigationSidebar;
+    border-top: 1px solid nth($grays, 5);
+    .social-mune {
+      height: 48px;
+      margin: 0;
+      @include clearfix();
+      li {
+        float: left;
+        width: ($navigationWidth - $navigationSidebar) / 3;
+        padding: 0;
+        & + li {
+          border-left: 1px solid nth($grays, 5);
+        }
+        &:hover {
+          a {
+            background-color: nth($grays, 2);
+          }
+        }
+      }
+      a {
+        display: block;
+        height: 48px;
+        line-height: 48px;
+        @include hide-text();
+      }
+    }
+  }
+}

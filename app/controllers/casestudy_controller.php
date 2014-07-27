@@ -1,5 +1,5 @@
 <?php
-  class CaseController extends ApplicationController{
+  class CasestudyController extends ApplicationController{
     var $controller_layout = "home";
 
     function index(){

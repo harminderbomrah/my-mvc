@@ -8,16 +8,12 @@
   // Routes start here
   $ROUTE_RULES = array(
     'home#index' => array('home'),
-    'product#index' => array('product'),
-    'product#show' => array('product/{id}'),
-    'article#index' => array('article'),
-    'article#show' => array('article/{id}'),
-    'case#index' => array('case'),
-    'case#show' => array('case/{id}'),
-    'home/portfolio#portfolio_list' => array('portfolio'),
-    'home/portfolio#portfolio_item' => array('portfolio/{id}'),
-    'home/blog#blog_list' => array('blog'),
-    'home/blog#blog_item' => array('blog/{id}'),
+    'collections#index' => array('collections'),
+    'collections#show' => array('collections/{id}'),
+    'blog#index' => array('blog'),
+    'blog#show' => array('blog/{id}'),
+    'casestudy#index' => array('case_study'),
+    'casestudy#show' => array('case_study/{id}'),
 
     'admin/user#login' => array('user/login'),
     'admin/user#resets' => array('user/resets'),

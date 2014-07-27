@@ -1,19 +1,22 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(http://fonts.googleapis.com/css?family=Titillium+Web:200,300italic,400,400italic,600,600italic,700,700italic);
 
-@import "bootstrap/mixins";
-@import "bootstrap/utilities";
-@import "bootstrap/normalize";
+@import "libary/bootstrap/mixins";
+@import "libary/bootstrap/utilities";
+@import "libary/bootstrap/normalize";
 
-//顏色、字型大小...blah 設定
+// 顏色、字型大小...blah 設定
 @import "frontsite/modules/setting";
+@import "frontsite/modules/type";
 
 // body base setting
+@import "frontsite/unit/general";
 @import "frontsite/unit/nav";
 @import "frontsite/unit/footer";
 
+// Plugin
+@import "plugin/perfect-scrollbar";
 
 body {
-	font-family: $font-family-sans-serif;
-	color: $brand-gray;
+  padding-left: 300px;
 }

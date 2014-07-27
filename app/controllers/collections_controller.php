@@ -1,5 +1,5 @@
 <?php
-  class ProductController extends ApplicationController{
+  class CollectionsController extends ApplicationController{
     var $controller_layout = "home";
 
     function index(){

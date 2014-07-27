@@ -3,18 +3,17 @@
   <?= render_partial("partial/home-head") ?>
   <body>
 
-    <div>
+    <!-- <div>
       <div><a href="/">LC Stone</a></div>
       <div>
-        <?php if($current_user->loggedin) { ?>
+        <?#php if($current_user->loggedin) { ?>
           <a href="/admin">Dashboard</a>
           <a href="/user/logout">Logout</a>
-        <?php }else{ ?>
+        <?#php }else{ ?>
           <a href="/user/login">Login</a>
-        <?php }?>
+        <?#php }?>
       </div>
-    </div>
-
+    </div> -->
     <?= render_partial("partial/main-menu") ?>
 
     <?= $yield ?>
