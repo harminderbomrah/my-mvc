@@ -112,7 +112,7 @@ angular.module('nyfnApp.controller.main', [])
   $scope.passwordSubmit = function(form) {
     ngProgress.start();
 
-    $jsonData.postData('POST', '/admin/setting/changepassword', $scope.psw.new, function(data, status) {
+    $jsonData.postData('POST', '/admin/setting/changepassword', {password: $scope.psw.new}, function(data, status) {
       ngProgress.complete();
       toastr.success("密碼已更新");
     }, function(data, status) {

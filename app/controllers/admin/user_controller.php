@@ -37,10 +37,12 @@ class UserController extends ApplicationController{
 	}
 
 	function check(){
-		echo password_hash($this->params['post']['password'], PASSWORD_DEFAULT);
+		// echo password_hash($this->params['post']['password'], PASSWORD_DEFAULT);
 		if($user = Users::find_by(array("username"=>$this->params["post"]["username"]))){
 			if(password_verify( $this->params['post']['password'], $user[0]->password) ){
 				$this->current_user->create($user[0]);
+			}else{
+				return redirect("/user/login");	
 			}
 		}
 		if($this->current_user->lasturl==null){
