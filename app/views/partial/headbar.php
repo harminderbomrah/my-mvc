@@ -15,20 +15,14 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li>
-              <a href="#" target="_self">
+              <a href="/admin/setting" target="_self">
                 <i class="fa fa-cogs fa-fw"></i>
                 Settings
               </a>
             </li>
-            <li>
-              <a href="#" target="_self">
-                <i class="fa fa-user fa-fw"></i>
-                Profile
-              </a>
-            </li>
             <li class="divider"></li>
             <li>
-              <a href="#" target="_self">
+              <a href="/user/logout" target="_self">
                 <i class="fa fa-power-off fa-fw"></i>
                 Logout
               </a>

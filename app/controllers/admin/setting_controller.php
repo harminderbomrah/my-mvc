@@ -3,15 +3,23 @@
 class SettingController extends ApplicationController{
   var $controller_layout = "admin";
   function index() {
+    $site = Site::all()[0];
     $this->initial = array(
-      "title" => "良錡石材",
-      "description" => "全台最專業石材設計供應"
+      "title" => $site->title,
+      "description" => $site->description
     );
     return render();
   }
 
   function update(){
-    return renderJson(array("success"=>true ));
+    if($site = Site::all()[0]){
+      $site->title = $this->params['title'];
+      $site->description = $this->params['description'];
+      $site->save();
+      return renderJson(array("success"=>true ));
+    }else{
+      return renderJson(array("success"=>false ));
+    }
   }
 
   function checkpassword() {

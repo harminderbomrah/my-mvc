@@ -1,3 +1,5 @@
 public/file/*
 public/cache/*
 files/*
+/app/assets/stylesheets/*/*.css
+/app/assets/stylesheets/*/*/*.css

@@ -18,7 +18,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
           </form>
-          <a class="forgot-password" href="/user/resets">Forgot password</a>
+          <a class="forgot-password hide" href="/user/resets">Forgot password</a>
         </div>
       </div>
     </div>
