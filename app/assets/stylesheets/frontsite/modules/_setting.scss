@@ -17,10 +17,10 @@ $lavender:                #AC92EC #967ADC; //薰衣草
 
 $white:                   #fff; //有設跟沒設都沒差 -_-
 
-// 1深 ---> 6淺 
+// 1深 ---> 6淺
 $grays:                   #434A54 #656D78 #AAB2BD #CCD1D9 #E6E9ED #F5F5F5;
 
-// 顏色代入 
+// 顏色代入
 $brand-primary:           nth($aqua, 1);
 $brand-success:           nth($mint, 1);
 $brand-info:              nth($aqua, 2);
@@ -34,9 +34,15 @@ $link-hover-color:        $brand-info; //darker
 $border-color:            nth($grays, 5);
 
 
+@font-face {
+  font-family: 'Chinese';
+  unicode-range: U+4E00-9FFF;
+  src: local(Noto Sans T Chinese), local(Lantinghei TC), local('微軟正黑體');
+}
+
 // 用在標題、大字的部份
-$font-family-default:     "Titillium Web", sans-serif !default;
-$font-family-sans-serif:  "Open Sans", Helvetica, sans-serif !default;
+$font-family-default:     "Titillium Web", "Chinese", sans-serif !default;
+$font-family-sans-serif:  "Open Sans", "Chinese", Helvetica, sans-serif !default;
 
 // DOM Setting
 $navigationWidth:         300px;

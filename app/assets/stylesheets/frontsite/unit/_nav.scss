@@ -30,6 +30,7 @@
       height: 2.67em;
       margin: 0;
       font-size: 18px;
+      font-weight: 700;
       text-transform: uppercase;
       line-height: 2.67em;
       text-align: center;
@@ -151,24 +152,28 @@
     }
   }
   .mune-sub-group {
-    display: none;
     position: absolute;
     top: 0;
     left: 100%;
     bottom: 0;
     width: $navigationWidth + 50px;
-    padding: 1.44em;
+    padding: 1.44em 0;
     overflow: hidden;
     background-color: nth($grays, 6);
+    &.rady {
+      display: none;
+    }
     .mune-sub-title {
       font-size: 1.5em;
       font-weight: 300;
+      padding: 0 23px;
       text-transform: uppercase;
       color: nth($grays, 3);
       white-space: nowrap;
     }
     .tag-list {
       margin: 1em 0;
+      padding: 0 23px;
       font-size: 0.75em;
       ul {
         margin-left: 0;
@@ -193,6 +198,9 @@
       overflow: hidden;
       height: 500px;
       width: 100%;
+      ul {
+        padding: 0 10px 0 23px;
+      }
     }
     .mune-sub-item {
       font-size: 0.85em;
