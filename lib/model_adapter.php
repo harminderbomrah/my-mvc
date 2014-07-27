@@ -242,6 +242,45 @@ class ModelAdapter{
 		}
 	} 
 
+	static public function first(){
+		$class = get_called_class();
+		if(class_exists($class)){
+			$c = new $class();
+			$query = "SELECT * FROM $c->table LIMIT 0,1";
+			$results = $c->query($query);
+			if($results != null){
+				if($c->set_values($results[0])){
+					return $c;
+				}else{
+					return null;
+				}
+			}else{
+				return null;
+			}
+		}else{
+			throw new Exception("Cannot find model class.");
+		}
+	} 
+
+	static public function last(){
+		$class = get_called_class();
+		if(class_exists($class)){
+			$c = new $class();
+			$query = "SELECT * FROM $c->table ORDER BY id DESC LIMIT 1";
+			$results = $c->query($query);
+			if($results != null){
+				if($c->set_values($results[0])){
+					return $c;
+				}else{
+					return null;
+				}
+			}else{
+				return null;
+			}
+		}else{
+			throw new Exception("Cannot find model class.");
+		}
+	} 
 	static public function find_by($clauses){
 		$class = get_called_class();
 		if(class_exists($class)){

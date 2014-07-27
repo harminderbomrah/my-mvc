@@ -3,10 +3,10 @@
  * abstract class, should write the Action function
  */
 
-abstract class ApplicationController{
+abstract class MvcController{
 	protected $params;
 	protected $current_user;
-	abstract function index();
+	// abstract function index();
 
 	function __construct(){
 		if(SESSION_ENABLE && DATABASE_ENABLE){
@@ -42,12 +42,6 @@ final class ViewAdapter{
 	public static $controller_layout = null;
 	function __construct(){
 
-	}
-}
-
-final class http404Controller extends ApplicationController{
-	function index(){
-		return renderError('404');
 	}
 }
 ?>

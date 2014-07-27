@@ -118,7 +118,7 @@ final class downloadFileClass extends httpResponse{
 function render($options=array("view"=>null,"layout"=>true)){
 	$folder = (Request::$Namespace != null ? Request::$Namespace ."/" : "");
 	$options["view"] = (!$options["view"] ? $folder . Request::$Controller."/".Request::$Action : $options["view"]);
-	$options["title"] = (!$options["title"] ? ucwords(Request::$Controller) . " - " . SITE_TITLE : $options["title"]);
+	$options["title"] = (!$options["title"] ? SITE_TITLE : $options["title"]);
 	$options["layout"] = ($options["layout"] === false ? false : (is_string($options['layout']) ? $options['layout'] : (ViewAdapter::$controller_layout != null || ViewAdapter::$controller_layout === false ? ViewAdapter::$controller_layout : true)));
 	return new renderClass($options["view"],$options["layout"],$options["title"]);
 }
@@ -139,6 +139,11 @@ function renderFile($file){
 	return new downloadFileClass($file);
 }
 
+final class http404Controller extends ApplicationController{
+	function index(){
+		return renderError('404');
+	}
+}
 function render_partial($partial){
 	if(file_exists(APP_PATH.VIEWS_PATH."/".$partial.".php")){
 		$variables = ViewAdapter::$VARIABLES;

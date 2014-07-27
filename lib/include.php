@@ -18,8 +18,14 @@ include 'lib/simple_html_dom.php';
 include "config/routes.php";
 
 include "lib/model_adapter.php";
-include "lib/view_bridge.php";
 include "lib/controller_class.php";
+if(file_exists("app/controllers/application_controller.php")){
+	include "app/controllers/application_controller.php";	
+}else{
+	throw new Exception("Application controller not found.");
+}
+include "lib/view_bridge.php";
+
 include "lib/file_manager.php";
 include "lib/resize.php";
 include "lib/routes.php";
