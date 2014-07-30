@@ -21,7 +21,7 @@ class UserController extends ApplicationController{
 
 	function logout(){
 		$this->current_user->destroy();
-		return redirect("home");
+		return redirect("/");
 	}
 
 	function resets(){
@@ -42,7 +42,7 @@ class UserController extends ApplicationController{
 			if(password_verify( $this->params['post']['password'], $user[0]->password) ){
 				$this->current_user->create($user[0]);
 			}else{
-				return redirect("/user/login");	
+				return redirect("/user/login");
 			}
 		}
 		if($this->current_user->lasturl==null){

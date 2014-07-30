@@ -11,4 +11,3 @@
   <?= js_tag("plugin/perfect-scrollbar/perfect-scrollbar.js") ?>
   <?= js_tag("frontsite/main.js") ?>
 </head>
-    

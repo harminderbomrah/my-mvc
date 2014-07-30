@@ -19,7 +19,17 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     publishDate: false,
     previewLeft: null,
     previewRight: null,
-    submit: false
+    submit: false,
+    series: [{
+      class: 'modern',
+      name: '現代'
+    }, {
+      class: 'luxury',
+      name: '奢華'
+    }, {
+      class: 'green',
+      name: '環保'
+    }]
   }
 
   // 檢查頁面是新增或是編輯
@@ -59,10 +69,11 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
   });
 
   // chose js options
-  // $scope.choseOptions = {
-  //   'width': '100%',
-  //   'classes': 'chosen-sm'
-  // }
+  $scope.choseOptions = {
+    'width': '150px',
+    'classes': 'chosen-sm pull-right',
+    'disable_search_threshold': 10
+  }
 
   // ui-ng data options
   $scope.dateOptions = {
@@ -72,32 +83,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     'show-weeks': false,
     'month-format': "'MMM'",
   };
-
-  // tinyMCE options
-  // $scope.tinyMceOptions = {
-  //   skin : 'nyfm',
-  //   language: 'zh_TW',
-  //   height: 700,
-  //   menubar: false,
-  //   toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
-  //   plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
-  //   templates: [
-  //       {
-  //           title: "Editor Details",
-  //           url: "/public/templates/a.html",
-  //           description: "Adds Editor Name and Staff ID"
-  //       },
-  //       {
-  //           title: "Timestamp",
-  //           url: "/public/templates/b.html",
-  //           description: "Adds an editing timestamp."
-  //       }
-  //   ],
-  //   codemirror: {
-  //     indentOnInit: true,
-  //     path: '/public/CodeMirror'
-  //   }
-  // };
 
   $scope.action = {
 
@@ -136,7 +121,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
         $jsonData.postData('POST', '/admin/slide/'+postPath, $scope.slideData, function(data, status) {
           ngProgress.complete();
-          // $window.location = '/admin/slide/';
+          $window.location = '/admin/slide/';
         }, function(data, status) {
           toastr.error('Oops! There is something wrong whit server');
           $log.warn(data, status);
@@ -145,43 +130,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         });
       }
     },
-
-    // 相關連結功能
-    // linkAction: {
-
-    //   // 新增連結
-    //   add: function() {
-    //     if($scope.initial.link.url && $scope.initial.link.text) {
-
-    //       // 驗證資料是否為網址類型
-    //       var regex = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/,
-    //           regexResult = $scope.initial.link.url.match(regex)
-    //       angular.isArray($scope.slideData.link) ? null : $scope.slideData.link = [];
-
-    //       // 通過驗證並加入到陣列
-    //       if(regexResult != null) {
-    //         $scope.slideData.link.push({
-    //           url: $scope.initial.link.url,
-    //           text: $scope.initial.link.text
-    //         })
-    //         $scope.initial.link.url = $scope.initial.link.text = null;
-    //       } else {
-
-    //         // 填入資料非網址類型跳出提示訊息
-    //         alert("URL is incorrect")
-    //       }
-    //     } else {
-
-    //       // 未填入任何資料就送出時所跳出的提示訊息
-    //       alert("Enter the URL and title")
-    //     }
-    //   },
-
-    //   // 移除連結
-    //   remove: function(idx) {
-    //     $scope.slideData.link.splice(idx, 1)
-    //   }
-    // },
 
     // datapicker 動作
     datepicker: {

@@ -1,8 +1,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>LcStone</title>
-  <?#= css_tag("bootstrap.scss") ?>
+  <title><?= Site::first()->title ?></title>
   <?= css_tag("backsite/application.scss") ?>
   <?= render_page_specific_css() ?>
 
@@ -18,7 +17,7 @@
   <?= js_tag("app/backend/services.js") ?>
   <?= js_tag("app/backend/controllers/sidebar.js") ?>
 
-  <?= js_tag("plugin/bootstrap.min.js") ?>
+  <?#= js_tag("plugin/bootstrap.min.js") ?>
   <?= js_tag("plugin/ngProgress/ngProgress.js") ?>
   <?= js_tag("plugin/toaster/jquery-toastr.js") ?>
   <?= js_tag("plugin/ui-bootstrap-tpls-0.11.0.js") ?>

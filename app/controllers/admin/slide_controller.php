@@ -3,8 +3,11 @@
 class SlideController extends ApplicationController{
   var $controller_layout = "admin";
   var $before_filter = array("authenticate_user");
-  
+
   function index() {
+    $this->initial = array(
+      "currentPage" =>  ($this->params["page_no"] ==  null ? 1 : $this->params["page_no"])
+    );
     if(is_numeric($this->initial["currentPage"]) && $this->initial["currentPage"] > 0){
       return render();
     }else{

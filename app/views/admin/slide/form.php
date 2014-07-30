@@ -1,3 +1,4 @@
+<?= content_css_tag("plugin/chosen.scss") ?>
 <?= content_css_tag("backsite/unit/form.scss") ?>
 <div class="main-form" data-ng-controller="slideForm" data-ng-init='extend(<?= json_encode($initial) ?>)'>
   <form class="form-horizontal" name="slideForm" data-ng-submit="action.submit(slideForm)" role="form" novalidate>
@@ -19,8 +20,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4">
-        <div class="panel panel-default">
+      <div class="col-sm-4">
+        <div class="panel panel-default" data-ng-class="{'panel-danger': slideForm.imgLeft.$invalid && !slideForm.imgLeft.$pristine}">
           <div class="panel-heading">
             <label>Left Images</label>
           </div>
@@ -30,6 +31,7 @@
               <div class="img" data-ng-show="slideData.imgLeft">
                 <i class="fa fa-refresh fa-5x fa-fw"></i>
                 <img class="img-rounded" data-ng-src="{{initial.previewLeft}}">
+                <input type="hide" name="imgLeft" data-ng-model="slideData.imgLeft" required>
               </div>
             </a>
             <div class="clearImg">
@@ -38,8 +40,8 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="panel panel-default">
+      <div class="col-sm-4">
+        <div class="panel panel-default" data-ng-class="{'panel-danger': slideForm.imgRight.$invalid && !slideForm.imgRight.$pristine}">
           <div class="panel-heading">
             <label>Right Images</label>
           </div>
@@ -49,6 +51,7 @@
               <div class="img" data-ng-show="slideData.imgRight">
                 <i class="fa fa-refresh fa-5x fa-fw"></i>
                 <img class="img-rounded" data-ng-src="{{initial.previewRight}}">
+                <input type="hide" name="imgRight" data-ng-model="slideData.imgRight" required>
               </div>
             </a>
             <div class="clearImg">
@@ -57,12 +60,18 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
+      <div class="col-sm-4">
         <div class="panel panel-default">
           <div class="panel-heading">
             <label>Status</label>
           </div>
           <div class="panel-body">
+            <div class="form-group" data-ng-class="{'has-error': slideForm.series.$invalid && !slideForm.series.$pristine}">
+              <select class="form-control" name="series" id="series" data-placeholder="Choose Series" data-ng-model="slideData.series" data-ng-options="option.class as option.name for option in initial.series" chosen="choseOptions" required>
+                <option value=""></option>
+              </select>
+              <label for="series" class="control-label">Series</label>
+            </div>
             <div class="form-group">
               <label for="disabled" class="control-label">Publish</label>
               <div class="switch reverse">
@@ -102,7 +111,7 @@
           </div>
           <div class="panel-footer text-right">
             <a class="btn btn-sm btn-default" href="/admin/slide" target="_self">Cancel</a>
-            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+            <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="initial.submit">Submit</button>
           </div>
         </div>
       </div>
@@ -113,3 +122,4 @@
 <?= js_tag("app/backend/controllers/fileManage/defaultFileManage.js") ?>
 <?= js_tag("plugin/ngFileUpload/angular-file-upload.js") ?>
 <?= js_tag("plugin/masonry/angular-masonry.js") ?>
+<?= js_tag("plugin/chosen/chosen.jquery.js") ?>

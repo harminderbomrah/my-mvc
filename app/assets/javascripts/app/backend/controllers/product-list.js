@@ -28,7 +28,8 @@ angular.module('nyfnApp.controller.main', [])
     choseOptions: {       // Chose Options
       'allow_single_deselect': true,
       'width': '200px',
-      'classes': 'chosen-sm'
+      'classes': 'chosen-sm',
+      'disable_search_threshold': 10
     }
   };
 

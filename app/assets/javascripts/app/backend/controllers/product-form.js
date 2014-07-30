@@ -52,7 +52,8 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
   // chose js options
   $scope.choseOptions = {
     'width': '100%',
-    'classes': 'chosen-sm'
+    'classes': 'chosen-sm',
+    'disable_search_threshold': 10
   }
 
   $scope.action = {
