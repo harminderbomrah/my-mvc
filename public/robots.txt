@@ -1,0 +1,11 @@
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: *
+Disallow: /admin
+Disallow: /modal
+Disallow: /partial
+Disallow: /layouts
+Disallow: /public/CodeMirror
+Disallow: /public/templates
+Disallow: /public/*.json$
