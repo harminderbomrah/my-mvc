@@ -1,220 +1,288 @@
+.overlay-set {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: $navigationWidth;
+  background-color: nth($grays, 1);
+  z-index: 0;
+  @include opacity(.8);
+}
 .navigation {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   width: $navigationWidth;
-  padding-left: $navigationSidebar;
-  border-right: 1px solid nth($grays, 5);
-  background-color: $white;
-  &:before {
-    content: "";
+  z-index: 1000;
+  .navigation-inner {
     position: absolute;
     top: 0;
+    right: 0;
     bottom: 0;
     left: 0;
-    width: $navigationSidebar;
-    background-color: nth($grays, 2);
-  }
-  .site-name {
-    margin-top: 2.5em;
-    text-align: center;
-  }
-  .mune-group {
-    margin-left: $navigationSidebar * -1;
-  }
-  .mune-item {
+    background-color: $white;
     padding-left: $navigationSidebar;
-    .mune-title {
-      position: relative;
-      height: 2.67em;
-      margin: 0;
-      font-size: 18px;
-      font-weight: 700;
-      text-transform: uppercase;
-      line-height: 2.67em;
-      text-align: center;
-      color: nth($grays, 3);
-      a {
-        color: nth($grays, 3);
-      }
-      label {
-        cursor: pointer;
-      }
-    }
-    .icon {
+    border-right: 1px solid nth($grays, 5);
+    z-index: 1;
+    &:before {
+      content: "";
       position: absolute;
       top: 0;
-      right: 100%;
-      display: block;
+      bottom: 0;
+      left: 0;
+      width: $navigationSidebar;
       background-color: nth($grays, 2);
-      @include size($navigationSidebar, 100%);
     }
-    .zh {
-      display: none;
+    .site-name {
+      margin-top: 2.5em;
+      text-align: center;
     }
-    &:hover {
-      cursor: default;
+    .mune-group {
+      margin-left: $navigationSidebar * -1;
+    }
+    .mune-item {
+      padding-left: $navigationSidebar;
       .mune-title {
-        background-color: nth($grays, 6);
-      }
-      .mune-sub-group {
-        display: block;
+        position: relative;
+        height: 2.67em;
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 2.67em;
+        text-align: center;
+        color: nth($grays, 3);
+        a {
+          display: block;
+          color: nth($grays, 3);
+        }
+        label {
+          cursor: pointer;
+        }
       }
       .icon {
-        background-color: nth($aqua, 1);
-      }
-      .en {
-        display: none;
-      }
-      .zh {
-        display: block;
-      }
-    }
-    &.search {
-      position: relative;
-      .mune-title {
-        z-index: 1;
-      }
-      .search-box {
-        display: none;
         position: absolute;
         top: 0;
-        bottom: 0;
-        left: 100%;
-        width: 400px;
-        input[type="text"] {
-          display: inline-block;
-          padding: 5px 8px;
-          font-size: 18px;
-          border-style: solid;
-          border-color: nth($grays, 5);
-          border-width: 1px 1px 1px 0;
-          color: nth($grays, 3);
+        right: 100%;
+        display: block;
+        background-color: nth($grays, 2);
+        @include size($navigationSidebar, 100%);
+      }
+      .zh {
+        display: none;
+      }
+      &:hover,
+      &.active {
+        .mune-title {
           background-color: nth($grays, 6);
-          outline: none;
-          @include size($navigationWidth, 48px);
         }
-        button {
+        .icon {
+          background-color: nth($aqua, 1);
+        }
+        .en {
+          display: none;
+        }
+        .zh {
+          display: block;
+        }
+      }
+      &.search {
+        position: relative;
+        .mune-title {
+          z-index: 1;
+        }
+        .search-box {
+          display: none;
           position: absolute;
           top: 0;
-          right: 0;
-          border: 0;
-          color: $white;
-          font-weight: 700;
-          line-height: 46px;
-          background-color: $brand-primary;
-          outline: none;
-          @include size(100px, 48px);
-        }
-      }
-      .overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: $navigationWidth;
-        background-color: nth($grays, 1);
-        z-index: 0;
-        @include opacity(.8);
-        &:before {
-          content: "";
-          position: absolute;
-          right: 100%;
-          top: 50%;
           bottom: 0;
-          width: $navigationWidth;
-        }
-      }
-      #search {
-        &:checked {
-          & ~ .mune-title {
+          left: 100%;
+          width: 400px;
+          background-color: nth($grays, 6);
+          input[type="text"] {
+            display: inline-block;
+            padding: 5px 8px;
+            font-size: 18px;
+            border-style: solid;
+            border-color: nth($grays, 5);
+            border-width: 1px 1px 1px 0;
+            color: nth($grays, 3);
             background-color: nth($grays, 6);
-            .icon {
-              background-color: nth($aqua, 1);
+            outline: none;
+            @include size($navigationWidth, 48px);
+          }
+          button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 0;
+            color: $white;
+            font-weight: 700;
+            line-height: 46px;
+            background-color: $brand-primary;
+            outline: none;
+            @include size(100px, 48px);
+          }
+        }
+        .overlay {
+          @extend .overlay-set;
+          &:before {
+            content: "";
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            bottom: 0;
+            width: $navigationWidth;
+          }
+        }
+        #search {
+          &:checked {
+            & ~ .mune-title {
+              background-color: nth($grays, 6);
+              .icon {
+                background-color: nth($aqua, 1);
+              }
+              .en {
+                display: none;
+              }
+              .zh {
+                display: block;
+              }
             }
-            .en {
-              display: none;
-            }
-            .zh {
+            & ~ .overlay {
               display: block;
             }
-          }
-          & ~ .overlay {
-            display: block;
-          }
-          & ~ .search-box {
-            display: block;
+            & ~ .search-box {
+              display: block;
+            }
           }
         }
       }
     }
   }
   .mune-sub-group {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    bottom: 0;
-    width: $navigationWidth + 50px;
-    padding: 1.44em 0;
-    overflow: hidden;
-    background-color: nth($grays, 6);
-    &.rady {
-      display: none;
-    }
-    .mune-sub-title {
-      font-size: 1.5em;
-      font-weight: 300;
-      padding: 0 23px;
-      text-transform: uppercase;
-      color: nth($grays, 3);
-      white-space: nowrap;
-    }
-    .tag-list {
-      margin: 1em 0;
-      padding: 0 23px;
-      font-size: 0.75em;
-      ul {
-        margin-left: 0;
-      }
-      .tag-item {
-        padding: 0;
-        line-height: 2.5em;
-        a {
-          padding: 3px 5px;
-          color: nth($grays, 4);
-          border: 1px solid nth($grays, 4);
-          &:hover {
-            color: $white;
-            border: 1px solid nth($grays, 2);
-            background-color: nth($grays, 2);
+    position: relative;
+    @include size($navigationWidth, 100%);
+    z-index: 0;
+    .mune-sub-group-item {
+      position: absolute;
+      top: 0;
+      left: -50px;
+      bottom: 0;
+      width: $navigationWidth + 50px;
+      overflow: hidden;
+      background-color: nth($grays, 6);
+      z-index: 1;
+      @include transition(left 0.4s ease);
+      &#cllections,
+      &#case-study,
+      &#blog {
+        &.active {
+          left: 100%;
+          z-index: 2;
+          & ~ .overlay {
+            display: block;
+            @extend .overlay-set;
+            a {
+              display: block;
+              cursor: default;
+              @include size(100%, 100%);
+            }
           }
         }
       }
-    }
-    .mune-sub {
-      position: relative;
-      overflow: hidden;
-      height: 500px;
-      width: 100%;
-      ul {
-        padding: 0 10px 0 23px;
+      .mune-sub-group-scroll-zone {
+        position: absolute;
+        overflow: hidden;
+        top: 60px;
+        bottom: 5px;
       }
-    }
-    .mune-sub-item {
-      font-size: 0.85em;
-      line-height: 2em;
-      a {
+      .mune-sub-group-item-inner {
+        padding: 1.44em 1.44em 0;
+        // height: 1500px;
+      }
+      .mune-sub-close {
+        position: absolute;
+        top: 1.44em;
+        right: 1.44em;
         color: nth($grays, 3);
+        cursor: pointer;
         &:hover {
-          color: nth($brand-primary, 1);
+          color: nth($grays, 1);
         }
       }
-    }
-    li {
-      a {
+      .mune-sub-title {
+        position: relative;
+        margin-top: 1.67em;
+        margin-bottom: 1.13em;
+        line-height: 0.85em;
+        padding: 0 0.96em;
+        font-size: 1.5em;
+        font-weight: 300;
+        text-transform: uppercase;
+        background-color: nth($grays, 6);
+        color: nth($grays, 3);
         white-space: nowrap;
+        z-index: 1;
+        &:after {
+          content: '';
+          position: absolute;
+          right: 0.96em;
+          bottom: -1.13em;
+          left: 0.96em;
+          height: 1.13em;
+          @include gradient-vertical(nth($grays, 6), rgba(nth($grays, 6), 0));
+        }
+      }
+      .tag-list {
+        margin: 0 0 3em;
+        font-size: 0.75em;
+        &.active {
+          .tag-item:nth-child(n+15) {
+            display: inline-block;
+          }
+        }
+        ul {
+          margin-left: 0;
+        }
+        .tag-item {
+          padding: 0;
+          line-height: 2.5em;
+          a {
+            padding: 3px 5px;
+            color: nth($grays, 4);
+            border: 1px solid nth($grays, 4);
+            &:hover {
+              color: $white;
+              border: 1px solid nth($grays, 2);
+              background-color: nth($grays, 2);
+            }
+          }
+          &:nth-child(n+15) {
+            display: none;
+          }
+        }
+        .more {
+          color: $brand-primary;
+          cursor: pointer;
+        }
+      }
+      .mune-sub-item {
+        font-size: 0.85em;
+        line-height: 2em;
+        a {
+          color: nth($grays, 3);
+          &:hover {
+            color: nth($brand-primary, 1);
+          }
+        }
+      }
+      li {
+        a {
+          white-space: nowrap;
+        }
       }
     }
   }
