@@ -21,7 +21,11 @@
         cursor: pointer;
       }
       &.list-image {
-        width: 200px;
+        width: 140px;
+      }
+      &.list-series {
+        width: 8rem;
+        cursor: pointer;
       }
       &.list-disabled {
         white-space: nowrap;

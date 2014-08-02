@@ -39,7 +39,12 @@ angular.module('nyfnApp.controller.sidebar', [])
     },
     collapseSidebar: function() {
       $scope.initial.collapse.menu ? $scope.initial.collapse.menu = $myCookie.destroy("menu") : $scope.initial.collapse.menu = $myCookie.set("menu", "menu-min", 5);
-      $scope.initial.collapse.arrow == "left" ? $scope.initial.collapse.arrow = $myCookie.set("arrow", "right", 5) : $scope.initial.collapse.arrow = $myCookie.destroy("arrow");
+      if($scope.initial.collapse.arrow === "left") {
+        $scope.initial.collapse.arrow = $myCookie.set("arrow", "right", 5);
+      } else {
+        $scope.initial.collapse.arrow = "left";
+        $myCookie.destroy("arrow");
+      }
     },
     checkPath: function(path, index) {
       var outcome;
