@@ -1,5 +1,16 @@
-<header class="navigation">
-  <div class="navigation-inner">
+<header id="navigation">
+  <div class="nav-bar">
+    <div class="nav-collapse"><i class="fa fa-fw fa-navicon"></i></div>
+    <ul class="nav-bar-menu list-unstyled">
+      <li class="nav-bar-item have-sub"><a href="#cllections"><i class="icon fa fa-apple"></i></a></li>
+      <li class="nav-bar-item have-sub"><a href="#case-study"><i class="icon fa fa-apple"></i></a></li>
+      <li class="nav-bar-item have-sub"><a href="#blog"><i class="icon fa fa-apple"></i></a></li>
+      <li class="nav-bar-item"><a href="/about_us"><i class="icon fa fa-apple"></i></a></li>
+      <li class="nav-bar-item"><a href="/contact"><i class="icon fa fa-apple"></i></a></li>
+      <li class="nav-bar-item search"><label for="search"><i class="icon fa fa-apple"></i></label></li>
+    </ul>
+  </div>
+  <div class="nav-body">
     <h1 class="site-name" title="良錡石材">
       <a href="/">
         <span class="hide">良錡石材</span>
@@ -8,25 +19,25 @@
     </h1>
     <nav role="navigation">
       <h2 class="hide">網站主選單</h2>
-      <ul class="mune-group list-unstyled">
+      <ul class="mune-list list-unstyled">
         <li class="mune-item have-sub">
-          <p class="mune-title"><a href="#cllections"><i class="icon"></i><span class="en">Cllections</span><span class="zh">石 材 系 列</span></a></p>
+          <p class="mune-title"><a href="#cllections"><span class="en">Cllections</span><span class="zh">石 材 系 列</span></a></p>
         </li>
         <li class="mune-item have-sub">
-          <p class="mune-title"><a href="#case-study"><i class="icon"></i><span class="en">Case Study</span><span class="zh">成 功 案 例</span></a></p>
+          <p class="mune-title"><a href="#case-study"><span class="en">Case Study</span><span class="zh">成 功 案 例</span></a></p>
         </li>
         <li class="mune-item have-sub">
-          <p class="mune-title"><a href="#blog"><i class="icon"></i><span class="en">Blog</span><span class="zh">部 落 格</span></a></p>
+          <p class="mune-title"><a href="#blog"><span class="en">Blog</span><span class="zh">部 落 格</span></a></p>
         </li>
         <li class="mune-item">
-          <p class="mune-title"><a href="/about_us"><i class="icon"></i><span class="en">About US</span><span class="zh">關 於 良 錡</span></a></p>
+          <p class="mune-title"><a href="/about_us"><span class="en">About US</span><span class="zh">關 於 良 錡</span></a></p>
         </li>
         <li class="mune-item">
-          <p class="mune-title"><a href="/contact"><i class="icon"></i><span class="en">Contact</span><span class="zh">聯 絡 我 們</span></a></p>
+          <p class="mune-title"><a href="/contact"><span class="en">Contact</span><span class="zh">聯 絡 我 們</span></a></p>
         </li>
         <li class="mune-item search">
           <input type="checkbox" id="search" class="hide">
-          <p class="mune-title"><label for="search"><i class="icon"></i><span class="en">Search</span><span class="zh">搜 尋</span></label></p>
+          <p class="mune-title"><label for="search"><span class="en">Search</span><span class="zh">搜 尋</span></label></p>
           <label class="overlay" for="search"></label>
           <form class="search-box">
             <input type="text" name="search" placeholder="您可搜尋新聞、產品、anything...">
@@ -38,18 +49,18 @@
     <nav class="social" role="social media menu">
       <h2 class="hide">社交平台選單</h2>
       <ul class="social-mune list-unstyled">
-        <li><a href="https://www.facebook.com/pages/良錡石材-水晶時代各種石材設計與裝潢介紹/107145262639568"><i class="icon icon-fb"></i>facebook</a></li>
-        <li><a href="#"><i class="icon icon-google-plus"></i>google+</a></li>
-        <li><a href="#"><i class="icon icon-mail"></i>mail</a></li>
+        <li><a href="https://www.facebook.com/pages/良錡石材-水晶時代各種石材設計與裝潢介紹/107145262639568" target="_blink"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#" target="_blink"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
       </ul>
     </nav>
   </div>
-  <div class="mune-sub-group">
-    <div id="cllections" class="mune-sub-group-item">
+  <div class="nav-sub">
+    <div id="cllections" class="nav-sub-item">
       <span class="mune-sub-close" href="#"><i class="fa fa-fw fa-times"></i></span>
       <h3 class="mune-sub-title"><span class="hide">石材系列</span>Cllections</h3>
-      <div class="mune-sub-group-scroll-zone">
-        <div class="mune-sub-group-item-inner">
+      <div class="nav-sub-scroll-zone">
+        <div class="nav-sub-item-inner">
           <div class="tag-list">
             <ul class="list-inline">
               <li class="tag-item"><a href="">華麗</a></li>
@@ -74,11 +85,11 @@
         </div>
       </div>
     </div>
-    <div id="case-study" class="mune-sub-group-item">
+    <div id="case-study" class="nav-sub-item">
       <span class="mune-sub-close" href="#"><i class="fa fa-fw fa-times"></i></span>
       <h3 class="mune-sub-title"><span class="hide">成功案例</span>Case Study</h3>
-      <div class="mune-sub-group-scroll-zone">
-        <div class="mune-sub-group-item-inner">
+      <div class="nav-sub-scroll-zone">
+        <div class="nav-sub-item-inner">
           <div class="tag-list">
             <ul class="list-inline">
               <li class="tag-item"><a href="">華麗</a></li>
@@ -105,11 +116,11 @@
         </div>
       </div>
     </div>
-    <div id="blog" class="mune-sub-group-item">
+    <div id="blog" class="nav-sub-item">
       <span class="mune-sub-close" href="#"><i class="fa fa-fw fa-times"></i></span>
       <h3 class="mune-sub-title"><span class="hide">部落格</span>Blog</h3>
-      <div class="mune-sub-group-scroll-zone">
-        <div class="mune-sub-group-item-inner">
+      <div class="nav-sub-scroll-zone">
+        <div class="nav-sub-item-inner">
           <div class="tag-list">
             <ul class="list-inline">
               <li class="tag-item"><a href="">華麗</a></li>

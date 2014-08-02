@@ -8,42 +8,106 @@
   background-color: nth($grays, 1);
   z-index: 0;
   @include opacity(.8);
+  &.mune-sub-close {
+    left: $navigationSidebar;
+  }
 }
-.navigation {
+#navigation {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-  width: $navigationWidth;
-  z-index: 1000;
-  .navigation-inner {
+  width: $navigationSidebar;
+  z-index: 1;
+  .nav-bar {
     position: absolute;
     top: 0;
-    right: 0;
     bottom: 0;
-    left: 0;
-    background-color: $white;
-    padding-left: $navigationSidebar;
-    border-right: 1px solid nth($grays, 5);
-    z-index: 1;
-    &:before {
-      content: "";
+    width: $navigationSidebar;
+    padding-top: $navigationPaddingTop;
+    background-color: nth($grays, 2);
+    z-index: 2;
+    @media screen and (max-width: $screen-phone) {
+      padding-top: $navigationPaddingTopS;
+    }
+    .nav-collapse {
       position: absolute;
       top: 0;
-      bottom: 0;
-      left: 0;
-      width: $navigationSidebar;
-      background-color: nth($grays, 2);
+      line-height: $navigationSidebar;
+      color: $white;
+      text-align: center;
+      cursor: pointer;
+      @include square($navigationSidebar);
+      @media screen and (max-width: $screen-phone) {
+        display: none;
+      }
     }
+    .nav-bar-menu {
+      margin: 0;
+      .nav-bar-item {
+        color: $white;
+        .icon {
+          display: block;
+          text-align: center;
+          line-height: $navigationSidebar;
+          @include square($navigationSidebar);
+        }
+        a {
+          color: $white;
+        }
+        &:hover,
+        &.hover,
+        &.active {
+          .icon {
+            background-color: nth($aqua, 1);
+          }
+        }
+        &.search {
+          label {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .nav-body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: $navigationSidebar;
+    width: $navigationWidth;
+    padding-top: $navigationPaddingTop;
+    background-color: $white;
+    border-right: 1px solid nth($grays, 5);
+    z-index: 1;
+    @include transition(left 0.4s ease-in-out);
     .site-name {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
       margin-top: 2.5em;
       text-align: center;
+      a {
+        display: block;
+        height: 140px;
+      }
+      @media screen and (max-width: $screen-phone) {
+        margin-top: 0.5em;
+        a {
+          height: 120px;
+          img {
+            @include size(auto, 90%);
+          }
+        }
+      }
     }
-    .mune-group {
-      margin-left: $navigationSidebar * -1;
+    .mune-list {
+      position: relative;
+      margin: 0;
+      z-index: 2;
     }
     .mune-item {
-      padding-left: $navigationSidebar;
       .mune-title {
         position: relative;
         height: 2.67em;
@@ -62,24 +126,14 @@
           cursor: pointer;
         }
       }
-      .icon {
-        position: absolute;
-        top: 0;
-        right: 100%;
-        display: block;
-        background-color: nth($grays, 2);
-        @include size($navigationSidebar, 100%);
-      }
       .zh {
         display: none;
       }
       &:hover,
+      &.hover,
       &.active {
         .mune-title {
           background-color: nth($grays, 6);
-        }
-        .icon {
-          background-color: nth($aqua, 1);
         }
         .en {
           display: none;
@@ -111,7 +165,7 @@
             color: nth($grays, 3);
             background-color: nth($grays, 6);
             outline: none;
-            @include size($navigationWidth, 48px);
+            @include size($navigationWidth + $navigationSidebar, 48px);
           }
           button {
             position: absolute;
@@ -124,17 +178,6 @@
             background-color: $brand-primary;
             outline: none;
             @include size(100px, 48px);
-          }
-        }
-        .overlay {
-          @extend .overlay-set;
-          &:before {
-            content: "";
-            position: absolute;
-            right: 100%;
-            top: 50%;
-            bottom: 0;
-            width: $navigationWidth;
           }
         }
         #search {
@@ -153,29 +196,96 @@
             }
             & ~ .overlay {
               display: block;
+              left: $navigationWidth + $navigationSidebar;
+              @extend .overlay-set;
+              right: 0;
+              .collapse & {
+                left: $navigationSidebar;
+              }
+              @media screen and (max-width: $screen-phone) {
+                left: $navigationSidebar;
+              }
             }
             & ~ .search-box {
               display: block;
             }
           }
         }
+        @media screen and (max-width: $screen-phone) {
+          .search-box {
+            width: 320 - $navigationSidebar;
+            input[type="text"] {
+              width: 203px;
+              font-size: 0.75em;
+            }
+            button {
+              width: 70px;
+              font-size: 0.75em;
+            }
+          }
+        }
       }
     }
+    .social {
+      position: absolute;
+      bottom: 0;
+      width: $navigationWidth;
+      border-top: 1px solid nth($grays, 5);
+      .social-mune {
+        height: $navigationSidebar;
+        margin: 0;
+        @include clearfix();
+        li {
+          float: left;
+          width: $navigationWidth / 3;
+          padding: 0;
+          & + li {
+            border-left: 1px solid nth($grays, 5);
+          }
+          &:hover {
+            a {
+              color: $white;
+              background-color: nth($grays, 2);
+            }
+          }
+        }
+        a {
+          display: block;
+          height: 48px;
+          line-height: 48px;
+          text-align: center;
+          font-size: 1.2em;
+          color: nth($grays, 2);
+        }
+      }
+    }
+    @media screen and (max-width: $screen-phone) {
+      left: ($navigationWidth - $navigationSidebar) * -1;
+      padding-top: 120px;
+    }
+    .collapse & {
+      left: ($navigationWidth - $navigationSidebar) * -1;
+    }
   }
-  .mune-sub-group {
+  .nav-sub {
     position: relative;
-    @include size($navigationWidth, 100%);
+    left: 0;
     z-index: 0;
-    .mune-sub-group-item {
+    @include size($navigationWidth + $navigationSidebar, 100%);
+    @include transition(left 0.4s ease-in-out);
+    .nav-sub-item {
       position: absolute;
       top: 0;
-      left: -50px;
+      left: -100%;
       bottom: 0;
-      width: $navigationWidth + 50px;
+      width: $navigationWidth + $navigationSidebar;
       overflow: hidden;
       background-color: nth($grays, 6);
       z-index: 1;
-      @include transition(left 0.4s ease);
+      @include transition(left 0.4s ease-in-out);
+      @media screen and (max-width: $screen-phone) {
+        width: 320 - $navigationSidebar;
+      }
       &#cllections,
       &#case-study,
       &#blog {
@@ -193,20 +303,21 @@
           }
         }
       }
-      .mune-sub-group-scroll-zone {
+      .nav-sub-scroll-zone {
         position: absolute;
         overflow: hidden;
         top: 60px;
         bottom: 5px;
       }
-      .mune-sub-group-item-inner {
+      .nav-sub-item-inner {
         padding: 1.44em 1.44em 0;
         // height: 1500px;
       }
       .mune-sub-close {
         position: absolute;
-        top: 1.44em;
-        right: 1.44em;
+        top: 0.5em;
+        right: 0.6em;
+        font-size: 1.3em;
         color: nth($grays, 3);
         cursor: pointer;
         &:hover {
@@ -285,35 +396,11 @@
         }
       }
     }
-  }
-  .social {
-    position: absolute;
-    bottom: 0;
-    width: $navigationWidth - $navigationSidebar;
-    border-top: 1px solid nth($grays, 5);
-    .social-mune {
-      height: 48px;
-      margin: 0;
-      @include clearfix();
-      li {
-        float: left;
-        width: ($navigationWidth - $navigationSidebar) / 3;
-        padding: 0;
-        & + li {
-          border-left: 1px solid nth($grays, 5);
-        }
-        &:hover {
-          a {
-            background-color: nth($grays, 2);
-          }
-        }
-      }
-      a {
-        display: block;
-        height: 48px;
-        line-height: 48px;
-        @include hide-text();
-      }
+    @media screen and (max-width: $screen-phone) {
+      left: $navigationWidth * -1;
+    }
+    .collapse & {
+      left: $navigationWidth * -1;
     }
   }
 }

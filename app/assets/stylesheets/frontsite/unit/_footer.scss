@@ -1,13 +1,91 @@
 footer {
 	font-size: .75em;
-}
-.footer-top {
-
-}
-.footer-nav {
-	li {
-		float: left;
-		display: inline-block;
-	}
-	@extend .clearfix;
+  .footer-top {
+    padding: 0 32px;
+    line-height: 73px;
+    border-style: solid;
+    border-color: nth($grays, 5);
+    border-width: 1px 0;
+    @extend .clearfix;
+    .footer-nav {
+      float: left;
+      margin: 0;
+      padding: 0;
+      @extend .clearfix;
+      li {
+        float: left;
+        display: inline-block;
+        padding-right: 12px;
+        & + li {
+          padding-left: 12px;
+        }
+        &:last-child {
+          padding-right: 24px;
+        }
+        a {
+          color: nth($grays, 2);
+          &:hover {
+            color: $brand-primary;
+          }
+        }
+        @media screen and (max-width: $screen-desktop-max) {
+          padding-left: 0 !important;
+          padding-right: 24px;
+        }
+      }
+    }
+    .address {
+      float: right;
+      margin-right: 32px;
+      font-style: normal;
+    }
+    .telphone {
+      float: right;
+    }
+    @media screen and (max-width: $screen-lg-desktop-max) {
+      padding: 25px 32px;
+      line-height: 24px;
+      .footer-nav {
+        display: block;
+        float: none;
+      }
+      .address {
+        float: left;
+      }
+      .telphone {
+        float: none;
+      }
+    }
+    @media screen and (max-width: $screen-phone) {
+      padding: 1.33em;
+      font-size: 1.2em;
+      line-height: $navigationSidebar;
+      text-align: center;
+      .footer-nav {
+        li {
+          width: 50%;
+          padding-right: 0;
+          &:last-child {
+            padding-right: 0;
+          }
+          a {
+            display: block;
+          }
+        }
+      }
+      .address {
+        float: none;
+        margin-right: 0;
+      }
+    }
+  }
+  .footer-bottom {
+    padding: 0 32px;
+    line-height: $navigationSidebar;
+    @media screen and (max-width: $screen-phone) {
+      padding: 1.33em;
+      line-height: $navigationSidebar / 2;
+      text-align: center;
+    }
+  }
 }

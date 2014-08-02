@@ -33,17 +33,22 @@ $link-color:              $brand-primary;
 $link-hover-color:        $brand-info; //darker
 $border-color:            nth($grays, 5);
 
-
-@font-face {
-  font-family: 'Chinese';
-  unicode-range: U+4E00-9FFF;
-  src: local(Noto Sans T Chinese), local(Lantinghei TC), local('微軟正黑體');
-}
-
 // 用在標題、大字的部份
-$font-family-default:     "Titillium Web", "Chinese", sans-serif !default;
-$font-family-sans-serif:  "Open Sans", "Chinese", Helvetica, sans-serif !default;
+$font-family-default:     "Chinese", "Titillium Web", sans-serif !default;
+$font-family-sans-serif:  "Chinese", "Open Sans", Helvetica, sans-serif !default;
 
 // DOM Setting
-$navigationWidth:         300px;
+$navigationWidth:         252px;
 $navigationSidebar:       48px;
+$navigationPaddingTop:    240px;
+$navigationPaddingTopS:   120px;
+
+// RWD Size
+$screen-phone:            480px !default;
+$screen-phone-max:        ($screen-phone - 1) !default;
+$screen-tablet:           768px !default;
+$screen-tablet-max:       ($screen-tablet - 1) !default;
+$screen-desktop:          992px !default;
+$screen-desktop-max:      ($screen-desktop - 1) !default;
+$screen-lg-desktop:       1200px !default;
+$screen-lg-desktop-max:   ($screen-lg-desktop - 1) !default;

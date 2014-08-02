@@ -10,10 +10,17 @@
 }
 
 body {
-  padding-left: 300px;
+  padding-left: $navigationWidth + $navigationSidebar;
   font-family: $font-family-sans-serif;
   font-size: 16px;
   color: $brand-gray;
+  @include transition(padding-left 0.4s ease-in-out);
+  &.collapse{
+    padding-left: $navigationSidebar;
+  }
+  @media screen and (max-width: $screen-phone) {
+    padding-left: $navigationSidebar;
+  }
 }
 
 a {

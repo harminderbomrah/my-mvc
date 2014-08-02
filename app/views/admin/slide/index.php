@@ -35,6 +35,7 @@
         <th class="list-date" data-ng-click="action.sorting('publishDate')" data-ng-class="{hit:initial.orderName == 'publishDate'}">Date <i class="fa" data-ng-show="initial.orderName == 'publishDate'" data-ng-class="{'fa-caret-down': initial.reverse == true, 'fa-caret-up': initial.reverse == false,}"></i></th>
         <th class="list-image">Preview</th>
         <th class="list-title" data-ng-click="action.sorting('title')" data-ng-class="{hit:initial.orderName == 'title'}">Title <i class="fa" data-ng-show="initial.orderName == 'title'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
+        <th class="list-series" data-ng-click="action.sorting('series')" data-ng-class="{hit:initial.orderName == 'series'}">Series <i class="fa" data-ng-show="initial.orderName == 'series'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
         <th class="text-center" data-ng-bind="filterList.length"></th>
       </tr>
     </thead>
@@ -55,6 +56,7 @@
           <img data-ng-src="{{list.imageRight}}" alt="Preview">
         </td>
         <td>{{list.title}}</td>
+        <td class="list-series" data-ng-bind="list.series"></td>
         <td class="text-center"><a class="btn btn-default btn-xs" href="edit/{{list.id}}" target="_self"><i class="fa fa-edit"></i></a></td>
       </tr>
     </tbody>

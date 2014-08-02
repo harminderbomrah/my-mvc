@@ -7,7 +7,11 @@
   <?= css_tag("frontsite/global.scss") ?>
   <?= render_page_specific_css() ?>
   <?= js_tag("lib/jquery/jquery-1.11.0.min.js") ?>
+  <?= js_tag("lib/jquery/jquery.easing.1.3.js") ?>
   <?= js_tag("plugin/perfect-scrollbar/jquery.mousewheel.js") ?>
   <?= js_tag("plugin/perfect-scrollbar/perfect-scrollbar.js") ?>
+  <?= js_tag("plugin/window-resize/window-resize.js") ?>
+  <?= js_tag("plugin/loremjs/lorem.js") ?>
+  <?= js_tag("frontsite/main-menu.js") ?>
   <?= js_tag("frontsite/main.js") ?>
 </head>
