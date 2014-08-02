@@ -15,7 +15,7 @@
           <?php echo Category::find($article['category'])->name ?>
         </td>
         <td>
-          <a href="/article/<?php echo $article['id'] ?>">
+          <a href="/blog/<?php echo $article['id'] ?>">
             <?php echo $article['title'] ?>
           </a>
         </td>

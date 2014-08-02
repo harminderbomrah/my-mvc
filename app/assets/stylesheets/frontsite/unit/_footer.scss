@@ -7,6 +7,12 @@ footer {
     border-color: nth($grays, 5);
     border-width: 1px 0;
     @extend .clearfix;
+    a {
+      color: nth($grays, 2);
+      &:hover {
+        color: $brand-primary;
+      }
+    }
     .footer-nav {
       float: left;
       margin: 0;
@@ -21,12 +27,6 @@ footer {
         }
         &:last-child {
           padding-right: 24px;
-        }
-        a {
-          color: nth($grays, 2);
-          &:hover {
-            color: $brand-primary;
-          }
         }
         @media screen and (max-width: $screen-desktop-max) {
           padding-left: 0 !important;
@@ -80,12 +80,25 @@ footer {
     }
   }
   .footer-bottom {
-    padding: 0 32px;
+    padding: 0 0 0 32px;
     line-height: $navigationSidebar;
+    @include clearfix();
     @media screen and (max-width: $screen-phone) {
       padding: 1.33em;
       line-height: $navigationSidebar / 2;
       text-align: center;
+    }
+    .copyright {
+      float: left;
+    }
+    .go-top {
+      display: block;
+      float: right;
+      border-left: 1px solid nth($grays, 5);
+      font-size: 1.33em;
+      text-align: center;
+      cursor: pointer;
+      @include square($navigationSidebar, $navigationSidebar);
     }
   }
 }

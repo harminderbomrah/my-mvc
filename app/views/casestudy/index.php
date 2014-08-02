@@ -15,7 +15,7 @@
           <?php echo Category::find($case['category'])->name ?>
         </td>
         <td>
-          <a href="/case/<?php echo $case['id'] ?>">
+          <a href="/case_study/<?php echo $case['id'] ?>">
             <?php echo $case['title'] ?>
           </a>
         </td>

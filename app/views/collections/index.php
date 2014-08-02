@@ -15,7 +15,7 @@
           <?php echo $product['category_name'] ?>
         </td>
         <td>
-          <a href="/product/<?php echo $product['id'] ?>">
+          <a href="/collections/<?php echo $product['id'] ?>">
             <?php echo $product['name'] ?>
           </a>
         </td>
