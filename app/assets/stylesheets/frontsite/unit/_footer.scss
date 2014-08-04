@@ -3,9 +3,7 @@ footer {
   .footer-top {
     padding: 0 32px;
     line-height: 73px;
-    border-style: solid;
-    border-color: nth($grays, 5);
-    border-width: 1px 0;
+    border-bottom: 1px solid nth($grays, 5);
     @extend .clearfix;
     a {
       color: nth($grays, 2);
@@ -28,7 +26,7 @@ footer {
         &:last-child {
           padding-right: 24px;
         }
-        @media screen and (max-width: $screen-desktop-max) {
+        @media screen and (max-width: $screen-tablet-max) {
           padding-left: 0 !important;
           padding-right: 24px;
         }
@@ -42,7 +40,7 @@ footer {
     .telphone {
       float: right;
     }
-    @media screen and (max-width: $screen-lg-desktop-max) {
+    @media screen and (max-width: 874px) {
       padding: 25px 32px;
       line-height: 24px;
       .footer-nav {
@@ -78,16 +76,24 @@ footer {
         margin-right: 0;
       }
     }
+    .collapse & {
+      @media screen and (min-width: 629px) and (max-width: 874px) {
+        .footer-nav {
+          float: left;
+        }
+        .address {
+          float: right;
+        }
+        .telphone {
+          float: right;
+        }
+      }
+    }
   }
   .footer-bottom {
     padding: 0 0 0 32px;
     line-height: $navigationSidebar;
     @include clearfix();
-    @media screen and (max-width: $screen-phone) {
-      padding: 1.33em;
-      line-height: $navigationSidebar / 2;
-      text-align: center;
-    }
     .copyright {
       float: left;
     }
@@ -99,6 +105,23 @@ footer {
       text-align: center;
       cursor: pointer;
       @include square($navigationSidebar, $navigationSidebar);
+    }
+    @media screen and (max-width: $screen-phone) {
+      padding: 0;
+      line-height: $navigationSidebar / 2;
+      text-align: center;
+      .copyright {
+        display: inline-block;
+        float: none;
+        padding: 1.33em;
+      }
+      .go-top {
+        float: none;
+        border-top: 1px solid nth($grays, 5);
+        border-left: none;
+        line-height: $navigationSidebar;
+        @include size(100%, $navigationSidebar);
+      }
     }
   }
 }

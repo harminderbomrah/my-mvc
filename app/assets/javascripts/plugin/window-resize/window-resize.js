@@ -4,6 +4,7 @@
   var now = new Date(),
       out = false,
       delta = 300,
+      fnArray = [],
       convertToFunction = function(fn){
         var x = new Function();
         x = fn;
@@ -11,31 +12,40 @@
       };
 
   $.windowResize = function(fn) {
-    if(typeof fn.start === 'function') {
-      $.windowResize.start = convertToFunction(fn.start);
+    fnArray.push(fn)
+    for(var _index in fnArray) {
+      if(typeof fnArray[_index].start === 'function') {
+        $.windowResize.start[_index] = convertToFunction(fnArray[_index].start);
+      }
+      if(typeof fnArray[_index].stop === 'function') {
+        $.windowResize.stop[_index] = convertToFunction(fnArray[_index].stop);
+      }
     }
-    if(typeof fn.stop === 'function') {
-      $.windowResize.stop = convertToFunction(fn.stop);
-    }
-    $(window).resize(function() {
+    window.onresize = function() {
       now = new Date();
       if(out === false) {
-        if(typeof fn.start === 'function') {
-          $.windowResize.start()
+        if($.windowResize.start.length) {
+          for(var _index in $.windowResize.start) {
+            $.windowResize.start[_index]()
+          }
         }
         out = true;
         setTimeout(resizeend, delta);
       }
-    });
+    };
     function resizeend() {
       if (new Date() - now < delta) {
         setTimeout(resizeend, delta);
       } else {
         out = false;
-        if(typeof fn.stop === 'function') {
-          $.windowResize.stop()
+        if($.windowResize.stop.length) {
+          for(var _index in $.windowResize.stop) {
+            $.windowResize.stop[_index]()
+          }
         }
       }
     }
   };
+  $.windowResize.start = [];
+  $.windowResize.stop = [];
 }(window.jQuery);

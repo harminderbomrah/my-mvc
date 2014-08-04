@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
       _heigth = (function() {
         return window.innerHeight < 400 ? Math.round(window.innerHeight * 0.5) : Math.round(window.innerHeight * 0.3);
       })();
-  $('.promos-item').height(_heigth);
+  $('.promos-item').height(_heigth - 1);
   $('.promos-pagination').map(function(index, elem) {
     $(elem).find('.promos-pagination-number').map(function(index, elem) {
       index === now ? $(elem).addClass('active') : null;
@@ -13,10 +13,14 @@ jQuery(document).ready(function($) {
   });
   $target.on('touchstart click', function(event) {
     var _parentClass = $(this).closest('.promos-item').attr('class').split(' '),
-        _regex = new RegExp('promos-item', 'g'),
+        // _regex = new RegExp('promos-item col-4 col-md-12', 'g'),
         _parent = _parentClass.filter(function(value) {
-          return !_regex.test(value)
+          // return !_regex.test(value)
+          console.log(value)
+          return value === "blog" || value === "cllections" || value === "case-study"
         })[0];
+
+        console.log(_parent)
 
     switch($(this).index()) {
       case 1:
@@ -40,7 +44,9 @@ jQuery(document).ready(function($) {
           return Math.round((window.innerHeight * 0.7) - $('footer').height());
         };
       })());
-      $('.promos-item').height(_heigth);
+      $('.promos-item').height((function() {
+        return window.innerHeight < 400 ? Math.round(window.innerHeight * 0.5) : Math.round(window.innerHeight * 0.3);
+      })() - 1);
     }
   });
 });

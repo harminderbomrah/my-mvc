@@ -6,14 +6,15 @@
   src: local(Noto Sans T Chinese), local(Lantinghei TC), local('微軟正黑體');
 }
 
-@import "libary/bootstrap/mixins";
 @import "backsite/modules/mixins";
+@import "libary/bootstrap/mixins";
 @import "libary/bootstrap/utilities";
 @import "libary/bootstrap/normalize";
 
 // 顏色、字型大小...blah 設定
 @import "frontsite/modules/setting";
 @import "frontsite/modules/type";
+@import "frontsite/modules/grid";
 
 // body base setting
 @import "frontsite/unit/general";

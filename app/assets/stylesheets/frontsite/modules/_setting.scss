@@ -1,8 +1,7 @@
-//
-// color
-//-----------------------------------------------------
+// Global
+$fontSize:                16px;
 
-// Violette 常用色票
+// Color
 $aqua:                    #4FC1E9 #3BAFDA; //天藍
 $coolBlue:                #4EA4FC #1C8BFC; //接近google的藍色 NEW!
 $blueJeans:               #5D9CEC #4A89DC; //深藍
@@ -42,6 +41,12 @@ $navigationWidth:         252px;
 $navigationSidebar:       48px;
 $navigationPaddingTop:    240px;
 $navigationPaddingTopS:   120px;
+
+// Grid Columns
+$grid-columns:            12;
+$grid-padding:            0.75em;
+$class-slug:              'col-';
+$index:                   1;
 
 // RWD Size
 $screen-phone:            480px !default;

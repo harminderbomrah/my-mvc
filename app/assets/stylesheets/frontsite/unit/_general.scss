@@ -11,8 +11,8 @@
 
 body {
   padding-left: $navigationWidth + $navigationSidebar;
-  font-family: $font-family-sans-serif;
-  font-size: 16px;
+  font-family: $font-family-default;
+  font-size: $fontSize;
   color: $brand-gray;
   @include transition(padding-left 0.4s ease-in-out);
   &.collapse{

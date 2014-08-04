@@ -1,0 +1,29 @@
+.row {
+  @include clearfix();
+}
+[class*=col-] {
+  position: relative;
+  float:left;
+  min-height: 1px;
+}
+@mixin make-grid($type: '') {
+  @for $index from 1 through $grid-columns {
+    .#{$class-slug}#{$type}#{$index} {
+      @if #{$type} == #{'xs-'} {
+        width: 100%;
+      } @else {
+        width: percentage(($index / $grid-columns));
+      }
+    }
+  }
+}
+@include make-grid();
+@media screen and (max-width: $screen-desktop) {
+  @include make-grid('md-');
+}
+@media screen and (max-width: $screen-tablet) {
+  @include make-grid('ms-');
+}
+@media screen and (max-width: $screen-phone) {
+  @include make-grid('xs-');
+}

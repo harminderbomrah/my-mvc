@@ -12,8 +12,8 @@
     <?php } ?>
   </ul>
 </div>
-<div id="promos">
-  <section class="promos-item blog">
+<div id="promos" class="row">
+  <section class="promos-item col-4 col-md-12 blog">
     <div class="promos-pagination">
       <span class="promos-pagination-title">blog</span>
       <span class="promos-pagination-number">1</span>
@@ -50,7 +50,7 @@
       </li>
     </ul>
   </section>
-  <section class="promos-item cllections">
+  <section class="promos-item col-4 col-md-12 cllections">
     <div class="promos-pagination">
       <span class="promos-pagination-title">cllections</span>
       <span class="promos-pagination-number">1</span>
@@ -87,7 +87,7 @@
       </li>
     </ul>
   </section>
-  <section class="promos-item case-study">
+  <section class="promos-item col-4 col-md-12 case-study">
     <div class="promos-pagination">
       <span class="promos-pagination-title">case study</span>
       <span class="promos-pagination-number">1</span>

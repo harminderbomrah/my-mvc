@@ -14,6 +14,8 @@
     'blog#show' => array('blog/{id}'),
     'casestudy#index' => array('case_study'),
     'casestudy#show' => array('case_study/{id}'),
+    'aboutus#index' => array('about_us'),
+    'contact#index' => array('contact'),
 
     'admin/user#login' => array('user/login'),
     'admin/user#resets' => array('user/resets'),
