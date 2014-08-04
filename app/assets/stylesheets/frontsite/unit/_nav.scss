@@ -351,7 +351,7 @@
         margin: 0 0 3em;
         font-size: 0.75em;
         &.active {
-          .tag-item:nth-child(n+15) {
+          .tag-item:nth-child(n+11) {
             display: inline-block;
           }
         }
@@ -371,7 +371,7 @@
               background-color: nth($grays, 2);
             }
           }
-          &:nth-child(n+15) {
+          &:nth-child(n+11) {
             display: none;
           }
         }
