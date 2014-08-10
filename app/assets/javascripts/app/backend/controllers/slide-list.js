@@ -6,10 +6,24 @@ angular.module('nyfnApp.controller.main', [])
 
 // Main List controller
 .controller('slideList', ['$scope', '$timeout', '$log', '$location', '$window', '$modal', '$jsonData', 'ngProgress', function($scope, $timeout, $log, $location, $window, $modal, $jsonData, ngProgress) {
-
+  var series = [{
+    class: 'modern',
+    name: '現代'
+  }, {
+    class: 'luxury',
+    name: '奢華'
+  }, {
+    class: 'green',
+    name: '環保'
+  }]
   // get list json data use $jsonData services
   $jsonData.getData('/admin/slide/list').then(function(data) {
     $scope.slideList = data;
+    angular.forEach(series, function(value, index) {
+      angular.forEach($scope.slideList, function(v, i) {
+        value.class === v.series ? $scope.slideList[i].series = value.name : null;
+      })
+    })
   });
 
   // Definition main list controller scope initial

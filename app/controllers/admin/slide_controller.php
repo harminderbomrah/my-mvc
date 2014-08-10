@@ -25,6 +25,7 @@ class SlideController extends ApplicationController{
       $temp["id"] = $slide->id;
       $temp["title"] = $slide->title;
       $temp["trash"] = ($slide->trash == 0 ? false : true);
+      $temp["series"] = $slide->series;
       $temp["imageLeft"] = Assets::find($slide->leftImage)->file["thumb"]->to_absolute_url();
       $temp["imageRight"] = Assets::find($slide->rightImage)->file["thumb"]->to_absolute_url();
       array_push($list,$temp);
@@ -39,6 +40,7 @@ class SlideController extends ApplicationController{
     $slide = new Slide();
     $slide->title = $this->params['title'];
     $slide->content = $this->params['content'];
+    $slide->series = $this->params['series'];
     $slide->leftImage = $this->params['imgLeft'];
     $slide->rightImage = $this->params['imgRight'];
     $slide->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
@@ -59,6 +61,7 @@ class SlideController extends ApplicationController{
       "title" => $slide->title,
       "content" => $slide->content,
       "disabled" => ($slide->disabled==1) ? true : false,
+      "series" => $slide->series,
       "imgLeft" => $slide->leftImage,
       "imgRight" => $slide->rightImage,
       "previewLeft" => Assets::find($slide->leftImage)->file["medium"]->to_absolute_url(),
@@ -83,6 +86,7 @@ class SlideController extends ApplicationController{
     $slide->title = $this->params['title'];
     $slide->content = $this->params['content'];
     $slide->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
+    $slide->series = $this->params['series'];
     $slide->leftImage = $this->params['imgLeft'];
     $slide->rightImage = $this->params['imgRight'];
     if($this->params['publishDate']!=""){

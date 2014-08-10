@@ -4,8 +4,7 @@
   <ul class="slide-list">
     <?php foreach ($slides as $key => $slide) { ?>
       <li class="slide-item">
-        <!-- <div class="slide-series" style="background-image: url('frontend/series-img-<?#= $slide->series ?>.png');"></div> -->
-        <div class="slide-series" style="background-image: url('/app/assets/images/frontend/series-img-modern.png');"></div>
+        <div class="slide-series" style="background-image: url('/app/assets/images/frontend/series-img-<?= $slide->series ?>.png');"></div>
         <div class="slide-image left-image" title="<?= $slide->title ?>" style="background-image: url('<?= Assets::find($slide->leftImage)->file['original']->to_absolute_url() ?>');"></div>
         <div class="slide-image right-image" title="<?= $slide->title ?>" style="background-image: url('<?= Assets::find($slide->rightImage)->file['original']->to_absolute_url() ?>');"></div>
       </li>

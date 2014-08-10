@@ -6,7 +6,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
 
 // Main Form controller
 .controller('slideForm', ['$scope', '$log', '$window', '$location', '$filter', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $window, $location, $filter, $modal, $jsonData, ngProgress) {
-
   // 建立空的文章物件
   $scope.slideData = {
     imgLeft: null,
@@ -44,11 +43,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.slideData, src);
-      $log.log($scope.slideData)
       $scope.initial.id = $scope.slideData.img
       $scope.initial.previewLeft = $scope.slideData.previewLeft;
       $scope.initial.previewRight = $scope.slideData.previewRight;
-      $scope.initial.editPublishDate = $scope.caseData.publishDate;
+      $scope.initial.editPublishDate = $scope.slideData.publishDate;
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
@@ -115,7 +113,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
         $scope.slideData.endDate = $filter('date')($scope.slideData.endDate, 'yyyy-MM-dd');
       }
 
-      if(form.$valid) {
+      if(form.$valid || path !== "new") {
         ngProgress.start();
         $scope.initial.submit = true;
 
