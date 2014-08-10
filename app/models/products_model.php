@@ -5,6 +5,19 @@ class Products extends ModelAdapter{
         parent::__construct($this,$values);
     }
 
+    public static function products_for_home(){
+      $products = self::query_db("SELECT A.id,A.title,A.created_date,A.img,B.name AS `category` FROM `products` AS `A`, `category` AS `B`, `products_category_mvcrelation` AS `C` WHERE A.id = C.products_id AND C.category_id = B.id ORDER BY `created_date` DESC LIMIT 3");
+      if($products==null){
+        $products = [];
+      }else{
+        foreach ($products as $key=>$product) {
+          $products[$key]['date'] = strftime("%b %d, %Y",strtotime($products[$key]['created_date']));
+          $products[$key]["img"] = '/'.Assets::find(array_rand(Products::find($product['id'])->assets_relation_ids,1))->file['large']->path;
+        }
+      }
+      return $products;
+    }
+
     public static function all_with_quantity(){
       $cases = self::query_db("SELECT a.id, a.title FROM products a");
       return $cases;

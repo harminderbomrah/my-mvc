@@ -21,33 +21,17 @@
       <span class="promos-pagination-number">3</span>
     </div>
     <ul class="promos-post">
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78347591/e181b568ce021af134ffd84e50ab13b3ecab5657/600.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78316829/4c4a60673a072ca00f800e253e1e29b706768506/2048.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78278523/d1b7b03d20b930c3022172b0c6ffbe4a5a56798d/2048.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
+      <?php foreach ($articles as $key => $article) { ?>
+        <li class="promos-post-item" style="background-image: url('<?= $article['img'] ?>');">
+          <p class="promos-post-info">
+            <span class="promos-post-category"><?= $article['category'] ?></span>
+            <span class="promos-post-date"><?= $article['date'] ?></span>
+          </p>
+          <h1 class="promos-post-title">
+            <a href="/blog/<?= $article['id'] ?>"><?= $article['title'] ?></a>
+          </h1>
+        </li>
+      <?php } ?>
     </ul>
   </section>
   <section class="promos-item col-4 col-md-12 cllections">
@@ -58,33 +42,17 @@
       <span class="promos-pagination-number">3</span>
     </div>
     <ul class="promos-post">
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78256769/891ea3ec5a63e4fa38d123011bd0a6d5cdfa5a77/2048.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78272133/fd3292ffc8be7070b2f42d790eae80d16ee2e27c/2048.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78342513/2e236542aee295f9e240c74b5dcc922993f2d964/2048.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
+      <?php foreach ($products as $key => $product) { ?>
+        <li class="promos-post-item" style="background-image: url('<?= $product['img'] ?>');">
+          <p class="promos-post-info">
+            <span class="promos-post-category"><?= $product['category'] ?></span>
+            <span class="promos-post-date"><?= $product['date'] ?></span>
+          </p>
+          <h1 class="promos-post-title">
+            <a href="/collections/<?= $product['id'] ?>"><?= $product['title'] ?></a>
+          </h1>
+        </li>
+      <?php } ?>
     </ul>
   </section>
   <section class="promos-item col-4 col-md-12 case-study">
@@ -95,33 +63,17 @@
       <span class="promos-pagination-number">3</span>
     </div>
     <ul class="promos-post">
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78343023/47a41b7b571f6f9498aebbaf83faaa249d5cbe71/2048.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78341527/fa810b97130b5463d68b9a604ba2b430645ccc1f/600.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
-      <li class="promos-post-item" style="background-image: url('http://ppcdn.500px.org/78317703/cc1d3c31cae6dd7f55535e84feb455640a6629c1/2048.jpg');">
-        <p class="promos-post-info">
-          <span class="promos-post-category" data-lorem="1w"></span>
-          <span class="promos-post-date">Apr 1, 2014</span>
-        </p>
-        <h1 class="promos-post-title">
-          <a href="#" data-lorem="1s"></a>
-        </h1>
-      </li>
+      <?php foreach ($cases as $key => $case) { ?>
+        <li class="promos-post-item" style="background-image: url('<?= $case['img'] ?>');">
+          <p class="promos-post-info">
+            <span class="promos-post-category"><?= $case['category'] ?></span>
+            <span class="promos-post-date"><?= $case['date'] ?></span>
+          </p>
+          <h1 class="promos-post-title">
+            <a href="/case_study/<?= $case['id'] ?>"><?= $case['title'] ?></a>
+          </h1>
+        </li>
+      <?php } ?>
     </ul>
   </section>
 </div>

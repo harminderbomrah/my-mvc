@@ -1,3 +1,7 @@
+<?php
+  $tags = Tags::all_with_quantity();
+  $tags_limit = 8;
+?>
 <header id="navigation">
   <div class="nav-bar">
     <div class="nav-collapse"><i class="fa fa-fw fa-navicon"></i></div>
@@ -21,7 +25,7 @@
       <h2 class="hide">網站主選單</h2>
       <ul class="mune-list list-unstyled">
         <li class="mune-item have-sub">
-          <p class="mune-title"><a href="#cllections"><span class="en">Cllections</span><span class="zh">石 材 系 列</span></a></p>
+          <p class="mune-title"><a href="#cllections"><span class="en">Collections</span><span class="zh">石 材 系 列</span></a></p>
         </li>
         <li class="mune-item have-sub">
           <p class="mune-title"><a href="#case-study"><span class="en">Case Study</span><span class="zh">成 功 案 例</span></a></p>
@@ -58,19 +62,17 @@
   <div class="nav-sub">
     <div id="cllections" class="nav-sub-item">
       <span class="mune-sub-close" href="#"><i class="fa fa-fw fa-times"></i></span>
-      <h3 class="mune-sub-title"><span class="hide">石材系列</span>Cllections</h3>
+      <h3 class="mune-sub-title"><span class="hide">石材系列</span>Collections</h3>
       <div class="nav-sub-scroll-zone">
         <div class="nav-sub-item-inner">
           <div class="tag-list">
             <ul class="list-inline">
-              <li class="tag-item"><a href="">華麗</a></li>
-              <li class="tag-item"><a href="">極簡</a></li>
-              <li class="tag-item"><a href="">新品</a></li>
-              <li class="tag-item"><a href="">特價優惠</a></li>
-              <li class="tag-item"><a href="">深色</a></li>
-              <li class="tag-item"><a href="">特價優惠</a></li>
-              <li class="tag-item"><a href="">淺色</a></li>
-              <li class="more"><span>更多標籤</span><i class="fa fa-fw fa-angle-right"></i></li>
+              <?php foreach ($tags as $key => $tag) { ?>
+                <li class="tag-item"><a href="/collections?tag=<?= $tag["id"] ?>"><?= $tag["name"] ?></a></li>
+              <?php } ?>
+              <?php if($key>$tags_limit){ ?>
+                <li class="more"><span>更多標籤</span><i class="fa fa-fw fa-angle-right"></i></li>
+              <?php } ?>
             </ul>
           </div>
           <ul class="mune-sub list-unstyled">
@@ -92,16 +94,12 @@
         <div class="nav-sub-item-inner">
           <div class="tag-list">
             <ul class="list-inline">
-              <li class="tag-item"><a href="">華麗</a></li>
-              <li class="tag-item"><a href="">極簡</a></li>
-              <li class="tag-item"><a href="">新品</a></li>
-              <li class="tag-item"><a href="">特價優惠</a></li>
-              <li class="tag-item"><a href="">深色</a></li>
-              <li class="tag-item"><a href="">特價優惠</a></li>
-              <li class="tag-item"><a href="">淺色</a></li>
-              <li class="tag-item"><a href="">花紋</a></li>
-              <li class="tag-item"><a href="">新品</a></li>
-              <li class="more"><span>更多標籤</span><i class="fa fa-fw fa-angle-right"></i></li>
+              <?php foreach ($tags as $key => $tag) { ?>
+                <li class="tag-item"><a href="/case_study?tag=<?= $tag["id"] ?>"><?= $tag["name"] ?></a></li>
+              <?php } ?>
+              <?php if($key>$tags_limit){ ?>
+                <li class="more"><span>更多標籤</span><i class="fa fa-fw fa-angle-right"></i></li>
+              <?php } ?>
             </ul>
           </div>
           <ul class="mune-sub list-unstyled">
@@ -123,16 +121,12 @@
         <div class="nav-sub-item-inner">
           <div class="tag-list">
             <ul class="list-inline">
-              <li class="tag-item"><a href="">華麗</a></li>
-              <li class="tag-item"><a href="">極簡</a></li>
-              <li class="tag-item"><a href="">新品</a></li>
-              <li class="tag-item"><a href="">特價優惠</a></li>
-              <li class="tag-item"><a href="">深色</a></li>
-              <li class="tag-item"><a href="">特價優惠</a></li>
-              <li class="tag-item"><a href="">淺色</a></li>
-              <li class="tag-item"><a href="">花紋</a></li>
-              <li class="tag-item"><a href="">新品</a></li>
-              <li class="more"><span>更多標籤</span><i class="fa fa-fw fa-angle-right"></i></li>
+              <?php foreach ($tags as $key => $tag) { ?>
+                <li class="tag-item"><a href="/blog?tag=<?= $tag["id"] ?>"><?= $tag["name"] ?></a></li>
+              <?php } ?>
+              <?php if($key>$tags_limit){ ?>
+                <li class="more"><span>更多標籤</span><i class="fa fa-fw fa-angle-right"></i></li>
+              <?php } ?>
             </ul>
           </div>
           <ul class="mune-sub list-unstyled">

@@ -5,6 +5,23 @@ class Articles extends ModelAdapter{
         parent::__construct($this,$values);
     }
 
+    public static function articles_for_home(){
+      $articles = self::query_db("SELECT A.id,A.title,A.publishDate,A.created_date,A.img,B.name AS `category` FROM `articles` AS `A`, `category` AS `B`, `articles_category_mvcrelation` AS `C` WHERE A.id = C.articles_id AND C.category_id = B.id ORDER BY `top` DESC, `hot` DESC, `publishDate` DESC, `created_date` DESC LIMIT 3");
+      if($articles==null){
+        $articles = [];
+      }else{
+        foreach ($articles as $key=>$article) {
+          if($article['publishDate']=="0000-00-00 00:00:00"){
+            $articles[$key]['date'] = strftime("%b %d, %Y",strtotime($articles[$key]['created_date']));
+          }else{
+            $articles[$key]['date'] = strftime("%b %d, %Y",strtotime($article['publishDate']));
+          }
+          $articles[$key]["img"] = ($article["img"] ? '/'.Assets::find($article["img"])->file['large']->path : "");
+        }
+      }
+      return $articles;
+    }
+
     public static function all_array($category=null, $frontend=false){
       if($category!=null) $category_filter = "AND B.category_id = {$category}";
       if($frontend) $trash_filter = "AND A.trash = false";

@@ -5,6 +5,23 @@ class Cases extends ModelAdapter{
         parent::__construct($this,$values);
     }
 
+    public static function cases_for_home(){
+      $cases = self::query_db("SELECT A.id,A.title,A.publishDate,A.created_date,A.img,B.name AS `category` FROM `cases` AS `A`, `category` AS `B`, `cases_category_mvcrelation` AS `C` WHERE A.id = C.cases_id AND C.category_id = B.id ORDER BY `top` DESC, `hot` DESC, `publishDate` DESC, `created_date` DESC LIMIT 3");
+      if($cases==null){
+        $cases = [];
+      }else{
+        foreach ($cases as $key=>$case) {
+          if($case['publishDate']=="0000-00-00 00:00:00"){
+            $cases[$key]['date'] = strftime("%b %d, %Y",strtotime($cases[$key]['created_date']));
+          }else{
+            $cases[$key]['date'] = strftime("%b %d, %Y",strtotime($case['publishDate']));
+          }
+          $cases[$key]["img"] = ($case["img"] ? '/'.Assets::find($case["img"])->file['large']->path : "");
+        }
+      }
+      return $cases;
+    }
+
     public static function all_with_quantity(){
       $cases = self::query_db("SELECT a.id, a.title FROM cases a");
       return $cases;
