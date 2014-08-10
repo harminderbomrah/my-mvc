@@ -1,4 +1,5 @@
 <head>
+  <meta name="wot-verification" content="82a62872c36a134df0c4"/>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="<?= Site::first()->description ?>">
@@ -20,6 +21,7 @@
   <?= js_tag("plugin/perfect-scrollbar/jquery.mousewheel.js") ?>
   <?= js_tag("plugin/perfect-scrollbar/perfect-scrollbar.js") ?>
   <?= js_tag("plugin/window-resize/window-resize.js") ?>
+  <?= js_tag("plugin/fastclick/lib/fastclick.js") ?>
   <?= js_tag("plugin/loremjs/lorem.js") ?>
   <?= js_tag("frontsite/main-menu.js") ?>
   <?= js_tag("frontsite/main.js") ?>

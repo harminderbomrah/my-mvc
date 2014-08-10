@@ -1,0 +1,24 @@
+@import "libary/bootstrap/mixins";
+@import "backsite/modules/mixins";
+@import "frontsite/modules/setting";
+@import "frontsite/unit/top-nav";
+.main-wrap {
+  .picture {
+    img {
+      display: block;
+      margin: 0;
+      border: 0;
+      @include size(100%, auto);
+      @media screen and (max-width: $screen-desktop) {
+        display: none;
+        &.main {
+          display: block;
+        }
+      }
+    }
+    @media screen and (max-width: $screen-desktop) {
+      max-height: 300px;
+      overflow: hidden;
+    }
+  }
+}

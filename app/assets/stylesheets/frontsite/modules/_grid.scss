@@ -18,6 +18,9 @@
   }
 }
 @include make-grid();
+@media screen and (min-width: $screen-lg-desktop) {
+  @include make-grid('lg-');
+}
 @media screen and (max-width: $screen-desktop) {
   @include make-grid('md-');
 }

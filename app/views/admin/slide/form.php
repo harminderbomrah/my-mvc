@@ -31,7 +31,7 @@
               <div class="img" data-ng-show="slideData.imgLeft">
                 <i class="fa fa-refresh fa-5x fa-fw"></i>
                 <img class="img-rounded" data-ng-src="{{initial.previewLeft}}">
-                <input type="hide" name="imgLeft" data-ng-model="slideData.imgLeft" required>
+                <input type="hidden" name="imgLeft" data-ng-model="slideData.imgLeft" required>
               </div>
             </a>
             <div class="clearImg">
@@ -51,7 +51,7 @@
               <div class="img" data-ng-show="slideData.imgRight">
                 <i class="fa fa-refresh fa-5x fa-fw"></i>
                 <img class="img-rounded" data-ng-src="{{initial.previewRight}}">
-                <input type="hide" name="imgRight" data-ng-model="slideData.imgRight" required>
+                <input type="hidden" name="imgRight" data-ng-model="slideData.imgRight" required>
               </div>
             </a>
             <div class="clearImg">
@@ -88,7 +88,7 @@
                 <span class="switch-handle"></span>
               </div>
               <div class="input-group" data-ng-class="{'hide': !initial.publishDate, 'has-error': slideForm.publishDate.$invalid && !slideForm.publishDate.$pristine}">
-                <input type="text" name="publishDate" class="form-control" data-ng-model="slideData.publishDate" data-ng-required="initial.publishDate" is-open="openedPuplish" min-date="initial.today" max-date="slideData.endDate" datepicker-popup="yyyy-MM-dd" show-button-bar="false" datepicker-options="dateOptions" />
+                <input type="text" name="publishDate" class="form-control" data-ng-model="slideData.publishDate" data-ng-required="initial.publishDate" is-open="openedPuplish" min-date="initial.editPublishDate || initial.today" max-date="slideData.endDate" datepicker-popup="yyyy-MM-dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
                   <button class="btn btn-default" data-ng-click="action.datepicker.open($event, 'publish')"><i class="fa fa-calendar"></i></button>
                 </span>

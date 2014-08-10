@@ -13,7 +13,7 @@ class Category extends ModelAdapter{
         foreach($cates as $cate){
           $field = "{$type}s_relation_ids";
           $quantity = count($cate->{$field});
-          array_push($result, array('id'=>$cate->id, 'name'=>$cate->name, 'quantity'=>$quantity));
+          array_push($result, array('id'=>$cate->id, 'name'=>$cate->name, 'description'=>$cate->description, 'quantity'=>$quantity));
         }
       }
       return $result;

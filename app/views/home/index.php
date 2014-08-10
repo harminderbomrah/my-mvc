@@ -34,9 +34,9 @@
       <?php } ?>
     </ul>
   </section>
-  <section class="promos-item col-4 col-md-12 cllections">
+  <section class="promos-item col-4 col-md-12 collections">
     <div class="promos-pagination">
-      <span class="promos-pagination-title">cllections</span>
+      <span class="promos-pagination-title">collections</span>
       <span class="promos-pagination-number">1</span>
       <span class="promos-pagination-number">2</span>
       <span class="promos-pagination-number">3</span>

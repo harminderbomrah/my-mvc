@@ -2,7 +2,7 @@
   class AboutusController extends ApplicationController{
     var $controller_layout = "home";
 
-    function index(){      
+    function index() {
       return render();
     }
   }

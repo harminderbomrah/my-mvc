@@ -55,7 +55,7 @@
           </label>
         </td>
         <td data-ng-bind="list.publishDate | date:'yyyy/MM/dd'"></td>
-        <td><a data-ng-bind="list.title" href="/case/{{list.id}}" target="_blink"></a></td>
+        <td><a data-ng-bind="list.title" href="/case-study/{{list.id}}" target="_blink"></a></td>
         <td class="text-center"><a class="btn btn-default btn-xs" href="edit/{{list.id}}" target="_self"><i class="fa fa-edit"></i></a></td>
       </tr>
     </tbody>

@@ -30,3 +30,8 @@ a {
     color: $link-hover-color;
   }
 }
+.main-wrap {
+  position: relative;
+  background-color: nth($grays, 6);
+  z-index: 0;
+}

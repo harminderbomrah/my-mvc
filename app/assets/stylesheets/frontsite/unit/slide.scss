@@ -74,7 +74,7 @@
     margin-top: -80px;
     margin-left: -80px;
     z-index: 1;
-    background-position: 50% 50%;
+    background-position: center;
     background-repeat: no-repeat;
     @include opacity(0);
     @include size(160px, 160px);
@@ -83,6 +83,7 @@
     position: absolute;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     @include size(50%, 100%);
     @include transition(width 0.6s ease-in-out);
     &.left-image {

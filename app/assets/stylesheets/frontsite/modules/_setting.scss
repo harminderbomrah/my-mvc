@@ -41,6 +41,8 @@ $navigationWidth:         252px;
 $navigationSidebar:       48px;
 $navigationPaddingTop:    240px;
 $navigationPaddingTopS:   120px;
+$topNav:                  48px;
+$pagination:              72px;
 
 // Grid Columns
 $grid-columns:            12;
@@ -55,5 +57,5 @@ $screen-tablet:           768px !default;
 $screen-tablet-max:       ($screen-tablet - 1) !default;
 $screen-desktop:          992px !default;
 $screen-desktop-max:      ($screen-desktop - 1) !default;
-$screen-lg-desktop:       1200px !default;
+$screen-lg-desktop:       1440px !default;
 $screen-lg-desktop-max:   ($screen-lg-desktop - 1) !default;

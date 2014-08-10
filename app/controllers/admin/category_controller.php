@@ -10,24 +10,24 @@ class CategoryController extends ApplicationController{
   }
 
   function new_category(){
-    $cate= new Category(array("name"=>$this->params['post']['value'], 'type'=>$this->params['type']));
+    $cate= new Category(array("name"=>$this->params['post']['name'], "description"=>$this->params['post']['description'], 'type'=>$this->params['type']));
     $cate->save();
     return renderJson(array('id' => $cate->id));
   }
 
   function edit_category(){
     $cate = Category::find($this->params['post']['id']);
-    $cate->update_values(array('name'=>$this->params['post']['value']));
+    $cate->update_values(array('name'=>$this->params['post']['name'], "description"=>$this->params['post']['description']));
     return renderJson([]);
   }
 
   function delete_category(){
     $type = $this->params["type"];
 
-    if($this->params['action'] == 'delete'){
+    if($this->params['action'] == 'delete') {
       $cate = Category::find($this->params['id']);
       $cate->delete();
-    }elseif ($this->params['action'] == 'replace') {
+    } elseif ($this->params['action'] == 'replace') {
       $cate = Category::find($this->params['oldID']);
       $new_cate = $this->params['newID'];
 

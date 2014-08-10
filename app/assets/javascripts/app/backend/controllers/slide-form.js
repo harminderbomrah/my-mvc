@@ -17,6 +17,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
   $scope.initial = {
     today: new Date(),
     publishDate: false,
+    editPublishDate: false,
     previewLeft: null,
     previewRight: null,
     submit: false,
@@ -47,6 +48,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
       $scope.initial.id = $scope.slideData.img
       $scope.initial.previewLeft = $scope.slideData.previewLeft;
       $scope.initial.previewRight = $scope.slideData.previewRight;
+      $scope.initial.editPublishDate = $scope.caseData.publishDate;
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true

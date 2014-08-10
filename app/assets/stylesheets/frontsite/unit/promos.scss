@@ -58,6 +58,8 @@
       position: relative;
       float: left;
       background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
       @include size(33.33%, 100%);
       &:after {
         content: "";

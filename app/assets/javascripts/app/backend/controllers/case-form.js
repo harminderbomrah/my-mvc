@@ -14,6 +14,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
   $scope.initial = {
     today: new Date(),
     publishDate: false,
+    editPublishDate: false,
     link: {
       url: null,
       text: null
@@ -57,6 +58,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       angular.extend($scope.caseData, src);
       $scope.initial.id = $scope.caseData.img
       $scope.initial.preview = $scope.caseData.preview;
+      $scope.initial.editPublishDate = $scope.caseData.publishDate;
     };
 
     // 並監看文章物件裡的日期屬性，如果有值則將 $scope.initial.publishDate 設定為 true
@@ -179,7 +181,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         $scope.caseData.endDate = $filter('date')($scope.caseData.endDate, 'yyyy-MM-dd');
       }
 
-      if(form.$valid) {
+      if(form.$valid || path !== "new") {
         ngProgress.start();
         $scope.initial.submit = true;
 

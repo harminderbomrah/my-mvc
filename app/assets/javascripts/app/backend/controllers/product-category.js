@@ -7,119 +7,72 @@ angular.module('nyfnApp.controller.main', [])
 .controller('productCategory', ['$scope', '$log', '$timeout', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $timeout, $modal, $jsonData, ngProgress) {
 
   // Definition main category controller scope initial
-  $scope.initial = {
-    edited: null,
-    id: null,
-    buffer: false
-  };
-
+  $scope.id = null;
   $scope.action = {
 
-    // 新增類別
-    new: function(value, event) {
-
-      // 首先判斷值是否存在以及判斷送出時是點選按鈕或是按下enter
-      if((value && event.type == "click") || (value && event.keyCode == 13)) {
-
-        // buffer icon 顯示
-        $scope.initial.buffer = true;
-
-        // 檢查送出的值是否有與原始的資料重複
-        var exists = null;
-        exists = $scope.category.filter(function(obj) {
-          return value == obj.name;
-        })[0]
-
-        if(exists == undefined) {
-
-          // 如果送出的值沒有重複則將資料送出
-          ngProgress.start();
-          $jsonData.postData('POST', '/admin/product/category/new', {action: 'add', value: value}, function(data, status) {
-            //需要取得新增後的ID值
-            toastr.success('Category has been added');
-            $scope.initial.buffer = false;
-            $scope.category.push({id: data['id'], name: value, quantity: 0})
-            $scope.newCategory = null;
-            ngProgress.complete();
-          }, function(data, status) {
-            toastr.error('Category not saved');
-            $scope.initial.buffer = false;
-            ngProgress.reset();
-          });
-        } else {
-
-          // 如果送出的值有重複則顯示錯誤訊息
-          toastr.warning('Category already exists');
-          $scope.initial.buffer = false;
+    // 建立類別
+    modify: function(type, name, description, index) {
+      var id
+      index >= 0 ? id = $scope.category[index].id : id = null;
+      var modalInstance = $modal.open({
+        templateUrl: '/modal/modify-category',
+        controller: modifyCategory,
+        resolve: {
+          config: function() {
+            return {
+              type: type,
+              data: {
+                name: name || null,
+                description: description || null
+              },
+              categorys: (function() {
+                if(type === 'new') {
+                  return $scope.category
+                } else {
+                  var newCategory = [];
+                  angular.forEach($scope.category, function(value, idx) {
+                    if(idx != index) {
+                      newCategory.push(value);
+                    }
+                  });
+                  return newCategory
+                }
+              })()
+            }
+          }
         }
-      }
-    },
-
-    // 編輯類別
-    edit: function(value, index, event) {
-
-      // 先將原始資料存起來
-      $scope.initial.edited = value;
-
-      // 設定該物件為編輯中
-      $scope.category[index].edited = true;
-
-      // 將該物件的id值傳入 $scope.initial.id
-      $scope.initial.id = $scope.category[index].id;
-
-      // focus input
-      $timeout(function () {
-        $(event.target).closest('.list-item').children('.edit').focus();
-      }, 0);
-    },
-
-    // 完成編輯
-    doneEditing: function(value, index) {
-      if($scope.initial.edited != value) {
-
-        // 如果原始資料與更改後的資料不相同則將資料送出
+      });
+      modalInstance.result.then(function(value) {
+        var data = (function() {
+          if(type === 'new') {
+            return {action: 'add', name: value.name, description: value.description}
+          } else {
+            return {action: 'update', id: id, name: value.name, description: value.description}
+          }
+        })()
         ngProgress.start();
-        $jsonData.postData('POST', '/admin/product/category/edit', {action: 'update', id: $scope.initial.id, value: value}, function(data, status) {
-          toastr.success('Category updated');
-          $scope.initial.edited = null;
+        $jsonData.postData('POST', '/admin/product/category/' + type, data, function(data, status) {
+          if(type === 'new') {
+            toastr.success('Category has been added');
+            $scope.category.push({id: data['id'], name: value.name, description: value.description, quantity: 0});
+          } else {
+            toastr.success('Category updated');
+            $scope.category[index].name = value.name;
+            $scope.category[index].description = value.description;
+          }
           ngProgress.complete();
         }, function(data, status) {
           toastr.error('Category not saved');
-          $scope.category[index].name = $scope.initial.edited;
-          $scope.initial.edited = null;
           ngProgress.reset();
         });
-      } else {
-
-        // 如果相同則將 $scope.initial.edited 設定成 null
-        $scope.initial.edited = null;
-      }
-
-      // 將該物件的選取狀態取消
-      $scope.category[index].edited = false;
-    },
-
-    // 判斷鍵盤動作
-    doneEditingWithKey: function(_evt, value, index) {
-      var currKey = _evt.keyCode || _evt.which || _evt.charCode;
-      if (currKey == 13) {
-
-        // 按下 enter 則會將選取狀態取消
-        _evt.target.blur();
-        $scope.action.doneEditing(value, index);
-      } else if(currKey == 27) {
-
-        // 按下 esc 則會將選取狀態取消並將原始資料回存
-        $scope.category[index].name = $scope.initial.edited;
-        $scope.category[index].edited = false;
-      }
+      });
     },
 
     // 移除類別
     remove: function(item, index) {
       var modalInstance = $modal.open({
-        templateUrl: '/modal/category',
-        controller: ModalCategoryCtrl,
+        templateUrl: '/modal/delete-category',
+        controller: deleteCategory,
         resolve: {
           msg: function () {
             return item.quantity > 0 ? "There are items in this category, You have to transfer them to another category" : "Are you sure you want to delete?";
@@ -174,7 +127,46 @@ angular.module('nyfnApp.controller.main', [])
   }
 }]);
 
-var ModalCategoryCtrl = function ($scope, $log, $modalInstance, msg, replace, categorys) {
+var modifyCategory = function ($scope, $log, $modalInstance, config) {
+  $scope.data = {};
+  angular.extend($scope.data, config.data);
+  $scope.error = false;
+  $scope.length = false;
+  $scope.msg = '';
+  $scope.buttonText = '';
+  config.type === 'new' ? $scope.buttonText = 'Create' : $scope.buttonText = 'OK';
+  $scope.checkValue = function(name) {
+    var exists = null,
+        _regex = new RegExp(name, 'i');
+
+    exists = config.categorys.filter(function(obj) {
+      if(_regex.test(obj.name) && obj.name.length === name.length) {
+        return true;
+      }
+    })[0]
+    if(exists) {
+      $scope.error = true;
+      $scope.msg = '類別名稱重複';
+    } else {
+      $scope.error = false;
+    }
+  }
+  $scope.create = function() {
+    if(!$scope.data.name) {
+      $scope.length = true;
+      $scope.msg = '類別名稱不得為空白';
+    } else {
+      if(!$scope.error) {
+        $modalInstance.close($scope.data);
+      }
+    }
+  };
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+}
+
+var deleteCategory = function ($scope, $log, $modalInstance, msg, replace, categorys) {
   $scope.config = {
     categorys: categorys,
     category: null,

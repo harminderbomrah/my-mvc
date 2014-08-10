@@ -1,33 +1,20 @@
-<table>
-  <caption><h3>Product List</h3></caption>
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Title</th>
-      <th>Tag</th>
-      <th>Image</th>
-    </tr>
-  </thead>
-  <tbody>
+<?= content_css_tag("frontsite/unit/list.scss") ?>
+<?= render_partial("partial/top-nav") ?>
+<section class="main-wrap mini-height border-bottom main-list list-collections">
+  <ui class="row list-unstyled">
+    <li class="list-first col-3 col-lg-2 col-md-4 col-ms-12 col-xs-12">
+      <h3 class="list-title content-title" title="<?= $products[0]['category_name'] ?>"><?= $products[0]['category_name'] ?></h3>
+      <p class="list-description" data-lorem="5s"></p>
+    </li>
     <?php foreach ($products as $product) { ?>
-      <tr>
-        <td>
-          <?php echo $product['category_name'] ?>
-        </td>
-        <td>
-          <a href="/collections/<?php echo $product['id'] ?>">
-            <?php echo $product['name'] ?>
-          </a>
-        </td>
-         <td>
-          <?= img_tag($product["image"]) ?>
-        </td>
-        <td>
-          <?php foreach ($product['tags'] as $tag) { ?>
-            <i><?php echo $tag['name']; ?></i>
-          <?php } ?>
-        </td>
-      </tr>
+      <li class="list-item col-3 col-lg-2 col-md-4 col-ms-12 col-xs-12" style="background-image: url(<?= $product['image']->to_absolute_url() ?>)">
+        <a class="list-item-link" href="/collections/<?php echo $product['id'] ?>">
+          <span class="list-item-info">
+            <span class="list-item-name"><?php echo $product['name'] ?></span>
+          </span>
+        </a>
+      </li>
     <?php } ?>
-  </tbody>
-</table>
+  </ui>
+</section>
+<?= render_partial("partial/pagination") ?>

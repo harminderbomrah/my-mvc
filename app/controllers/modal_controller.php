@@ -31,6 +31,9 @@ class modalController extends ApplicationController{
   function delete_category() {
     return render();
   }
+  function modify_category() {
+    return render();
+  }
   function delete_tag() {
     return render();
   }

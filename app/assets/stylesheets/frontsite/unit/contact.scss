@@ -1,9 +1,8 @@
 @import "libary/bootstrap/mixins";
 @import "backsite/modules/mixins";
 @import "frontsite/modules/setting";
-@import "frontsite/modules/type";
+@import "frontsite/unit/top-nav";
 .main-wrap {
-  @extend .border-bottom;
   .map {
     #map {
       @include square(100%);
@@ -39,39 +38,65 @@
       height: 400px !important;
     }
   }
-  .content-inner {
-    padding: 1em 2em;
-    .content-title {
-      font-size: 2.25em;
-      margin-top: 3em;
-      margin-bottom: 1.5em;
+  .content {
+    position: relative;
+    overflow: hidden;
+    @media screen and (max-width: $screen-desktop) {
+      overflow: auto;
     }
-    .ask-list {
-      border-top: 1px solid nth($grays, 5);
-      p {
-        margin: 0.5em 0 1em;
-        font-size: 0.94em;
-        color: nth($grays, 4);
-      }
-      li {
-        position: relative;
-        margin-bottom: 0.6em;
-        padding-right: 1.5em;
-        line-height: 1.1em;
-        .cancel {
-          position: absolute;
-          top: 0;
-          right: 0;
-          color: nth($grays, 4);
-          cursor: pointer;
-          &:hover {
-            color: $brand-danger;
-          }
+  }
+  .ask-list {
+    // position: absolute;
+    // top: 200px;
+    // right: 2em;
+    // bottom: 0;
+    // left: 2em;
+    // overflow: hidden;
+    border-top: 1px solid nth($grays, 5);
+    @media screen and (max-width: $screen-desktop) {
+      position: static;
+      overflow: auto;
+    }
+    .ask-list-head {
+      margin: 0.5em 0 1em;
+      font-size: 0.94em;
+      color: nth($grays, 4);
+      .cancel-list {
+        float: right;
+        font-size: 0.75em;
+        color: nth($grays, 3);
+        cursor: pointer;
+        &:hover {
+          color: $brand-warning;
         }
       }
-      a {
-        color: nth($grays, 1);
+    }
+    li {
+      position: relative;
+      margin-bottom: 0.6em;
+      padding-right: 1.5em;
+      line-height: 1.1em;
+      .cancel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: nth($grays, 4);
+        cursor: pointer;
+        &:hover {
+          color: $brand-danger;
+        }
       }
+    }
+    a {
+      color: nth($grays, 1);
+    }
+  }
+  .send-success {
+    .success-title {
+      font-size: 2em;
+    }
+    .success-msg {
+      font-size: 0.75em;
     }
   }
 }

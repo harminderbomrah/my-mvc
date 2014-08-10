@@ -1,0 +1,74 @@
+@import "frontsite/modules/type";
+.pagination {
+  position: relative;
+  margin-top: -1px;
+  line-height: $pagination;
+  @include clearfix();
+  .previous,
+  .next {
+    display: inline-block;
+    margin: 0;
+    background-color: nth($grays, 2);
+    &.disabled {
+      & > a {
+        color: nth($grays, 4);
+        cursor: not-allowed;
+        pointer-events: none;
+        background-color: nth($grays, 3);
+      }
+    }
+    a {
+      display: block;
+      color: $white;
+      @include square($pagination);
+      @media screen and (max-width: $screen-phone) {
+        @include square($pagination / 2);
+      }
+    }
+  }
+  .previous {
+    float: left;
+  }
+  .next {
+    float: right;
+  }
+  .pagination-list {
+    margin: 0;
+    .pagination-item {
+      width: 2em;
+      a {
+        display: block;
+        color: nth($grays, 3);
+        &:hover {
+          color: nth($grays, 2);
+        }
+      }
+      &.active {
+        position: relative;
+        cursor: not-allowed;
+        pointer-events: none;
+        a {
+          color: nth($grays, 2);
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          height: 0.2em;
+          background-color: $brand-primary;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: $screen-phone) {
+    line-height: $pagination / 2;
+    .previous,
+    .next {
+      a {
+        @include square($pagination / 2);
+      }
+    }
+  }
+}

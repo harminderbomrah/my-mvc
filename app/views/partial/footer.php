@@ -1,7 +1,7 @@
 <footer>
   <div class="footer-top">
     <ol class="footer-nav">
-      <li><a href="about_us">關於良錡</a></li>
+      <li><a href="/about-us">關於良錡</a></li>
       <!-- <li><a href="#">最新消息</a></li> -->
       <li><a href="/contact">聯絡我們</a></li>
       <!-- <li><a href="#">廣告聯結</a></li>

@@ -51,7 +51,7 @@
             <input type="checkbox" name="list_id" value="{{list.id}}" data-ng-model="list.checked" data-ng-change="action.checkSelected($index)">
           </label>
         </td>
-        <td><a href="/product/{{list.id}}" target="_blink">{{list.name}}</a></td>
+        <td><a href="/collections/{{list.id}}" target="_blink">{{list.name}}</a></td>
         <td class="text-center"><a class="btn btn-default btn-xs" href="edit/{{list.id}}" target="_self"><i class="fa fa-edit"></i></a></td>
       </tr>
     </tbody>

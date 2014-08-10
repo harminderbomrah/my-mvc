@@ -1,6 +1,6 @@
 @import "libary/bootstrap/variables";
 @import "libary/bootstrap/mixins";
-
+@import "backsite/modules/variables";
 .main-category {
   .btn-toolbar {
     margin-bottom: 15px;
@@ -13,42 +13,20 @@
     padding: 0;
     list-style: none;
     .list-item {
-      background-color: #FFF;
-      line-height: 2;
-      padding: 1rem 1.5rem;
       position: relative;
-      & + .list-item {
-        margin-top: 1rem;
+      .list-group-item-heading {
+        line-height: 2;
+      }
+      .list-group-item-text {
+        padding-top: 0.5em;
+        border-top: 1px dotted lighten($grey, 2%);
+        color: darken($grey, 20%);
+        font-weight: 300;
       }
       &.editing {
-        padding: 0;
-        .view {
-          display: none;
-        }
-        .edit {
-          display: block;
-        }
-      }
-      .edit {
-        display: none;
-        border: none;
-        border-radius: 0;
-        padding: 1rem 1.5rem;
-        height: auto;
-        line-height: 2;
-        color: $brand-primary;
-        z-index: 2;
-        @include box-shadow(inset 1px 1px 0 $brand-primary, inset -1px -1px 0 $brand-primary);
-      }
-      .view {
-        @include clearfix();
-        label {
-          margin-bottom: 0;
-          font-weight: 400;
-        }
       }
       .fa, .glyphicon {
-        line-height: 2;
+        line-height: 2.5;
         cursor: pointer;
       }
     }

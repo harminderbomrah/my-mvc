@@ -94,6 +94,10 @@
 .modal-body {
   position: relative;
   padding: $modal-inner-padding;
+  textarea {
+    resize: vertical;
+    overflow: auto;
+  }
 }
 
 // Footer (for actions)

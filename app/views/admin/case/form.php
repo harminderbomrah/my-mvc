@@ -73,7 +73,7 @@
                 <span class="switch-handle"></span>
               </div>
               <div class="input-group" data-ng-class="{'hide': !initial.publishDate, 'has-error': caseForm.publishDate.$invalid && !caseForm.publishDate.$pristine}">
-                <input type="text" name="date" class="form-control" data-ng-model="caseData.publishDate" data-ng-required="initial.publishDate" is-open="openedPuplish" min-date="initial.today" max-date="caseData.endDate" datepicker-popup="yyyy-MM-dd" show-button-bar="false" datepicker-options="dateOptions" />
+                <input type="text" name="publishDate" class="form-control" data-ng-model="caseData.publishDate" data-ng-required="initial.publishDate" is-open="openedPuplish" min-date="initial.editPublishDate || initial.today" max-date="caseData.endDate" datepicker-popup="yyyy-MM-dd" show-button-bar="false" datepicker-options="dateOptions" />
                 <span class="input-group-btn">
                   <button class="btn btn-default" data-ng-click="action.datepicker.open($event, 'publish')"><i class="fa fa-calendar"></i></button>
                 </span>

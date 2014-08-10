@@ -7,12 +7,41 @@
 // Inline turns list items into inline-block
 .list-inline {
   @extend .list-unstyled;
-  margin-left: -5px;
-
   > li {
     display: inline-block;
     padding-left: 5px;
     padding-right: 5px;
+  }
+}
+
+.breadcrumb {
+  margin: 0;
+  padding: 0;
+  color: $white;
+  font-size: 0.75em;
+  font-weight: 300;
+  list-style: none;
+  & > li {
+    display: inline-block;
+    & + li {
+      &:before {
+        content: "\f105";
+        padding: 0 10px 0 7px;
+        color: $white;
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    }
+    &.active {
+      color: nth($grays, 3);
+    }
+  }
+  a {
+    color: $white;
   }
 }
 
@@ -30,5 +59,104 @@
     left: 0;
     background-color: nth($grays, 4);
     @include size(100px, 5px);
+  }
+}
+.hide {
+  display: none!important;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+
+.content-inner {
+  padding: 1em 2em;
+  .content-title {
+    font-size: 2.25em;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+  }
+  @media screen and (max-width: $screen-desktop) {
+    padding: 1em;
+    .content-title {
+      margin-top: 0.5em;
+    }
+  }
+}
+
+// From
+.form-label {
+  display: inline-block;
+  line-height: 3rem;
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: nth($grays, 3);
+}
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="password"] {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  font-size: 1.13em;
+  line-height: 2rem;
+  color: nth($grays, 3);
+  background-color: $white;
+  background-image: none;
+  border: 1px solid nth($grays, 5);
+  -webkit-appearance: none; // Remove input & textarea inner shadow on Mobile Safari
+  @include size(100%, 3rem);
+  outline: none;
+  &:focus {
+    border-color: $brand-primary;
+  }
+}
+textarea {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  font-size: 1.13em;
+  resize: vertical;
+  overflow: auto;
+  color: nth($grays, 3);
+  background-color: $white;
+  background-image: none;
+  border: 1px solid nth($grays, 5);
+  outline: none;
+  -webkit-appearance: none; // Remove input & textarea inner shadow on Mobile Safari
+  &:focus {
+    border-color: $brand-primary;
+  }
+}
+.form-group {
+  margin-bottom: 1rem;
+  .form-label {
+    display: block;
+    line-height: 2rem;
+  }
+  &.error {
+    input[type="text"],
+    input[type="email"],
+    input[type="search"],
+    input[type="password"],
+    textarea {
+      border-color: $brand-danger;
+    }
+  }
+}
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  line-height: 1.5em;
+  border: 1px solid transparent;
+  color: $white;
+  font-size: 0.75rem;
+  text-align: center;
+  background-color: $brand-primary;
+  outline: none;
+  &:focus {
+    border-color: nth($aqua, 2);
   }
 }

@@ -42,6 +42,18 @@
         display: none;
       }
     }
+    .small-logo {
+      display: none;
+      position: absolute;
+      top: 0;
+      margin: 0;
+      img {
+        @include size(48px, 120px);
+      }
+      @media screen and (max-width: $screen-phone) {
+        display: block;
+      }
+    }
     .nav-bar-menu {
       margin: 0;
       .nav-bar-item {
@@ -57,13 +69,15 @@
         }
         &:hover,
         &.hover,
+        &.pageon,
         &.active {
           .icon {
             background-color: nth($aqua, 1);
           }
         }
         &.search {
-          label {
+          .search-trigger {
+            margin: 0;
             cursor: pointer;
           }
         }
@@ -122,7 +136,7 @@
           display: block;
           color: nth($grays, 3);
         }
-        label {
+        .search-trigger {
           cursor: pointer;
         }
       }
@@ -131,6 +145,7 @@
       }
       &:hover,
       &.hover,
+      &.pageon,
       &.active {
         .mune-title {
           background-color: nth($grays, 6);
@@ -178,6 +193,36 @@
             background-color: $brand-primary;
             outline: none;
             @include size(100px, 48px);
+          }
+        }
+        &.active {
+          .mune-title {
+            background-color: nth($grays, 6);
+            .icon {
+              background-color: nth($aqua, 1);
+            }
+            .en {
+              display: none;
+            }
+            .zh {
+              display: block;
+            }
+          }
+          .overlay {
+            display: block;
+            margin: 0;
+            right: 0;
+            left: $navigationWidth + $navigationSidebar;
+            @extend .overlay-set;
+            .collapse & {
+              left: $navigationSidebar;
+            }
+            @media screen and (max-width: $screen-phone) {
+              left: $navigationSidebar;
+            }
+          }
+          .search-box {
+            display: block;
           }
         }
         #search {
@@ -286,7 +331,7 @@
       @media screen and (max-width: $screen-phone) {
         width: 320 - $navigationSidebar;
       }
-      &#cllections,
+      &#collections,
       &#case-study,
       &#blog {
         &.active {

@@ -11,16 +11,14 @@ jQuery(document).ready(function($) {
       index === now ? $(elem).addClass('active') : null;
     })
   });
-  $target.on('touchstart click', function(event) {
+  $target.on('click', function(event) {
     var _parentClass = $(this).closest('.promos-item').attr('class').split(' '),
         // _regex = new RegExp('promos-item col-4 col-md-12', 'g'),
         _parent = _parentClass.filter(function(value) {
           // return !_regex.test(value)
           console.log(value)
-          return value === "blog" || value === "cllections" || value === "case-study"
+          return value === "blog" || value === "collections" || value === "case-study"
         })[0];
-
-        console.log(_parent)
 
     switch($(this).index()) {
       case 1:

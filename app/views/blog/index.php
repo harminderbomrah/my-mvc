@@ -1,33 +1,26 @@
-<table>
-  <caption><h3>Article List</h3></caption>
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Title</th>
-      <th>Tag</th>
-      <th>Image</th>
-    </tr>
-  </thead>
-  <tbody>
+<?= content_css_tag("frontsite/unit/list.scss") ?>
+<?= render_partial("partial/top-nav") ?>
+<section class="main-wrap mini-height border-bottom main-list list-blog">
+  <ui class="row list-unstyled">
+    <li class="list-first col-3 col-lg-2 col-md-4 col-ms-12 col-xs-12">
+      <h3 class="list-title content-title" title="<?= Category::find($articles[0]['category'])->name ?>"><?= Category::find($articles[0]['category'])->name ?></h3>
+      <p class="list-description" data-lorem="5s"></p>
+    </li>
     <?php foreach ($articles as $article) { ?>
-      <tr>
-        <td>
-          <?php echo Category::find($article['category'])->name ?>
-        </td>
-        <td>
-          <a href="/blog/<?php echo $article['id'] ?>">
-            <?php echo $article['title'] ?>
-          </a>
-        </td>
-        <td>
-          <?= img_tag($article["image"]) ?>
-        </td>
-        <td>
-          <?php foreach ($article['tags'] as $tag) { ?>
-            <i><?php echo $tag['name']; ?></i>
-          <?php } ?>
-        </td>
-      </tr>
+      <li class="list-item col-ms-12 col-xs-12 
+        <?php if($article['hot']) { ?>
+          col-6 col-lg-4 col-md-8
+        <?php } else { ?>
+          col-3 col-lg-2 col-md-4
+        <?php }?>" style="background-image: url(<?= $article['image']->to_absolute_url() ?>)">
+        <a class="list-item-link" href="/blog/<?= $article['id'] ?>">
+          <span class="list-item-info">
+            <span class="list-item-date">APR 20, 2014</span>
+            <span class="list-item-name"><?= $article['title'] ?></span>
+          </span>
+        </a>
+      </li>
     <?php } ?>
-  </tbody>
-</table>
+  </ui>
+</section>
+<?= render_partial("partial/pagination") ?>

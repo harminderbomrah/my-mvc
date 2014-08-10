@@ -12,10 +12,11 @@
     'collections#show' => array('collections/{id}'),
     'blog#index' => array('blog'),
     'blog#show' => array('blog/{id}'),
-    'casestudy#index' => array('case_study'),
-    'casestudy#show' => array('case_study/{id}'),
-    'aboutus#index' => array('about_us'),
+    'casestudy#index' => array('case-study'),
+    'casestudy#show' => array('case-study/{id}'),
+    'aboutus#index' => array('about-us'),
     'contact#index' => array('contact'),
+    'contact#send' => array('contact/send'),
 
     'admin/user#login' => array('user/login'),
     'admin/user#resets' => array('user/resets'),
@@ -79,7 +80,8 @@
 
     'modal#filemanage' => array('modal/filemanage'),
     'modal#delete_confirm' => array('modal/confirm'),
-    'modal#delete_category' => array('modal/category'),
+    'modal#delete_category' => array('modal/delete-category'),
+    'modal#modify_category' => array('modal/modify-category'),
     'modal#delete_tag' => array('modal/tag')
   );
 
