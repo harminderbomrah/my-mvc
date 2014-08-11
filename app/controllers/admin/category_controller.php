@@ -25,7 +25,7 @@ class CategoryController extends ApplicationController{
     $type = $this->params["type"];
 
     if($this->params['action'] == 'delete') {
-      $cate = Category::find($this->params['id']);
+      $cate = Category::find($_POST['id']);
       $cate->delete();
     } elseif ($this->params['action'] == 'replace') {
       $cate = Category::find($this->params['oldID']);

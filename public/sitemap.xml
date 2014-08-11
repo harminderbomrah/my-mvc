@@ -1,84 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>http://getbootstrap.com/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
+    <loc>http://www.lc-stone.com.tw/</loc>
   </url>
-  
-  
   <url>
-    <loc>http://getbootstrap.com/about/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>http://www.lc-stone.com.tw/collections?category=11</loc>
   </url>
-  
-  
-  
   <url>
-    <loc>http://getbootstrap.com/browser-bugs/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>http://www.lc-stone.com.tw/collections?category=18</loc>
   </url>
-  
-  
-  
   <url>
-    <loc>http://getbootstrap.com/components/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>http://www.lc-stone.com.tw/collections?category=19</loc>
   </url>
-  
-  
-  
   <url>
-    <loc>http://getbootstrap.com/css/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>http://www.lc-stone.com.tw/collections?category=20</loc>
   </url>
-  
-  
-  
   <url>
-    <loc>http://getbootstrap.com/customize/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>http://www.lc-stone.com.tw/case_study?category=7</loc>
   </url>
-  
-  
-  
   <url>
-    <loc>http://getbootstrap.com/getting-started/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>http://www.lc-stone.com.tw/case_study?category=21</loc>
   </url>
-  
-  
-  
-  
-  
   <url>
-    <loc>http://getbootstrap.com/javascript/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>http://www.lc-stone.com.tw/blog?category=3</loc>
   </url>
-  
-  
-  
   <url>
-    <loc>http://getbootstrap.com/migration/</loc>
-    <lastmod>2014-06-30T21:06:58-07:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>http://www.lc-stone.com.tw/blog?category=10</loc>
   </url>
-  
-  
 </urlset>
