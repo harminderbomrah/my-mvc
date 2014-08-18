@@ -114,7 +114,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage'])
           initial: function () {
             return {
               multiple: true,
-              tabSelect: "folder",
+              tabSelect: "upload",
               sourceId: (function() {
                 var array = []
                 angular.forEach($scope.productData.img, function(element) {

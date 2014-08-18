@@ -25,7 +25,7 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
     angular.extend($scope.filejson, src);
     angular.forEach($scope.filejson.file, function(element, index) {
       if($scope.initial.multiple) {
-        var usePos = $scope.initial.sourceId.indexOf(element.id);
+        var usePos = $scope.initial.sourceId.indexOf(Number(element.id));
         usePos >= 0 ? element.use = true : element.use = false;
       } else {
         element.id == $scope.initial.sourceId ? element.use = true : element.use = false;
@@ -63,12 +63,11 @@ angular.module('nyfnApp.controller.fileManage', ['angularFileUpload', 'wu.masonr
         } else {
           $scope.filejson.file[index].checked = !$scope.filejson.file[index].checked;
         }
-
         var sourcePos = $rootScope.fileData.source.indexOf(value.source.medium);
         sourcePos >= 0 ? $rootScope.fileData.source.splice(sourcePos, 1) : $rootScope.fileData.source.push(value.source.medium);
 
-        var idPos = $rootScope.fileData.id.indexOf(value.id);
-        idPos >= 0 ? $rootScope.fileData.id.splice(idPos, 1) : $rootScope.fileData.id.push(value.id);
+        var idPos = $rootScope.fileData.id.indexOf(Number(value.id));
+        idPos >= 0 ? $rootScope.fileData.id.splice(idPos, 1) : $rootScope.fileData.id.push(Number(value.id));
       } else {
         angular.forEach($scope.filejson.file, function(element, index) {
           element.id == value.id ? element.checked = true : element.checked = false

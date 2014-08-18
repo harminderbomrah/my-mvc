@@ -1,0 +1,62 @@
+.tab-group {
+  .tab-header {
+    margin-top: 0;
+    font-size: 0.88em;
+    border-top: 0.31em solid nth($grays, 5);
+    li {
+      margin-top: -0.28em;
+      padding: 0.7em 0 0;
+      border-top-width: 0.31em;
+      border-top-style: solid;
+      border-top-color: transparent;
+      cursor: pointer;
+      & + li {
+        margin-left: 0.8em;
+      }
+      &.active {
+        border-top-color: $brand-primary;
+      }
+    }
+  }
+  .tab-body {
+    ul {
+      display: none;
+      @include transition(opacity .3s ease-in-out);
+      &.active {
+        display: block;
+        @include opacity(0);
+      }
+      &.in {
+        @include opacity(1);
+      }
+    }
+    li {
+      font-size: 0.75em;
+      & > a {
+        color: nth($grays, 3);
+        &:hover {
+          color: $brand-primary;
+        }
+      }
+      &.active {
+        & > a {
+          color: $brand-primary;
+        }
+      }
+    }
+    .sort-tag {
+      & > li {
+        padding: 0 0.8em;
+        line-height: 2em;
+        border-radius: 3px;
+        background-color: nth($mint, 1);
+        &:hover {
+          background-color: nth($mint, 2);
+        }
+        a {
+          color: $white;
+        }
+      }
+    }
+  }
+}

@@ -4,13 +4,16 @@
 
     function index(){
       $this->categories = Category::all_with_quantity("case");
+      $this->casesAll = Cases::all_array(null,true);
+      $this->viewSwich = true;
+      $this->filter = true;
       if($_GET['category']){
         $this->cases = Cases::all_array
         ($_GET['category'],true);
       }else{
         $this->cases = Cases::all_array(null,true);
       }
-      
+
       return render();
     }
     function show(){

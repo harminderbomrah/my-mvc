@@ -81,9 +81,7 @@
   }
   .slide-image {
     position: absolute;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    @extend .bgimage;
     @include size(50%, 100%);
     @include transition(width 0.6s ease-in-out);
     &.left-image {

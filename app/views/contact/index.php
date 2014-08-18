@@ -12,7 +12,7 @@
       </ul>
     </div>
   </aside>
-  <main class="content col-6 col-md-12 ">
+  <main class="content col-6 col-md-12">
     <div class="content-inner">
       <h1 class="content-title">Contact Us</h1>
       <div class="ask-list" data-ng-app="contact" data-ng-controller="contactForm">

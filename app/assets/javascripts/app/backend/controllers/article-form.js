@@ -258,7 +258,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         resolve: {
           initial: function () {
             return {
-              tabSelect: "folder",
+              tabSelect: "upload",
               sourceId: $scope.articleData.img,
               originalImgId: $scope.articleData.img,
               preview: $scope.initial.preview,

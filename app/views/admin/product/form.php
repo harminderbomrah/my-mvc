@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="panel-footer text-right">
-            <a class="btn btn-sm btn-default" href="/admin/article" target="_self">Cancel</a>
+            <a class="btn btn-sm btn-default" href="/admin/product" target="_self">Cancel</a>
             <button type="submit" class="btn btn-sm btn-primary">Submit</button>
           </div>
         </div>

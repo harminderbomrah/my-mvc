@@ -3,13 +3,14 @@
     var $controller_layout = "home";
 
     function index(){
+      $this->filter = true;
       $this->categories = Category::all_with_quantity("product");
       if($_GET['category']){
         $this->products = Products::all_array($_GET['category'],true);
       }else{
         $this->products = Products::all_array(null,true);
       }
-      
+
       return render();
     }
     function show(){

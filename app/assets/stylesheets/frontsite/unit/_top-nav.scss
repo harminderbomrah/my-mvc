@@ -1,7 +1,139 @@
 .top-nav {
-  padding: 0 2rem;
-  line-height: $topNav;
-  background-color: nth($grays, 1);
-  @include clearfix();
+  position: relative;
+  z-index: 1;
   @include size(100%, $topNav);
+  .filter-box {
+    position: absolute;
+    top: -300px;
+    right: 0;
+    left: 0;
+    background-color: nth($grays, 1);
+    overflow: hidden;
+    z-index: 0;
+    @include size(100%, 300px);
+    @include transition(top 0.4s ease-in-out);
+    &.open {
+      top: 48px;
+    }
+    .filter-box-inner {
+      margin: 0 auto;
+      padding: 1em 0;
+      width: 80%;
+      @media screen and (max-width: $screen-tablet-max) {
+        width: 100%;
+      }
+      & > li {
+        height: 100%;
+        padding: 0 1em;
+        li {
+          line-height: 2em;
+          font-size: 0.75em;
+          &:hover {
+            a {
+              color: $white;
+            }
+          }
+          a {
+            color: nth($grays, 3);
+          }
+        }
+        .cat {
+          li {
+            margin-bottom: 0.5em;
+            padding: 0 0.5em;
+            line-height: 1.3em;
+          }
+        }
+        .list-inline {
+          li {
+            margin-bottom: 0.3em;
+            background-color: nth($grays, 2);
+            &:hover {
+              background-color: $brand-primary;
+            }
+          }
+        }
+        & + li {
+          @media screen and (max-width: $screen-tablet-max) {
+            margin-top: 2em;
+          }
+        }
+      }
+      .header {
+        margin: 0 0 0.3em;
+        padding-bottom: 0.3em;
+        border-bottom: 1px dotted nth($grays, 2);
+        color: nth($grays, 3);
+        font-size: 0.75em;
+      }
+    }
+  }
+  .top-nav-list {
+    position: relative;
+    padding-left: 2rem;
+    line-height: $topNav;
+    background-color: nth($grays, 1);
+    border-bottom: 1px solid nth($grays, 2);
+    z-index: 1;
+    @include clearfix();
+    @media screen and (max-width: $screen-tablet-max) {
+      padding-left: 1rem;
+    }
+    .breadcrumb,
+    .view-swich {
+      margin: 0;
+      padding: 0;
+      color: $white;
+      font-size: 0.75em;
+      font-weight: 300;
+      list-style: none;
+      & > li {
+        display: inline-block;
+      }
+    }
+    .breadcrumb {
+      float: left;
+      & > li {
+        & + li {
+          &:before {
+            content: "\f105";
+            padding: 0 10px 0 7px;
+            color: $white;
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+        }
+        &.active {
+          color: nth($grays, 3);
+        }
+      }
+      a {
+        color: $white;
+      }
+    }
+    .view-swich {
+      float: right;
+      & > li {
+        padding: 0 0.8em;
+        text-align: center;
+        cursor: pointer;
+        border-left: 1px solid nth($grays, 2);
+        & + li {
+          margin-left: -4px;
+        }
+        &:hover,
+        &.active {
+          background-color: nth($grays, 2);
+        }
+      }
+      .view {
+        width: 4em;
+        font-size: 1em;
+      }
+    }
+  }
 }

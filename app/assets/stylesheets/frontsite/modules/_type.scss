@@ -14,37 +14,6 @@
   }
 }
 
-.breadcrumb {
-  margin: 0;
-  padding: 0;
-  color: $white;
-  font-size: 0.75em;
-  font-weight: 300;
-  list-style: none;
-  & > li {
-    display: inline-block;
-    & + li {
-      &:before {
-        content: "\f105";
-        padding: 0 10px 0 7px;
-        color: $white;
-        font-family: FontAwesome;
-        font-style: normal;
-        font-weight: normal;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-    }
-    &.active {
-      color: nth($grays, 3);
-    }
-  }
-  a {
-    color: $white;
-  }
-}
-
 .border-bottom {
   border-bottom: 1px solid nth($grays, 5);
 }
@@ -159,4 +128,10 @@ textarea {
   &:focus {
     border-color: nth($aqua, 2);
   }
+}
+.bgimage {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('/app/assets/images/frontend/no-photo.png');
 }
