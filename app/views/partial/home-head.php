@@ -25,4 +25,7 @@
   <?= js_tag("plugin/loremjs/lorem.js") ?>
   <?= js_tag("frontsite/main-menu.js") ?>
   <?= js_tag("frontsite/main.js") ?>
+  <!--[if lt IE 9]>
+    <?= js_tag("plugin/html5shiv/src/html5shiv.js") ?>
+  <![endif]-->
 </head>
