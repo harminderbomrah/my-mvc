@@ -16,55 +16,33 @@
   </div>
   <div class="content col-5 col-md-12">
     <section class="content-main">
-      <p class="content-category"><?php echo $case['category'] ?></p>
-      <p class="content-location"><?php echo $case['location'] ?></p>
+      <p class="content-header">
+        <span class="content-category"><?php echo $case['category'] ?></span>
+        <span class="content-location"><?php echo $case['location'] ?></span>
+        <span class="content-date">APR 20, 2014</span>
+      </p>
       <h1 class="content-title"><?php echo $case['title'] ?></h1>
       <article class="content-depiction">
         <?php echo $case['content'] ?>
       </article>
       <table class="content-specs row">
         <tbody>
-          <?php foreach ($product['specs'] as $index => $spec) { ?>
+          <?php foreach ($case['info'] as $index => $info) { ?>
           <tr>
             <th class="col-2">
-              <?php switch ($spec['item']) {
-                case "countryOfOrigin":
-                  echo "產地";
+              <?php switch ($info['item']) {
+                case "designer":
+                  echo "設計師";
                 break;
-                case "waterAbsorption":
-                  echo "吸水率";
-                break;
-                case "durability":
-                  echo "耐用度";
-                break;
-                case "evaluate":
-                  echo "評價";
+                case "size":
+                  echo "面積";
                 break;
                 default:
-                  echo $spec['item'];
+                  echo $info['item'];
                 break;
               } ?>
             </th>
-            <td class="col-10">
-              <?php if ($spec['item'] == "countryOfOrigin") {
-                echo $spec['detail'];
-              } else {
-                switch ($spec['item']) {
-                  case "waterAbsorption":
-                    spacs($spec['detail'], "tint");
-                  break;
-                  case "durability":
-                    spacs($spec['detail'], "shield");
-                  break;
-                  case "evaluate":
-                    spacs($spec['detail'], "star");
-                  break;
-                  default:
-                    echo $spec['detail'];
-                  break;
-                }
-              } ?>
-            </td>
+            <td class="col-10"><?php echo $info['detail'] ?></td>
            </tr>
           <?php } ?>
         </tbody>
@@ -72,6 +50,7 @@
     </section>
     <aside>
       <div class="row">
+        <?php if(count($case['tags'])) { ?>
         <div class="aside-block tag col-6 col-ms-12">
           <p class="aside-title">Tags</p>
           <ul class="list-inline">
@@ -80,7 +59,8 @@
             <?php } ?>
           </ul>
         </div>
-        <div class="aside-block share col-6 col-ms-12">
+        <?php } ?>
+        <div class="aside-block share <?php if(count($case['tags'])) { echo 'col-6'; } else { echo 'col-12'; } ?> col-ms-12">
           <p class="aside-title">Share</p>
           <ul class="list-inline">
             <li class="fb"><a href="javascript: void(window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-facebook"></i></a></li>
@@ -89,30 +69,36 @@
           </ul>
         </div>
       </div>
-      <div class="aside-block related">
-        <p class="aside-title">Related Products</p>
-        <ul class="list-inline row">
-          <?php foreach ($case['products'] AS $product) { ?>
-            <li class="related-item col-6 col-ms-12">
-              <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
-              <div class="related-info">
-                <p class="related-header">
-                  <span class="related-header-category" data-lorem="1-3w"></span>
-                </p>
-                <p class="related-title"><a href="/product/<?= $product['id'] ?>"><?= $product['title'] ?></a></p>
-              </div>
-            </li>
-          <?php } ?>
-        </ul>
-      </div>
-      <div class="aside-block related">
-        <p class="aside-title">Related Links</p>
-        <ul class="list-unstyled">
-          <?php foreach ($case['links'] AS $link) { ?>
-            <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>
-          <?php } ?>
-        </ul>
-      </div>
+
+      <?php if(count($case['products'])) { ?>
+        <div class="aside-block related">
+          <p class="aside-title">Related Products</p>
+          <ul class="list-inline row">
+            <?php foreach ($case['products'] AS $product) { ?>
+              <li class="related-item col-6 col-ms-12">
+                <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
+                <div class="related-info">
+                  <p class="related-header">
+                    <span class="related-header-category" data-lorem="1-3w"></span>
+                  </p>
+                  <p class="related-title"><a href="/product/<?= $product['id'] ?>"><?= $product['title'] ?></a></p>
+                </div>
+              </li>
+            <?php } ?>
+          </ul>
+        </div>
+      <?php } ?>
+
+      <?php if(count($case['links'])) { ?>
+        <div class="aside-block related">
+          <p class="aside-title">Related Links</p>
+          <ul class="list-unstyled">
+            <?php foreach ($case['links'] AS $link) { ?>
+              <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>
+            <?php } ?>
+          </ul>
+        </div>
+      <?php } ?>
     </aside>
     <div class="pagenavi">
       <a href=""><i class="fa fa-fw fa-arrow-left"></i> PREV</a><a href="">NEXT <i class="fa fa-fw fa-arrow-right"></i></a>

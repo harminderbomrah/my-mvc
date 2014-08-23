@@ -10,6 +10,25 @@
         <div class="form-group">
           <textarea class="form-control" name="content" id="content" data-ng-model="caseData.content" ui-tinymce="tinyMceOptions"></textarea>
         </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <label>Infomation</label>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="designer" class="col-sm-2 control-label">設計師</label>
+              <div class="col-sm-4">
+                <input type="text" name="designer" class="form-control" id="designer" data-ng-model="caseData.info.designer">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="size" class="col-sm-2 control-label">面積</label>
+              <div class="col-sm-4">
+                <input type="text" name="size" class="form-control" id="size" data-ng-model="caseData.info.size">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-lg-3">
         <div class="panel panel-default">
@@ -107,14 +126,20 @@
               </div>
               <div class="panel-body">
                 <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
-                  <i class="fa fa-upload fa-5x fa-fw" data-ng-show="!caseData.img"></i>
-                  <div class="img" data-ng-show="caseData.img">
+                  <i class="fa fa-upload fa-5x fa-fw" data-ng-show="caseData.img.length == 0"></i>
+                  <div class="img" data-ng-show="caseData.img.length > 0">
                     <i class="fa fa-refresh fa-5x fa-fw"></i>
-                    <img class="img-rounded" data-ng-src="{{initial.preview}}">
+                    <div class="img-preview">
+                      <div class="row" data-ng-repeat="previews in previewGroup">
+                        <div class="col-xs-4" data-ng-repeat="preview in previews">
+                          <img class="img-rounded" data-ng-src="{{preview}}">
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </a>
                 <div class="clearImg">
-                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="caseData.img">Clear Image</button>
+                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="caseData.img.length > 0">Clear Image</button>
                 </div>
               </div>
             </div>

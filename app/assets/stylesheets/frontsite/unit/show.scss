@@ -17,31 +17,49 @@
     .content-main {
       margin-bottom: 2em;
     }
-    .content-category {
+    .content-header {
       margin: 0;
       font-size: 0.75em;
       color: nth($grays, 3);
+      span {
+        display: inline-block;
+        margin-right: 0.5em;
+        font-weight: 700;
+        &.content-date {
+          font-style: italic;
+          font-weight: 300;
+        }
+      }
     }
     .content-title {
       margin: 0 0 2em;
       font-size: 1.5em;
     }
     .content-depiction {
-      margin-bottom: 1em;
       padding-bottom: 3em;
-      border-bottom: 1px solid nth($grays, 5);
     }
     .content-specs {
       width: 100%;
       color: nth($grays, 3);
       text-align: left;
       font-size: 0.75em;
+      border-top: 1px solid nth($grays, 5);
+      tr:first-child {
+        th, td {
+          padding-top: 1em;
+        }
+      }
       th, td {
         padding: 0.3em 0 0;
       }
       i {
         color: $brand-primary;
       }
+    }
+  }
+  &.show-blog {
+    .content {
+      padding: 0;
     }
   }
   .askbnt {

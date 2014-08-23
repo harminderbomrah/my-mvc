@@ -1,3 +1,20 @@
+<?= content_css_tag("frontsite/unit/show.scss") ?>
+<?= render_partial("partial/top-nav") ?>
+<div class="main-wrap border-bottom show show-blog">
+  <div class="content">
+    <section class="content-main">
+      <div class="content-top" <?php if($img) { echo 'style="background-image: url('.$article['image'].')"'; }?>>
+        <p class="content-header">
+          <span class="content-category"><?php echo $article['category'] ?></span>
+        </p>
+        <h1><?php echo $article['title'] ?></h1>
+      </div>
+      <article>
+        
+      </article>
+    </section>
+  </div>
+</div>
 <table>
   <caption><?php echo $article['title'] ?></caption>
   <tbody>

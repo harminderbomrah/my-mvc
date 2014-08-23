@@ -79,9 +79,11 @@ class CaseController extends ApplicationController{
       "hot" => ($case->hot==1 ? true : false),
       "publishDate" => strtotime($case->publishDate)*1000,
       "endDate" => strtotime($case->endDate)*1000,
-      "img" => $case->img,
+      // "img" => $case->img,
+      "img" => array(1, 9),
       "location" => $case->location,
-      "preview" => $preview,
+      // "preview" => $preview,
+      "preview" => array('/files/assets/1/small/l_stone01.jpg', '/files/assets/9/small/l_stone09.jpg'),
       "product" => $products,
       "Article" => $articles,
       "link" => $links

@@ -81,7 +81,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     height: 700,
     menubar: false,
     toolbar: "undo redo | link image template | print preview | code",
-    plugins: 'link image preview template code codemirror',
+    plugins: 'link paste image preview template code codemirror',
     // toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
     // plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
     templates: [
@@ -105,6 +105,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       path: '/public/CodeMirror'
     },
     relative_urls: false,
+    paste_remove_styles: true,
+    paste_postprocess: function(plugin, args) {
+        $('#content_ifr').contents().find('#tinymce').find('*').removeAttr('style')
+    },
     file_browser_callback: function(field_name, url, type, win) {
       var windowManager = tinymce.activeEditor.windowManager
       windowManager.open({

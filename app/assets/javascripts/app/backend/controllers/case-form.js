@@ -8,7 +8,13 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 .controller('caseForm', ['$scope', '$log', '$window', '$location', '$filter', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $window, $location, $filter, $modal, $jsonData, ngProgress) {
 
   // 建立空的文章物件
-  $scope.caseData = {};
+  $scope.caseData = {
+    img: [],
+    info: {
+      designer: null,
+      size: null,
+    }
+  };
 
   // Definition main form controller scope initial
   $scope.initial = {
@@ -19,7 +25,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       url: null,
       text: null
     },
-    preview: null,
+    preview: [],
     submit: false,
     location: [
       {name: '基隆市', value: 'Keelung'},
@@ -56,8 +62,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     // 如果頁面為編輯則將後端資料與文章物件合併
     $scope.extend = function(src) {
       angular.extend($scope.caseData, src);
-      $scope.initial.id = $scope.caseData.img
+      $log.log($scope.caseData)
+      $scope.initial.id = $scope.caseData.img;
       $scope.initial.preview = $scope.caseData.preview;
+      $scope.previewGroup = $scope.action.regroup($scope.initial.preview, 3);
       $scope.initial.editPublishDate = $scope.caseData.publishDate;
     };
 
@@ -100,10 +108,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
   $scope.tinyMceOptions = {
     skin : 'nyfm',
     language: 'zh_TW',
-    height: 700,
+    height: 400,
     menubar: false,
     toolbar: "undo redo | link image template | print preview | code",
-    plugins: 'link image preview template code codemirror',
+    plugins: 'link paste image preview template code codemirror',
     // toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
     // plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
     templates: [
@@ -127,6 +135,10 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       path: '/public/CodeMirror'
     },
     relative_urls: false,
+    paste_remove_styles: true,
+    paste_postprocess: function(plugin, args) {
+        $('#content_ifr').contents().find('#tinymce').find('*').removeAttr('style')
+    },
     file_browser_callback: function(field_name, url, type, win) {
       var windowManager = tinymce.activeEditor.windowManager
       windowManager.open({
@@ -269,8 +281,19 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     },
 
     clearImg: function() {
-      $scope.caseData.img = null;
-      $scope.initial.preview = null;
+      $scope.caseData.img = [];
+      $scope.initial.preview = [];
+    },
+
+    regroup: function(value, col) {
+      var set = [];
+      angular.forEach(value, function(element, index) {
+        if(index % col == 0) {
+          set.push([]);
+        };
+        set[set.length-1].push(element);
+      });
+      return set
     },
 
     fileUpLoad: function() {
@@ -281,10 +304,29 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
         resolve: {
           initial: function () {
             return {
+              multiple: true,
               tabSelect: "upload",
-              sourceId: $scope.caseData.img,
-              originalImgId: $scope.caseData.img,
-              preview: $scope.initial.preview,
+              sourceId: (function() {
+                var array = []
+                angular.forEach($scope.caseData.img, function(element) {
+                  array.push(element)
+                });
+                return array;
+              })(),
+              originalImgId: (function() {
+                var array = []
+                angular.forEach($scope.caseData.img, function(element) {
+                  array.push(element)
+                });
+                return array;
+              })(),
+              preview: (function() {
+                var array = []
+                angular.forEach($scope.initial.preview, function(element) {
+                  array.push(element)
+                });
+                return array;
+              })(),
               clearImg: $scope.action.clearImg
             };
           }
@@ -293,6 +335,7 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
       fileManageModal.result.then(function(fileData) {
         $scope.caseData.img = fileData.id
         $scope.initial.preview = fileData.source
+        $scope.previewGroup = $scope.action.regroup($scope.initial.preview, 3);
       });
       // fileManageModal.opened.then(function() {});
     }

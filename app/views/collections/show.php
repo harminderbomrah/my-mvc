@@ -15,7 +15,9 @@
   </div>
   <div class="content col-5 col-md-12">
     <section class="content-main">
-      <p class="content-category"><?php echo $product['category'] ?></p>
+      <p class="content-header">
+        <span class="content-category"><?php echo $product['category'] ?></span>
+      </p>
       <h1 class="content-title"><?php echo $product['title'] ?></h1>
       <article class="content-depiction">
         <?php echo $product['depiction'] ?>
