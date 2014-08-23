@@ -27,9 +27,10 @@ class Cases extends ModelAdapter{
       return $cases;
     }
 
-    public static function all_array($category=null, $frontend=false){
+    public static function all_array($category=null, $tag=null, $frontend=false){
       if($category!=null) $category_filter = "AND B.category_id = {$category}";
-      if($frontend) $trash_filter = "AND A.trash = false";
+      if($tag!=null) $tag_filter = "AND A.id = C.cases_id AND C.tags_id={$tag}";
+      if($frontend) $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
 
       $cases = self::query_db("
         SELECT 
@@ -46,9 +47,10 @@ class Cases extends ModelAdapter{
           B.category_id AS category
         FROM 
           cases A,
-          cases_category_mvcrelation AS B 
+          cases_category_mvcrelation AS B,
+          cases_tags_mvcrelation C
         WHERE
-          A.id = B.cases_id {$category_filter} {$trash_filter}
+          A.id = B.cases_id {$category_filter} {$tag_filter} {$trash_filter} GROUP BY A.id
           ");
       if($cases==null){
         $cases = [];
@@ -83,7 +85,9 @@ class Cases extends ModelAdapter{
       $products = [];
       foreach ($case->products_relation_ids as $product_id) {
         $product = Products::find($product_id);
-        array_push($products,array("title"=>$product->title, "id"=>$product->id));
+        $img = self::query_db("SELECT assets_id FROM products_assets_mvcrelation WHERE products_id = '{$product_id}' LIMIT 0,1");
+        $image = Assets::find($img[0]["assets_id"])->file["large"];
+        array_push($products,array("title"=>$product->title, "id"=>$product->id, "depiction"=>$product->depiction, "image"=>$image));
       }
 
       $links = [];
@@ -105,7 +109,8 @@ class Cases extends ModelAdapter{
         "category" => Category::find($case->category_relation_ids[0])->name,
         "tags" => $tags,
         "products" => $products,
-        "links" => $links
+        "links" => $links,
+        "info" => []
       );
     }
 }

@@ -69,7 +69,6 @@
           </ul>
         </div>
       </div>
-
       <?php if(count($case['products'])) { ?>
         <div class="aside-block related">
           <p class="aside-title">Related Products</p>
@@ -79,25 +78,24 @@
                 <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
                 <div class="related-info">
                   <p class="related-header">
-                    <span class="related-header-category" data-lorem="1-3w"></span>
+                    <span class="related-header-category"><?= $product['title'] ?></span>
                   </p>
-                  <p class="related-title"><a href="/product/<?= $product['id'] ?>"><?= $product['title'] ?></a></p>
+                  <p class="related-title"><a href="/collections/<?= $product['id'] ?>"><?= $product['depiction'] ?></a></p>
                 </div>
               </li>
             <?php } ?>
           </ul>
         </div>
-      <?php } ?>
-
-      <?php if(count($case['links'])) { ?>
-        <div class="aside-block related">
-          <p class="aside-title">Related Links</p>
-          <ul class="list-unstyled">
-            <?php foreach ($case['links'] AS $link) { ?>
-              <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>
-            <?php } ?>
-          </ul>
-        </div>
+        <?php if(count($case['links'])) { ?>
+          <div class="aside-block related">
+            <p class="aside-title">Related Links</p>
+            <ul class="list-unstyled">
+              <?php foreach ($case['links'] AS $link) { ?>
+                <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>
+              <?php } ?>
+            </ul>
+          </div>
+        <?php } ?>
       <?php } ?>
     </aside>
     <div class="pagenavi">

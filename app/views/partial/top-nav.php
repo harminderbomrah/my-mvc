@@ -20,16 +20,16 @@
       <li class="col-6 col-md-12">
         <p class="header">類別篩選</p>
         <ul class="list-unstyled cat row">
-          <?php for($i = 1; $i <= 8; $i++) { ?>
-            <li class="col-6 col-lg-4"><a href="" data-lorem="1-3w"></a></li>
+          <?php foreach ($categories as $category) { ?>
+            <li class="col-6 col-lg-4"><a href="<?= strtok($_SERVER["REQUEST_URI"],'?') ?>?category=<?= $category['id'] ?>"><?= $category['name'] ?></a></li>
           <?php } ?>
         </ul>
       </li>
       <li class="col-6 col-md-12">
         <p class="header">標籤分類</p>
         <ul class="list-inline">
-          <?php for($i = 1; $i <= 20; $i++) { ?>
-            <li><a href="" data-lorem="1-2w"></a></li>
+          <?php foreach (Tags::all_with_quantity() as $tag) { ?>
+            <li><a href="<?= strtok($_SERVER["REQUEST_URI"],'?') ?>?tag=<?= $tag['id'] ?>"><?= $tag['name'] ?></a></li>
           <?php } ?>
         </ul>
       </li>

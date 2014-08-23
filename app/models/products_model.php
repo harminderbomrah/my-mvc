@@ -23,8 +23,9 @@ class Products extends ModelAdapter{
       return $cases;
     }
 
-    public static function all_array($category=null, $frontend=false){
+    public static function all_array($category=null, $tag=null, $frontend=false){
       if($category!=null) $category_filter = "AND B.category_id = {$category}";
+      if($tag!=null) $tag_filter = "AND A.id = D.products_id AND D.tags_id={$tag}";
       if($frontend) $trash_filter = "AND A.trash = false";
 
       $products = self::query_db("
@@ -37,9 +38,10 @@ class Products extends ModelAdapter{
         FROM 
           products A, 
           products_category_mvcrelation B, 
-          category C
+          category C,
+          products_tags_mvcrelation D
         WHERE 
-          A.id = B.products_id AND C.id=B.category_id {$category_filter} {$trash_filter}");
+          A.id = B.products_id AND C.id=B.category_id {$category_filter} {$tag_filter} {$trash_filter} GROUP BY A.id");
       if($products==null){
         $products = [];
       }else{
@@ -62,7 +64,7 @@ class Products extends ModelAdapter{
 
       $tags = [];
       foreach ($product->tags_relation_ids as $tag_id) {
-        array_push($tags,Tags::find($tag_id)->name);
+        array_push($tags,Tags::find($tag_id));
       }
 
       $specs = [];
@@ -71,13 +73,59 @@ class Products extends ModelAdapter{
         array_push($specs, array('item'=>$spec->item, 'detail'=>$spec->detail) );
       }
 
+      $related_articles_ids = self::query_db("SELECT 
+                                                                            A.articles_id 
+                                                                          FROM 
+                                                                            articles_products_mvcrelation A, 
+                                                                            articles B 
+                                                                          WHERE  
+                                                                            A.articles_id=B.id 
+                                                                            AND B.trash = false 
+                                                                            AND (publishDate<=NOW() OR publishDate=0)
+                                                                            AND (endDate>NOW() OR endDate=0)
+                                                                            AND A.products_id={$id}");
+      $related_articles = [];
+      if($related_articles_ids!=null){
+        foreach ($related_articles_ids as $articles) {
+          $article = Articles::get_article($articles['articles_id']);
+          $img = ($article["img"] ? Assets::find($article["img"])->file["small"] : "");
+          $article['image'] = $img;
+          $article['id'] = $articles['articles_id'];
+          array_push($related_articles, $article);
+        }
+      }
+
+      $related_cases_ids = self::query_db("SELECT 
+                                                                            A.cases_id 
+                                                                          FROM 
+                                                                            cases_products_mvcrelation A, 
+                                                                            cases B 
+                                                                          WHERE  
+                                                                            A.cases_id=B.id 
+                                                                            AND B.trash = false 
+                                                                            AND (publishDate<=NOW() OR publishDate=0)
+                                                                            AND (endDate>NOW() OR endDate=0)
+                                                                            AND A.products_id={$id}");
+      $related_cases = [];
+      if($related_cases_ids!=null){
+        foreach ($related_cases_ids as $cases) {
+          $case = Cases::get_case($cases['cases_id']);
+          $img = ($case["img"] ? Assets::find($case["img"])->file["small"] : "");
+          $case['image'] = $img;
+          $case['id'] = $cases['cases_id'];
+          array_push($related_cases, $case);
+        }
+      }
+
       return array(
         "title" => $product->title,
         "depiction" => $product->depiction,
         "assets_relation_ids" => $product->assets_relation_ids,
         "category" => Category::find($product->category_relation_ids[0])->name,
         "tags" => $tags,
-        "specs" => $specs
+        "specs" => $specs,
+        "related_articles" => $related_articles,
+        "related_cases" => $related_cases
       );
     }
 }

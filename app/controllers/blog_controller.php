@@ -4,15 +4,10 @@
 
     function index(){
       $this->categories = Category::all_with_quantity("article");
-      $this->articlesAll = Articles::all_array(null,true);
+      $this->articlesAll = Articles::all_array(null, null,true);
       $this->viewSwich = true;
       $this->filter = true;
-      if($_GET['category']){
-        $this->articles = Articles::all_array
-        ($_GET['category'],true);
-      }else{
-        $this->articles = Articles::all_array(null,true);
-      }
+      $this->articles = Articles::all_array($_GET['category'], $_GET['tag'],true);
 
       return render();
     }

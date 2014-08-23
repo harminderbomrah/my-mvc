@@ -22,9 +22,10 @@ class Articles extends ModelAdapter{
       return $articles;
     }
 
-    public static function all_array($category=null, $frontend=false){
+    public static function all_array($category=null, $tag=null, $frontend=false){
       if($category!=null) $category_filter = "AND B.category_id = {$category}";
-      if($frontend) $trash_filter = "AND A.trash = false";
+      if($tag!=null) $tag_filter = "AND A.id = C.articles_id AND C.tags_id={$tag}";
+      if($frontend) $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
 
       $articles = self::query_db("
         SELECT 
@@ -41,9 +42,10 @@ class Articles extends ModelAdapter{
           B.category_id AS category
         FROM 
           articles AS A, 
-          articles_category_mvcrelation AS B 
+          articles_category_mvcrelation AS B,
+          articles_tags_mvcrelation C
         WHERE 
-          A.id = B.articles_id {$category_filter} {$trash_filter}
+          A.id = B.articles_id {$category_filter} {$tag_filter} {$trash_filter}
         GROUP BY
           A.id");
       if($articles==null){

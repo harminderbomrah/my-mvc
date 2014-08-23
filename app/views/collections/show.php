@@ -77,7 +77,7 @@
           <p class="aside-title">Tags</p>
           <ul class="list-inline">
             <?php foreach ($product['tags'] as $tag) { ?>
-              <li><a href="#"><?= $tag ?></a></li>
+              <li><a href="/collections/?tag=<?= $tag->id ?>"><?= $tag->name ?></a></li>
             <?php } ?>
           </ul>
         </div>
@@ -91,16 +91,16 @@
         </div>
       </div>
       <div class="aside-block related">
-        <p class="aside-title">Related Products</p>
+        <p class="aside-title">Related Articles</p>
         <ul class="list-inline row">
-          <?php for($i=0; $i < 5; $i++) { ?>
+          <?php foreach ($product['related_articles'] as $article) { ?>
             <li class="related-item col-6 col-ms-12">
-              <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
+              <div class="related-image bgimage" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>></div>
               <div class="related-info">
                 <p class="related-header">
-                  <span class="related-header-category" data-lorem="1-3w"></span>
+                  <span class="related-header-category"><?= $article['title'] ?></span>
                 </p>
-                <p class="related-title"><a href="" data-lorem="1s"></a></p>
+                <p class="related-title"><a href="/blog/<?= $article['id'] ?>"><?= strip_tags($article['content']) ?></a></p>
               </div>
             </li>
           <?php } ?>
@@ -109,15 +109,15 @@
       <div class="aside-block related">
         <p class="aside-title">Related Cases</p>
         <ul class="list-inline row">
-          <?php for($i=0; $i < 5; $i++) { ?>
+          <?php foreach ($product['related_cases'] as $case) { ?>
             <li class="related-item col-6 col-ms-12">
-              <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
+              <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
               <div class="related-info">
                 <p class="related-header">
-                  <span class="related-header-location" data-lorem="1w"></span>
+                  <span class="related-header-location"><?= $case['title'] ?></span>
                   <span class="related-header-date">APR 20, 2014</span>
                 </p>
-                <p class="related-title"><a href="" data-lorem="1s"></a></p>
+                <p class="related-title"><a href="/case-study/<?= $case['id'] ?>"><?= strip_tags($case['content']) ?></a></p>
               </div>
             </li>
           <?php } ?>
