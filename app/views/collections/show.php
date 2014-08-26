@@ -41,7 +41,7 @@
                   echo "評價";
                 break;
                 default:
-                  echo $spec['item'];
+                  // echo $spec['item'];
                 break;
               } ?>
             </th>
@@ -60,7 +60,7 @@
                     spacs($spec['detail'], "star");
                   break;
                   default:
-                    echo $spec['detail'];
+                    // echo $spec['detail'];
                   break;
                 }
               } ?>
@@ -115,7 +115,7 @@
               <div class="related-info">
                 <p class="related-header">
                   <span class="related-header-location"><?= $case['title'] ?></span>
-                  <span class="related-header-date">APR 20, 2014</span>
+                  <span class="related-header-date"><?= $case["date"] ?></span>
                 </p>
                 <p class="related-title"><a href="/case-study/<?= $case['id'] ?>"><?= strip_tags($case['content']) ?></a></p>
               </div>
@@ -125,7 +125,7 @@
       </div>
     </aside>
     <div class="pagenavi">
-      <a href=""><i class="fa fa-fw fa-arrow-left"></i> PREV</a><a href="">NEXT <i class="fa fa-fw fa-arrow-right"></i></a>
+      <?php if($product["previous_id"] != null) { ?><a href="/collections/<?= $product['previous_id'] ?>"><i class="fa fa-fw fa-arrow-left"></i> PREV</a><?php }?><?php if($product["next_id"] != null) { ?><a href="/collections/<?= $product['next_id'] ?>">NEXT <i class="fa fa-fw fa-arrow-right"></i></a><?php }?>
     </div>
   </div>
 </div>

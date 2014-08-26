@@ -23,11 +23,12 @@ class Products extends ModelAdapter{
       return $cases;
     }
 
+
     public static function all_array($category=null, $tag=null, $frontend=false){
       if($category!=null) $category_filter = "AND B.category_id = {$category}";
       if($tag!=null) $tag_filter = "AND A.id = D.products_id AND D.tags_id={$tag}";
       if($frontend) $trash_filter = "AND A.trash = false";
-
+     
       $products = self::query_db("
         SELECT 
           A.id, 
@@ -110,12 +111,14 @@ class Products extends ModelAdapter{
       if($related_cases_ids!=null){
         foreach ($related_cases_ids as $cases) {
           $case = Cases::get_case($cases['cases_id']);
-          $img = ($case["img"] ? Assets::find($case["img"])->file["small"] : "");
+          $img = ($case["imgs"] ? $case["imgs"][0]->file["small"] : "");
           $case['image'] = $img;
           $case['id'] = $cases['cases_id'];
           array_push($related_cases, $case);
         }
       }
+
+      $next_and_previous = self::query_db("SELECT (SELECT id FROM products WHERE id > A.id ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM products WHERE id < A.id ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM products A WHERE A.id = {$product->id}");
 
       return array(
         "title" => $product->title,
@@ -125,9 +128,13 @@ class Products extends ModelAdapter{
         "tags" => $tags,
         "specs" => $specs,
         "related_articles" => $related_articles,
-        "related_cases" => $related_cases
+        "related_cases" => $related_cases,
+        "next_id" => $next_and_previous[0]["next_id"],
+        "previous_id" => $next_and_previous[0]["previous_id"]
       );
     }
+
+
 }
 
 ?>

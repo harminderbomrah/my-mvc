@@ -10,6 +10,7 @@
   RelationManager::create_relation("Cases","Tags");
   RelationManager::create_relation("Cases","Links");
   RelationManager::create_relation("Cases","Category");
+  RelationManager::create_relation("Cases","Assets");
 
   RelationManager::create_relation("Products","Category");
   RelationManager::create_relation("Products","ProductSpecs");

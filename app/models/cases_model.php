@@ -6,7 +6,7 @@ class Cases extends ModelAdapter{
     }
 
     public static function cases_for_home(){
-      $cases = self::query_db("SELECT A.id,A.title,A.publishDate,A.created_date,A.img,B.name AS `category` FROM `cases` AS `A`, `category` AS `B`, `cases_category_mvcrelation` AS `C` WHERE A.id = C.cases_id AND C.category_id = B.id ORDER BY `top` DESC, `hot` DESC, `publishDate` DESC, `created_date` DESC LIMIT 3");
+      $cases = self::query_db("SELECT A.id,A.title,A.publishDate,A.created_date,B.name AS `category` FROM `cases` AS `A`, `category` AS `B`, `cases_category_mvcrelation` AS `C` WHERE A.id = C.cases_id AND C.category_id = B.id ORDER BY `top` DESC, `hot` DESC, `publishDate` DESC, `created_date` DESC LIMIT 3");
       if($cases==null){
         $cases = [];
       }else{
@@ -16,7 +16,10 @@ class Cases extends ModelAdapter{
           }else{
             $cases[$key]['date'] = strftime("%b %d, %Y",strtotime($case['publishDate']));
           }
-          $cases[$key]["img"] = ($case["img"] ? '/'.Assets::find($case["img"])->file['large']->path : "");
+          $assets = self::query_db("SELECT assets_id FROM cases_assets_mvcrelation WHERE cases_id = '{$case['id']}' LIMIT 0,1");
+          if($assets != null){
+            $cases[$key]["img"] = '/'.Assets::find($assets[0]["assets_id"])->file['large']->path;
+          }
         }
       }
       return $cases;
@@ -29,8 +32,12 @@ class Cases extends ModelAdapter{
 
     public static function all_array($category=null, $tag=null, $frontend=false){
       if($category!=null) $category_filter = "AND B.category_id = {$category}";
-      if($tag!=null) $tag_filter = "AND A.id = C.cases_id AND C.tags_id={$tag}";
+      if($tag!=null){
+       $tag_filter = "AND A.id = C.cases_id AND C.tags_id={$tag}";
+       $put_table = ", cases_tags_mvcrelation AS C";
+      }
       if($frontend) $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
+   
 
       $cases = self::query_db("
         SELECT 
@@ -41,14 +48,13 @@ class Cases extends ModelAdapter{
           A.disabled, 
           A.trash, 
           A.top, 
-          A.img,
           A.hot, 
           A.created_date, 
           B.category_id AS category
+          {$put_table}
         FROM 
-          cases A,
-          cases_category_mvcrelation AS B,
-          cases_tags_mvcrelation C
+          cases AS A,
+          cases_category_mvcrelation AS B
         WHERE
           A.id = B.cases_id {$category_filter} {$tag_filter} {$trash_filter} GROUP BY A.id
           ");
@@ -57,14 +63,22 @@ class Cases extends ModelAdapter{
       }else{
         foreach ($cases as $key=>$case) {
           $cases[$key]['tags'] = self::query_db("SELECT * FROM tags WHERE id IN (SELECT tags_id FROM cases_tags_mvcrelation WHERE cases_id = '{$case['id']}')");
-
+          
           if($cases[$key]['tags']==null) $cases[$key]['tags'] = [];
 
           if($case['publishDate']=="0"){
             $cases[$key]['publishDate'] = strtotime($cases[$key]['created_date'])*1000;
           }
-          $img = ($case["img"] ? Assets::find($case["img"])->file["large"] : "");
-          $cases[$key]['image'] = $img;
+
+          $assets = self::query_db("SELECT assets_id FROM cases_assets_mvcrelation WHERE cases_id = '{$case['id']}'");
+          $images = [];
+          if($assets != null){
+            foreach ($assets as $a) {
+              array_push($images, Assets::find($a["assets_id"])->file["medium"]);
+            }
+          }
+
+          $cases[$key]['image'] = $images;
           $cases[$key]['trash'] = ($case['trash']==1) ? true : false;
           $cases[$key]['top'] = ($case['top']==1) ? true : false;
           $cases[$key]['hot'] = ($case['hot']==1) ? true : false;
@@ -76,7 +90,9 @@ class Cases extends ModelAdapter{
 
     public static function get_case($id){
       $case = Cases::find($id);
-
+      if(!$case->can_publish()){
+        return null;
+      }
       $tags = [];
       foreach ($case->tags_relation_ids as $tag_id) {
         array_push($tags,Tags::find($tag_id)->name);
@@ -100,10 +116,19 @@ class Cases extends ModelAdapter{
       if($case->hot) array_push($status, "Hot");
       if($case->top) array_push($status, "Top");
 
+      $assets = $case->assets_relation_ids;
+      $images = [];
+      if($assets != null){
+        foreach ($assets as $a) {
+          array_push($images, Assets::find($a));
+        }
+      }
+
       return array(
         "title" => $case->title,
+        "date" => strftime("%b %d, %Y",strtotime(($case->publishDate != "0000-00-00 00:00:00" ? $case->publishDate : $case->created_date ))),
         "content" => $case->content,
-        "img" => $case->img,
+        "imgs" => $images,
         "location" => $case->location,
         "status" => $status,
         "category" => Category::find($case->category_relation_ids[0])->name,
@@ -112,6 +137,20 @@ class Cases extends ModelAdapter{
         "links" => $links,
         "info" => []
       );
+    }
+
+    function can_publish(){
+      if($this->publishDate == "0000-00-00 00:00:00"){
+        return true;
+      }
+      $pdate = DateTime::createFromFormat("Y-m-d",strftime("%Y-%m-%d",strtotime($this->publishDate)));
+      $edate = DateTime::createFromFormat("Y-m-d",strftime("%Y-%m-%d",strtotime($this->endDate)));
+      $date = new DateTime();
+      if($pdate <= $date && $edate >= $date){
+        return true;
+      }else{
+        return false;
+      }
     }
 }
 

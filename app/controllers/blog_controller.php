@@ -7,9 +7,12 @@
       $this->articlesAll = Articles::all_array(null, null,true);
       $this->viewSwich = true;
       $this->filter = true;
-      $this->articles = Articles::all_array($_GET['category'], $_GET['tag'],true);
-
-      return render();
+      $this->articles =  $this->paginate_records(Articles::all_array($_GET['category'], $_GET['tag'],true));
+      if($this->articles == null){
+        return renderError("404");
+      }else{
+        return render();
+      }
     }
     function show(){
       $this->article = Articles::get_article($this->params['id']);

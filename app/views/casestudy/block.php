@@ -7,7 +7,7 @@
     </li>
     <?php } ?>
     <?php foreach ($cases as $case) { ?>
-      <li class="list-item col-ms-12 col-xs-12 <?php if($case['hot']) { echo 'col-6 col-lg-4 col-md-8'; } else { echo 'col-3 col-lg-2 col-md-4'; }?>" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>>
+      <li class="list-item col-ms-12 col-xs-12 <?php if($case['hot']) { echo 'col-6 col-lg-4 col-md-8'; } else { echo 'col-3 col-lg-2 col-md-4'; }?>" <?php if($case['image'][0]!= null){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>>
         <a class="list-item-link" href="/case-study/<?= $case['id'] ?>">
           <span class="list-item-cover">
             <span class="list-item-location">KAOSHOUNG</span>

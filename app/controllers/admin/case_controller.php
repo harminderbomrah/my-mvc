@@ -26,7 +26,6 @@ class CaseController extends ApplicationController{
     $case = new Cases();
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
-    $case->img = $this->params['img'];
     $case->location = $this->params['location'];
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
@@ -105,7 +104,6 @@ class CaseController extends ApplicationController{
     $case = Cases::find($_POST['id']);
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
-    $case->img = $this->params['img'];
     $case->location = $this->params['location'];
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
@@ -181,6 +179,12 @@ class CaseController extends ApplicationController{
     if($this->params['article']!=null){
       foreach ($this->params['article'] as $article_id) {
         $case->add_relation("articles",$article_id);
+      }
+    }
+
+    if($this->params['img']!=null){
+      foreach ($this->params['img'] as $img) {
+        $case->add_relation("assets",$img);
       }
     }
   }

@@ -5,10 +5,14 @@
     function index(){
       $this->filter = true;
       $this->categories = Category::all_with_quantity("product");
-      $this->products = Products::all_array($_GET['category'], $_GET['tag'],true);
-
-      return render();
+      $this->products = $this->paginate_records(Products::all_array($_GET['category'], $_GET['tag'],true));
+      if($this->products == null){
+        return renderError("404");
+      }else{
+        return render();
+      }
     }
+    
     function show(){
       $this->product = Products::get_product($this->params['id']);
       $imgs = array();

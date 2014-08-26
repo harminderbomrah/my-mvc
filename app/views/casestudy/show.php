@@ -9,17 +9,16 @@
 }?>
 <div class="main-wrap border-bottom row show show-product">
   <div class="image col-7 col-md-12">
-    <?#php foreach ($imgs as $img) {
-      // echo img_tag($img);
-    #} ?>
-    <?= img_tag($img) ?>
+    <?php foreach ($case["imgs"] as $img) {
+       echo img_tag($img->file['original']);
+    }?>
   </div>
   <div class="content col-5 col-md-12">
     <section class="content-main">
       <p class="content-header">
         <span class="content-category"><?php echo $case['category'] ?></span>
         <span class="content-location"><?php echo $case['location'] ?></span>
-        <span class="content-date">APR 20, 2014</span>
+        <span class="content-date"><?= $case["date"] ?></span>
       </p>
       <h1 class="content-title"><?php echo $case['title'] ?></h1>
       <article class="content-depiction">
