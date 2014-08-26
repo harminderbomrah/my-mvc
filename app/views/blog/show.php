@@ -3,14 +3,17 @@
 <div class="main-wrap border-bottom show show-blog">
   <div class="content">
     <section class="content-main">
-      <div class="content-top" <?php if($img) { echo 'style="background-image: url('.$article['image'].')"'; }?>>
-        <p class="content-header">
-          <span class="content-category"><?php echo $article['category'] ?></span>
-        </p>
-        <h1><?php echo $article['title'] ?></h1>
+      <div class="content-top bgimage" <?php if(!$img) { echo 'style="background-image: url('.$article['image'].')"'; }?>>
+        <div class="content-top-inner">
+          <p class="content-header">
+            <span class="content-category"><?php echo $article['category'] ?></span>
+            <span class="content-date">Apr 20, 2014</span>
+          </p>
+          <h1><?php echo $article['title'] ?></h1>
+        </div>
       </div>
       <article>
-        
+        <?php echo $article['content'] ?>
       </article>
     </section>
   </div>
@@ -44,7 +47,7 @@
     <tr>
       <th>Product</th>
       <td>
-        <?php 
+        <?php
         foreach ($article['products'] AS $product) { ?>
            <ul>
              <li><a href="/product/<?= $product['id'] ?>"><?= $product['title'] ?></a></li>
@@ -55,7 +58,7 @@
     <tr>
       <th>Case</th>
       <td>
-        <?php 
+        <?php
         foreach ($article['cases'] AS $case) { ?>
            <ul>
              <li><a href="/case/<?= $case['id'] ?>"><?= $case['title'] ?></a></li>
@@ -66,7 +69,7 @@
     <tr>
       <th>Link</th>
       <td>
-        <?php 
+        <?php
         foreach ($article['links'] AS $link) { ?>
            <ul>
              <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>

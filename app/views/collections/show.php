@@ -98,7 +98,8 @@
               <div class="related-image bgimage" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>></div>
               <div class="related-info">
                 <p class="related-header">
-                  <span class="related-header-category"><?= $article['title'] ?></span>
+                  <span class="related-header-category"><?= $article['category'] ?></span>
+                  <span class="related-header-date">APR 20, 2014</span>
                 </p>
                 <p class="related-title"><a href="/blog/<?= $article['id'] ?>"><?= strip_tags($article['content']) ?></a></p>
               </div>
@@ -114,7 +115,7 @@
               <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
               <div class="related-info">
                 <p class="related-header">
-                  <span class="related-header-location"><?= $case['title'] ?></span>
+                  <span class="related-header-location"><?= $case['location'] ?></span>
                   <span class="related-header-date"><?= $case["date"] ?></span>
                 </p>
                 <p class="related-title"><a href="/case-study/<?= $case['id'] ?>"><?= strip_tags($case['content']) ?></a></p>

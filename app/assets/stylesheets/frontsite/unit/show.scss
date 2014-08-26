@@ -61,6 +61,25 @@
     .content {
       padding: 0;
     }
+    .content-top {
+      text-align: right;
+    }
+    .content-top-inner {
+      display: inline-block;
+      padding: 2em 1em;
+      text-align: left;
+      background-color: rgba(nth($aqua, 2), .4);
+      @include size(33.33%, 280px);
+      & > h1 {
+        margin: 0;
+        font-size: 1.5em;
+        color: $white;
+      }
+    }
+    .content-header {
+      margin: 0 0 0.5em;
+      color: $white;
+    }
   }
   .askbnt {
     margin-bottom: 3em;
