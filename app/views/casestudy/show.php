@@ -26,24 +26,18 @@
       </article>
       <table class="content-specs row">
         <tbody>
-          <?php foreach ($case['info'] as $index => $info) { ?>
+        <?php if($case["designer"]){ ?>
           <tr>
-            <th class="col-2">
-              <?php switch ($info['item']) {
-                case "designer":
-                  echo "設計師";
-                break;
-                case "size":
-                  echo "面積";
-                break;
-                default:
-                  echo $info['item'];
-                break;
-              } ?>
-            </th>
-            <td class="col-10"><?php echo $info['detail'] ?></td>
-           </tr>
-          <?php } ?>
+            <th class="col-2">設計師</th>
+            <td class="col-10"><?= $case["designer"] ?></td>
+          </tr>
+        <?php } ?>
+        <?php if($case["size"]){ ?>
+          <tr>
+            <th class="col-2">面積</th>
+            <td class="col-10"><?= $case["size"] ?></td>
+          </tr>
+        <?php } ?>
         </tbody>
       </table>
     </section>
@@ -64,7 +58,7 @@
           <ul class="list-inline">
             <li class="fb"><a href="javascript: void(window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-facebook"></i></a></li>
             <li class="twitter"><a href="javascript: void(window.open('http://twitter.com/home/?status='.concat(encodeURIComponent(document.title)).concat(' ').concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-twitter"></i></a></li>
-            <li class="gplus"><a href="https://plus.google.com/share?url={http://nowyoufindme.no-ip.org:8888/collections/16}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-fw fa-google-plus"></i></a></li>
+            <li class="gplus"><a href="https://plus.google.com/share?url={<?= Routes::current_url() ?>}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-fw fa-google-plus"></i></a></li>
           </ul>
         </div>
       </div>
@@ -98,7 +92,7 @@
       <?php } ?>
     </aside>
     <div class="pagenavi">
-      <a href=""><i class="fa fa-fw fa-arrow-left"></i> PREV</a><a href="">NEXT <i class="fa fa-fw fa-arrow-right"></i></a>
+      <?php if($case["previous_id"] != null) { ?><a href="/case-study/<?= $case['previous_id'] ?>"><i class="fa fa-fw fa-arrow-left"></i> PREV</a><?php }?><?php if($case["next_id"] != null) { ?><a href="/case-study/<?= $case['next_id'] ?>">NEXT <i class="fa fa-fw fa-arrow-right"></i></a><?php }?>
     </div>
   </div>
 </div>

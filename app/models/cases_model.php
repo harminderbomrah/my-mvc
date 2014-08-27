@@ -36,7 +36,10 @@ class Cases extends ModelAdapter{
        $tag_filter = "AND A.id = C.cases_id AND C.tags_id={$tag}";
        $put_table = ", cases_tags_mvcrelation AS C";
       }
-      if($frontend) $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
+      if($frontend) {
+        $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
+        $ordering = "ORDER BY A.top DESC, A.created_date DESC";
+      }
    
 
       $cases = self::query_db("
@@ -47,17 +50,20 @@ class Cases extends ModelAdapter{
           A.endDate, 
           A.disabled, 
           A.trash, 
+          A.designer,
+          A.size,
           A.top, 
           A.hot, 
           A.created_date, 
           B.category_id AS category
-          {$put_table}
         FROM 
           cases AS A,
           cases_category_mvcrelation AS B
+          {$put_table}
         WHERE
-          A.id = B.cases_id {$category_filter} {$tag_filter} {$trash_filter} GROUP BY A.id
+          A.id = B.cases_id {$category_filter} {$tag_filter} {$trash_filter} GROUP BY A.id {$ordering}
           ");
+
       if($cases==null){
         $cases = [];
       }else{
@@ -90,6 +96,7 @@ class Cases extends ModelAdapter{
 
     public static function get_case($id){
       $case = Cases::find($id);
+
       if(!$case->can_publish()){
         return null;
       }
@@ -101,17 +108,20 @@ class Cases extends ModelAdapter{
       $products = [];
       foreach ($case->products_relation_ids as $product_id) {
         $product = Products::find($product_id);
-        $img = self::query_db("SELECT assets_id FROM products_assets_mvcrelation WHERE products_id = '{$product_id}' LIMIT 0,1");
-        $image = Assets::find($img[0]["assets_id"])->file["large"];
-        array_push($products,array("title"=>$product->title, "id"=>$product->id, "depiction"=>$product->depiction, "image"=>$image));
+        if($product != null){
+          $img = self::query_db("SELECT assets_id FROM products_assets_mvcrelation WHERE products_id = '{$product_id}' LIMIT 0,1");
+          $image = ( $img? Assets::find($img[0]["assets_id"])->file["large"] : null);
+          array_push($products,array("title"=>$product->title, "id"=>$product->id, "depiction"=>$product->depiction, "image"=>$image));
+        }
       }
+ 
 
       $links = [];
       foreach ($case->links_relation_ids as $link_id) {
         $link = Links::find($link_id);
         array_push($links,array("name"=>$link->name, "url"=>$link->url));
       }
-
+ 
       $status = [];
       if($case->hot) array_push($status, "Hot");
       if($case->top) array_push($status, "Top");
@@ -124,6 +134,8 @@ class Cases extends ModelAdapter{
         }
       }
 
+      $next_and_previous = self::query_db("SELECT (SELECT id FROM cases WHERE id > A.id ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM cases WHERE id < A.id ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM cases A WHERE A.id = {$case->id}");
+
       return array(
         "title" => $case->title,
         "date" => strftime("%b %d, %Y",strtotime(($case->publishDate != "0000-00-00 00:00:00" ? $case->publishDate : $case->created_date ))),
@@ -135,7 +147,10 @@ class Cases extends ModelAdapter{
         "tags" => $tags,
         "products" => $products,
         "links" => $links,
-        "info" => []
+        "designer" => $case->designer,
+        "size" => $case->size,
+        "next_id" => $next_and_previous[0]["next_id"],
+        "previous_id" => $next_and_previous[0]["previous_id"]
       );
     }
 

@@ -1,6 +1,7 @@
 <?php
+include_helper("application");
 class ApplicationController extends MvcController{
-  public $entries_per_page = 2;
+  public $entries_per_page = 27;
   function authenticate_user(){
     $this->current_user->needs_authentication();
   }	
@@ -19,7 +20,7 @@ class ApplicationController extends MvcController{
         }
         return $paginated_data;
     }else{
-      return null;
+      return array();
     }
   }
 }

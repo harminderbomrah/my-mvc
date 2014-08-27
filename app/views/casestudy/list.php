@@ -1,17 +1,15 @@
+<?php  $tags = Tags::all_with_quantity(); ?>
 <section class="main-wrap mini-height border-bottom main-list list-casestudy row">
   <header class="top-post row">
     <?php foreach ($cases as $index => $case) { ?>
       <?php if($index < 2) {?>
-        <div class="top-post-item col-6 col-md-12" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>>
+        <div class="top-post-item col-6 col-md-12" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>>
           <div class="top-post-item-info">
             <p class="top-post-item-header">
-              <span class="top-post-item-location">
-                <i class="fa fa-map-marker"></i> KAOSHOUNG
-              </span>
               <?php if($_GET['category'] != true) { ?>
                 <span class="top-post-item-category"><?php echo Category::find($case['category'])->name ?></span>
               <?php } ?>
-              <span class="top-post-item-date">APR 20, 2014</span>
+              <span class="top-post-item-date"><?= strftime("%b %d, %Y",($case["publishDate"] / 1000)) ?></span>
             </p>
             <h3 class="top-post-item-name">
               <a class="top-post-item-link" href="/blog/<?= $case['id'] ?>">
@@ -34,7 +32,7 @@
     <ui class="list-unstyled">
       <?php foreach ($cases as $case) { ?>
         <li class="list-item">
-          <div class="list-item-image" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
+          <div class="list-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>></div>
           <section class="list-item-info">
             <p class="list-item-header">
               <span class="list-item-location">
@@ -43,7 +41,7 @@
               <?php if($_GET['category'] != true) { ?>
                 <span class="list-item-category"><?php echo Category::find($case['category'])->name ?></span>
               <?php } ?>
-              <span class="list-item-date">APR 20, 2014</span>
+              <span class="list-item-date"><?= strftime("%b %d, %Y",($case["publishDate"] / 1000)) ?></span>
             </p>
             <h4 class="list-item-name">
               <a class="list-item-link" href="/case-study/<?= $case['id'] ?>">
@@ -70,8 +68,8 @@
           <?php } ?>
         </ul>
         <ul class="sort-tag tab-body-item list-inline">
-          <?php for($i = 1; $i <= 40; $i++) { ?>
-            <li><a href="" data-lorem="1w"></a></li>
+          <?php foreach ($tags as $key => $tag) { ?>
+            <li ><a href="/case-study?tag=<?= $tag["id"] ?>"><?= $tag["name"] ?></a></li>
           <?php } ?>
         </ul>
       </div>
@@ -86,7 +84,7 @@
           <?php foreach($casesAll as $case) { ?>
             <?php if($case['hot']) {?>
               <li class="post-item">
-                <div class="post-item-image" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
+                <div class="post-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>></div>
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($case['category'])->name ?></span>
@@ -106,11 +104,11 @@
           <?php foreach ($casesAll as $index => $case) { ?>
             <?php if($case['top']) {?>
               <li class="post-item">
-                <div class="post-item-image" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
+                <div class="post-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>></div>
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($case['category'])->name ?></span>
-                    <span class="post-item-date">APR 20, 2014</span>
+                    <span class="post-item-date"><?= strftime("%b %d, %Y",($case["publishDate"] / 1000)) ?></span>
                   </p>
                   <h3 class="post-item-name">
                     <a class="post-item-link" href="/case-study/<?= $case['id'] ?>">
