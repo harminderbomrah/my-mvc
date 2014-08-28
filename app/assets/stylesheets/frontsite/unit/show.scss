@@ -60,6 +60,19 @@
   &.show-blog {
     .content {
       padding: 0;
+      article {
+        width: 80%;
+        margin: 0 auto;
+        text-align: justify;
+        .header-image {
+          width: 100%;
+          height: auto;
+        }
+      }
+      aside {
+        width: 80%;
+        margin: 0 auto;
+      }
     }
     .content-top {
       text-align: right;
@@ -68,7 +81,7 @@
       display: inline-block;
       padding: 2em 1em;
       text-align: left;
-      background-color: rgba(nth($aqua, 2), .4);
+      background-color: rgba(nth($aqua, 2), .6);
       @include size(33.33%, 280px);
       & > h1 {
         margin: 0;
@@ -79,6 +92,97 @@
     .content-header {
       margin: 0 0 0.5em;
       color: $white;
+    }
+    .pagenavi {
+      margin: 0;
+      color: $white;
+      .pagenavi-itme {
+        position: relative;
+        padding: 1em;
+        a {
+          line-height: 1;
+          color: $white;
+          @include square(auto);
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          height: 100%;
+          z-index: 0;
+          @include gradient-vertical(rgba(#181a1e, 0), rgba(#181a1e, .6), 0, 100%);
+        }
+      }
+      .arrow {
+        position: relative;
+        margin: 0 0 2em;
+        font-size: 0.88em;
+        z-index: 1;
+      }
+      .pagenavi-itme-header {
+        position: relative;
+        margin: 0 0 0.5em;
+        text-align: right;
+        font-size: 0.75em;
+        z-index: 1;
+        .pagenavi-itme-category {
+          font-weight: 700;
+        }
+        .pagenavi-itme-date {
+          font-weight: 300;
+          font-style: italic;
+        }
+      }
+      .pagenavi-itme-name {
+        position: relative;
+        margin: 0;
+        z-index: 1;
+        .pagenavi-itme-link {
+          display: block;
+        }
+      }
+    }
+    .related-post {
+      padding: 2em 0;
+      background-color: nth($grays, 5);
+      .related-post-inner {
+        width: 84%;
+        margin: 0 auto;
+      }
+      .related-post-title {
+        margin: 0 0 1em;
+        color: nth($grays, 3);
+        font-size: 0.88em;
+        font-weight: 700;
+      }
+      .related-post-list {
+        margin: 0;
+      }
+      .related-post-item {
+        margin-bottom: 1em;
+      }
+      .related-post-item-image {
+        @include size(100%, 200px);
+        @media screen and (max-width: $screen-desktop-max) {
+          @include size(100%, 100px);
+        }
+      }
+      .related-post-item-header {
+        font-size: 0.75em;
+        color: nth($grays, 2);
+        .related-post-item-category {
+          font-weight: 700;
+        }
+        .related-post-item-date {
+          font-style: italic;
+          font-weight: 300;
+        }
+      }
+      .related-post-item-title {
+        margin: 0;
+      }
     }
   }
   .askbnt {
@@ -151,6 +255,14 @@
             @include nthOfType();
           }
         }
+        .list-unstyled {
+          li {
+            margin-bottom: 0;
+            padding: 0 0 0 1em;
+            line-height: 2em;
+            font-size: 0.75em;
+          }
+        }
         .related-item {
           @include clearfix();
         }
@@ -163,12 +275,13 @@
           .related-header {
             margin-bottom: 0.3em;
             span {
-              display: block;
+              display: inline-block;
               line-height: 1.2em;
               font-weight: 700;
               @include text-overflow();
               &:first-child {
-                margin-bottom: 0.3em;
+                margin-right: 0.3em;
+                // margin-bottom: 0.3em;
               }
               &.related-header-date {
                 font-weight: 300;
@@ -199,6 +312,7 @@
     border-style: solid;
     border-color: nth($grays, 5);
     border-width: 1px 0;
+    background-color: $white;
     a {
       display: inline-block;
       padding: 0 0.8em;

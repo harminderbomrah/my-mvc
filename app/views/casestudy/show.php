@@ -71,24 +71,24 @@
                 <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
                 <div class="related-info">
                   <p class="related-header">
-                    <span class="related-header-category"><?= $product['title'] ?></span>
+                    <span class="related-header-category">這裡要代產品類別</span>
                   </p>
-                  <p class="related-title"><a href="/collections/<?= $product['id'] ?>"><?= $product['depiction'] ?></a></p>
+                  <p class="related-title"><a href="/collections/<?= $product['id'] ?>"><?= $product['title'] ?></a></p>
                 </div>
               </li>
             <?php } ?>
           </ul>
         </div>
-        <?php if(count($case['links'])) { ?>
-          <div class="aside-block related">
-            <p class="aside-title">Related Links</p>
-            <ul class="list-unstyled">
-              <?php foreach ($case['links'] AS $link) { ?>
-                <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>
-              <?php } ?>
-            </ul>
-          </div>
-        <?php } ?>
+      <?php } ?>
+      <?php if(count($case['links'])) { ?>
+        <div class="aside-block related">
+          <p class="aside-title">Related Links</p>
+          <ul class="list-unstyled">
+            <?php foreach ($case['links'] AS $link) { ?>
+              <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>
+            <?php } ?>
+          </ul>
+        </div>
       <?php } ?>
     </aside>
     <div class="pagenavi">
