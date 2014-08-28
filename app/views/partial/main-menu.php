@@ -96,7 +96,7 @@
           <div class="tag-list">
             <ul class="list-inline">
               <?php foreach ($tags as $key => $tag) { ?>
-                <li class="tag-item"><a href="/case_study?tag=<?= $tag["id"] ?>"><?= $tag["name"] ?></a></li>
+                <li class="tag-item"><a href="/case-study?tag=<?= $tag["id"] ?>"><?= $tag["name"] ?></a></li>
               <?php } ?>
               <?php if($key>$tags_limit){ ?>
                 <li class="more"><span>更多標籤</span><i class="fa fa-fw fa-angle-right"></i></li>

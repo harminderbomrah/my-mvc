@@ -62,7 +62,7 @@ class Products extends ModelAdapter{
 
     public static function get_product($id){
       $product = Products::find(($id));
-
+      if($product == null) return null;
       $tags = [];
       foreach ($product->tags_relation_ids as $tag_id) {
         array_push($tags,Tags::find($tag_id));
@@ -86,6 +86,8 @@ class Products extends ModelAdapter{
                                                                             AND (endDate>NOW() OR endDate=0)
                                                                             AND A.products_id={$id}");
       $related_articles = [];
+
+
       if($related_articles_ids!=null){
         foreach ($related_articles_ids as $articles) {
           $article = Articles::get_article($articles['articles_id']);
@@ -95,7 +97,7 @@ class Products extends ModelAdapter{
           array_push($related_articles, $article);
         }
       }
-
+  
       $related_cases_ids = self::query_db("SELECT 
                                                                             A.cases_id 
                                                                           FROM 
@@ -111,13 +113,15 @@ class Products extends ModelAdapter{
       if($related_cases_ids!=null){
         foreach ($related_cases_ids as $cases) {
           $case = Cases::get_case($cases['cases_id']);
-          $img = ($case["imgs"] ? $case["imgs"][0]->file["small"] : "");
-          $case['image'] = $img;
-          $case['id'] = $cases['cases_id'];
-          array_push($related_cases, $case);
+          if($case != null){
+            $img = ($case["imgs"] ? $case["imgs"][0]->file["small"] : "");
+            $case['image'] = $img;
+            $case['id'] = $cases['cases_id'];
+            array_push($related_cases, $case);
+          }
         }
       }
-
+  
       $next_and_previous = self::query_db("SELECT (SELECT id FROM products WHERE id > A.id ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM products WHERE id < A.id ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM products A WHERE A.id = {$product->id}");
 
       return array(

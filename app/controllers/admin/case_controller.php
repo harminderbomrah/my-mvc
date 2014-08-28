@@ -28,6 +28,8 @@ class CaseController extends ApplicationController{
     $case->content = $this->params['content'];
     $case->location = $this->params['location'];
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
+    $case->designer = $this->params["info"]["designer"];
+    $case->size = $this->params["info"]["size"];
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
     if($this->params['publishDate']!=null){
@@ -63,14 +65,17 @@ class CaseController extends ApplicationController{
     foreach ($case->products_relation_ids as $product_id) {
       array_push($products, (string)$product_id);
     }
-    $preview = "";
-    if($case->img){
-      $preview = '/'.Assets::find($case->img)->file['medium']->path;
+    $images = array();
+    $previews = array();
+    foreach($case->assets_relation_ids as $asset){
+      array_push($images, $asset);
+      array_push($previews, Assets::find($asset)->file["small"]->to_absolute_url());
     }
 
     $data = array(
       "title" => $case->title,
       "content" => $case->content,
+      "info" => array("designer" => $case->designer, "size" => $case->size),
       "category" => (string)$case->category_relation_ids[0],
       "tag" => $tags,
       "disabled" => ($case->disabled==1 ? true : false),
@@ -78,11 +83,9 @@ class CaseController extends ApplicationController{
       "hot" => ($case->hot==1 ? true : false),
       "publishDate" => strtotime($case->publishDate)*1000,
       "endDate" => strtotime($case->endDate)*1000,
-      // "img" => $case->img,
-      "img" => array(1, 9),
+      "img" => $images,
       "location" => $case->location,
-      // "preview" => $preview,
-      "preview" => array('/files/assets/1/small/l_stone01.jpg', '/files/assets/9/small/l_stone09.jpg'),
+      "preview" => $previews,
       "product" => $products,
       "Article" => $articles,
       "link" => $links
@@ -105,6 +108,8 @@ class CaseController extends ApplicationController{
     $case->title = $this->params['title'];
     $case->content = $this->params['content'];
     $case->location = $this->params['location'];
+    $case->designer = $this->params["info"]["designer"];
+    $case->size = $this->params["info"]["size"];
     $case->disabled = ($this->params['disabled'] == "true" ? 1 : 0);
     $case->top = ($this->params['top'] == "true" ? 1 : 0);
     $case->hot = ($this->params['hot'] == "true" ? 1 : 0);
@@ -213,6 +218,12 @@ class CaseController extends ApplicationController{
       if($case->articles_relation_ids!=null){
         foreach ($case->articles_relation_ids as $article_id) {
           $case->delete_relation("articles",$article_id);
+        }
+      }
+
+      if($case->assets_relation_ids){
+        foreach ($case->assets_relation_ids as $asset) {
+          $case->delete_relation("assets",$asset);
         }
       }
   }

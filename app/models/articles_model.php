@@ -25,12 +25,16 @@ class Articles extends ModelAdapter{
     public static function all_array($category=null, $tag=null, $frontend=false){
       if($category!=null) $category_filter = "AND B.category_id = {$category}";
       if($tag!=null) $tag_filter = "AND A.id = C.articles_id AND C.tags_id={$tag}";
-      if($frontend) $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
+      if($frontend){
+         $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
+          $ordering = "ORDER BY A.top DESC, A.created_date DESC";
+       }
 
       $articles = self::query_db("
         SELECT 
           A.id, 
           A.title, 
+          A.content,
           UNIX_TIMESTAMP(A.publishDate)*1000 AS `publishDate`,    
           UNIX_TIMESTAMP(A.endDate)*1000 AS 'endDate', 
           A.disabled, 
@@ -47,7 +51,7 @@ class Articles extends ModelAdapter{
         WHERE 
           A.id = B.articles_id {$category_filter} {$tag_filter} {$trash_filter}
         GROUP BY
-          A.id");
+          A.id {$ordering}");
       if($articles==null){
         $articles = [];
       }else{
@@ -62,6 +66,7 @@ class Articles extends ModelAdapter{
           }
           $img = ($article["img"] ? Assets::find($article["img"])->file["large"] : "");
           $articles[$key]['image'] = $img;
+          $articles[$key]['content'] = $article["content"];
           $articles[$key]['trash'] = ($article['trash']==1) ? true : false;
           $articles[$key]['top'] = ($article['top']==1) ? true : false;
           $articles[$key]['hot'] = ($article['hot']==1) ? true : false;
@@ -82,19 +87,25 @@ class Articles extends ModelAdapter{
       $products = [];
       foreach ($article->products_relation_ids as $product_id) {
         $product = Products::find($product_id);
-        array_push($products,array("title"=>$product->title, "id"=>$product->id));
+        if($product != null){
+          array_push($products,array("title"=>$product->title, "id"=>$product->id));
+        }
       }
 
       $cases = [];
       foreach ($article->cases_relation_ids as $case_id) {
         $case = Cases::find($case_id);
-        array_push($cases,array("title"=>$case->title, "id"=>$case->id));
+        if($case != null){
+          array_push($cases,array("title"=>$case->title, "id"=>$case->id));
+        }
       }
 
       $links = [];
       foreach ($article->links_relation_ids as $link_id) {
         $link = Links::find($link_id);
-        array_push($links,array("name"=>$link->name, "url"=>$link->url));
+        if($link != null){ 
+          array_push($links,array("name"=>$link->name, "url"=>$link->url));
+        }
       }
 
       return array(

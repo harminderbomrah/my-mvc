@@ -1,10 +1,6 @@
 <div class="top-nav">
   <div class="top-nav-list">
-    <ol class="breadcrumb">
-      <li><a href="/">Home</a></li>
-      <li><a href="#">Library</a></li>
-      <li class="active">Data</li>
-    </ol>
+   <?= breadcrumb($breadcrumb_title) ?>
     <ol class="view-swich">
       <?php if($filter && ($_COOKIE['listView'] == 'block' || $_COOKIE['listView'] != true)) { ?>
       <li class="open-filter">篩選類型 <i class="fa fa-fw fa-angle-down"></i></li>

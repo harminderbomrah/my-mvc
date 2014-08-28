@@ -1,3 +1,4 @@
+<?php  $tags = Tags::all_with_quantity(); ?>
 <section class="main-wrap mini-height border-bottom main-list list-casestudy row">
   <header class="top-post row">
     <?php foreach ($articles as $index => $article) { ?>
@@ -8,7 +9,7 @@
               <?php if($_GET['category'] != true) { ?>
                 <span class="top-post-item-category"><?php echo Category::find($article['category'])->name ?></span>
               <?php } ?>
-              <span class="top-post-item-date">APR 20, 2014</span>
+              <span class="top-post-item-date"><?= strftime("%b %d, %Y",($article["publishDate"] / 1000)) ?></span>
             </p>
             <h3 class="top-post-item-name">
               <a class="top-post-item-link" href="/blog/<?= $article['id'] ?>">
@@ -40,14 +41,14 @@
               <?php if($_GET['category'] != true) { ?>
                 <span class="list-item-category"><?php echo Category::find($article['category'])->name ?></span>
               <?php } ?>
-              <span class="list-item-date">APR 20, 2014</span>
+              <span class="list-item-date"><?= strftime("%b %d, %Y",($article["publishDate"] / 1000)) ?></span>
             </p>
             <h4 class="list-item-name">
               <a class="list-item-link" href="/blog/<?= $article['id'] ?>">
                 <?php echo $article['title'] ?>
               </a>
             </h4>
-            <p class="list-item-content" data-lorem="5s"></p>
+            <p class="list-item-content"><?= strip_tags($article["content"]) ?></p>
           </section>
         </li>
       <?php } ?>
@@ -67,8 +68,8 @@
           <?php } ?>
         </ul>
         <ul class="sort-tag tab-body-item list-inline">
-          <?php for($i = 1; $i <= 40; $i++) { ?>
-            <li><a href="" data-lorem="1w"></a></li>
+         <?php foreach ($tags as $key => $tag) { ?>
+            <li ><a href="/blog?tag=<?= $tag["id"] ?>"><?= $tag["name"] ?></a></li>
           <?php } ?>
         </ul>
       </div>
@@ -87,7 +88,7 @@
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($article['category'])->name ?></span>
-                    <span class="post-item-date">APR 20, 2014</span>
+                    <span class="post-item-date"><?= strftime("%b %d, %Y",($article["publishDate"] / 1000)) ?></span>
                   </p>
                   <h3 class="post-item-name">
                     <a class="post-item-link" href="/blog/<?= $article['id'] ?>">
@@ -107,7 +108,7 @@
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($article['category'])->name ?></span>
-                    <span class="post-item-date">APR 20, 2014</span>
+                    <span class="post-item-date"><?= strftime("%b %d, %Y",($article["publishDate"] / 1000)) ?></span>
                   </p>
                   <h3 class="post-item-name">
                     <a class="post-item-link" href="/blog/<?= $article['id'] ?>">
