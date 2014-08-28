@@ -13,12 +13,16 @@
     function show(){
       $this->article = Articles::get_article($this->params['id']);
       if($this->article == null) return renderError("404");
+      if($this->article["next_id"]){
+        $this->next_article = Articles::get_article($this->article["next_id"]);
+      }
+      if($this->article["previous_id"]){
+        $this->previous_article = Articles::get_article($this->article["previous_id"]);
+      }
+      $this->related_articles = Articles::get_related_articles($this->params['id']);
       $this->breadcrumb_title = $this->article["title"];
       $this->social_share_description = strip_tags($this->article["content"]);
-      if($this->article['img']){
-        $this->img = Assets::find($this->article['img'])->file['original'];
-      }
-       $this->social_share_image = ($this->img ? $this->img->to_absolute_url() : "");
+      $this->social_share_image = ($this->img ? $this->img->to_absolute_url() : "");
       return render();
     }
   }

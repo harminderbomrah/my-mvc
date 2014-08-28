@@ -36,7 +36,7 @@
           <section class="list-item-info">
             <p class="list-item-header">
               <span class="list-item-location">
-                <i class="fa fa-map-marker"></i> KAOSHOUNG
+                <i class="fa fa-map-marker"></i> <?= $case["location"] ?>
               </span>
               <?php if($_GET['category'] != true) { ?>
                 <span class="list-item-category"><?php echo Category::find($case['category'])->name ?></span>
@@ -48,7 +48,7 @@
                 <?php echo $case['title'] ?>
               </a>
             </h4>
-            <p class="list-item-content" data-lorem="5s"></p>
+            <p class="list-item-content"><?= strip_tags($case["content"]) ?></p>
           </section>
         </li>
       <?php } ?>
@@ -88,7 +88,7 @@
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($case['category'])->name ?></span>
-                    <span class="post-item-date">APR 20, 2014</span>
+                    <span class="post-item-date"><?= strftime("%b %d, %Y",($case["publishDate"] / 1000)) ?></span>
                   </p>
                   <h3 class="post-item-name">
                     <a class="post-item-link" href="/case-study/<?= $case['id'] ?>">

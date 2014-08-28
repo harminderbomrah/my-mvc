@@ -91,7 +91,7 @@ class Products extends ModelAdapter{
       if($related_articles_ids!=null){
         foreach ($related_articles_ids as $articles) {
           $article = Articles::get_article($articles['articles_id']);
-          $img = ($article["img"] ? Assets::find($article["img"])->file["small"] : "");
+          $img = ($article["img"] ? $article["img"]->file["small"] : null);
           $article['image'] = $img;
           $article['id'] = $articles['articles_id'];
           array_push($related_articles, $article);

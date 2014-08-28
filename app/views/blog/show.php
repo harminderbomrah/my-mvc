@@ -3,7 +3,7 @@
 <div class="main-wrap border-bottom show show-blog">
   <div class="content">
     <section class="content-main">
-      <div class="content-top bgimage" <?php if($img) { echo 'style="background-image: url('.$img->to_absolute_url().')"'; }?>>
+      <div class="content-top bgimage" <?php if($article["img"]) { echo 'style="background-image: url('.$article["img"]->file["original"]->to_absolute_url().')"'; }?>>
         <div class="content-top-inner">
           <p class="content-header">
             <span class="content-category"><?php echo $article['category'] ?></span>
@@ -46,7 +46,7 @@
                 <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
                 <div class="related-info">
                   <p class="related-header">
-                    <span class="related-header-category">category</span>
+                    <span class="related-header-category"><?= $product["category"] ?></span>
                   </p>
                   <p class="related-title"><a href="/collections/<?= $product['id'] ?>"><?= $product['title'] ?></a></p>
                 </div>
@@ -64,8 +64,8 @@
                 <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
                 <div class="related-info">
                   <p class="related-header">
-                    <span class="related-header-location">location</span>
-                    <span class="related-header-date">Apr 20, 2014</span>
+                    <span class="related-header-location"><?= $case["location"] ?></span>
+                    <span class="related-header-date"><?= $case["date"] ?></span>
                   </p>
                   <p class="related-title"><a href="/collections/<?= $case['id'] ?>"><?= $case['title'] ?></a></p>
                 </div>
@@ -87,79 +87,55 @@
     </aside>
   </div>
   <div class="pagenavi row">
-    <div class="col-6 pagenavi-itme bgimage"  <?php if($img) { echo 'style="background-image: url('.$img->to_absolute_url().')"'; }?>>
+   <?php if($previous_article) { ?>
+    <div class="col-6 pagenavi-itme bgimage"  <?php if($previous_article["img"]) { echo 'style="background-image: url('.$previous_article["img"]->file["medium"]->to_absolute_url().')"'; }?>>
       <p class="arrow">
-        <a href="/blog/<?= $case['previous_id'] ?>"><i class="fa fa-fw fa-arrow-left"></i> PREV</a>
+        <a href="/blog/<?= $previous_article['id'] ?>"><i class="fa fa-fw fa-arrow-left"></i> PREV </a>
       </p>
       <p class="pagenavi-itme-header">
-        <span class="pagenavi-itme-category">category</span>
-        <span class="pagenavi-itme-date">Apr 04, 2014</span>
+        <span class="pagenavi-itme-category"><?= $previous_article["category"] ?></span>
+        <span class="pagenavi-itme-date"><?= $previous_article["date"] ?></span>
       </p>
       <h4 class="pagenavi-itme-name">
-        <a class="pagenavi-itme-link" href="/blog/<?= $article['id'] ?>">
-          <?php echo $article['title'] ?>
+        <a class="pagenavi-itme-link" href="/blog/<?= $previous_article['id'] ?>">
+          <?=  $previous_article['title'] ?>
         </a>
       </h4>
     </div>
-    <div class="col-6 pagenavi-itme bgimage"  <?php if($img) { echo 'style="background-image: url('.$img->to_absolute_url().')"'; }?>>
+  <?php } ?>
+  <?php if($next_article) { ?>
+    <div class="col-6 pagenavi-itme bgimage"  <?php if($next_article["img"]) { echo 'style="background-image: url('.$next_article["img"]->file["medium"]->to_absolute_url().')"'; }?>>
       <p class="arrow">
-        <a href="/blog/<?= $case['previous_id'] ?>">NEXT <i class="fa fa-fw fa-arrow-right"></i></a>
+        <a href="/blog/<?= $next_article['id'] ?>"> NEXT <i class="fa fa-fw fa-arrow-right"></i></a>
       </p>
       <p class="pagenavi-itme-header">
-        <span class="pagenavi-itme-category">category</span>
-        <span class="pagenavi-itme-date">Apr 04, 2014</span>
+        <span class="pagenavi-itme-category"><?= $next_article["category"] ?></span>
+        <span class="pagenavi-itme-date"><?= $next_article["date"] ?></span>
       </p>
       <h4 class="pagenavi-itme-name">
-        <a class="pagenavi-itme-link" href="/blog/<?= $article['id'] ?>">
-          <?php echo $article['title'] ?>
+        <a class="pagenavi-itme-link" href="/blog/<?= $next_article["id"] ?>">
+          <?= $next_article['title'] ?>
         </a>
       </h4>
     </div>
+  <?php } ?>
   </div>
   <div class="related-post">
     <div class="related-post-inner">
       <p class="related-post-title">Related Blogs</p>
       <ul class="list-inline related-post-list row">
-        <li class="related-post-item col-3 col-ms-12">
-          <div class="related-post-item-image bgimage" <?php if($img) { echo 'style="background-image: url('.$img->to_absolute_url().')"'; }?>></div>
+      <?php foreach ($related_articles as $rarticle) {?>
+         <li class="related-post-item col-3 col-ms-12">
+          <div class="related-post-item-image bgimage" <?php if($rarticle["img"]) { echo 'style="background-image: url('.$rarticle["img"]->file["medium"]->to_absolute_url().')"'; }?>></div>
           <p class="related-post-item-header">
-            <span class="related-post-item-category">category</span>
-            <span class="related-post-item-date">APR 20, 2014</span>
+            <span class="related-post-item-category"><?= $rarticle["category"] ?></span>
+            <span class="related-post-item-date"><?= $rarticle["date"] ?></span>
           </p>
           <h5 class="related-post-item-title">
-            <a href="#">Title</a>
+            <a href="/blog/<?= $rarticle["id"] ?>"><?= $rarticle["title"] ?></a>
           </h5>
         </li>
-        <li class="related-post-item col-3 col-ms-12">
-          <div class="related-post-item-image bgimage" <?php if($img) { echo 'style="background-image: url('.$img->to_absolute_url().')"'; }?>></div>
-          <p class="related-post-item-header">
-            <span class="related-post-item-category">category</span>
-            <span class="related-post-item-date">APR 20, 2014</span>
-          </p>
-          <h5 class="related-post-item-title">
-            <a href="#">Title</a>
-          </h5>
-        </li>
-        <li class="related-post-item col-3 col-ms-12">
-          <div class="related-post-item-image bgimage" <?php if($img) { echo 'style="background-image: url('.$img->to_absolute_url().')"'; }?>></div>
-          <p class="related-post-item-header">
-            <span class="related-post-item-category">category</span>
-            <span class="related-post-item-date">APR 20, 2014</span>
-          </p>
-          <h5 class="related-post-item-title">
-            <a href="#">Title</a>
-          </h5>
-        </li>
-        <li class="related-post-item col-3 col-ms-12">
-          <div class="related-post-item-image bgimage" <?php if($img) { echo 'style="background-image: url('.$img->to_absolute_url().')"'; }?>></div>
-          <p class="related-post-item-header">
-            <span class="related-post-item-category">category</span>
-            <span class="related-post-item-date">APR 20, 2014</span>
-          </p>
-          <h5 class="related-post-item-title">
-            <a href="#">Title</a>
-          </h5>
-        </li>
+      <?php } ?>
       </ul>
     </div>
   </div>

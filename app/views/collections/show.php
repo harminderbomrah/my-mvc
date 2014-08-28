@@ -73,17 +73,15 @@
     <aside>
       <button class="askbnt btn">加入詢問清單</button>
       <div class="row">
-        <?php if(count($product['tags'])) { ?>
-          <div class="aside-block tag col-6 col-ms-12">
-            <p class="aside-title">Tags</p>
-            <ul class="list-inline">
-              <?php foreach ($product['tags'] as $tag) { ?>
-                <li><a href="/collections/?tag=<?= $tag->id ?>"><?= $tag->name ?></a></li>
-              <?php } ?>
-            </ul>
-          </div>
-        <?php } ?>
-        <div class="aside-block share <?php if(count($product['tags'])) { echo 'col-6'; } else { echo 'col-12'; } ?> col-ms-12">
+        <div class="aside-block tag col-6 col-ms-12">
+          <p class="aside-title">Tags</p>
+          <ul class="list-inline">
+            <?php foreach ($product['tags'] as $tag) { ?>
+              <li><a href="/collections/?tag=<?= $tag->id ?>"><?= $tag->name ?></a></li>
+            <?php } ?>
+          </ul>
+        </div>
+        <div class="aside-block share col-6 col-ms-12">
           <p class="aside-title">Share</p>
           <ul class="list-inline">
             <li class="fb"><a href="javascript: void(window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-facebook"></i></a></li>
@@ -92,44 +90,40 @@
           </ul>
         </div>
       </div>
-      <?php if(count($product['related_articles'])) { ?>
-        <div class="aside-block related">
-          <p class="aside-title">Related Articles</p>
-          <ul class="list-inline row">
-            <?php foreach ($product['related_articles'] as $article) { ?>
-              <li class="related-item col-6 col-ms-12">
-                <div class="related-image bgimage" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>></div>
-                <div class="related-info">
-                  <p class="related-header">
-                    <span class="related-header-category"><?= $article['category'] ?></span>
-                    <span class="related-header-date">需要日期</span>
-                  </p>
-                  <p class="related-title"><a href="/blog/<?= $article['id'] ?>"><?= strip_tags($article['title']) ?></a></p>
-                </div>
-              </li>
-            <?php } ?>
-          </ul>
-        </div>
-      <?php } ?>
-      <?php if(count($product['related_cases'])) { ?>
-        <div class="aside-block related">
-          <p class="aside-title">Related Cases</p>
-          <ul class="list-inline row">
-            <?php foreach ($product['related_cases'] as $case) { ?>
-              <li class="related-item col-6 col-ms-12">
-                <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
-                <div class="related-info">
-                  <p class="related-header">
-                    <span class="related-header-location"><?= $case['location'] ?></span>
-                    <span class="related-header-date"><?= $case["date"] ?></span>
-                  </p>
-                  <p class="related-title"><a href="/case-study/<?= $case['id'] ?>"><?= strip_tags($case['title']) ?></a></p>
-                </div>
-              </li>
-            <?php } ?>
-          </ul>
-        </div>
-      <?php } ?>
+      <div class="aside-block related">
+        <p class="aside-title">Related Articles</p>
+        <ul class="list-inline row">
+          <?php foreach ($product['related_articles'] as $article) { ?>
+            <li class="related-item col-6 col-ms-12">
+              <div class="related-image bgimage" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>></div>
+              <div class="related-info">
+                <p class="related-header">
+                  <span class="related-header-category"><?= $article["category"] ?></span>
+                  <span class="related-header-date"><?= $article["date"] ?></span>
+                </p>
+                <p class="related-title"><a href="/blog/<?= $article['id'] ?>"><?= $article['title'] ?></a></p>
+              </div>
+            </li>
+          <?php } ?>
+        </ul>
+      </div>
+      <div class="aside-block related">
+        <p class="aside-title">Related Cases</p>
+        <ul class="list-inline row">
+          <?php foreach ($product['related_cases'] as $case) { ?>
+            <li class="related-item col-6 col-ms-12">
+              <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
+              <div class="related-info">
+                <p class="related-header">
+                  <span class="related-header-location"><?= $case['location'] ?></span>
+                  <span class="related-header-date"><?= $case["date"] ?></span>
+                </p>
+                <p class="related-title"><a href="/case-study/<?= $case['id'] ?>"><?= $case['title'] ?></a></p>
+              </div>
+            </li>
+          <?php } ?>
+        </ul>
+      </div>
     </aside>
     <div class="pagenavi">
       <?php if($product["previous_id"] != null) { ?><a href="/collections/<?= $product['previous_id'] ?>"><i class="fa fa-fw fa-arrow-left"></i> PREV</a><?php }?><?php if($product["next_id"] != null) { ?><a href="/collections/<?= $product['next_id'] ?>">NEXT <i class="fa fa-fw fa-arrow-right"></i></a><?php }?>

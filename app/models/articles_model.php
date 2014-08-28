@@ -78,48 +78,99 @@ class Articles extends ModelAdapter{
 
     public static function get_article($id){
       $article = Articles::find($id);
-
+      if(!$article) return null;
       $tags = [];
-      foreach ($article->tags_relation_ids as $tag_id) {
-        array_push($tags,Tags::find($tag_id)->name);
+      if($article->tags_relation_ids){
+        foreach ($article->tags_relation_ids as $tag_id) {
+          array_push($tags,Tags::find($tag_id)->name);
+        }
       }
 
       $products = [];
-      foreach ($article->products_relation_ids as $product_id) {
-        $product = Products::find($product_id);
-        if($product != null){
-          array_push($products,array("title"=>$product->title, "id"=>$product->id));
+      if($article->products_relation_ids){
+        foreach ($article->products_relation_ids as $product_id) {
+          $product = Products::find($product_id);
+          if($product != null){
+            array_push($products,array("title"=>$product->title, "id"=>$product->id, "category" => Category::find($product->category_relation_ids[0])->name, "image" => ($product->assets_relation_ids ? Assets::find($product->assets_relation_ids[0])->file["medium"] : null)));
+          }
         }
       }
 
       $cases = [];
-      foreach ($article->cases_relation_ids as $case_id) {
-        $case = Cases::find($case_id);
-        if($case != null){
-          array_push($cases,array("title"=>$case->title, "id"=>$case->id));
+      if($article->cases_relation_ids){
+        foreach ($article->cases_relation_ids as $case_id) {
+          $case = Cases::find($case_id);
+          if($case != null){
+            array_push($cases,array("title"=>$case->title, "id"=>$case->id, "location" => $case->location, "date" => strftime("%b %d, %Y",strtotime(($case->publishDate == "0000-00-00 00:00:00" ? $case->created_date : $case->publishDate))), "image" => ($case->assets_relation_ids ? Assets::find($case->assets_relation_ids[0])->file["medium"] : null)));
+          }
         }
       }
+
+      $date = strftime("%b %d, %Y",strtotime(($article->publishDate == "0000-00-00 00:00:00" ? $article->created_date : $article->publishDate)));
 
       $links = [];
-      foreach ($article->links_relation_ids as $link_id) {
-        $link = Links::find($link_id);
-        if($link != null){ 
-          array_push($links,array("name"=>$link->name, "url"=>$link->url));
+      if($article->links_relation_ids){
+        foreach ($article->links_relation_ids as $link_id) {
+          $link = Links::find($link_id);
+          if($link != null){ 
+            array_push($links,array("name"=>$link->name, "url"=>$link->url));
+          }
         }
       }
+      $next_and_previous = self::query_db("SELECT (SELECT id FROM articles WHERE id > A.id ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM articles WHERE id < A.id ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM articles A WHERE A.id = {$article->id}");
 
       return array(
+        "id" => $article->id,
         "title" => $article->title,
         "content" => $article->content,
-        "img" => $article->img,
+        "img" => ($article->img ? Assets::find($article->img) : null),
         "hot" => $article->hot,
         "top" => $article->top,
-        "category" => Category::find($article->category_relation_ids[0])->name,
+        "category" => ($article->category_relation_ids ? Category::find($article->category_relation_ids[0])->name : null),
         "tags" => $tags,
         "products" => $products,
         "cases" => $cases,
-        "links" => $links
+        "links" => $links,
+        "date" => $date,
+        "next_id" => $next_and_previous[0]["next_id"],
+        "previous_id" => $next_and_previous[0]["previous_id"]
       );
+    }
+
+
+    public static function get_related_articles($id){
+      $article = self::find($id);
+      $related_articles = array();
+      if(count($article->tags_relation_ids) > 0){
+        foreach ($article->tags_relation_ids as $tagid) {
+          $t = Tags::find($tagid);
+          foreach ($t->articles_relation_ids as $aid) {
+            if($aid != $article->id){
+              array_push($related_articles, self::get_article($aid));
+            }
+            if(count($related_articles) == 4){
+              break;
+            }
+          }
+        }
+      }
+
+      if(count($related_articles) < 4){
+          $c = Category::find($article->category_relation_ids[0]);
+          foreach ($c->articles_relation_ids as $aid) {
+            var_dump($aid);
+            if($aid != $article->id){
+              $a = self::get_article($aid);
+              if($a != null){
+                array_push($related_articles, $a);
+              }
+            }
+            if(count($related_articles) == 4){
+              break;
+            }
+          }
+        }
+        return $related_articles;
     }
 }
 

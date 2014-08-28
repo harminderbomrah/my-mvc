@@ -46,10 +46,12 @@ class Cases extends ModelAdapter{
         SELECT 
           A.id, 
           A.title, 
+          A.content,
           UNIX_TIMESTAMP(A.publishDate)*1000 as `publishDate`, 
           A.endDate, 
           A.disabled, 
-          A.trash, 
+          A.trash,
+          A.location,
           A.designer,
           A.size,
           A.top, 
@@ -89,6 +91,8 @@ class Cases extends ModelAdapter{
           $cases[$key]['top'] = ($case['top']==1) ? true : false;
           $cases[$key]['hot'] = ($case['hot']==1) ? true : false;
           $cases[$key]['disabled'] = ($case['disabled']==1) ? true : false;
+          $cases[$key]['content'] = $case["content"];
+          $cases[$key]['location'] = $case["location"];
         }
       }
       return $cases;
