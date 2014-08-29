@@ -433,6 +433,7 @@ class ModelAdapter{
 		}
 	}
 
+
 	public static function query_db($query){
 		$db = new dbConnect;
 		return $db->query($query);

@@ -13,11 +13,13 @@
 		"name" : "construction"
 	},
 	"mail" : {
-		"enable" : false,
-		"host" : "relay-hosting.secureserver.net",
-		"username" : "service@mvc.com",
-		"name" : "service",
-		"password" : "xxxxx"
+		"enable" : true,
+		"host" : "smtp.gmail.com",
+		"port" : 587,
+		"username" : "*****@gmail.com",
+		"name" : "Harry Bomrah",
+		"security" : "tls", 
+		"password" : "*******"
 	},
 	"session" : {
 		"enable" : true,

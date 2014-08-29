@@ -4,6 +4,7 @@
 date_default_timezone_set("UTC");
 define("APP_PATH",rtrim(dirname(__file__),"config"),true);
 define("CONTROLLER_PATH", "app/controllers/",true);
+define("MAILER_PATH", "app/mailers/",true);
 define('UPLOADER_PATH','app/uploaders/',true);
 define("HOME_CONTROLLER","home",true);
 define("VIEWS_PATH","app/views/",true);
