@@ -433,6 +433,18 @@ class ModelAdapter{
 		}
 	}
 
+	public static function count(){
+		$class = (function_exists("get_called_class") ? get_called_class() : self::get_called_class());
+		if(class_exists($class)){
+			$c = new $class();
+			$data = $c->query("SELECT count(id) AS total FROM $c->table");
+			unset($c);
+			return $data[0]["total"];
+		}else{
+			throw new Exception("Cannot find model class.");
+		}
+	}
+
 	function __destruct(){
 		$this->db->destruct();
 	}

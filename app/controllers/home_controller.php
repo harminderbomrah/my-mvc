@@ -21,6 +21,11 @@
 	* Use <File Instance>->save(<directory>,<overwrite>true|false) method to save it to some directory under files folder. 
 	* Pass File instance to img_tag to render file directly or use renderFile(<FileInstance>) to download the file;
 	* Temporary files will be deleted which includes FileManager::get_uploaded_files(); and also if u create a new file using new File(<filename>); 
+	* mailer methods AddAddress() to address, setMsgFromMailer() pass mailer to this method and will be taken from mailer directory.
+	* $mailer->setMsgFromMailer("example");
+	* $mailer->Subject =  "This is test msg.";
+	* $mailer->AddAddress("harry@rulingcom.com","Harry");
+	* $mailer->Send();
 */
 class HomeController extends ApplicationController{
 	function index(){

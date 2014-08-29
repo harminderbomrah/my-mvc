@@ -74,6 +74,10 @@ if(DATABASE_ENABLE){
 	if(SESSION_ENABLE){
 		include "lib/sessions.php";
 	}
+	if(MAIL_ENABLE){
+		include "lib/PHPMailer/class.phpmailer.php";
+		include "lib/mail_class.php";
+	}
 }
 
 

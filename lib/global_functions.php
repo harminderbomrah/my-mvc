@@ -182,24 +182,6 @@ function tabelize($class){
 }
 
 
-function mail_factory(){
-	require_once 'lib/PHPMailer/PHPMailerAutoload.php';
-	$mail = new PHPMailer;
-	// $mail->isSMTP();
-	$mail->CharSet = 'utf-8';
-	// $mail->Host = MAIL_HOST;
-	// $mail->SMTPAuth = true;
-	// $mail->Username = MAIL_USERNAME;
-	// $mail->Password = MAIL_PASSWORD;
-	// $mail->SMTPSecure = 'ssl';
-	// $mail->Port = 465;
-	// this is need for godaddy
-	$mail->setFrom(MAIL_USERNAME, MAIL_NAME);
-
-	$mail->isHTML(true);
-	return $mail;
-}
-
 
 
 ?>

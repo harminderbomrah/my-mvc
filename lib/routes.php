@@ -190,11 +190,34 @@ final class Routes {
 		if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
 		$pageURL .= "://";
 		if ($_SERVER["SERVER_PORT"] != "80") {
-			$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+			$pageURL .= $_SERVER["HTTP_HOST"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
 		} else {
-			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+			$pageURL .= $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 		}
 		return $pageURL;
+	}
+
+	public static function url_helper($controller, $action, $params = array()){
+		global $ROUTE_RULES;
+		$rules =  $ROUTE_RULES;
+		$routes = $rules["{$controller}#{$action}"];
+		$r = array();
+		foreach ($routes as $route) {
+			if(count($params)){
+				foreach ($params as $key => $value) {
+					$k = "{{$key}}";
+					$route = str_replace("{".$key."}", $value, $route);
+					$route = trim($route,"/");
+					$route = "/{$route}";
+					array_push($r,$route);
+				}
+			}else{
+				$route = trim($route,"/");
+				$route = "/{$route}";
+				array_push($r,$route);
+			}
+		}
+		return $r;
 	}
 
 
@@ -205,6 +228,20 @@ final class Request{
 	public static $Controller;
 	public static $Action;
 	public static $Namespace;
+	public static function server_name_with_port(){
+		$pageURL = 'http';
+		if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+		$pageURL .= "://";
+		if ($_SERVER["SERVER_PORT"] != "80") {
+			$pageURL .= $_SERVER["HTTP_HOST"].":".$_SERVER["SERVER_PORT"];
+		} else {
+			$pageURL .= $_SERVER["HTTP_HOST"];
+		}
+		return $pageURL;
+	}
+	public static function current_url(){
+		return Routes::current_url();
+	}
 }
 
 ?>
