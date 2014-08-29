@@ -2,7 +2,7 @@
   <meta name="wot-verification" content="82a62872c36a134df0c4"/>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="description" content="<?= Site::first()->description ?>">
+  <meta name="description" content="<?= Site::first()->description." ".(Request::$Action == "show" ? $social_share_description : "") ?>">
 
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="LC Stone"/>

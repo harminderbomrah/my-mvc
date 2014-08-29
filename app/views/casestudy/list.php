@@ -32,7 +32,9 @@
     <ui class="list-unstyled">
       <?php foreach ($cases as $case) { ?>
         <li class="list-item">
-          <div class="list-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>></div>
+          <div class="list-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>>
+            <a class="image-link" href="/case-study/<?= $case['id'] ?>"></a>
+          </div>
           <section class="list-item-info">
             <p class="list-item-header">
               <span class="list-item-location">
@@ -84,7 +86,9 @@
           <?php foreach($casesAll as $case) { ?>
             <?php if($case['hot']) {?>
               <li class="post-item">
-                <div class="post-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>></div>
+                <div class="post-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/case-study/<?= $case['id'] ?>"></a>
+                </div>
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($case['category'])->name ?></span>
@@ -104,7 +108,9 @@
           <?php foreach ($casesAll as $index => $case) { ?>
             <?php if($case['top']) {?>
               <li class="post-item">
-                <div class="post-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>></div>
+                <div class="post-item-image" <?php if($case['image'][0]!=""){echo 'style="background-image: url('.$case['image'][0]->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/case-study/<?= $case['id'] ?>"></a>
+                </div>
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($case['category'])->name ?></span>

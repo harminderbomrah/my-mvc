@@ -2,7 +2,7 @@
   <div class="top-nav-list">
    <?= breadcrumb($breadcrumb_title) ?>
     <ol class="view-swich">
-      <?php if($filter && ($_COOKIE['listView'] == 'block' || $_COOKIE['listView'] != true)) { ?>
+      <?php if($filter && ($_COOKIE['listView'] == 'block' || $_COOKIE['listView'] != true) || $productList ) { ?>
       <li class="open-filter">篩選類型 <i class="fa fa-fw fa-angle-down"></i></li>
       <?php } ?>
       <?php if($viewSwich) { ?>
@@ -16,6 +16,7 @@
       <li class="col-6 col-md-12">
         <p class="header">類別篩選</p>
         <ul class="list-unstyled cat row">
+          <li class="col-6 col-lg-4"><a href="<?= strtok($_SERVER["REQUEST_URI"],'?') ?>">All</a></li>
           <?php foreach ($categories as $category) { ?>
             <li class="col-6 col-lg-4"><a href="<?= strtok($_SERVER["REQUEST_URI"],'?') ?>?category=<?= $category['id'] ?>"><?= $category['name'] ?></a></li>
           <?php } ?>

@@ -158,7 +158,6 @@ class Articles extends ModelAdapter{
       if(count($related_articles) < 4){
           $c = Category::find($article->category_relation_ids[0]);
           foreach ($c->articles_relation_ids as $aid) {
-            var_dump($aid);
             if($aid != $article->id){
               $a = self::get_article($aid);
               if($a != null){

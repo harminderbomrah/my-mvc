@@ -19,9 +19,9 @@
         <form class="ask-list-inner" name="guestAskList" data-ng-submit='submit(guestAskList)' data-ng-show='!success' data-ng-init='extend(<?= json_encode($askList) ?>)' role='form' novalidate>
           <p class="ask-list-head" data-ng-show="data.product.length">產品詢問清單 <span class="cancel-list" data-ng-click="cancelList()"><i class="fa fa-fw fa-trash-o"></i> 清除清單</span></p>
           <ol data-ng-show="data.product.length">
-            <li data-ng-repeat="list in askList">
+            <li data-ng-repeat="list in data.product">
               <a href="/collections/{{list.id}}" target="_blink" data-ng-bind="list.title"></a>
-              <span class="cancel" data-ng-click="cancelProduct(list.id, $event)"><i class="fa fa-fw fa-times"></i></span>
+              <span class="cancel" data-ng-click="cancelProduct(list.id, $index)"><i class="fa fa-fw fa-times"></i></span>
             </li>
           </ol>
           <p></p>

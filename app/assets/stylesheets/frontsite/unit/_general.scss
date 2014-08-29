@@ -29,6 +29,10 @@ a {
   &:hover {
     color: $link-hover-color;
   }
+  &.image-link {
+    display: block;
+    @include square(100%);
+  }
 }
 .main-wrap {
   position: relative;

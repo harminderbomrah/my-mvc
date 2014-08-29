@@ -13,14 +13,14 @@
         </div>
       </div>
       <article>
-        <?php echo $article['content'] ?></pre>
+        <?php echo $article['content'] ?>
       </article>
     </section>
     <aside>
       <div class="row">
         <?php if(count($article['tags'])) { ?>
           <div class="aside-block tag col-6 col-ms-12">
-            <p class="aside-title">Tags</p>
+            <p class="aside-title">標籤</p>
             <ul class="list-inline">
               <?php foreach ($article['tags'] as $tag) { ?>
                 <li><a href="#"><?= $tag ?></a></li>
@@ -29,7 +29,7 @@
           </div>
         <?php } ?>
         <div class="aside-block share <?php if(count($article['tags'])) { echo 'col-6'; } else { echo 'col-12'; } ?> col-ms-12">
-          <p class="aside-title">Share</p>
+          <p class="aside-title">社群分享</p>
           <ul class="list-inline">
             <li class="fb"><a href="javascript: void(window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-facebook"></i></a></li>
             <li class="twitter"><a href="javascript: void(window.open('http://twitter.com/home/?status='.concat(encodeURIComponent(document.title)).concat(' ').concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-twitter"></i></a></li>
@@ -39,11 +39,13 @@
       </div>
       <?php if(count($article['products'])) { ?>
         <div class="aside-block related">
-          <p class="aside-title">Related Products</p>
+          <p class="aside-title">相關產品</p>
           <ul class="list-inline row">
             <?php foreach ($article['products'] AS $product) { ?>
               <li class="related-item col-6 col-ms-12">
-                <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
+                <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/collections/<?= $product['id'] ?>"></a>
+                </div>
                 <div class="related-info">
                   <p class="related-header">
                     <span class="related-header-category"><?= $product["category"] ?></span>
@@ -57,17 +59,19 @@
       <?php } ?>
       <?php if(count($article['cases'])) { ?>
         <div class="aside-block related">
-          <p class="aside-title">Related Cases</p>
+          <p class="aside-title">相關案件</p>
           <ul class="list-inline row">
             <?php foreach ($article['cases'] AS $case) { ?>
               <li class="related-item col-6 col-ms-12">
-                <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
+                <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/case-study/<?= $case['id'] ?>"></a>
+                </div>
                 <div class="related-info">
                   <p class="related-header">
                     <span class="related-header-location"><?= $case["location"] ?></span>
                     <span class="related-header-date"><?= $case["date"] ?></span>
                   </p>
-                  <p class="related-title"><a href="/collections/<?= $case['id'] ?>"><?= $case['title'] ?></a></p>
+                  <p class="related-title"><a href="/case-study/<?= $case['id'] ?>"><?= $case['title'] ?></a></p>
                 </div>
               </li>
             <?php } ?>
@@ -76,7 +80,7 @@
       <?php } ?>
       <?php if(count($article['links'])) { ?>
         <div class="aside-block related">
-          <p class="aside-title">Related Links</p>
+          <p class="aside-title">相關連結</p>
           <ul class="list-unstyled">
             <?php foreach ($article['links'] AS $link) { ?>
               <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>
@@ -88,7 +92,7 @@
   </div>
   <div class="pagenavi row">
    <?php if($previous_article) { ?>
-    <div class="col-6 pagenavi-itme bgimage"  <?php if($previous_article["img"]) { echo 'style="background-image: url('.$previous_article["img"]->file["medium"]->to_absolute_url().')"'; }?>>
+    <div class="pagenavi-itme bgimage <?php if(!$next_article) { echo "col-12"; } else { echo "col-6"; } ?>" <?php if($previous_article["img"]) { echo 'style="background-image: url('.$previous_article["img"]->file["medium"]->to_absolute_url().')"'; }?>>
       <p class="arrow">
         <a href="/blog/<?= $previous_article['id'] ?>"><i class="fa fa-fw fa-arrow-left"></i> PREV </a>
       </p>
@@ -104,7 +108,7 @@
     </div>
   <?php } ?>
   <?php if($next_article) { ?>
-    <div class="col-6 pagenavi-itme bgimage"  <?php if($next_article["img"]) { echo 'style="background-image: url('.$next_article["img"]->file["medium"]->to_absolute_url().')"'; }?>>
+    <div class="pagenavi-itme bgimage <?php if(!$previous_article) { echo "col-12"; } else { echo "col-6"; } ?>"  <?php if($next_article["img"]) { echo 'style="background-image: url('.$next_article["img"]->file["medium"]->to_absolute_url().')"'; }?>>
       <p class="arrow">
         <a href="/blog/<?= $next_article['id'] ?>"> NEXT <i class="fa fa-fw fa-arrow-right"></i></a>
       </p>
@@ -122,11 +126,13 @@
   </div>
   <div class="related-post">
     <div class="related-post-inner">
-      <p class="related-post-title">Related Blogs</p>
+      <p class="related-post-title">相關文章</p>
       <ul class="list-inline related-post-list row">
       <?php foreach ($related_articles as $rarticle) {?>
          <li class="related-post-item col-3 col-ms-12">
-          <div class="related-post-item-image bgimage" <?php if($rarticle["img"]) { echo 'style="background-image: url('.$rarticle["img"]->file["medium"]->to_absolute_url().')"'; }?>></div>
+          <div class="related-post-item-image bgimage" <?php if($rarticle["img"]) { echo 'style="background-image: url('.$rarticle["img"]->file["medium"]->to_absolute_url().')"'; }?>>
+            <a class="image-link" href="/blog/<?= $previous_article['id'] ?>"></a>
+          </div>
           <p class="related-post-item-header">
             <span class="related-post-item-category"><?= $rarticle["category"] ?></span>
             <span class="related-post-item-date"><?= $rarticle["date"] ?></span>

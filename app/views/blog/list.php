@@ -32,7 +32,9 @@
     <ui class="list-unstyled">
       <?php foreach ($articles as $article) { ?>
         <li class="list-item">
-          <div class="list-item-image" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>></div>
+          <div class="list-item-image" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>>
+            <a class="image-link" href="/blog/<?= $article['id'] ?>"></a>
+          </div>
           <section class="list-item-info">
             <p class="list-item-header">
               <!-- <span class="list-item-location">
@@ -84,7 +86,9 @@
           <?php foreach($articlesAll as $article) { ?>
             <?php if($article['hot']) {?>
               <li class="post-item">
-                <div class="post-item-image" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>></div>
+                <div class="post-item-image" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/blog/<?= $article['id'] ?>"></a>
+                </div>
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($article['category'])->name ?></span>
@@ -104,7 +108,9 @@
           <?php foreach ($articlesAll as $index => $article) { ?>
             <?php if($article['top']) {?>
               <li class="post-item">
-                <div class="post-item-image" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>></div>
+                <div class="post-item-image" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/blog/<?= $article['id'] ?>"></a>
+                </div>
                 <section class="post-item-info">
                   <p class="post-item-header">
                     <span class="post-item-category"><?php echo Category::find($article['category'])->name ?></span>

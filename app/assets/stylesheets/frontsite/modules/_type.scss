@@ -125,6 +125,9 @@ textarea {
   text-align: center;
   background-color: $brand-primary;
   outline: none;
+  &.disabled {
+    background-color: nth($grays, 4);
+  }
   &:focus {
     border-color: nth($aqua, 2);
   }

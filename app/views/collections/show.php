@@ -71,62 +71,76 @@
       </table>
     </section>
     <aside>
-      <button class="askbnt btn">加入詢問清單</button>
+      <button class="askbtn btn" data-title="<?php echo $product['title']; ?>">加入詢問清單</button>
+      <div class="contact">
+
+      </div>
       <div class="row">
-        <div class="aside-block tag col-6 col-ms-12">
-          <p class="aside-title">Tags</p>
-          <ul class="list-inline">
-            <?php foreach ($product['tags'] as $tag) { ?>
-              <li><a href="/collections/?tag=<?= $tag->id ?>"><?= $tag->name ?></a></li>
-            <?php } ?>
-          </ul>
-        </div>
-        <div class="aside-block share col-6 col-ms-12">
-          <p class="aside-title">Share</p>
+        <?php if($product['tags']) { ?>
+          <div class="aside-block tag col-6 col-ms-12">
+            <p class="aside-title">標籤</p>
+            <ul class="list-inline">
+              <?php foreach ($product['tags'] as $tag) { ?>
+                <li><a href="/collections/?tag=<?= $tag->id ?>"><?= $tag->name ?></a></li>
+              <?php } ?>
+            </ul>
+          </div>
+        <?php } ?>
+        <div class="aside-block share col-ms-12 <?php if($product['tags']) { echo "col-6"; } else { echo "col-12"; } ?>">
+          <p class="aside-title">社群分享</p>
           <ul class="list-inline">
             <li class="fb"><a href="javascript: void(window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-facebook"></i></a></li>
             <li class="twitter"><a href="javascript: void(window.open('http://twitter.com/home/?status='.concat(encodeURIComponent(document.title)).concat(' ').concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-twitter"></i></a></li>
-            <li class="gplus"><a href="https://plus.google.com/share?url={http://nowyoufindme.no-ip.org:8888/collections/16}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-fw fa-google-plus"></i></a></li>
+            <li class="gplus"><a href="https://plus.google.com/share?url={<?= Routes::current_url() ?>}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-fw fa-google-plus"></i></a></li>
           </ul>
         </div>
       </div>
-      <div class="aside-block related">
-        <p class="aside-title">Related Articles</p>
-        <ul class="list-inline row">
-          <?php foreach ($product['related_articles'] as $article) { ?>
-            <li class="related-item col-6 col-ms-12">
-              <div class="related-image bgimage" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>></div>
-              <div class="related-info">
-                <p class="related-header">
-                  <span class="related-header-category"><?= $article["category"] ?></span>
-                  <span class="related-header-date"><?= $article["date"] ?></span>
-                </p>
-                <p class="related-title"><a href="/blog/<?= $article['id'] ?>"><?= $article['title'] ?></a></p>
-              </div>
-            </li>
-          <?php } ?>
-        </ul>
-      </div>
-      <div class="aside-block related">
-        <p class="aside-title">Related Cases</p>
-        <ul class="list-inline row">
-          <?php foreach ($product['related_cases'] as $case) { ?>
-            <li class="related-item col-6 col-ms-12">
-              <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>></div>
-              <div class="related-info">
-                <p class="related-header">
-                  <span class="related-header-location"><?= $case['location'] ?></span>
-                  <span class="related-header-date"><?= $case["date"] ?></span>
-                </p>
-                <p class="related-title"><a href="/case-study/<?= $case['id'] ?>"><?= $case['title'] ?></a></p>
-              </div>
-            </li>
-          <?php } ?>
-        </ul>
-      </div>
+      <?php if($product['related_articles']) { ?>
+        <div class="aside-block related">
+          <p class="aside-title">相關文章</p>
+          <ul class="list-inline row">
+            <?php foreach ($product['related_articles'] as $article) { ?>
+              <li class="related-item col-6 col-ms-12">
+                <div class="related-image bgimage" <?php if($article['image']!=""){echo 'style="background-image: url('.$article['image']->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/blog/<?= $article['id'] ?>"></a>
+                </div>
+                <div class="related-info">
+                  <p class="related-header">
+                    <span class="related-header-category"><?= $article["category"] ?></span>
+                    <span class="related-header-date"><?= $article["date"] ?></span>
+                  </p>
+                  <p class="related-title"><a href="/blog/<?= $article['id'] ?>"><?= $article['title'] ?></a></p>
+                </div>
+              </li>
+            <?php } ?>
+          </ul>
+        </div>
+      <?php } ?>
+      <?php if($product['related_cases']) { ?>
+        <div class="aside-block related">
+          <p class="aside-title">相關案件</p>
+          <ul class="list-inline row">
+            <?php foreach ($product['related_cases'] as $case) { ?>
+              <li class="related-item col-6 col-ms-12">
+                <div class="related-image bgimage" <?php if($case['image']!=""){echo 'style="background-image: url('.$case['image']->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/case-study/<?= $case['id'] ?>"></a>
+                </div>
+                <div class="related-info">
+                  <p class="related-header">
+                    <span class="related-header-location"><?= $case['location'] ?></span>
+                    <span class="related-header-date"><?= $case["date"] ?></span>
+                  </p>
+                  <p class="related-title"><a href="/case-study/<?= $case['id'] ?>"><?= $case['title'] ?></a></p>
+                </div>
+              </li>
+            <?php } ?>
+          </ul>
+        </div>
+      <?php } ?>
     </aside>
     <div class="pagenavi">
       <?php if($product["previous_id"] != null) { ?><a href="/collections/<?= $product['previous_id'] ?>"><i class="fa fa-fw fa-arrow-left"></i> PREV</a><?php }?><?php if($product["next_id"] != null) { ?><a href="/collections/<?= $product['next_id'] ?>">NEXT <i class="fa fa-fw fa-arrow-right"></i></a><?php }?>
     </div>
   </div>
 </div>
+<?= js_tag("frontsite/ask-list.js") ?>

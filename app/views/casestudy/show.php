@@ -45,7 +45,7 @@
       <div class="row">
         <?php if(count($case['tags'])) { ?>
         <div class="aside-block tag col-6 col-ms-12">
-          <p class="aside-title">Tags</p>
+          <p class="aside-title">標籤</p>
           <ul class="list-inline">
             <?php foreach ($case['tags'] as $tag) { ?>
               <li><a href="#"><?= $tag ?></a></li>
@@ -54,7 +54,7 @@
         </div>
         <?php } ?>
         <div class="aside-block share <?php if(count($case['tags'])) { echo 'col-6'; } else { echo 'col-12'; } ?> col-ms-12">
-          <p class="aside-title">Share</p>
+          <p class="aside-title">社群分享</p>
           <ul class="list-inline">
             <li class="fb"><a href="javascript: void(window.open('http://www.facebook.com/share.php?u='.concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-facebook"></i></a></li>
             <li class="twitter"><a href="javascript: void(window.open('http://twitter.com/home/?status='.concat(encodeURIComponent(document.title)).concat(' ').concat(encodeURIComponent(location.href))));"><i class="fa fa-fw fa-twitter"></i></a></li>
@@ -64,14 +64,16 @@
       </div>
       <?php if(count($case['products'])) { ?>
         <div class="aside-block related">
-          <p class="aside-title">Related Products</p>
+          <p class="aside-title">相關產品</p>
           <ul class="list-inline row">
             <?php foreach ($case['products'] AS $product) { ?>
               <li class="related-item col-6 col-ms-12">
-                <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>></div>
+                <div class="related-image bgimage" <?php if($product['image']!=""){echo 'style="background-image: url('.$product['image']->to_absolute_url().')"';}?>>
+                  <a class="image-link" href="/collections/<?= $product['id'] ?>"></a>
+                </div>
                 <div class="related-info">
                   <p class="related-header">
-                    <span class="related-header-category">這裡要代產品類別</span>
+                    <span class="related-header-category"><?php $product['category'] ?></span>
                   </p>
                   <p class="related-title"><a href="/collections/<?= $product['id'] ?>"><?= $product['title'] ?></a></p>
                 </div>
@@ -82,7 +84,7 @@
       <?php } ?>
       <?php if(count($case['links'])) { ?>
         <div class="aside-block related">
-          <p class="aside-title">Related Links</p>
+          <p class="aside-title">相關連結</p>
           <ul class="list-unstyled">
             <?php foreach ($case['links'] AS $link) { ?>
               <li><a href="<?= $link['url'] ?>" target="_blank"><?= $link['name'] ?></a></li>

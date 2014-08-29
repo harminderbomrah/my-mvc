@@ -141,6 +141,7 @@
         z-index: 1;
         .pagenavi-itme-link {
           display: block;
+          @include text-overflow();
         }
       }
     }
@@ -185,7 +186,7 @@
       }
     }
   }
-  .askbnt {
+  .askbtn {
     margin-bottom: 3em;
   }
   aside {

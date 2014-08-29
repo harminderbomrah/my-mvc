@@ -54,27 +54,31 @@ $(document).ready(function(){
   });
 });
 var contact = angular.module('contact', ['nyfnApp.services'])
-.controller('contactForm', ['$scope', '$log', '$jsonData', '$myCookie', function($scope, $log, $jsonData, $myCookie) {
+.controller('contactForm', ['$scope', '$log', '$jsonData', '$window', '$myCookie', function($scope, $log, $jsonData, $window, $myCookie) {
   $scope.success = false;
-  $scope.askList = {};
   $scope.data = {
     product: []
   }
-  $scope.extend = function(source) {
-    angular.extend($scope.askList, source);
-    angular.forEach($scope.askList, function(value, index) {
-      $scope.data.product.push(value.id);
-    });
-  }
-  $scope.cancelProduct = function(id, $event) {
-    $scope.data.product.splice($scope.data.product.indexOf(id), 1);
-    angular.element($event.currentTarget).closest('li').remove();
+  angular.forEach($window.localStorage, function(value, key) {
+    $scope.data.product.push({id: key, title: value})
+  })
+  // $scope.extend = function(source) {
+  //   angular.extend($scope.askList, source);
+  //   angular.forEach($scope.askList, function(value, index) {
+  //     $scope.data.product.push(value.id);
+  //   });
+  // }
+  $scope.cancelProduct = function(id, index) {
+    $scope.data.product.splice(index, 1);
+    $window.localStorage.removeItem(id);
   }
   $scope.cancelList = function() {
     var d = confirm("你確定要清除清單嗎？");
     if(d) {
-      $scope.data.product = $scope.askList = null;
-      $myCookie.destroy('ask');
+      angular.forEach($window.localStorage, function(value, key) {
+        $window.localStorage.removeItem(key)
+      });
+      $scope.data.product = null;
     }
   }
   $scope.submit = function(form) {
