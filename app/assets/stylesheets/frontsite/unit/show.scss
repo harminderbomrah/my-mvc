@@ -61,12 +61,126 @@
     .content {
       padding: 0;
       article {
-        width: 80%;
+        width: 60%;
         margin: 0 auto;
         text-align: justify;
-        .header-image {
-          width: 100%;
-          height: auto;
+        font-weight: 300;
+        & > div {
+          margin-bottom: 3em;
+          p {
+            margin: 0;
+          }
+          h2, h3 {
+            text-align: left;
+          }
+        }
+        .foreword {
+          font-weight: 400;
+        }
+        .with-image {
+          position: relative;
+          &.sm {
+            @include clearfix();
+            .image {
+              position: relative;
+              margin: 0 1em 0.6em 0;
+              float: left;
+              @include size(50%, auto);
+              img {
+                @include size(100%, auto);
+              }
+            }
+            @media screen and (max-width: $screen-tablet) {
+              .image {
+                float: none;
+                margin: 0 0 1em;
+                @include size(100%, auto);
+              }
+            }
+          }
+          &.lg {
+            .image {
+              position: relative;
+              margin: 0 -2em 1em;
+              @include square(auto);
+            }
+          }
+          .img-comment {
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 100%;
+            width: 20%;
+            padding-right: 1em;
+            color: nth($grays, 3);
+            @media screen and (max-width: $screen-tablet) {
+              position: static;
+              width: 100%;
+              padding: 1em;
+              &:before {
+                display: none;
+              }
+            }
+          }
+        }
+        .fill-image {
+          position: relative;
+          margin: 0 -33% 3em;
+          .image {
+            position: relative;
+            .img-comment {
+              bottom: 0;
+              left: 50%;
+              width: 60%;
+              margin: 0 -30%;
+              padding: 1em 0;
+              color: $white;
+              text-align: left;
+              z-index: 1;
+              &:before {
+                width: 100%;
+                right: 0;
+              }
+            }
+            &:after {
+              content: "";
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              right: 0;
+              height: 100%;
+              z-index: 0;
+              @include gradient-vertical(rgba(#181a1e, 0), rgba(#181a1e, .8), 0, 100%);
+            }
+          }
+          @media screen and (max-width: $screen-tablet) {
+            margin: 0 -12% 1em;
+            .image {
+              .img-comment {
+                width: 80%;
+                margin: 0 -40%;
+              }
+            }
+          }
+        }
+        .img-comment {
+          display: block;
+          position: absolute;
+          text-align: right;
+          font-size: 0.75%;
+          font-style: italic;
+          &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -3px;
+            right: 1em;
+            background-color: nth($grays, 3);
+            @include size(20%, 2px);
+          }
+        }
+        @media screen and (max-width: $screen-tablet) {
+          width: 80%;
         }
       }
       aside {
@@ -188,6 +302,35 @@
   }
   .askbtn {
     margin-bottom: 3em;
+  }
+  .contact {
+    display: none;
+    position: relative;
+    margin-bottom: 3em;
+    font-size: 0.75em;
+    border: 1px solid nth($grays, 5);
+    a {
+      color: nth($grays, 3);
+      &:hover {
+        color: nth($grays, 2);
+      }
+    }
+    .fa-stack {
+      position: absolute;
+      top: -1em;
+      left: 50%;
+      margin-left: -16px;
+      .fa-stack-2x {
+        font-size: 1.5em;
+        color: nth($grays, 4);
+      }
+      .fa-inverse {
+        position: relative;
+        top: -0.5em;
+        font-size: 0.75em;
+        position: relative;
+      }
+    }
   }
   aside {
     .aside-block {

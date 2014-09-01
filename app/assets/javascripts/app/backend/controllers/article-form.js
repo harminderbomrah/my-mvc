@@ -76,28 +76,41 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
 
   // tinyMCE options
   $scope.tinyMceOptions = {
+    body_id: "blog",
     skin : 'nyfm',
     language: 'zh_TW',
     height: 700,
     menubar: false,
-    toolbar: "undo redo | link image template | print preview | code",
-    plugins: 'link paste image preview template code codemirror',
+    forced_root_block: '',
+    toolbar: "undo redo | pagebreak | link image template | print preview | code",
+    plugins: 'link paste image preview template code codemirror pagebreak',
     // toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
     // plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
     templates: [
       {
-        title: "Editor Details",
-        url: "/public/templates/a.html",
-        description: "Adds Editor Name and Staff ID"
+        title: "文章前言區塊",
+        url: "/public/templates/foreword.html",
+        description: "放置在文章開頭，每則文章只允許一個前言區塊"
       }, {
-        title: "Timestamp",
-        url: "/public/templates/b.html",
-        description: "Adds an editing timestamp."
+        title: "文繞圖區塊(小圖)",
+        url: "/public/templates/with-image-sm.html",
+        description: "附小圖文章段落區塊，可放置多個"
+      }, {
+        title: "文繞圖區塊(大圖)",
+        url: "/public/templates/with-image-lg.html",
+        description: "附大圖文章段落區塊，可放置多個"
+      }, {
+        title: "段落區塊",
+        url: "/public/templates/part.html",
+        description: "無圖文章段落區塊，可放置多個"
+      }, {
+        title: "段落圖片",
+        url: "/public/templates/fill-image.html",
+        description: "只有圖片與圖片敘述，可穿插在文章段落區塊之間"
       }
     ],
     content_css : [
-      "/public/templates/a.css",
-      "/public/templates/b.css"
+      "/public/templates/blog.css"
     ],
     // image_dimensions: false,
     codemirror: {

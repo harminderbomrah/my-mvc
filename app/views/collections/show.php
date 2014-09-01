@@ -72,8 +72,12 @@
     </section>
     <aside>
       <button class="askbtn btn" data-title="<?php echo $product['title']; ?>">加入詢問清單</button>
-      <div class="contact">
-
+      <div class="contact text-center">
+        <div class="fa-stack fa-lg">
+          <i class="fa fa-fw fa-comment fa-stack-2x"></i>
+          <i class="fa fa-fw fa-question fa-inverse"></i>
+        </div>
+        <p><a href="/contact">需要更多協助嗎？歡迎線上來信。</a></p>
       </div>
       <div class="row">
         <?php if($product['tags']) { ?>

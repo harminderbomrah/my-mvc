@@ -1,4 +1,5 @@
 var $askBtn = $('.askbtn'),
+    $contact = $('.show .contact'),
     _id = window.location.pathname.split('/'),
     _toggle = true;
 
@@ -6,7 +7,11 @@ var $askBtn = $('.askbtn'),
 _id = _id[_id.length - 1];
 
 $.each(localStorage, function(key, value) {
-  key == _id ? $askBtn.text('已加入詢問清單').addClass('disabled') : null;
+  if(key == _id) {
+    _toggle = false;
+    $askBtn.text('已加入詢問清單').addClass('disabled');
+    $contact.show('fast');
+  }
 });
 $askBtn.on('click', function(event) {
   if(_toggle) {
@@ -16,12 +21,14 @@ $askBtn.on('click', function(event) {
     });
     if(!haveID) {
       localStorage[_id] = $(this).data('title');
-      $askBtn.text('已加入詢問清單').addClass('disabled')
+      $askBtn.text('已加入詢問清單').addClass('disabled');
+      $contact.show('fast');
     }
     _toggle = false;
   } else {
     localStorage.removeItem(_id);
-    $askBtn.text('加入詢問清單').removeClass('disabled')
+    $askBtn.text('加入詢問清單').removeClass('disabled');
+    $contact.hide('fast');
     _toggle = true;
   }
 });

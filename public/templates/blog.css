@@ -1,0 +1,133 @@
+#blog {
+  font-weight: 300;
+  margin: 0 auto;
+  text-align: justify;
+  width: 60%;
+}
+#blog > div {
+  margin-bottom: 3em;
+}
+#blog > div p {
+  margin: 0;
+}
+#blog > div h2, #blog > div h3 {
+  text-align: left;
+}
+#blog .foreword {
+  font-weight: 400;
+}
+#blog .with-image {
+  position: relative;
+}
+#blog .with-image.sm:before, #blog .with-image.sm:after {
+  content: " ";
+  display: table;
+}
+#blog .with-image.sm:after {
+  clear: both;
+}
+#blog .with-image.sm .image {
+  float: left;
+  height: auto;
+  margin: 0 1em 0.6em 0;
+  position: relative;
+  width: 50%;
+}
+#blog .with-image.sm .image img {
+  height: auto;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  #blog .with-image.sm .image {
+    float: none;
+    height: auto;
+    margin: 0 0 1em;
+    width: 100%;
+  }
+}
+#blog .with-image.lg .image {
+  height: auto;
+  margin: 0 -2em 1em;
+  position: relative;
+  width: auto;
+}
+#blog .with-image.lg .image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#blog .with-image .img-comment {
+  color: #aab2bd;
+  display: block;
+  padding-right: 1em;
+  position: absolute;
+  right: 100%;
+  top: 0;
+  width: 20%;
+}
+@media screen and (max-width: 768px) {
+  #blog .with-image .img-comment {
+    padding: 1em;
+    position: static;
+    width: 100%;
+  }
+  #blog .with-image .img-comment:before {
+    display: none;
+  }
+}
+#blog .fill-image {
+  margin: 0 -33% 3em;
+  position: relative;
+}
+#blog .fill-image .image {
+  position: relative;
+}
+#blog .fill-image .image img {
+  width: 100%;
+  height: auto;
+}
+#blog .fill-image .image .img-comment {
+  bottom: 0;
+  color: #fff;
+  left: 50%;
+  margin: 0 -30%;
+  padding: 1em 0;
+  text-align: left;
+  width: 60%;
+  z-index: 1;
+}
+#blog .fill-image .image .img-comment:before {
+  right: 0;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  #blog .fill-image {
+    margin: 0 -12% 1em;
+  }
+  #blog .fill-image .image .img-comment {
+    margin: 0 -40%;
+    width: 80%;
+  }
+}
+#blog .img-comment {
+  display: block;
+  font-size: 0.75%;
+  font-style: italic;
+  position: absolute;
+  text-align: right;
+}
+#blog .img-comment:before {
+  background-color: #aab2bd;
+  content: '';
+  display: block;
+  height: 2px;
+  position: absolute;
+  right: 1em;
+  top: -3px;
+  width: 20%;
+}
+@media screen and (max-width: 768px) {
+  #blog {
+    width: 80%;
+  }
+}
