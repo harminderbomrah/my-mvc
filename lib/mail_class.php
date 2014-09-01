@@ -14,6 +14,7 @@ class Mailer extends PHPMailer{
 			$this->Port       = MAIL_PORT;     // set the SMTP port for the GMAIL server
 			$this->Username   = MAIL_USERNAME; // SMTP account username
 			$this->Password   = MAIL_PASSWORD;
+			$this->CharSet    = "UTF-8";
 			if(MAIL_SECURITY != null){
 				$this->SMTPSecure = MAIL_SECURITY;   
 			}

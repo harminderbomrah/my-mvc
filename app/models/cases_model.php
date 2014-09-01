@@ -115,7 +115,7 @@ class Cases extends ModelAdapter{
         if($product != null){
           $img = self::query_db("SELECT assets_id FROM products_assets_mvcrelation WHERE products_id = '{$product_id}' LIMIT 0,1");
           $image = ( $img? Assets::find($img[0]["assets_id"])->file["large"] : null);
-          array_push($products,array("title"=>$product->title, "id"=>$product->id, "depiction"=>$product->depiction, "image"=>$image));
+          array_push($products,array("title"=>$product->title, "id"=>$product->id, "depiction"=>$product->depiction, "image"=>$image, "category" => Category::find($product->category_relation_ids[0])->name));
         }
       }
  

@@ -73,7 +73,7 @@
                 </div>
                 <div class="related-info">
                   <p class="related-header">
-                    <span class="related-header-category"><?php $product['category'] ?></span>
+                    <span class="related-header-category"><?= $product['category'] ?></span>
                   </p>
                   <p class="related-title"><a href="/collections/<?= $product['id'] ?>"><?= $product['title'] ?></a></p>
                 </div>

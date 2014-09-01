@@ -6,8 +6,8 @@
       <div class="content-top bgimage" <?php if($article["img"]) { echo 'style="background-image: url('.$article["img"]->file["original"]->to_absolute_url().')"'; }?>>
         <div class="content-top-inner">
           <p class="content-header">
-            <span class="content-category"><?php echo $article['category'] ?></span>
-            <span class="content-date">Apr 20, 2014</span>
+            <span class="content-category"><?= $article['category'] ?></span>
+            <span class="content-date"><?= $article["date"] ?></span>
           </p>
           <h1><?php echo $article['title'] ?></h1>
         </div>

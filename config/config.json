@@ -16,10 +16,10 @@
 		"enable" : true,
 		"host" : "smtp.gmail.com",
 		"port" : 587,
-		"username" : "*****@gmail.com",
-		"name" : "Harry Bomrah",
+		"username" : "lcstonetw@gmail.com",
+		"name" : "Lc Stone 良錡石材",
 		"security" : "tls", 
-		"password" : "*******"
+		"password" : "dRW0gp5YMKI2"
 	},
 	"session" : {
 		"enable" : true,
