@@ -7,12 +7,12 @@
     <div class="nav-collapse"><i class="fa fa-fw fa-navicon"></i></div>
     <p class="small-logo"><a href="/"><?= img_tag("frontend/nav-logo-s.png", array(titile=>"良錡石材 商標", alt=>"良錡石材 商標")) ?></a></p>
     <ul class="nav-bar-menu list-unstyled">
-      <li class="nav-bar-item have-sub collections"><a href="#collections"><i class="icon fa fa-apple"></i></a></li>
-      <li class="nav-bar-item have-sub case-study"><a href="#case-study"><i class="icon fa fa-apple"></i></a></li>
-      <li class="nav-bar-item have-sub blog"><a href="#blog"><i class="icon fa fa-apple"></i></a></li>
-      <li class="nav-bar-item about-us"><a href="/about-us"><i class="icon fa fa-apple"></i></a></li>
-      <li class="nav-bar-item contact"><a href="/contact"><i class="icon fa fa-apple"></i></a></li>
-      <li class="nav-bar-item search"><p class="search-trigger"><i class="icon fa fa-apple"></i></p></li>
+      <li class="nav-bar-item have-sub collections"><a href="#collections"><i class="icon icon-archive"></i></a></li>
+      <li class="nav-bar-item have-sub case-study"><a href="#case-study"><i class="icon icon-award"></i></a></li>
+      <li class="nav-bar-item have-sub blog"><a href="#blog"><i class="icon icon-pen"></i></a></li>
+      <li class="nav-bar-item about-us"><a href="/about-us"><i class="icon icon-flag-filled"></i></a></li>
+      <li class="nav-bar-item contact"><a href="/contact"><i class="icon icon-phone"></i></a></li>
+      <!-- <li class="nav-bar-item search"><p class="search-trigger"><i class="icon icon-search"></i></p></li> -->
     </ul>
   </div>
   <div class="nav-body">
@@ -40,15 +40,14 @@
         <li class="mune-item contact">
           <p class="mune-title"><a href="/contact"><span class="en">Contact</span><span class="zh">聯 絡 我 們</span></a></p>
         </li>
-        <li class="mune-item search">
-          <!-- <input type="checkbox" id="search" class="hide"> -->
+        <!-- <li class="mune-item search">
           <p class="mune-title"><span class="search-trigger"><span class="en">Search</span><span class="zh">搜 尋</span></span></p>
           <p class="overlay search-trigger"></p>
           <form class="search-box">
             <input type="text" name="search" placeholder="您可搜尋新聞、產品、anything...">
             <button tyoe="submit">SEARCH</button>
           </form>
-        </li>
+        </li> -->
       </ul>
     </nav>
     <nav class="social" role="social media menu">

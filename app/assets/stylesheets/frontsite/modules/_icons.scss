@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'lcstone';
+  src: url('/app/assets/fonts/lcstone.eot?32734653');
+  src: url('/app/assets/fonts/lcstone.eot?32734653#iefix') format('embedded-opentype'),
+       url('/app/assets/fonts/lcstone.woff?32734653') format('woff'),
+       url('/app/assets/fonts/lcstone.ttf?32734653') format('truetype'),
+       url('/app/assets/fonts/lcstone.svg?32734653#lcstone') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'lcstone';
+    src: url('../font/lcstone.svg?32734653#lcstone') format('svg');
+  }
+}
+*/
+ 
+[class^="icon-"],
+[class*=" icon-"] {
+  &:before {
+    display: inline-block;
+    width: 1em;
+    margin-right: .2em;
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+    font-family: "lcstone";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    text-decoration: inherit;
+    text-align: center;
+    /* opacity: .8; */
+   
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+   
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+   
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  }
+}
+ 
+.icon-archive:before            { content: '\e800'; } /* '' */
+.icon-award:before              { content: '\e801'; } /* '' */
+.icon-search:before             { content: '\e802'; } /* '' */
+.icon-pen:before                { content: '\e803'; } /* '' */
+.icon-phone:before              { content: '\e804'; } /* '' */
+.icon-flag-filled:before        { content: '\e805'; } /* '' */
