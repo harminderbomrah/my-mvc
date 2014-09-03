@@ -14,21 +14,21 @@ angular.module('nyfnApp.controller.main', [])
 
   // Definition main list controller scope initial
   $scope.initial = {
-    publics: false,       // 公開以及私密的參數
-    trash: false,         // 回收桶參數
-    hot: false,           // 熱門參數
-    top: false,           // 置頂參數
-    allChecked: false,    // 項目全選
-    checkedEach: 0,       // checkbox 圖示參數
-    currentPage: 1,       // 目前分頁
-    maxSize: 10,          // 分頁最大顯示數目
-    pageSize: 25,         // 每頁項目最大顯示數目
-    selection: [],        // 已被勾選的項目陣列
-    listLength: [],       // 每頁分頁狀態陣列(提供判斷選取框是否勾選用)
-    orderName: "date",    // 預設的排序參數
-    reverse: true,        // 預設的排序方向
-    alerts: [],           // 提供action.alerts使用的陣列
-    choseOptions: {       // Chose Options
+    publics: false,              // 公開以及私密的參數
+    trash: false,                // 回收桶參數
+    hot: false,                  // 熱門參數
+    top: false,                  // 置頂參數
+    allChecked: false,           // 項目全選
+    checkedEach: 0,              // checkbox 圖示參數
+    currentPage: 1,              // 目前分頁
+    maxSize: 10,                 // 分頁最大顯示數目
+    pageSize: 25,                // 每頁項目最大顯示數目
+    selection: [],               // 已被勾選的項目陣列
+    listLength: [],              // 每頁分頁狀態陣列(提供判斷選取框是否勾選用)
+    orderName: "publishDate",    // 預設的排序參數
+    reverse: true,               // 預設的排序方向
+    alerts: [],                  // 提供action.alerts使用的陣列
+    choseOptions: {              // Chose Options
       'allow_single_deselect': true,
       'width': '200px',
       'classes': 'chosen-sm',

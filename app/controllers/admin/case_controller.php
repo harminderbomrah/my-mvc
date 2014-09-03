@@ -69,7 +69,7 @@ class CaseController extends ApplicationController{
     $previews = array();
     foreach($case->assets_relation_ids as $asset){
       array_push($images, $asset);
-      array_push($previews, Assets::find($asset)->file["small"]->to_absolute_url());
+      array_push($previews, Assets::find($asset)->file["medium"]->to_absolute_url());
     }
 
     $data = array(

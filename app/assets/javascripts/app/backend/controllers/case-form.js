@@ -114,22 +114,6 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
     plugins: 'link paste image preview template code codemirror',
     // toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image template | lists charmap print preview | code",
     // plugins: 'advlist autolink link image lists charmap print preview template code codemirror',
-    templates: [
-      {
-        title: "Editor Details",
-        url: "/public/templates/a.html",
-        description: "Adds Editor Name and Staff ID"
-      },
-      {
-        title: "Timestamp",
-        url: "/public/templates/b.html",
-        description: "Adds an editing timestamp."
-      }
-    ],
-    content_css : [
-      "/public/templates/a.css",
-      "/public/templates/b.css"
-    ],
     codemirror: {
       indentOnInit: true,
       path: '/public/CodeMirror'
