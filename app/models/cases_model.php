@@ -37,7 +37,7 @@ class Cases extends ModelAdapter{
        $put_table = ", cases_tags_mvcrelation AS C";
       }
       if($frontend) {
-        $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
+        $trash_filter = "AND A.disabled = 0 AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
         $ordering = "ORDER BY A.top DESC, A.created_date DESC";
       }
    
@@ -70,29 +70,30 @@ class Cases extends ModelAdapter{
         $cases = [];
       }else{
         foreach ($cases as $key=>$case) {
-          $cases[$key]['tags'] = self::query_db("SELECT * FROM tags WHERE id IN (SELECT tags_id FROM cases_tags_mvcrelation WHERE cases_id = '{$case['id']}')");
-          
-          if($cases[$key]['tags']==null) $cases[$key]['tags'] = [];
 
-          if($case['publishDate']=="0"){
-            $cases[$key]['publishDate'] = strtotime($cases[$key]['created_date'])*1000;
-          }
+            $cases[$key]['tags'] = self::query_db("SELECT * FROM tags WHERE id IN (SELECT tags_id FROM cases_tags_mvcrelation WHERE cases_id = '{$case['id']}')");
+            
+            if($cases[$key]['tags']==null) $cases[$key]['tags'] = [];
 
-          $assets = self::query_db("SELECT assets_id FROM cases_assets_mvcrelation WHERE cases_id = '{$case['id']}'");
-          $images = [];
-          if($assets != null){
-            foreach ($assets as $a) {
-              array_push($images, Assets::find($a["assets_id"])->file["medium"]);
+            if($case['publishDate']=="0"){
+              $cases[$key]['publishDate'] = strtotime($cases[$key]['created_date'])*1000;
             }
-          }
 
-          $cases[$key]['image'] = $images;
-          $cases[$key]['trash'] = ($case['trash']==1) ? true : false;
-          $cases[$key]['top'] = ($case['top']==1) ? true : false;
-          $cases[$key]['hot'] = ($case['hot']==1) ? true : false;
-          $cases[$key]['disabled'] = ($case['disabled']==1) ? true : false;
-          $cases[$key]['content'] = $case["content"];
-          $cases[$key]['location'] = $case["location"];
+            $assets = self::query_db("SELECT assets_id FROM cases_assets_mvcrelation WHERE cases_id = '{$case['id']}'");
+            $images = [];
+            if($assets != null){
+              foreach ($assets as $a) {
+                array_push($images, Assets::find($a["assets_id"])->file["medium"]);
+              }
+            }
+
+            $cases[$key]['image'] = $images;
+            $cases[$key]['trash'] = ($case['trash']==1) ? true : false;
+            $cases[$key]['top'] = ($case['top']==1) ? true : false;
+            $cases[$key]['hot'] = ($case['hot']==1) ? true : false;
+            $cases[$key]['disabled'] = ($case['disabled']==1) ? true : false;
+            $cases[$key]['content'] = $case["content"];
+            $cases[$key]['location'] = $case["location"];
         }
       }
       return $cases;
@@ -138,7 +139,7 @@ class Cases extends ModelAdapter{
         }
       }
 
-      $next_and_previous = self::query_db("SELECT (SELECT id FROM cases WHERE id > A.id ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM cases WHERE id < A.id ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM cases A WHERE A.id = {$case->id}");
+      $next_and_previous = self::query_db("SELECT (SELECT id FROM cases WHERE id > A.id AND disabled = 0 AND trash = 0 ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM cases WHERE id < A.id  AND disabled = 0 AND trash = 0 ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM cases A WHERE A.id = {$case->id}");
 
       return array(
         "title" => $case->title,
@@ -159,6 +160,10 @@ class Cases extends ModelAdapter{
     }
 
     function can_publish(){
+      if($_SESSION['loggedin']) return true;
+      if($this->disabled || $this->trash){
+        return false;
+      }
       if($this->publishDate == "0000-00-00 00:00:00"){
         return true;
       }

@@ -26,7 +26,7 @@ class Articles extends ModelAdapter{
       if($category!=null) $category_filter = "AND B.category_id = {$category}";
       if($tag!=null) $tag_filter = "AND A.id = C.articles_id AND C.tags_id={$tag}";
       if($frontend){
-         $trash_filter = "AND A.trash = false AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
+         $trash_filter = "AND A.disabled = 0 AND A.trash = 0 AND (A.publishDate<=NOW() OR A.publishDate=0) AND (A.endDate>NOW() OR A.endDate=0)";
           $ordering = "ORDER BY A.top DESC, A.created_date DESC";
        }
 
@@ -56,21 +56,20 @@ class Articles extends ModelAdapter{
         $articles = [];
       }else{
         foreach ($articles as $key=>$article) {
+            $articles[$key]['tags'] = self::query_db("SELECT * FROM tags WHERE id IN (SELECT tags_id FROM articles_tags_mvcrelation WHERE articles_id = '{$article['id']}')");
 
-          $articles[$key]['tags'] = self::query_db("SELECT * FROM tags WHERE id IN (SELECT tags_id FROM articles_tags_mvcrelation WHERE articles_id = '{$article['id']}')");
+            if($articles[$key]['tags']==null) $articles[$key]['tags'] = [];
 
-          if($articles[$key]['tags']==null) $articles[$key]['tags'] = [];
-
-          if($article['publishDate']=="0"){
-            $articles[$key]['publishDate'] = strtotime($articles[$key]['created_date'])*1000;
-          }
-          $img = ($article["img"] ? Assets::find($article["img"])->file["large"] : "");
-          $articles[$key]['image'] = $img;
-          $articles[$key]['content'] = $article["content"];
-          $articles[$key]['trash'] = ($article['trash']==1) ? true : false;
-          $articles[$key]['top'] = ($article['top']==1) ? true : false;
-          $articles[$key]['hot'] = ($article['hot']==1) ? true : false;
-          $articles[$key]['disabled'] = ($article['disabled']=="1") ? true : false;
+            if($article['publishDate']=="0"){
+              $articles[$key]['publishDate'] = strtotime($articles[$key]['created_date'])*1000;
+            }
+            $img = ($article["img"] ? Assets::find($article["img"])->file["large"] : "");
+            $articles[$key]['image'] = $img;
+            $articles[$key]['content'] = $article["content"];
+            $articles[$key]['trash'] = ($article['trash']==1) ? true : false;
+            $articles[$key]['top'] = ($article['top']==1) ? true : false;
+            $articles[$key]['hot'] = ($article['hot']==1) ? true : false;
+            $articles[$key]['disabled'] = ($article['disabled']=="1") ? true : false;
         }
       }
       return $articles;
@@ -79,6 +78,7 @@ class Articles extends ModelAdapter{
     public static function get_article($id){
       $article = Articles::find($id);
       if(!$article) return null;
+      if(!$article->can_publish()) return null;
       $tags = [];
       if($article->tags_relation_ids){
         foreach ($article->tags_relation_ids as $tag_id) {
@@ -117,7 +117,7 @@ class Articles extends ModelAdapter{
           }
         }
       }
-      $next_and_previous = self::query_db("SELECT (SELECT id FROM articles WHERE id > A.id ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM articles WHERE id < A.id ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM articles A WHERE A.id = {$article->id}");
+      $next_and_previous = self::query_db("SELECT (SELECT id FROM articles WHERE id > A.id AND disabled = 0 AND trash = 0 ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM articles WHERE id < A.id AND disabled = 0 AND trash = 0 ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM articles A WHERE A.id = {$article->id}");
 
       return array(
         "id" => $article->id,
@@ -170,6 +170,23 @@ class Articles extends ModelAdapter{
           }
         }
         return $related_articles;
+    }
+    function can_publish(){
+      if($_SESSION['loggedin']) return true;
+      if($this->disabled || $this->trash){
+        return false;
+      }
+      if($this->publishDate == "0000-00-00 00:00:00"){
+        return true;
+      }
+      $pdate = DateTime::createFromFormat("Y-m-d",strftime("%Y-%m-%d",strtotime($this->publishDate)));
+      $edate = DateTime::createFromFormat("Y-m-d",strftime("%Y-%m-%d",strtotime($this->endDate)));
+      $date = new DateTime();
+      if($pdate <= $date && $edate >= $date){
+        return true;
+      }else{
+        return false;
+      }
     }
 }
 

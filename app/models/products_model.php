@@ -62,7 +62,10 @@ class Products extends ModelAdapter{
 
     public static function get_product($id){
       $product = Products::find(($id));
+
       if($product == null) return null;
+      if(!$product->can_publish()) return null;
+
       $tags = [];
       foreach ($product->tags_relation_ids as $tag_id) {
         array_push($tags,Tags::find($tag_id));
@@ -122,7 +125,7 @@ class Products extends ModelAdapter{
         }
       }
   
-      $next_and_previous = self::query_db("SELECT (SELECT id FROM products WHERE id > A.id ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM products WHERE id < A.id ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM products A WHERE A.id = {$product->id}");
+      $next_and_previous = self::query_db("SELECT (SELECT id FROM products WHERE id > A.id AND trash = 0 ORDER BY id ASC LIMIT 0, 1) AS next_id, (SELECT id FROM products WHERE id < A.id AND trash = 0 ORDER BY id DESC LIMIT 0, 1) AS previous_id FROM products A WHERE A.id = {$product->id}");
 
       return array(
         "title" => $product->title,
@@ -138,6 +141,14 @@ class Products extends ModelAdapter{
       );
     }
 
+     function can_publish(){
+      if($_SESSION['loggedin']) return true;
+      if($this->trash){
+        return false;
+      }else{
+        return true;
+      }
+    }
 
 }
 
