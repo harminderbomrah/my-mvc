@@ -42,7 +42,10 @@
             <textarea id="message" name="message" data-ng-model="data.message" rows="5" required></textarea>
           </div>
           <p class="text-right">
-            <button class="btn" type="submit">送出</button>
+            <button class="btn" type="submit" data-ng-disabled="send">
+              <span ng-show="!send">送出</span>
+              <i class="fa fa-lg fa-spinner fa-spin" ng-show="send"></i>
+            </button>
           </p>
         </form>
         <div class="send-success text-center" data-ng-show="success">

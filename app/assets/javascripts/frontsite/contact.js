@@ -56,6 +56,7 @@ $(document).ready(function(){
 var contact = angular.module('contact', ['nyfnApp.services'])
 .controller('contactForm', ['$scope', '$log', '$jsonData', '$window', '$myCookie', function($scope, $log, $jsonData, $window, $myCookie) {
   $scope.success = false;
+  $scope.send = false;
   $scope.data = {
     product: []
   }
@@ -88,13 +89,18 @@ var contact = angular.module('contact', ['nyfnApp.services'])
       });
     }
     if(form.$valid) {
+      $scope.send = true;
       $jsonData.postData('POST', '/contact/send', $scope.data, function(data, status) {
         $scope.success = true;
+        angular.forEach($window.localStorage, function(value, key) {
+          $window.localStorage.removeItem(key);
+        })
         $myCookie.destroy('ask');
         $('.ask-list').scrollTop(0).perfectScrollbar('update');
       })
     } else {
       alert("紅框欄位為必填");
+      $scope.send = false;
     }
   }
 }]);
