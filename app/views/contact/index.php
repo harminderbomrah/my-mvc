@@ -31,7 +31,7 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="company">Company</label>
-            <input id="company" name="company" type="text">
+            <input id="company" name="company" type="text" data-ng-model="data.company">
           </div>
           <div class="form-group" data-ng-class="{'error': guestAskList.email.$invalid && !guestAskList.email.$pristine}">
             <label class="form-label" for="email">E-mail</label>
