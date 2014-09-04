@@ -215,12 +215,12 @@ angular.module('nyfnApp.controller.main', ['nyfnApp.controller.fileManage', 'ui.
           } else {
 
             // 填入資料非網址類型跳出提示訊息
-            alert("URL is incorrect")
+            alert("連結必須包含 http://")
           }
         } else {
 
           // 未填入任何資料就送出時所跳出的提示訊息
-          alert("Enter the URL and title")
+          alert("請輸入連結顯示名稱")
         }
       },
 

@@ -2,7 +2,7 @@
   <div class="login">
     <div class="login-inner signup">
       <h1>
-        <i class="fa fa-apple fa-fw"></i>
+        <!-- <i class="fa fa-apple fa-fw"></i> -->
         <div>LC Stone</div>
       </h1>
       <div class="panel panel-default">
@@ -16,7 +16,7 @@
               <label class="sr-only">Password</label>
               <input type="password" class="form-control input-lg" name="password" placeholder="Password">
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">登入</button>
           </form>
           <a class="forgot-password hide" href="/user/resets">Forgot password</a>
         </div>

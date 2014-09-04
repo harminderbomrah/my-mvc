@@ -32,7 +32,34 @@ var nyfnApp = angular.module('nyfnApp', [
   angular.forEach(path, function(element, index) {
     !isNaN(element) || element == "admin" || index == 3 ? "" : $rootScope.locationPath.push(element);
   });
-
+  $rootScope.translate = function(string) {
+    switch(string) {
+      case "article":
+        return "文章";
+        break;
+      case "product":
+        return "產品";
+        break;
+      case "case":
+        return "案件";
+        break;
+      case "slide":
+        return "橫幅";
+        break;
+      case "tags":
+        return "標籤";
+        break;
+      case "setting":
+        return "設定";
+        break;
+      case "new":
+        return "新增";
+        break;
+      case "category":
+        return "類別";
+        break;
+    }
+  }
   // ngProgress config
   ngProgress.color('#7ebee7');
   ngProgress.height('5px');

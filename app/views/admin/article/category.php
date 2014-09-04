@@ -4,11 +4,11 @@
   <div class="btn-toolbar" role="toolbar">
     <div class="btn-group">
       <button type="button" class="btn btn-sm btn-primary" data-ng-click="action.modify('new')">
-        <i class="fa fa-fw fa-plus"></i> New
+        <i class="fa fa-fw fa-plus"></i> 新增
       </button>
     </div>
     <div class="btn-group pull-right">
-      <input type="search" class="form-control input-sm" data-ng-model="keyWrod" data-ng-keyup="action.clearModelWhenEscape($event,'keyWrod')" results="5" placeholder="Search Title">
+      <input type="search" class="form-control input-sm" data-ng-model="keyWrod" data-ng-keyup="action.clearModelWhenEscape($event,'keyWrod')" results="5" placeholder="搜尋類別標題">
     </div>
   </div>
   <ul class="list-group category-list">

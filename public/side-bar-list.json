@@ -1,71 +1,71 @@
 [
 	{
-		"name": "Article",
+		"name": "文章",
 		"link": "article",
 		"icon": "fa-pencil",
 		"child": [
 			{
-				"name": "List",
+				"name": "列表",
 				"link": ""
 			}, {
-				"name": "Add New",
+				"name": "新增",
 				"link": "new"
 			}, {
-				"name": "Category",
+				"name": "類別",
 				"link": "category"
 			}
 		]
 	}, {
-		"name": "Product",
+		"name": "產品",
 		"link": "product",
 		"icon": "fa-archive",
 		"child": [
 			{
-				"name": "List",
+				"name": "列表",
 				"link": ""
 			}, {
-				"name": "Add New",
+				"name": "新增",
 				"link": "new"
 			}, {
-				"name": "Category",
+				"name": "類別",
 				"link": "category"
 			}
 		]
 	}, {
-		"name": "Case",
+		"name": "案件",
 		"link": "case",
 		"icon": "fa-briefcase",
 		"child": [
 			{
-				"name": "List",
+				"name": "列表",
 				"link": ""
 			}, {
-				"name": "Add New",
+				"name": "新增",
 				"link": "new"
 			}, {
-				"name": "Category",
+				"name": "類別",
 				"link": "category"
 			}
 		]
 	}, {
-		"name": "Slide",
+		"name": "橫幅",
 		"link": "slide",
 		"icon": "fa-picture-o",
 		"child": [
 			{
-				"name": "List",
+				"name": "列表",
 				"link": ""
 			}, {
-				"name": "Add New",
+				"name": "新增",
 				"link": "new"
 			}
 		]
 	}, {
-		"name": "Tags",
+		"name": "標籤",
 		"link": "tags",
 		"icon": "fa-tags"
 	}, {
-		"name": "Site Setting",
+		"name": "設定",
 		"link": "setting",
 		"icon": "fa-cogs"
 	}

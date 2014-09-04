@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-9">
         <div class="form-group" data-ng-class="{'has-error': articleForm.title.$invalid && !articleForm.title.$pristine}">
-          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="Title" data-ng-model="articleData.title" required>
+          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="標題" data-ng-model="articleData.title" required>
         </div>
         <div class="form-group">
           <textarea class="form-control" name="content" id="content" data-ng-model="articleData.content" ui-tinymce="tinyMceOptions"></textarea>
@@ -14,11 +14,11 @@
       <div class="col-lg-3">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <label>Category</label>
+            <label>類別</label>
           </div>
           <div class="panel-body">
             <div class="form-group" data-ng-class="{'has-error': articleForm.category.$invalid && !articleForm.category.$pristine}">
-              <select class="form-control" name="category" id="category" data-placeholder="Choose Category" data-ng-model="articleData.category" data-ng-options="option.id as option.name for option in relationData.categorys" chosen="choseOptions" required>
+              <select class="form-control" name="category" id="category" data-placeholder="選擇類別" data-ng-model="articleData.category" data-ng-options="option.id as option.name for option in relationData.categorys" chosen="choseOptions" required>
                 <option value=""></option>
               </select>
             </div>
@@ -26,11 +26,11 @@
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
-            <label>Status</label>
+            <label>狀態</label>
           </div>
           <div class="panel-body">
             <div class="form-group">
-              <label for="hot" class="control-label">Hot</label>
+              <label for="hot" class="control-label">熱門</label>
               <div class="switch">
                 <input type="checkbox" name="hot" id="hot" class="switch-input" data-ng-model="articleData.hot">
                 <span class="switch-label"></span>
@@ -38,7 +38,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="top" class="control-label">Top</label>
+              <label for="top" class="control-label">置頂</label>
               <div class="switch">
                 <input type="checkbox" name="top" id="top" class="switch-input" data-ng-model="articleData.top">
                 <span class="switch-label"></span>
@@ -46,7 +46,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="disabled" class="control-label">Publish</label>
+              <label for="disabled" class="control-label">是否發佈</label>
               <div class="switch reverse">
                 <input type="checkbox" name="disabled" id="disabled" class="switch-input" data-ng-model="articleData.disabled">
                 <span class="switch-label"></span>
@@ -54,7 +54,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="publishDate" class="control-label">Publish date</label>
+              <label for="publishDate" class="control-label">發佈日期</label>
               <div class="switch">
                 <input type="checkbox" name="publishDate" id="publishDate" class="switch-input" data-ng-model="initial.publishDate" data-ng-click="action.datepicker.clear(initial.publishDate, 'publish')">
                 <span class="switch-label"></span>
@@ -68,7 +68,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="endDate" class="control-label">End date</label>
+              <label for="endDate" class="control-label">結束日期</label>
               <div class="switch">
                 <input type="checkbox" name="endDate" id="endDate" class="switch-input" data-ng-model="initial.endDate" data-ng-click="action.datepicker.clear(initial.endDate, 'end')">
                 <span class="switch-label"></span>
@@ -83,15 +83,15 @@
             </div>
           </div>
           <div class="panel-footer text-right">
-            <a class="btn btn-sm btn-default" href="/admin/article" target="_self">Cancel</a>
-            <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="initial.submit">Submit</button>
+            <a class="btn btn-sm btn-default" href="/admin/article" target="_self">取消</a>
+            <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="initial.submit">送出</button>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12 col-md-4 col-sm-4">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <label>Images</label>
+                <label>圖片</label>
               </div>
               <div class="panel-body">
                 <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
@@ -102,7 +102,7 @@
                   </div>
                 </a>
                 <div class="clearImg">
-                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="articleData.img">Clear Image</button>
+                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="articleData.img">清除圖片</button>
                 </div>
               </div>
             </div>
@@ -110,24 +110,24 @@
           <div class="col-lg-12 col-md-4 col-sm-4">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <label for="tag">Relation</label>
+                <label for="tag">關連項目</label>
               </div>
               <div class="panel-body">
                 <div class="form-group">
-                  <label for="tag" class="control-label">Tag</label>
-                  <select class="form-control" name="tag" id="tag" data-placeholder="Choose Tag" multiple data-ng-model="articleData.tag" data-ng-options="option.id as option.name for option in relationData.tag" chosen="choseOptions">
+                  <label for="tag" class="control-label">標籤</label>
+                  <select class="form-control" name="tag" id="tag" data-placeholder="選擇標籤" multiple data-ng-model="articleData.tag" data-ng-options="option.id as option.name for option in relationData.tag" chosen="choseOptions">
                     <option value=""></option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="product" class="control-label">Product</label>
-                  <select class="form-control" name="product" id="product" data-placeholder="Choose Product" multiple data-ng-model="articleData.product" data-ng-options="option.id as option.title for option in relationData.product" chosen="choseOptions">
+                  <label for="product" class="control-label">產品</label>
+                  <select class="form-control" name="product" id="product" data-placeholder="選擇產品" multiple data-ng-model="articleData.product" data-ng-options="option.id as option.title for option in relationData.product" chosen="choseOptions">
                     <option value=""></option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="case" class="control-label">Case</label>
-                  <select class="form-control" name="case" id="case" data-placeholder="Choose Case" multiple data-ng-model="articleData.case" data-ng-options="option.id as option.title for option in relationData.case" chosen="choseOptions">
+                  <label for="case" class="control-label">案件</label>
+                  <select class="form-control" name="case" id="case" data-placeholder="選擇案件" multiple data-ng-model="articleData.case" data-ng-options="option.id as option.title for option in relationData.case" chosen="choseOptions">
                     <option value=""></option>
                   </select>
                 </div>
@@ -137,7 +137,7 @@
           <div class="col-lg-12 col-md-4 col-sm-4">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <label>Link</label>
+                <label>外部連結</label>
               </div>
               <div class="panel-body">
                 <ul class="list-group" data-ng-show="articleData.link.length">
@@ -147,13 +147,13 @@
                   </li>
                 </ul>
                 <div class="form-group">
-                  <input type="text" id="link-href" class="form-control input-sm" placeholder="URL" data-ng-model="initial.link.url">
+                  <input type="text" id="link-href" class="form-control input-sm" placeholder="連結 (請加http://)" data-ng-model="initial.link.url">
                 </div>
                 <div class="form-group">
-                  <input type="text" id="link-text" class="form-control input-sm" placeholder="Text" data-ng-model="initial.link.text">
+                  <input type="text" id="link-text" class="form-control input-sm" placeholder="顯示文字" data-ng-model="initial.link.text">
                 </div>
                 <div class="form-group text-right">
-                  <button type="button" class="btn btn-sm btn-default" data-ng-click="action.linkAction.add()">Add</button>
+                  <button type="button" class="btn btn-sm btn-default" data-ng-click="action.linkAction.add()">新增</button>
                 </div>
               </div>
             </div>

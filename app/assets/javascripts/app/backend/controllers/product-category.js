@@ -53,16 +53,16 @@ angular.module('nyfnApp.controller.main', [])
         ngProgress.start();
         $jsonData.postData('POST', '/admin/product/category/' + type, data, function(data, status) {
           if(type === 'new') {
-            toastr.success('Category has been added');
+            toastr.success('類別已新增');
             $scope.category.push({id: data['id'], name: value.name, description: value.description, quantity: 0});
           } else {
-            toastr.success('Category updated');
+            toastr.success('類別已更新');
             $scope.category[index].name = value.name;
             $scope.category[index].description = value.description;
           }
           ngProgress.complete();
         }, function(data, status) {
-          toastr.error('Category not saved');
+          toastr.error('類別未儲存');
           ngProgress.reset();
         });
       });
@@ -75,7 +75,7 @@ angular.module('nyfnApp.controller.main', [])
         controller: deleteCategory,
         resolve: {
           msg: function () {
-            return item.quantity > 0 ? "There are items in this category, You have to transfer them to another category" : "Are you sure you want to delete?";
+            return item.quantity > 0 ? "此類別中已有項目，你必須轉移到其他類別中" : "你確定真的要刪除嗎？";
           },
           replace: function() {
             return item.quantity > 0
@@ -110,10 +110,10 @@ angular.module('nyfnApp.controller.main', [])
             $scope.category[target].quantity = $scope.category[target].quantity + $scope.category[index].quantity
           }
           $scope.category.splice(index, 1);
-          toastr.success('Category is deleted');
+          toastr.success('類別已被刪除');
           ngProgress.complete();
         }, function(data, status) {
-          toastr.error('Category not be deleted');
+          toastr.error('類別未被刪除');
           ngProgress.reset();
         });
       });
@@ -134,7 +134,7 @@ var modifyCategory = function ($scope, $log, $modalInstance, config) {
   $scope.length = false;
   $scope.msg = '';
   $scope.buttonText = '';
-  config.type === 'new' ? $scope.buttonText = 'Create' : $scope.buttonText = 'OK';
+  config.type === 'new' ? $scope.buttonText = '建立' : $scope.buttonText = '確認';
   $scope.checkValue = function(name) {
     var exists = null,
         _regex = new RegExp(name, 'i');

@@ -5,11 +5,11 @@
     <div class="row">
       <div class="col-lg-9">
         <div class="form-group" data-ng-class="{'has-error': productForm.title.$invalid && !productForm.title.$pristine}">
-          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="Title" data-ng-model="productData.title" required>
+          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="標題" data-ng-model="productData.title" required>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
-            <label>Depiction</label>
+            <label>產品敘述</label>
           </div>
           <div class="panel-body">
             <textarea class="form-control" name="depiction" id="depiction" rows="3" data-ng-model="productData.depiction"></textarea>
@@ -17,7 +17,7 @@
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
-            <label>Spec</label>
+            <label>規格</label>
           </div>
           <div class="panel-body">
             <div class="form-group">
@@ -50,25 +50,25 @@
       <div class="col-lg-3">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <label>Category</label>
+            <label>類別</label>
           </div>
           <div class="panel-body">
             <div class="form-group" data-ng-class="{'has-error': productForm.category.$invalid && !productForm.category.$pristine}">
-              <select class="form-control" name="category" id="category" data-placeholder="Choose Category" data-ng-model="productData.category" data-ng-options="option.id as option.name for option in relationData.categorys" chosen="choseOptions" required>
+              <select class="form-control" name="category" id="category" data-placeholder="選擇類別" data-ng-model="productData.category" data-ng-options="option.id as option.name for option in relationData.categorys" chosen="choseOptions" required>
                 <option value=""></option>
               </select>
             </div>
           </div>
           <div class="panel-footer text-right">
-            <a class="btn btn-sm btn-default" href="/admin/product" target="_self">Cancel</a>
-            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+            <a class="btn btn-sm btn-default" href="/admin/product" target="_self">取消</a>
+            <button type="submit" class="btn btn-sm btn-primary">送出</button>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12 col-md-4 col-sm-4">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <label>Images</label>
+                <label>圖片</label>
               </div>
               <div class="panel-body">
                 <a class="upload" href="#" data-ng-click="action.fileUpLoad()">
@@ -85,7 +85,7 @@
                   </div>
                 </a>
                 <div class="clearImg">
-                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="productData.img.length > 0">Clear Image</button>
+                  <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg()" data-ng-show="productData.img.length > 0">清除圖片</button>
                 </div>
               </div>
             </div>
@@ -93,11 +93,11 @@
           <div class="col-lg-12 col-md-8 col-sm-8">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <label for="tag">Tag</label>
+                <label for="tag">標籤</label>
               </div>
               <div class="panel-body">
                 <div class="form-group">
-                  <select class="form-control" name="tag" id="tag" data-placeholder="Choose Tag" multiple data-ng-model="productData.tag" data-ng-options="option.id as option.name for option in relationData.tag" chosen="choseOptions">
+                  <select class="form-control" name="tag" id="tag" data-placeholder="選擇標籤" multiple data-ng-model="productData.tag" data-ng-options="option.id as option.name for option in relationData.tag" chosen="choseOptions">
                     <option value=""></option>
                   </select>
                 </div>

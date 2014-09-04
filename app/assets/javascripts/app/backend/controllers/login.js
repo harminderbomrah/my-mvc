@@ -51,7 +51,7 @@ var flickrAPI = angular.module('flickrAPI', [
   }
   $scope.submitEmail = function() {
     if(!$scope.email) {
-      $scope.feedback.msg = 'Please enter the E-mail';
+      $scope.feedback.msg = '請輸入 E-mail';
       $scope.feedback.show = 1;
     } else {
       var regexResult = $scope.email.search(emailRule)
@@ -64,17 +64,17 @@ var flickrAPI = angular.module('flickrAPI', [
           $log.log(data)
         });
       } else {
-        $scope.feedback.msg = 'E-mail format error';
+        $scope.feedback.msg = 'E-mail 格式錯誤';
         $scope.feedback.show = 2;
       }
     }
   }
   $scope.submitPassword = function() {
     if(!$scope.psw.A && !$scope.psw.B) {
-      $scope.feedback.msg = 'Please enter the Password';
+      $scope.feedback.msg = '請輸入密碼';
       $scope.feedback.show = 1;
     } else if($scope.psw.A.length < 8) {
-      $scope.feedback.msg = 'Minimum 8 characters';
+      $scope.feedback.msg = '最少八個字元';
       $scope.feedback.show = 1;
     } else if($scope.psw.A == $scope.psw.B) {
       $scope.feedback.msg = null;
@@ -85,7 +85,7 @@ var flickrAPI = angular.module('flickrAPI', [
         $log.log(data)
       });
     } else {
-      $scope.feedback.msg = 'Make sure the password is the same';
+      $scope.feedback.msg = '請確認密碼是否相同';
       $scope.feedback.show = 2;
     }
   }

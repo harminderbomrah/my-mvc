@@ -1,12 +1,12 @@
 <div class="modal-content" data-ng-controller="fileManage" data-ng-init='extend(<?= json_encode($initial) ?>)'>
   <div class="modal-header">
-    <h4 class="modal-title">File Manage</h4>
+    <h4 class="modal-title">檔案管理</h4>
     <ul class="modal-tab nav">
       <li data-ng-click="initial.tabSelect = 'folder'" data-ng-class="{'active': initial.tabSelect == 'folder'}"><i class="fa fa-folder-open"></i></li>
       <li data-ng-click="initial.tabSelect = 'upload'" data-ng-class="{'active': initial.tabSelect == 'upload'}"><i class="fa fa-upload"></i></li>
     </ul>
     <div class="modal-search" data-ng-show="initial.tabSelect == 'folder'">
-      <input type="search" class="form-control input-sm" data-ng-model="fileName" data-ng-keyup="" results="5" placeholder="Search File">
+      <input type="search" class="form-control input-sm" data-ng-model="fileName" data-ng-keyup="" results="5" placeholder="搜尋檔案">
     </div>
   </div>
   <div class="modal-body" data-ng-switch on="initial.tabSelect" resizable>
@@ -26,25 +26,25 @@
               <div class="progress-bar" role="progressbar" data-ng-style="{'width': uploader.progress + '%'}">{{uploader.progress}} %</div>
             </div>
             <button type="button" class="btn btn-success btn-sm" data-ng-click="uploader.uploadAll()" data-ng-disabled="!uploader.getNotUploadedItems().length">
-              <span class="fa fa-lg fa-arrow-circle-o-up"></span> Upload all
+              <span class="fa fa-lg fa-arrow-circle-o-up"></span> 全部上傳
             </button>
             <button type="button" class="btn btn-warning btn-sm" data-ng-click="uploader.cancelAll()" data-ng-disabled="!uploader.isUploading">
-              <span class="fa fa-lg fa-ban"></span> Cancel all
+              <span class="fa fa-lg fa-ban"></span> 全部取消
             </button>
             <button type="button" class="btn btn-danger btn-sm" data-ng-click="uploader.clearQueue()" data-ng-disabled="!uploader.queue.length">
-              <span class="fa fa-lg fa-trash-o"></span> Remove all
+              <span class="fa fa-lg fa-trash-o"></span> 全部移除
             </button>
           </div>
         </div>
       </div>
       <div class="file-list">
         <ul class="file-list-header list-unstyled clearfix">
-          <li>Thumb</li>
-          <li>Name</li>
-          <li class="text-center" data-ng-show="uploader.isHTML5">Size</li>
-          <li data-ng-show="uploader.isHTML5">Progress</li>
-          <li class="text-center">Status</li>
-          <li>Actions</li>
+          <li>縮圖</li>
+          <li>名稱</li>
+          <li class="text-center" data-ng-show="uploader.isHTML5">檔案大小</li>
+          <li data-ng-show="uploader.isHTML5">進度</li>
+          <li class="text-center">狀態</li>
+          <li>動作</li>
         </ul>
         <ul class="file-list-body list-unstyled">
           <li class="file-list-item clearfix" data-ng-repeat="item in uploader.queue">
@@ -78,7 +78,7 @@
             </div>
           </li>
         </ul>
-        <small class="file-list-queue text-right" data-ng-bind="'Queue length: '+uploader.queue.length"></small>
+        <small class="file-list-queue text-right" data-ng-bind="'數量: '+uploader.queue.length"></small>
       </div>
     </div>
     <div class="folder animate-switch" data-ng-switch-when="folder">
@@ -104,7 +104,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-sm btn-flat btn-primary" data-ng-click="insert()" data-ng-show="initial.tabSelect == 'folder'" data-ng-disabled="!fileData.source">Insert</button>
-    <button type="button" class="btn btn-sm btn-flat btn-default" data-ng-click="cancel()">Cancel</button>
+    <button type="button" class="btn btn-sm btn-flat btn-primary" data-ng-click="insert()" data-ng-show="initial.tabSelect == 'folder'" data-ng-disabled="!fileData.source">置入</button>
+    <button type="button" class="btn btn-sm btn-flat btn-default" data-ng-click="cancel()">取消</button>
   </div>
 </div>

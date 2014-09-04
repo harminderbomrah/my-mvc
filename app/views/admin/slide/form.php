@@ -5,12 +5,12 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="form-group" data-ng-class="{'has-error': slideForm.title.$invalid && !slideForm.title.$pristine}">
-          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="Title" data-ng-model="slideData.title" required>
+          <input type="text" class="form-control input-lg" name="title" id="title" placeholder="標題" data-ng-model="slideData.title" required>
         </div>
         <div class="form-group">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <label>Content</label>
+              <label>內容</label>
             </div>
             <div class="panel-body">
               <textarea class="form-control" rows="5" name="content" id="content" data-ng-model="slideData.content"></textarea>
@@ -23,7 +23,7 @@
       <div class="col-sm-4">
         <div class="panel panel-default" data-ng-class="{'panel-danger': slideForm.imgLeft.$invalid && !slideForm.imgLeft.$pristine}">
           <div class="panel-heading">
-            <label>Left Images</label>
+            <label>左側圖片</label>
           </div>
           <div class="panel-body">
             <a class="upload" href="#" data-ng-click="action.fileUpLoad('left')">
@@ -35,7 +35,7 @@
               </div>
             </a>
             <div class="clearImg">
-              <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg('left')" data-ng-show="slideData.imgLeft">Clear Image</button>
+              <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg('left')" data-ng-show="slideData.imgLeft">清除圖片</button>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
       <div class="col-sm-4">
         <div class="panel panel-default" data-ng-class="{'panel-danger': slideForm.imgRight.$invalid && !slideForm.imgRight.$pristine}">
           <div class="panel-heading">
-            <label>Right Images</label>
+            <label>右側圖片</label>
           </div>
           <div class="panel-body">
             <a class="upload" href="#" data-ng-click="action.fileUpLoad('right')">
@@ -55,7 +55,7 @@
               </div>
             </a>
             <div class="clearImg">
-              <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg('right')" data-ng-show="slideData.imgRight">Clear Image</button>
+              <button type="button" class="btn btn-sm btn-flat btn-warning" data-ng-click="action.clearImg('right')" data-ng-show="slideData.imgRight">清除圖片</button>
             </div>
           </div>
         </div>
@@ -63,17 +63,17 @@
       <div class="col-sm-4">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <label>Status</label>
+            <label>狀態</label>
           </div>
           <div class="panel-body">
             <div class="form-group" data-ng-class="{'has-error': slideForm.series.$invalid && !slideForm.series.$pristine}">
-              <select class="form-control" name="series" id="series" data-placeholder="Choose Series" data-ng-model="slideData.series" data-ng-options="option.class as option.name for option in initial.series" chosen="choseOptions" required>
+              <select class="form-control" name="series" id="series" data-placeholder="選擇系列" data-ng-model="slideData.series" data-ng-options="option.class as option.name for option in initial.series" chosen="choseOptions" required>
                 <option value=""></option>
               </select>
-              <label for="series" class="control-label">Series</label>
+              <label for="series" class="control-label">系列</label>
             </div>
             <div class="form-group">
-              <label for="disabled" class="control-label">Publish</label>
+              <label for="disabled" class="control-label">是否發佈</label>
               <div class="switch reverse">
                 <input type="checkbox" name="disabled" id="disabled" class="switch-input" data-ng-model="slideData.disabled">
                 <span class="switch-label"></span>
@@ -81,7 +81,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="publishDate" class="control-label">Publish date</label>
+              <label for="publishDate" class="control-label">發佈日期</label>
               <div class="switch">
                 <input type="checkbox" name="publishDate" id="publishDate" class="switch-input" data-ng-model="initial.publishDate" data-ng-click="action.datepicker.clear(initial.publishDate, 'publish')">
                 <span class="switch-label"></span>
@@ -95,7 +95,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="endDate" class="control-label">End date</label>
+              <label for="endDate" class="control-label">結束日期</label>
               <div class="switch">
                 <input type="checkbox" name="endDate" id="endDate" class="switch-input" data-ng-model="initial.endDate" data-ng-click="action.datepicker.clear(initial.endDate, 'end')">
                 <span class="switch-label"></span>
@@ -110,8 +110,8 @@
             </div>
           </div>
           <div class="panel-footer text-right">
-            <a class="btn btn-sm btn-default" href="/admin/slide" target="_self">Cancel</a>
-            <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="initial.submit">Submit</button>
+            <a class="btn btn-sm btn-default" href="/admin/slide" target="_self">取消</a>
+            <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="initial.submit">送出</button>
           </div>
         </div>
       </div>

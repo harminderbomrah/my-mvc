@@ -188,14 +188,14 @@ angular.module('nyfnApp.controller.main', [])
       if($scope.initial.trash) {
         if(undo) {
           type = "undo";
-          msg = "case is revert";
+          msg = "文章已恢復";
         } else {
           type = "delete";
-          msg = "case is delete";
+          msg = "文章已刪除";
         }
       } else {
         type = "trash";
-        msg = "case move to trash";
+        msg = "文章移至回收桶";
       }
       ngProgress.start();
       $jsonData.postData('POST', '/admin/case/delete', {action: type, ids: $scope.initial.selection}, function(data, status) {

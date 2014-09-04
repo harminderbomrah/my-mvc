@@ -3,7 +3,7 @@
 <div class="main-tags" data-ng-controller="tags" data-ng-init='tag = <?= json_encode($tags) ?>'>
   <div class="btn-toolbar" role="toolbar">
     <div class="input-group input-group-sm created-new">
-      <input type="text" class="form-control" data-ng-model="newTag" data-ng-keyup="action.new(newTag, $event)" data-ng-disabled="initial.buffer" results="5" placeholder="what tag to be created">
+      <input type="text" class="form-control" data-ng-model="newTag" data-ng-keyup="action.new(newTag, $event)" data-ng-disabled="initial.buffer" results="5" placeholder="輸入標籤並新增">
       <span class="input-group-btn">
         <button class="btn btn-primary" type="button" data-ng-click="action.new(newTag, $event)" data-ng-disabled="initial.buffer">
           <i class="fa fa-fw fa-plus" data-ng-class="{'fa-spinner fa-spin': initial.buffer}"></i>
@@ -11,7 +11,7 @@
       </span>
     </div>
     <div class="btn-group pull-right">
-      <input type="search" class="form-control input-sm" data-ng-model="keyWrod" data-ng-keyup="action.clearModelWhenEscape($event,'keyWrod')" results="5" placeholder="Search Title">
+      <input type="search" class="form-control input-sm" data-ng-model="keyWrod" data-ng-keyup="action.clearModelWhenEscape($event,'keyWrod')" results="5" placeholder="搜尋標籤">
     </div>
   </div>
   <ul class="tags-list row">

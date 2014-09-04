@@ -2,7 +2,7 @@
 <div class="main-list" data-ng-controller="slideList" data-ng-init='extend(<?= json_encode($initial) ?>)'>
   <div class="table-action btn-toolbar" role="toolbar">
     <div class="btn-group" data-ng-show="initial.selection.length">
-      <button type="button" class="btn btn-sm btn-orange" data-ng-click="action.modal(false, 'Are you sure you want to delete?')">
+      <button type="button" class="btn btn-sm btn-orange" data-ng-click="action.modal(false, '您確定真的要刪除？')">
         <i class="fa fa-trash-o fa-fw"></i>
       </button>
     </div>
@@ -12,15 +12,15 @@
       </button>
     </div>
     <div class="btn-group">
-      <a href="new" class="btn btn-sm btn-primary" target="_self"><i class="fa fa-fw fa-plus"></i> New</a>
+      <a href="new" class="btn btn-sm btn-primary" target="_self"><i class="fa fa-fw fa-plus"></i> 新增</a>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.publics" data-ng-click="initial.trash = false; action.deselect()" btn-radio="false">Public</button>
-      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.publics" data-ng-click="initial.trash = false; action.deselect()" btn-radio="true">Private</button>
-      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.trash" data-ng-click="initial.publics = undefined; action.deselect()" btn-radio="true">Trash</button>
+      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.publics" data-ng-click="initial.trash = false; action.deselect()" btn-radio="false">已發佈橫幅</button>
+      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.publics" data-ng-click="initial.trash = false; action.deselect()" btn-radio="true">隱藏橫幅</button>
+      <button type="button" class="btn btn-sm btn-default" data-ng-model="initial.trash" data-ng-click="initial.publics = undefined; action.deselect()" btn-radio="true">回收桶</button>
     </div>
     <div class="btn-group pull-right">
-      <input type="search" class="form-control input-sm" data-ng-model="keyWrod" data-ng-keyup="action.clearModelWhenEscape($event,'keyWrod')" results="5" placeholder="Search Title">
+      <input type="search" class="form-control input-sm" data-ng-model="keyWrod" data-ng-keyup="action.clearModelWhenEscape($event,'keyWrod')" results="5" placeholder="搜尋橫幅">
     </div>
   </div>
   <table class="table table-striped table-hover table-responsive">
@@ -32,16 +32,16 @@
             <input type="checkbox" data-ng-model="initial.allChecked" data-ng-change="action.checkAll(newList)">
           </label>
         </th>
-        <th class="list-date" data-ng-click="action.sorting('publishDate')" data-ng-class="{hit:initial.orderName == 'publishDate'}">Date <i class="fa" data-ng-show="initial.orderName == 'publishDate'" data-ng-class="{'fa-caret-down': initial.reverse == true, 'fa-caret-up': initial.reverse == false,}"></i></th>
-        <th class="list-image">Preview</th>
-        <th class="list-title" data-ng-click="action.sorting('title')" data-ng-class="{hit:initial.orderName == 'title'}">Title <i class="fa" data-ng-show="initial.orderName == 'title'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
-        <th class="list-series" data-ng-click="action.sorting('series')" data-ng-class="{hit:initial.orderName == 'series'}">Series <i class="fa" data-ng-show="initial.orderName == 'series'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
+        <th class="list-date" data-ng-click="action.sorting('publishDate')" data-ng-class="{hit:initial.orderName == 'publishDate'}">日期 <i class="fa" data-ng-show="initial.orderName == 'publishDate'" data-ng-class="{'fa-caret-down': initial.reverse == true, 'fa-caret-up': initial.reverse == false,}"></i></th>
+        <th class="list-image">預覽</th>
+        <th class="list-title" data-ng-click="action.sorting('title')" data-ng-class="{hit:initial.orderName == 'title'}">標題 <i class="fa" data-ng-show="initial.orderName == 'title'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
+        <th class="list-series" data-ng-click="action.sorting('series')" data-ng-class="{hit:initial.orderName == 'series'}">系列 <i class="fa" data-ng-show="initial.orderName == 'series'" data-ng-class="{'fa-caret-down': initial.reverse == false, 'fa-caret-up': initial.reverse == true,}"></i></th>
         <th class="text-center" data-ng-bind="filterList.length"></th>
       </tr>
     </thead>
     <tbody>
       <tr data-ng-show="!newList.length">
-        <td colspan="5" class="text-center"><strong>No Slide</strong></td>
+        <td colspan="5" class="text-center"><strong>沒有橫幅</strong></td>
       </tr>
       <tr data-ng-repeat="list in newList = (filterList = (slideList | filter: {'title':keyWrod} | filter: {'disabled':initial.publics} | filter: {'trash':initial.trash}) | orderBy: initial.orderName : initial.reverse | startFrom: (initial.currentPage - 1) * initial.pageSize : initial.pageSize + ((initial.currentPage - 1) * initial.pageSize))" data-ng-class="{'active': list.checked, 'disabled': list.disabled}" data-ng-show="newList.length">
         <td>

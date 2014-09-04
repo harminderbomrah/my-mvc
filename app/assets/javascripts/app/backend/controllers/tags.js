@@ -36,20 +36,20 @@ angular.module('nyfnApp.controller.main', [])
           ngProgress.start();
           $jsonData.postData('POST', '/admin/tags/new', {value: value}, function(data, status) {
             //需要取得新增後的ID值
-            toastr.success('Tag has been added');
+            toastr.success('標籤已新增');
             $scope.initial.buffer = false;
             $scope.tag.push({id: data['id'], name: value, quantity: 0})
             $scope.newTag = null;
             ngProgress.complete();
           }, function(data, status) {
-            toastr.error('Tag not saved');
+            toastr.error('標籤未被儲存');
             $scope.initial.buffer = false;
             ngProgress.reset();
           });
         } else {
 
           // 如果送出的值有重複則顯示錯誤訊息
-          toastr.warning('Tag already exists');
+          toastr.warning('標籤已存在');
           $scope.initial.buffer = false;
         }
       }
@@ -80,11 +80,11 @@ angular.module('nyfnApp.controller.main', [])
         // 如果原始資料與更改後的資料不相同則將資料送出
         ngProgress.start();
         $jsonData.postData('POST', '/admin/tags/edit', {action: 'update', id: $scope.initial.id, value: value}, function(data, status) {
-          toastr.success('Tag updated');
+          toastr.success('標籤已更新');
           $scope.initial.edited = null;
           ngProgress.complete();
         }, function(data, status) {
-          toastr.error('Tag not saved');
+          toastr.error('標籤未被儲存');
           $scope.tag[index].name = $scope.initial.edited;
           $scope.initial.edited = null;
           ngProgress.reset();
@@ -122,7 +122,7 @@ angular.module('nyfnApp.controller.main', [])
         controller: ModalTagsCtrl,
         resolve: {
           msg: function () {
-            return item.quantity > 0 ? "There are items in this tag, You have to transfer them to another tag" : "Are you sure you want to delete?";
+            return item.quantity > 0 ? "此標籤中已有項目，你必須轉移到其他標籤中" : "你確定真的要刪除嗎？";
           },
           replace: function() {
             return item.quantity > 0
@@ -157,10 +157,10 @@ angular.module('nyfnApp.controller.main', [])
             $scope.tag[target].quantity = $scope.tag[target].quantity + $scope.tag[index].quantity
           }
           $scope.tag.splice(index, 1);
-          toastr.success('Tag is deleted');
+          toastr.success('標籤已刪除');
           ngProgress.complete();
         }, function(data, status) {
-          toastr.error('Tag not be deleted');
+          toastr.error('標籤未被刪除');
           ngProgress.reset();
         });
       });
