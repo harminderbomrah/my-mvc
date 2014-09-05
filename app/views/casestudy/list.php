@@ -12,11 +12,11 @@
               <span class="top-post-item-date"><?= strftime("%b %d, %Y",($case["publishDate"] / 1000)) ?></span>
             </p>
             <h3 class="top-post-item-name">
-              <a class="top-post-item-link" href="/blog/<?= $case['id'] ?>">
+              <a class="top-post-item-link" href="/case-study/<?= $case['id'] ?>">
                 <?php echo $case['title'] ?>
               </a>
             </h3>
-            <p class="top-post-item-content" data-lorem="5s"></p>
+            <p class="top-post-item-content"><?= strip_tags($case["content"]) ?></p>
           </div>
         </div>
       <?php } ?>

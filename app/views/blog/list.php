@@ -16,7 +16,7 @@
                 <?php echo $article['title'] ?>
               </a>
             </h3>
-            <p class="top-post-item-content" data-lorem="5s"></p>
+            <p class="top-post-item-content"><?= strip_tags($article["content"]) ?></p>
           </div>
         </div>
       <?php } ?>
