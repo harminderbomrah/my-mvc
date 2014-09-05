@@ -10,7 +10,7 @@ function breadcrumb($title = ""){
     "aboutus" => "關於良錡",
     "contact" => "聯絡我們"
   );
-	$html = "<ol class='breadcrumb'><li><a href='/''>首頁</a></li>";
+	$html = "<ol class='breadcrumb'><li><a href='/'>首頁</a></li>";
   switch (Request::$Action) {
     case 'index':
       $html.="<li class='active'>".$data[Request::$Controller]."</li>";

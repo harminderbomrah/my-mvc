@@ -12,7 +12,7 @@
       <li class="nav-bar-item have-sub blog"><a href="#blog"><i class="icon icon-pen"></i></a></li>
       <li class="nav-bar-item about-us"><a href="/about-us"><i class="icon icon-flag-filled"></i></a></li>
       <li class="nav-bar-item contact"><a href="/contact"><i class="icon icon-phone"></i></a></li>
-      <!-- <li class="nav-bar-item search"><p class="search-trigger"><i class="icon icon-search"></i></p></li> -->
+      <li class="nav-bar-item search"><p class="search-trigger"><i class="icon icon-search"></i></p></li>
     </ul>
   </div>
   <div class="nav-body">
@@ -40,14 +40,27 @@
         <li class="mune-item contact">
           <p class="mune-title"><a href="/contact"><span class="en">Contact</span><span class="zh">聯 絡 我 們</span></a></p>
         </li>
-        <!-- <li class="mune-item search">
+        <li class="mune-item search">
           <p class="mune-title"><span class="search-trigger"><span class="en">Search</span><span class="zh">搜 尋</span></span></p>
           <p class="overlay search-trigger"></p>
-          <form class="search-box">
-            <input type="text" name="search" placeholder="您可搜尋新聞、產品、anything...">
-            <button tyoe="submit">SEARCH</button>
-          </form>
-        </li> -->
+          <div class="search-box">
+            <script>
+              (function() {
+                var cx = '000530021660312604016:6dnmiktnp-u';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            <!-- <input type="text" name="search" placeholder="您可搜尋新聞、產品、anything..."> -->
+            <!-- <button type="submit">SEARCH</button> -->
+          </div>
+        </li>
       </ul>
     </nav>
     <nav class="social" role="social media menu">

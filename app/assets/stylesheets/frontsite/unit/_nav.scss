@@ -172,15 +172,18 @@
           background-color: nth($grays, 6);
           input[type="text"] {
             display: inline-block;
-            padding: 5px 8px;
+            width: $navigationWidth + $navigationSidebar !important;
+            height: 48px !important;
+            margin: 0 !important;
+            padding: 5px 8px !important;
             font-size: 18px;
-            border-style: solid;
-            border-color: nth($grays, 5);
-            border-width: 1px 1px 1px 0;
+            border-style: solid !important;
+            border-color: nth($grays, 5) !important;
+            border-width: 1px 1px 1px 0 !important;
             color: nth($grays, 3);
-            background-color: nth($grays, 6);
+            background-color: nth($grays, 6) !important;
+            background-image: none !important;
             outline: none;
-            @include size($navigationWidth + $navigationSidebar, 48px);
           }
           button {
             position: absolute;
@@ -194,6 +197,55 @@
             outline: none;
             @include size(100px, 48px);
           }
+          // Google seach CSS START
+          .gsc-search-box {
+            margin-bottom: 0;
+            .gsc-input {
+              padding-right: 0;
+            }
+            input.gsc-input,
+            .gsc-input-box,
+            .gsc-input-box-hover,
+            .gsc-input-box-focus {
+              border: none;
+            }
+            .gsc-input-box {
+              background: transparent;
+              height: 100%;
+            }
+            .gsib_a {
+              padding: 0;
+            }
+            .gsib_b {
+              display: none;
+            }
+            td.gsc-search-button {
+              position: relative;
+              width: 100px;
+              text-align: center;
+              &:after {
+                content: "SEARCH";
+                position: absolute;
+                top: 0;
+                left: 1em;
+                color: $white;
+                font-size: 1.4em;
+                font-weight: 700;
+                line-height: 46px;
+                pointer-events: none;
+              }
+            }
+            .gsc-search-button-v2 {
+              display: block;
+              position: relative;
+              padding: 24px 50px;
+              margin: 0;
+              border: none;
+              border-radius: 0;
+              @include square(13px);
+            }
+          }
+          // Google search CSS END
         }
         &.active {
           .mune-title {
