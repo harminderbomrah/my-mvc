@@ -3,14 +3,14 @@
 // include_helper("application"); OR include_helper(array("application","application1"));
 
 function breadcrumb($title = ""){
-   $data = array(
-      "collections" => "Collections",
-      "casestudy" => "Case Study",
-      "blog" => "Blog",
-      "aboutus" => "About Us",
-      "contact" => "Contact"
-    );
-	$html = "<ol class='breadcrumb'><li><a href='/''>Home</a></li>";
+ $data = array(
+    "collections" => "石材系列",
+    "casestudy" => "成功案例",
+    "blog" => "部落格",
+    "aboutus" => "關於良錡",
+    "contact" => "聯絡我們"
+  );
+	$html = "<ol class='breadcrumb'><li><a href='/''>首頁</a></li>";
   switch (Request::$Action) {
     case 'index':
       $html.="<li class='active'>".$data[Request::$Controller]."</li>";
