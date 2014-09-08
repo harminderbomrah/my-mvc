@@ -143,7 +143,7 @@
                 <ul class="list-group" data-ng-show="articleData.link.length">
                   <li class="list-group-item" data-ng-repeat="link in articleData.link">
                     <button type="button" class="close" data-ng-click="action.linkAction.remove($index)">×</button>
-                    <a href="{{link.url}}" target="_blink"><small data-ng-bind="link.text"></small></a>
+                    <a href="{{link.url}}" target="_blank"><small data-ng-bind="link.text"></small></a>
                   </li>
                 </ul>
                 <div class="form-group">

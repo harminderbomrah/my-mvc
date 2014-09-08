@@ -10,7 +10,7 @@
     </ol>
     <a class="telphone" href="tel:+886286301299"><i class="fa fa-fw fa-phone"></i>+886-2-8630-1299</a>
     <address class="address">
-      <a href="http://maps.google.com/maps?q=新北市八里區中華路一段37-11號" target="_blink">249 新北市八里區中華路一段 37-11 號</a>
+      <a href="http://maps.google.com/maps?q=新北市八里區中華路一段37-11號" target="_blank">249 新北市八里區中華路一段 37-11 號</a>
     </address>
   </div>
   <div class="footer-bottom">

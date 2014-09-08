@@ -66,8 +66,8 @@
     <nav class="social" role="social media menu">
       <h2 class="hide">社交平台選單</h2>
       <ul class="social-mune list-unstyled">
-        <li><a href="https://www.facebook.com/pages/良錡石材-水晶時代各種石材設計與裝潢介紹/107145262639568" target="_blink"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="#" target="_blink"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="https://www.facebook.com/pages/良錡石材-水晶時代各種石材設計與裝潢介紹/107145262639568" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
         <li><a href="/contact"><i class="fa fa-envelope-o"></i></a></li>
       </ul>
     </nav>
@@ -89,6 +89,9 @@
             </ul>
           </div>
           <ul class="mune-sub list-unstyled">
+            <li class="mune-sub-item">
+              <a href="/collections/">All</a>
+            </li>
             <?php $categories = Category::all_with_quantity('product'); foreach ($categories as $category) { ?>
               <li class="mune-sub-item">
                 <a href="/collections?category=<?= $category['id'] ?>">
@@ -116,6 +119,9 @@
             </ul>
           </div>
           <ul class="mune-sub list-unstyled">
+            <li class="mune-sub-item">
+              <a href="/case-study/">All</a>
+            </li>
             <?php $categories = Category::all_with_quantity('case'); foreach ($categories as $category) { ?>
               <li class="mune-sub-item">
                 <a href="/case-study?category=<?= $category['id'] ?>">
@@ -143,6 +149,9 @@
             </ul>
           </div>
           <ul class="mune-sub list-unstyled">
+            <li class="mune-sub-item">
+              <a href="/blog/">All</a>
+            </li>
             <?php $categories = Category::all_with_quantity('article'); foreach ($categories as $category) { ?>
               <li class="mune-sub-item">
                 <a href="/blog?category=<?= $category['id'] ?>">
