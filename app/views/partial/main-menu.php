@@ -18,7 +18,7 @@
   <div class="nav-body">
     <h1 class="site-name" title="良錡石材">
       <a href="/">
-        <span class="hide">良錡石材</span>
+        <span class="hide">良錡石材 </span>
         <?= img_tag("frontend/nav-logo.png", array(titile=>"良錡石材 商標", alt=>"良錡石材 商標")) ?>
       </a>
     </h1>
