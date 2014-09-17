@@ -8,7 +8,7 @@
 	"database" : {
 		"enable" : true,
 		"username" : "root",
-		"password" : "D54250wykH",
+		"password" : "vaPdr6A5Zo5t",
 		"host" : "localhost",
 		"name" : "construction"
 	},
@@ -18,7 +18,7 @@
 		"port" : 587,
 		"username" : "lcstonetw@gmail.com",
 		"name" : "Lc Stone 良錡石材",
-		"security" : "tls", 
+		"security" : "tls",
 		"password" : "dRW0gp5YMKI2"
 	},
 	"session" : {
