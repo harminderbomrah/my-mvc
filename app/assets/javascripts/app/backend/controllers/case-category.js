@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('nyfnApp.controller.main', [])
+angular.module('nyfnApp.controller.main', ['ui.sortable'])
 
 // Main Category controller
 .controller('caseCategory', ['$scope', '$log', '$timeout', '$modal', '$jsonData', 'ngProgress', function($scope, $log, $timeout, $modal, $jsonData, ngProgress) {
@@ -126,6 +126,16 @@ angular.module('nyfnApp.controller.main', [])
       if (currKey == 27) $scope[_model] = '';
     }
   }
+
+  $scope.sortableOptions = {
+    update: function(e, ui) {
+      var logEntry = []
+      $scope.category.map(function(item) {
+        logEntry.push(item.id);
+      });
+      // console.log(logEntry);
+    }
+  };
 }]);
 
 var modifyCategory = function ($scope, $log, $modalInstance, config) {

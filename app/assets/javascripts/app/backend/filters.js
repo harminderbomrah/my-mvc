@@ -12,7 +12,7 @@ angular.module('nyfnApp.filters', [])
 })
 .filter('capitalize', function() {
   return function(input) {
-    input = input.toUpperCase().charAt(0) + input.substring(1);
+    input = (/[^\u4E00-\u9FA5]/g).test(input) && input ? input.toUpperCase().charAt(0) + input.substring(1) : input;
     return input
   }
 })
